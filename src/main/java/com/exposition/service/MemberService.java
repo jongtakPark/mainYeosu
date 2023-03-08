@@ -49,12 +49,17 @@ public class MemberService implements UserDetailsService {
 		return User.builder().username(member.getMid()).password(member.getPasswoad()).roles(member.getRole().toString()).build();
 	}
 	
-	//유저 찾기
+	//id로 유저 찾기
 	public Optional<Member> findById(Long id) {
 		return memberRepository.findById(id);
 	}
 	//유저 회원 변경(권한)
 	public Member updateMember(Member member) {
 		return memberRepository.save(member);
+	}
+	
+	//이름으로 유저 찾기
+	public Member findByName(String name) {
+		return memberRepository.findByName(name);
 	}
 }

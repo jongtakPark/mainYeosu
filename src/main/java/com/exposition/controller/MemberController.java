@@ -14,9 +14,9 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.exposition.constant.Role;
@@ -25,6 +25,7 @@ import com.exposition.dto.MemberFormDto;
 import com.exposition.entity.Company;
 import com.exposition.entity.Member;
 import com.exposition.service.CompanyService;
+import com.exposition.service.MailService;
 import com.exposition.service.MemberService;
 
 import lombok.RequiredArgsConstructor;
@@ -37,6 +38,7 @@ public class MemberController{
 	private final CompanyService companyService;
 	private final MemberService memberService;
 	private final PasswordEncoder passwordEncoder;
+	private final MailService mailService;
 	
 	@PostConstruct
 	//계정 생성
@@ -55,23 +57,34 @@ public class MemberController{
 		member.setPasswoad(password);
 		member.setRole(Role.ADMIN);
 		memberService.saveMember(member);
-		
-		for(int i = 2; i < 4 ; i++) {
-			check = memberService.checkMidDuplicate(String.valueOf(i));
-			if (check)
-				return;
-			memberFormDto.setMid("user" + String.valueOf(i));
-			memberFormDto.setPassword(String.valueOf(i));
-			memberFormDto.setName("사용자"+i);
-			memberFormDto.setEmail("User"+i+"@userEmail.com");
-			member = Member.createMember(memberFormDto, passwordEncoder);
-			String password1 = passwordEncoder.encode(memberFormDto.getPassword());
-			member.setPasswoad(password1);
-			member.setRole(Role.USER);
-			memberService.saveMember(member);
+		//일반회원
+		check = memberService.checkMidDuplicate("2");
+		if (check)
+			return;
+		memberFormDto.setMid("user");
+		memberFormDto.setPassword("user");
+		memberFormDto.setName("사용자");
+		memberFormDto.setEmail("User"+"@userEmail.com");
+		member = Member.createMember(memberFormDto, passwordEncoder);
+		String password1 = passwordEncoder.encode(memberFormDto.getPassword());
+		member.setPasswoad(password1);
+		member.setRole(Role.USER);
+		memberService.saveMember(member);
+		//기업회원
+		check = memberService.checkMidDuplicate("3");
+		if (check)
+			return;
+		memberFormDto.setMid("com");
+		memberFormDto.setPassword("com");
+		memberFormDto.setName("기업");
+		memberFormDto.setEmail("com"+"@userEmail.com");
+		member = Member.createMember(memberFormDto, passwordEncoder);
+		String password2 = passwordEncoder.encode(memberFormDto.getPassword());
+		member.setPasswoad(password2);
+		member.setRole(Role.COMPANY);
+		memberService.saveMember(member);
 		}
 		
-	}
 	
 	
 	
@@ -172,4 +185,11 @@ public class MemberController{
 		memberService.updateMember(member.get());
 		return "redirect:/";
 	}
+	//일반회원 아이디 찾기(이메일은 옴, 비동기처리가 안됨)
+//	@PostMapping(value="/findid")
+//	public String findId(@RequestParam("name") String name, String email) throws Exception {
+//		Member member = memberService.findByName(name);
+//		String mem = mailService.sendFindIdMail(email, member);
+//		return mem;
+//	}
 }
