@@ -24,7 +24,7 @@ public class FreeBoard extends BaseEntity{
 	// 글번호
 	@Id
 	@Column(name="freeBoard_id")
-	@GeneratedValue(strategy = GenerationType.TABLE)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 	
 	// 제목

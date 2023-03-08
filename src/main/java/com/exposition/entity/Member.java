@@ -32,7 +32,7 @@ public class Member {
 	
 	@Id
 	@Column(name="member_id")
-	@GeneratedValue(strategy = GenerationType.TABLE)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 	
 	@Column(unique = true)

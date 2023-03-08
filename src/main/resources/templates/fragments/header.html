@@ -1,9 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
-
-	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
-	<!-- xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	xmlns:sec="http://www.thymeleaf.org/extras/spring-security"> -->
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <head>
     <meta charset="UTF-8">
@@ -16,7 +14,7 @@
             <div class="logo">
                 <a href="/"><img class="yeosu_logo" th:src="@{/images/logo.png}"></a>
             </div>
-
+            
             <div class="menu_form1" sec:authorize="isAnonymous() || hasAnyAuthority('ROLE_USER') || hasAnyAuthority('ROLE_VOLUNTEER')">
                 <ul class="menu_list1">
                     <li><a href="#">박람회 소개</a></li>
@@ -27,11 +25,6 @@
                     <li sec:authorize="isAuthenticated()"><a href="/signup/logout">로그아웃</a></li>
                 </ul>
             </div>
-
-
- <div class="menu_form2">
-
-
 
             <div class="menu_form2" sec:authorize="hasAnyAuthority('ROLE_ADMIN')">
 
@@ -48,10 +41,6 @@
 
             </div>
 
-             <div class="menu_form3">
-
-            </div>
-
              <div class="menu_form3" sec:authorize="hasAnyAuthority('ROLE_COMPANY')">
 
                 <ul class="menu_list3">
@@ -60,24 +49,12 @@
                     <li><a href="#">자유게시판</a></li>
                     <li><a href="#">참가 업체 목록</a></li>
                     <li><a href="#">임대문의</a></li>
-
-                    <li class="nav-item" sec:authorize="isAnonymous()">
-					<a class="nav-link" href="/signup/login">로그인</a>
-						</li>
-					<li class="nav-item" sec:authorize="isAuthenticated()">
-					<a class="nav-link" href="/signup/logout">로그아웃</a>
-						</li>
-
-                    
-
                     <li sec:authorize="isAnonymous()"><a href="/signup/login">로그인</a></li>
                     <li sec:authorize="isAuthenticated()"><a href="/signup/logout">로그아웃</a></li>
 
                 </ul>
             </div>
-        </div>
     </div>
-
 
 </body>
 

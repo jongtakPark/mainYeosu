@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+		xmlns:layout=http://www.ultraq.net.nz/thymeleaf/layout
+		layout:decorate="~{layouts/layout}">
+<head>
+    <meta charset="UTF-8">
+    <title>AdminMenu</title>
+<link rel="stylesheet" th:href="@{/css/adminMenu.css}">
+</head>
+<body>
+<div layout:fragment="content">
+    <div class="subMenu">
+        <ul>
+           <li><a href="#">업체등록승인</a></li>
+           <li><a href="#">회원관리</a></li>
+       </ul>
+   </div>
+   <div class="container">
+       <div class="title">
+           <h1>업체등록 게시판</h1>
+       </div>
+       <table width="100%">
+           <thead>
+               <tr>
+                   <td width="25%">기업명</td>
+                   <td width="25%">장소</td>
+                   <td width="15%">날짜</td>
+                   <td width="15%">승인상황</td>
+               </tr>
+           </thead>
+           <tbody>
+               <tr>
+                   <td><a href="#"><span></span></a></td>
+                   <td ></td>
+                   <td ></td>
+                   <td ></td>
+               </tr>
+           </tbody>
+       </table>
+   </div>
+</div>
+</body>
+</html>
