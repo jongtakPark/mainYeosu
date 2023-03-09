@@ -5,6 +5,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -38,6 +40,10 @@ public class File extends BaseEntity {
 	
 	//저장위치
 	private String savePath;
+	
+	@ManyToOne
+	@JoinColumn(name="tourboard_id")
+	private TourBoard tourboard;
 	
 	public static File createFile(FileDto fileDto) {
 		File file = new File();
