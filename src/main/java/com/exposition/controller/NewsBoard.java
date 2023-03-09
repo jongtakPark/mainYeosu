@@ -48,9 +48,8 @@ public class NewsBoard {
 		String imgName = files + name;
 		fileDto.setImg(imgName);
 		File file = File.createFile(fileDto);
-		fileService.saveFile(file);
 		TourBoard tourBoard = TourBoard.createTourBoard(tourBoarDto);
-		tourBoardService.saveTour(tourBoard);
+		tourBoardService.saveTour(tourBoard,file);
 		return "redirect:/news/tour";
 	}
 }
