@@ -57,22 +57,7 @@ public class MemberController{
 		member.setPassword(password);
 		member.setRole(Role.ADMIN);
 		memberService.saveMember(member);
-<<<<<<< HEAD
-		
-		for(int i = 2; i < 4 ; i++) {
-			check = memberService.checkMidDuplicate(String.valueOf(i));
-			if (check)
-				return;
-			memberFormDto.setMid("user" + String.valueOf(i));
-			memberFormDto.setPassword(String.valueOf(i));
-			memberFormDto.setName("사용자"+i);
-			memberFormDto.setEmail("User"+i+"@userEmail.com");
-			member = Member.createMember(memberFormDto, passwordEncoder);
-			String password1 = passwordEncoder.encode(memberFormDto.getPassword());
-			member.setPassword(password1);
-			member.setRole(Role.USER);
-			memberService.saveMember(member);
-=======
+
 		//일반회원
 		check = memberService.checkMidDuplicate("2");
 		if (check)
@@ -83,7 +68,7 @@ public class MemberController{
 		memberFormDto.setEmail("User"+"@userEmail.com");
 		member = Member.createMember(memberFormDto, passwordEncoder);
 		String password1 = passwordEncoder.encode(memberFormDto.getPassword());
-		member.setPasswoad(password1);
+		member.setPassword(password1);
 		member.setRole(Role.USER);
 		memberService.saveMember(member);
 		//기업회원
@@ -96,10 +81,10 @@ public class MemberController{
 		memberFormDto.setEmail("com"+"@userEmail.com");
 		member = Member.createMember(memberFormDto, passwordEncoder);
 		String password2 = passwordEncoder.encode(memberFormDto.getPassword());
-		member.setPasswoad(password2);
+		member.setPassword(password2);
 		member.setRole(Role.COMPANY);
 		memberService.saveMember(member);
->>>>>>> main
+
 		}
 		
 	
@@ -202,7 +187,7 @@ public class MemberController{
 		memberService.updateMember(member.get());
 		return "redirect:/";
 	}
-<<<<<<< HEAD
+
 	
 	@ResponseBody
 	@PostMapping(value = "/findEmail")
@@ -219,13 +204,5 @@ public class MemberController{
 	}
 	
 
-=======
-	//일반회원 아이디 찾기(이메일은 옴, 비동기처리가 안됨)
-//	@PostMapping(value="/findid")
-//	public String findId(@RequestParam("name") String name, String email) throws Exception {
-//		Member member = memberService.findByName(name);
-//		String mem = mailService.sendFindIdMail(email, member);
-//		return mem;
-//	}
->>>>>>> main
+
 }

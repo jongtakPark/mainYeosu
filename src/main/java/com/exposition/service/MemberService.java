@@ -59,7 +59,7 @@ public class MemberService implements UserDetailsService {
 		return memberRepository.save(member);
 	}
 	
-<<<<<<< HEAD
+
 	// MemberDto -> Member 변환
 		private Member change(Member ori, MemberFormDto dto) {
 			System.out.println(dto);
@@ -77,10 +77,10 @@ public class MemberService implements UserDetailsService {
 				return MemberFormDto.createMemberDto(mem);
 			return null;
 		}
-=======
+
 	//이름으로 유저 찾기
 	public Member findByName(String name) {
 		return memberRepository.findByName(name);
 	}
->>>>>>> main
+
 }
