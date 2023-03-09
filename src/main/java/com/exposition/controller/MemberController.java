@@ -72,18 +72,19 @@ public class MemberController{
 		member.setRole(Role.USER);
 		memberService.saveMember(member);
 		//기업회원
-		check = memberService.checkMidDuplicate("3");
+		check = companyService.checkComDuplicate("3");
 		if (check)
 			return;
-		memberFormDto.setMid("com");
-		memberFormDto.setPassword("com");
-		memberFormDto.setName("기업");
-		memberFormDto.setEmail("com"+"@userEmail.com");
-		member = Member.createMember(memberFormDto, passwordEncoder);
-		String password2 = passwordEncoder.encode(memberFormDto.getPassword());
-		member.setPassword(password2);
-		member.setRole(Role.COMPANY);
-		memberService.saveMember(member);
+		CompanyFormDto companyFormDto = new CompanyFormDto();
+		companyFormDto.setCom("com");
+		companyFormDto.setPassword("com");
+		companyFormDto.setName("기업");
+		companyFormDto.setEmail("com"+"@userEmail.com");
+		Company company = Company.createCompany(companyFormDto, passwordEncoder);
+		String password2 = passwordEncoder.encode(companyFormDto.getPassword());
+		company.setPassword(password2);
+		company.setRole(Role.COMPANY);
+		companyService.saveCompany(company);
 
 		}
 		
