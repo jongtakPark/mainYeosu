@@ -9,6 +9,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.exposition.dto.MemberFormDto;
 import com.exposition.entity.Member;
 import com.exposition.repository.MemberRepository;
 
@@ -46,7 +47,7 @@ public class MemberService implements UserDetailsService {
 			throw new UsernameNotFoundException(mid);
 		}
 		
-		return User.builder().username(member.getMid()).password(member.getPasswoad()).roles(member.getRole().toString()).build();
+		return User.builder().username(member.getMid()).password(member.getPassword()).roles(member.getRole().toString()).build();
 	}
 	
 	//유저 찾기
@@ -57,4 +58,22 @@ public class MemberService implements UserDetailsService {
 	public Member updateMember(Member member) {
 		return memberRepository.save(member);
 	}
+	
+	// MemberDto -> Member 변환
+		private Member change(Member ori, MemberFormDto dto) {
+			System.out.println(dto);
+			ori.setName(dto.getName());
+			ori.setEmail(dto.getEmail());
+			if (!dto.getPassword().isEmpty())
+				ori.setPassword(dto.getPassword());
+			return ori;
+		}
+		
+		// Email 체크
+		public MemberFormDto findByEmail(String email) {
+			Member mem = memberRepository.findByEmail(email);
+			if (mem != null)
+				return MemberFormDto.createMemberDto(mem);
+			return null;
+		}
 }

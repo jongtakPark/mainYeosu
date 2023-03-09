@@ -33,13 +33,9 @@ public class BoardService {
 	public Optional<FreeBoard> findBoard(Long id) {
 		return boardRepository.findById(id);
 	}
-	//게시글 수정
+	
 	public FreeBoard updateBoard(Long id) {
 		return boardRepository.findById(id).get();
-	}
-	//게시글 삭제
-	public void deleteBoard(Long id) {
-		boardRepository.deleteById(id);
 	}
 	
 }

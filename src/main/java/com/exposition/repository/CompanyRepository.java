@@ -6,9 +6,9 @@ import com.exposition.entity.Company;
 
 public interface CompanyRepository extends JpaRepository<Company, Long> {
 	
-	Company findByCom(String com);
+	Company findByCom(String string);
 	boolean existsByCom(String com);
+	Company findByEmail(String email);
 
-	
 
 }

@@ -40,7 +40,7 @@ public class Member {
 	private String mid;
 	
 	@NotNull
-	private String passwoad;
+	private String password;
 	
 	@Transient
     private String confirmPassword;
@@ -67,7 +67,7 @@ public class Member {
 		member.setName(memberFormDto.getName());
 		String password = passwordEncoder.encode(memberFormDto.getPassword());
 		
-		member.setPasswoad(password);
+		member.setPassword(password);
 //		String comfirmPw = passwordEncoder.encode(memberFormDto.getConfirmPassword());
 //		member.setConfirmPassword(comfirmPw);
 		member.setEmail(memberFormDto.getEmail());

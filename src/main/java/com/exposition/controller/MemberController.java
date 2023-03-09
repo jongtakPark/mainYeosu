@@ -14,9 +14,9 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.exposition.constant.Role;
@@ -52,7 +52,7 @@ public class MemberController{
 		memberFormDto.setEmail("admin@adminEmail.com");
 		Member member = Member.createMember(memberFormDto , passwordEncoder);
 		String password = passwordEncoder.encode(memberFormDto.getPassword());
-		member.setPasswoad(password);
+		member.setPassword(password);
 		member.setRole(Role.ADMIN);
 		memberService.saveMember(member);
 		
@@ -66,7 +66,7 @@ public class MemberController{
 			memberFormDto.setEmail("User"+i+"@userEmail.com");
 			member = Member.createMember(memberFormDto, passwordEncoder);
 			String password1 = passwordEncoder.encode(memberFormDto.getPassword());
-			member.setPasswoad(password1);
+			member.setPassword(password1);
 			member.setRole(Role.USER);
 			memberService.saveMember(member);
 		}
@@ -172,4 +172,20 @@ public class MemberController{
 		memberService.updateMember(member.get());
 		return "redirect:/";
 	}
+	
+	@ResponseBody
+	@PostMapping(value = "/findEmail")
+	public HashMap<String, String> findId(@RequestParam("email") String email) {
+		MemberFormDto memDto = memberService.findByEmail(email);
+		HashMap<String, String> map = new HashMap<String, String>();
+
+		if (memDto.getMid() == null) {
+			map.put("answer", "Fail");
+		} else {
+			map.put("answer", "Success");
+		}
+		return map;
+	}
+	
+
 }

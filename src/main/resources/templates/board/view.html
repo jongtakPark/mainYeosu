@@ -53,7 +53,7 @@ layout:decorate="~{layouts/layout}">
             <div class="info_submit">
                <button type="submit">등록</button>
                <a href="/board/modify">수정</a>
-               <a th:href="@{/board/delete/{id}(id=${session.id})}">삭제</a>
+               <a href="/board/modify">삭제</a>
             </div>
        </div>
        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">

@@ -111,12 +111,4 @@ public class BoardController {
 		// model.addAttribute("freeboard",boardService.boardList()));
 		return "redirect:/board/freeboard";
 	}
-	
-	//게시글 삭제
-	@GetMapping(value="/delete/{id}")
-	public String deleteBoard(@PathVariable("id") Long id) {
-		boardService.deleteBoard(id);
-		return "redirect:/board/freeboard";
-	}
-	
 }

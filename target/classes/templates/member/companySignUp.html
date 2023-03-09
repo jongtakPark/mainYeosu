@@ -21,7 +21,7 @@ layout:decorate="~{layouts/layout}">
             
              <div class="com_a">
                  <div class="com_id"><span>아이디(사업자번호)</span></div>
-                 <div><input  class="com_tex" name="com" id="com" th:field="*{com}" type="text" oninput="autoHyphen1(this)" maxlength="11" placeholder="  -를 제외하고 입력해주세요"></div>
+                 <div><input  class="com_tex" name="mid" id="com" th:field="*{com}" type="text"  maxlength="10" placeholder="  -를 제외하고 입력해주세요"></div>
                  <div class="com_id_ck"><span><a href="#" class="com_ck">중복검사</a></span></div>
              </div>
               <p th:if="${#fields.hasErrors('com')}"  th:errors="*{com}" class="fieldError" id="fieldErrorMid">Incorrect data</p>  
