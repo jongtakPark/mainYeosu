@@ -29,11 +29,12 @@ public class MemberService implements UserDetailsService {
 	//회원 중복검사
 	private void validateDuplicateMember(Member member) {
 		Member findMember = memberRepository.findByMid(member.getMid());
+
 		if(findMember != null) {
 			throw new IllegalStateException("이미 가입된 회원입니다");
 		}	
 	}
-	
+
 	//ajax를 이용한 중복검사
 	public boolean checkMidDuplicate(String mid) {
 		return memberRepository.existsByMid(mid);
