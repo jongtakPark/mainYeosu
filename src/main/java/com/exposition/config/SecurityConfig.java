@@ -6,6 +6,7 @@ import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -28,16 +29,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 	
 	@Override
 	protected void configure(HttpSecurity http) throws Exception{
-		http.
-		formLogin().loginPage("/signup/login").defaultSuccessUrl("/")
+//		http.csrf().disable(); 
+		http.formLogin().loginPage("/signup/login").defaultSuccessUrl("/")
 		.usernameParameter("mid")
 		.passwordParameter("password")
 		.failureUrl("/signup/login/error")
 		.and()
-		.logout().logoutUrl("signup/logout").logoutRequestMatcher(new AntPathRequestMatcher("/signup/logout")).logoutSuccessUrl("/");		
+		.logout().logoutUrl("signup/logout").logoutRequestMatcher(new AntPathRequestMatcher("/signup/logout")).logoutSuccessUrl("/");	
 //		.and()
 //		.authorizeRequests()
-//		.mvcMatchers("/").permitAll() // 모든 사용자 인증없이 해당경로에 접근하도록 설정
+//		.mvcMatchers("/","/member/**","/board/**","/introduction/**").permitAll() // 모든 사용자 인증없이 해당경로에 접근하도록 설정
 //		.mvcMatchers("/admin/**").hasRole("ADMIN") // /admin 경로 접근자는 ADMIN Role일 경우만 접근가능하도록 설정
 //		.anyRequest().authenticated(); // 나머지 경로들은 모두 인증을 요구하도록 설정
 //		.and()
@@ -62,6 +63,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 		.passwordEncoder(passwordEncoder());
 	}
 	
-	
+	@Override
+	public void configure(WebSecurity web) throws Exception {
+	web.ignoring().antMatchers("/css/**", "/javascript/**", "/images/**","/video/**");
+	}
 	
 }

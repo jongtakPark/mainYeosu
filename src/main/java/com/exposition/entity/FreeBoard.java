@@ -35,18 +35,14 @@ public class FreeBoard extends BaseEntity{
 	@Column(length = 2000)
 	private String content; 
 	
-	// 조회수
-//	@ColumnDefault("0")
-//	private int viewCnt;
-	
 
-//	@ManyToOne(optional = false)
-//	@JoinColumn(name = "member_id")
-//	private Member member;
-//	
-//	@ManyToOne(optional = false)
-//	@JoinColumn(name = "company_id")
-//	private Company company;
+	@ManyToOne
+	@JoinColumn(name = "member_id")
+	private Member member;
+	
+	@ManyToOne
+	@JoinColumn(name = "company_id")
+	private Company company;
 
 
 

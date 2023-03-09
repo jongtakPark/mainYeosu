@@ -15,6 +15,8 @@ import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.exposition.entity.Member;
+
 import lombok.RequiredArgsConstructor;
 
 @Service
@@ -49,7 +51,7 @@ public class MailService {
 	        return key.toString();
 		}
 	
-	//이메일 발송
+	//회원 가입시 이메일 발송
 	@Async
 	public String sendAuthMail(String email) throws MessagingException{
 	   String authKey = createKey();
@@ -74,5 +76,18 @@ public class MailService {
 		}
 		return check;
 	}
+	
+	// 아이디 비밀번호 찾기시 이메일
+	@Async
+	public String sendFindIdMail(String email, Member member) throws MessagingException{
+	    MimeMessage mailMessage = mailSender.createMimeMessage();
+	    String mailContent = "아이디 : "+ member.getMid() ;    
+	        mailMessage.setSubject("여수세계섬박람회 메일", "utf-8"); 
+	        mailMessage.setText(mailContent, "utf-8", "html");  
+	        mailMessage.addRecipient(Message.RecipientType.TO, new InternetAddress(email));
+	        mailSender.send(mailMessage); // <--회원가입시 email란에 입력한 이메일주소로 인증메일이 보내진다.
+	        
+	      return member.getMid();
+	    }
 	
 }

@@ -50,7 +50,7 @@ public class MemberService implements UserDetailsService {
 		return User.builder().username(member.getMid()).password(member.getPassword()).roles(member.getRole().toString()).build();
 	}
 	
-	//유저 찾기
+	//id로 유저 찾기
 	public Optional<Member> findById(Long id) {
 		return memberRepository.findById(id);
 	}
@@ -59,6 +59,7 @@ public class MemberService implements UserDetailsService {
 		return memberRepository.save(member);
 	}
 	
+<<<<<<< HEAD
 	// MemberDto -> Member 변환
 		private Member change(Member ori, MemberFormDto dto) {
 			System.out.println(dto);
@@ -76,4 +77,10 @@ public class MemberService implements UserDetailsService {
 				return MemberFormDto.createMemberDto(mem);
 			return null;
 		}
+=======
+	//이름으로 유저 찾기
+	public Member findByName(String name) {
+		return memberRepository.findByName(name);
+	}
+>>>>>>> main
 }

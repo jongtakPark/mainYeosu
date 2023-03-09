@@ -1,0 +1,155 @@
+@charset "UTF-8";
+.subMenu{
+    margin-top: 10px;
+    height: 50px;
+    border-bottom: 1px solid grey;
+}
+.subMenu > ul {
+    margin-left: 13%;
+    line-height: 35px;
+}
+.subMenu > ul > li{
+    list-style: none;
+    float: left;
+    margin-left: 50px;
+}
+.subMenu > ul > li > a{
+    text-decoration: none;
+    color: black;
+    transition: 0.3s;
+}
+.subMenu > ul > li > a:hover{
+   color : red;
+}
+
+
+/*    자유게시판*/
+.freeboard{
+    width: 70%;
+    
+/*        border: 1px solid red;*/
+    margin: auto;
+}
+
+.free_title{
+    position: relative;
+    border-bottom: 1px solid black;
+    height: 100px;
+}
+
+.free_title > .title{
+    position: absolute;
+    margin-top: 30px;
+}
+
+.free_title > .title > span{
+    font-size: 30px;
+    font-weight: bold;
+}
+
+.free_content{
+    background-color: rgba(196, 196, 196, 0.3);
+    width: 95%;
+    height: 700px;
+    margin: auto;
+    margin-top: 10px;
+    border-radius: 10px;
+}
+
+.info_content{
+    background-color: #eee;
+    width: 90%;
+    height: 900px;      
+    margin: 0 auto;
+    margin-top: 10px;
+}
+.info_title{
+    width: 100%;
+    height: 50px;
+    padding-top: 20px;
+}
+.info_title_inner{
+    width: 100%;
+    height: 50px;
+    text-align: center;
+    /* line-height: 50px; */
+    display: flex;
+    justify-content: center;
+
+}
+.info_title_inner label{
+    width: 100px;
+}
+.info_title_inner input{
+    width: 70%;
+    /* height: 100%; */
+    border: 1px solid lightsalmon !important;
+    outline: none;
+    padding: 0;
+    box-sizing: border-box;
+    display: block;
+}
+.info_cont{
+    width: 100%;
+    height: 500px;
+    margin-top: 20px;
+}
+.info_cont_inner{
+    width: 100%;
+    height: 500px;
+    text-align: center;
+    /* line-height: 50px; */
+    display: flex;
+    justify-content: center;
+}
+.info_cont_inner label{
+    width: 100px;
+}
+.info_cont_inner input{
+    width: 70%;
+    height: 100%;
+    border: 1px solid lightsalmon !important;
+    outline: none;
+    padding: 0;
+    box-sizing: border-box;
+    display: block;
+}
+.info_create{
+    width: 100%;
+    height: 50px;
+    margin-top: 20px;
+}
+.info_create_inner{
+    width: 100%;
+    height: 50px;
+    text-align: center;
+    /* line-height: 50px; */
+    display: flex;
+    justify-content: center;
+}
+.info_create_inner label{
+    width: 100px;
+}
+.info_create_inner input{
+    width: 70%;
+    height: 100%;
+    border: 1px solid lightsalmon !important;
+    outline: none;
+    padding: 0;
+    box-sizing: border-box;
+    display: block;
+}
+.info_submit{
+    width: 100%;
+    height: 50px;
+    margin-top: 20px;
+}
+.info_submit  > button{
+    display: block;
+    margin: 0 auto;
+}
+.info_cont_inner textarea{
+    resize: none;
+    outline: none;
+    border: 1px solid lightsalmon;
+}
