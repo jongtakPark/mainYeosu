@@ -5,6 +5,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -18,7 +20,7 @@ import lombok.RequiredArgsConstructor;
 
 @Entity
 @Data
-@Table(name="boardfile")
+@Table(name="files")
 @RequiredArgsConstructor
 public class File extends BaseEntity {
 
@@ -38,6 +40,14 @@ public class File extends BaseEntity {
 	
 	//저장위치
 	private String savePath;
+	
+	@ManyToOne
+	@JoinColumn(name="tourboard_id")
+	private TourBoard tourboard;
+	
+	@ManyToOne
+	@JoinColumn(name="freeboard_id")
+	private FreeBoard freeBoard;
 	
 	public static File createFile(FileDto fileDto) {
 		File file = new File();

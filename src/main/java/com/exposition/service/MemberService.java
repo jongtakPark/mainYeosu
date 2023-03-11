@@ -9,6 +9,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.exposition.dto.MemberFormDto;
 import com.exposition.entity.Member;
 import com.exposition.repository.MemberRepository;
 
@@ -28,11 +29,12 @@ public class MemberService implements UserDetailsService {
 	//회원 중복검사
 	private void validateDuplicateMember(Member member) {
 		Member findMember = memberRepository.findByMid(member.getMid());
+
 		if(findMember != null) {
 			throw new IllegalStateException("이미 가입된 회원입니다");
 		}	
 	}
-	
+
 	//ajax를 이용한 중복검사
 	public boolean checkMidDuplicate(String mid) {
 		return memberRepository.existsByMid(mid);
@@ -46,7 +48,7 @@ public class MemberService implements UserDetailsService {
 			throw new UsernameNotFoundException(mid);
 		}
 		
-		return User.builder().username(member.getMid()).password(member.getPasswoad()).roles(member.getRole().toString()).build();
+		return User.builder().username(member.getMid()).password(member.getPassword()).roles(member.getRole().toString()).build();
 	}
 	
 	//id로 유저 찾기
@@ -59,6 +61,25 @@ public class MemberService implements UserDetailsService {
 		return memberRepository.save(member);
 	}
 	
+
+	// MemberDto -> Member 변환
+//		private Member change(Member ori, MemberFormDto dto) {
+//			System.out.println(dto);
+//			ori.setName(dto.getName());
+//			ori.setEmail(dto.getEmail());
+//			if (!dto.getPassword().isEmpty())
+//				ori.setPassword(dto.getPassword());
+//			return ori;
+//		}
+		
+		// Email 체크
+		// public MemberFormDto findByEmail(String email) {
+		// 	Member mem = memberRepository.findByEmail(email);
+		// 	if (mem != null)
+		// 		return MemberFormDto.createMemberDto(mem);
+		// 	return null;
+		// }
+
 	//이름으로 유저 찾기
 	public Member findByName(String name) {
 		Member member = memberRepository.findByName(name);

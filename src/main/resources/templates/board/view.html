@@ -53,6 +53,7 @@ layout:decorate="~{layouts/layout}">
             <div class="info_submit">
                <button type="submit">등록</button>
                <a href="/board/modify">수정</a>
+               <input type="hidden" name="_method" value="delete"/>
                <a th:href="@{/board/delete/{id}(id=${session.id})}">삭제</a>
             </div>
        </div>

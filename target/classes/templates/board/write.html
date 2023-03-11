@@ -42,16 +42,11 @@ layout:decorate="~{layouts/layout}">
                     <textarea name="" id="test" cols="83" rows="10" th:field="*{content}"></textarea>
                 </div>
             </div>
-            <div class="info_create">
-                <div class="info_create_inner">
-                    <label for="">
-                        작성자
-                    </label>
-                    <input type="text" value="1" readOnly >
-                </div>
+           <div class="info_file">
+                <input type="file" multiple="multiple" accept=".jpg,.png" id="file" name="file">
             </div>
             <div class="info_submit">
-               <button type="submit">등록</button>
+               <button type="submit">작성 글 등록</button>
             </div>
        </div>
        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">

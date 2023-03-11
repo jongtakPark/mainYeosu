@@ -38,7 +38,7 @@ public class Company {
 	private String com;
 	
 	@NotNull
-	private String passwoad;
+	private String password;
 	@Transient
     private String confirmPassword;
 	
@@ -63,9 +63,7 @@ public class Company {
 		company.setCom(companyFormDto.getCom());
 		company.setName(companyFormDto.getName());
 		String password = passwordEncoder.encode(companyFormDto.getPassword());
-		company.setPasswoad(password);
-		String comfirmPw = passwordEncoder.encode(companyFormDto.getConfirmPassword());
-		company.setConfirmPassword(comfirmPw);
+		company.setPassword(password);
 		company.setEmail(companyFormDto.getEmail());
 		company.setTel(companyFormDto.getTel());
 		company.setRole(Role.COMPANY);

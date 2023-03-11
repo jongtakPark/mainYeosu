@@ -40,8 +40,8 @@ var token = $("meta[name='_csrf']").attr('content');
 $("#find-id-btn").click(function(){
 	var email = $("#email1").val();
 	var name = $("#name").val();
-	var sMsg = $("#sMsg")
-	var eMsg = $("#eMsg")
+	var sMsg = $("#sMsg1")
+	var eMsg = $("#eMsg1")
 	$.ajax({
             type: "post",
 			url: "/signup/findid",
@@ -64,8 +64,8 @@ $("#find-id-btn").click(function(){
 $("#find-pw-btn").click(function(){
 	var mid = $("#mid").val();
 	var email = $("#email2").val();
-	var sMsg = $("#sMsg")
-	var eMsg = $("#eMsg")
+	var sMsg = $("#sMsg2")
+	var eMsg = $("#eMsg2")
 	var sendData = "mid="+mid+"&email="+email;
 	$.ajax({
             type: "post",

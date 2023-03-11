@@ -9,6 +9,8 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
@@ -38,9 +40,13 @@ public class TourBoard {
 	@Column(length = 2000)
 	private String content;
 	
-	@OneToMany(fetch = FetchType.LAZY)
-	@ToString.Exclude
-	private List<File> fileList = new ArrayList<>();
+	@ManyToOne
+	@JoinColumn(name = "member_id")
+	private Member member;
+	
+//	@OneToMany(fetch = FetchType.LAZY)
+//	@ToString.Exclude
+//	private List<File> fileList = new ArrayList<>();
 	
 	public static TourBoard createTourBoard(TourBoardDto tourBoardDto) {
 		TourBoard tourBoard = new TourBoard();

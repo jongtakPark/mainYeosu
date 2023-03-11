@@ -21,7 +21,7 @@ $("#com").blur(function(){
 			return false;
 		}
 		
-		var isID = /^[0-9]{3}-[0-9]{2}-[0-9]{5}$/;
+		var isID =  /^[0-9]{10}$/;
         if (!isID.test(com)) {
             showErrorMsg(cMsg,"유효한 사업자 번호를 입력 해 주세요(숫자10자리).");
             return false;
@@ -240,7 +240,7 @@ $(".com_ck").click(function(){
 	showErrorMsg(cMsg,"필수 정보입니다.");
 	return false;
 	}
-	var isID = /^[0-9]{3}-[0-9]{2}-[0-9]{5}$/;
+	var isID =  /^[0-9]{10}$/;
         if (!isID.test(com)) {
             showErrorMsg(cMsg,"유효한 사업자 번호를 입력 해 주세요(숫자10자리).");
             return false;

@@ -2,7 +2,6 @@ package com.exposition.controller;
 
 import java.util.Optional;
 
-import javax.print.attribute.SetOfIntegerSyntax;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -12,12 +11,12 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.exposition.dto.FreeBoardDto;
@@ -114,9 +113,8 @@ public class BoardController {
 	
 	//게시글 삭제
 	@GetMapping(value="/delete/{id}")
-	public String deleteBoard(@PathVariable("id") Long id) {
+	public String deleteBoard(@PathVariable Long id) {
 		boardService.deleteBoard(id);
 		return "redirect:/board/freeboard";
 	}
-	
 }

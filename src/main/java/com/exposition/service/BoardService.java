@@ -33,7 +33,7 @@ public class BoardService {
 	public Optional<FreeBoard> findBoard(Long id) {
 		return boardRepository.findById(id);
 	}
-	//게시글 수정
+	//게시글 수정하기
 	public FreeBoard updateBoard(Long id) {
 		return boardRepository.findById(id).get();
 	}

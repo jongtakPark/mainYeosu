@@ -44,7 +44,7 @@ public class CompanyService implements UserDetailsService {
 			throw new UsernameNotFoundException(com);
 		}
 		
-		return User.builder().username(company.getCom()).password(company.getPasswoad()).roles(company.getRole().toString()).build();
+		return User.builder().username(company.getCom()).password(company.getPassword()).roles(company.getRole().toString()).build();
 		
 	}
 

@@ -56,9 +56,10 @@ public class MemberController{
 		memberFormDto.setEmail("admin@adminEmail.com");
 		Member member = Member.createMember(memberFormDto , passwordEncoder);
 		String password = passwordEncoder.encode(memberFormDto.getPassword());
-		member.setPasswoad(password);
+		member.setPassword(password);
 		member.setRole(Role.ADMIN);
 		memberService.saveMember(member);
+
 		//일반회원
 		check = memberService.checkMidDuplicate("2");
 		if (check)
@@ -69,22 +70,24 @@ public class MemberController{
 		memberFormDto.setEmail("User"+"@userEmail.com");
 		member = Member.createMember(memberFormDto, passwordEncoder);
 		String password1 = passwordEncoder.encode(memberFormDto.getPassword());
-		member.setPasswoad(password1);
+		member.setPassword(password1);
 		member.setRole(Role.USER);
 		memberService.saveMember(member);
 		//기업회원
-		check = memberService.checkMidDuplicate("3");
+		check = companyService.checkComDuplicate("3");
 		if (check)
 			return;
-		memberFormDto.setMid("com");
-		memberFormDto.setPassword("com");
-		memberFormDto.setName("기업");
-		memberFormDto.setEmail("com"+"@userEmail.com");
-		member = Member.createMember(memberFormDto, passwordEncoder);
-		String password2 = passwordEncoder.encode(memberFormDto.getPassword());
-		member.setPasswoad(password2);
-		member.setRole(Role.COMPANY);
-		memberService.saveMember(member);
+		CompanyFormDto companyFormDto = new CompanyFormDto();
+		companyFormDto.setCom("com");
+		companyFormDto.setPassword("com");
+		companyFormDto.setName("기업");
+		companyFormDto.setEmail("com"+"@userEmail.com");
+		Company company = Company.createCompany(companyFormDto, passwordEncoder);
+		String password2 = passwordEncoder.encode(companyFormDto.getPassword());
+		company.setPassword(password2);
+		company.setRole(Role.COMPANY);
+		companyService.saveCompany(company);
+
 		}
 		
 	
@@ -207,7 +210,7 @@ public class MemberController{
 		Member member = memberService.findByMid(mid);
 		String password =mailService.sendFindPwMail(email, member).get();
 		String pw= passwordEncoder.encode(password);
-		member.setPasswoad(pw);
+		member.setPassword(pw);
 		memberService.updateMember(member);
 		return "success";
 	}

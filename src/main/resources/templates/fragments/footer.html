@@ -9,20 +9,36 @@
 <body>
         <div class="footer" th:fragment="footer">
         <link rel="stylesheet" th:href="@{/css/footer.css}">
-            <div class="footer_con">
-                <p>문 의 처 : 여수시 섬자원개발과</p>
-                <p>전 화 번 호 : 061-659-3959(장원석)</p>
-                <p>이 메 일 : withwsj@korea.kr</p>
-            </div>
-            
-            <div class="familysite">
-                <select name="sitelist">
-                    <option value="#">관련기관사이트</option>
-                    <option value="#">패밀리사이트1</option>
-                    <option value="#">패밀리사이트2</option>
-                    <option value="#">패밀리사이트3</option>
-                </select>
-            </div>
+            <div class="footer">
+				<div class="footer_inner">
+					<div class="footer_left">
+						<img th:src="@{/images/footer.png}" alt="">
+					</div>
+					<div class="footer_middle">
+						<div class="footer_middle_content">
+							<p>주소 59723 전라남도 여수시 박람회길 1 (덕충동) 사업자번호 417-82-08394<br>
+								TEL 1577-2012 FAX 061-659-2029
+							</p>
+							<p>
+								Copyright © EXPO 2026 YEOSU KOREA FOUNDATION All rights reserved.
+							</p>
+						</div>
+					</div>
+					<div class="footer_right">
+						<select name="familysite" id="familysite">
+							<option value="">
+								여수세계섬박람회
+							</option>
+							<option value="">
+								site2
+							</option>
+							<option value="">
+								site3
+							</option>
+						</select>
+					</div>
+				</div>
+			</div>
         </div>
 </body>
 

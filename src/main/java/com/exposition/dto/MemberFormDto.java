@@ -7,6 +7,8 @@ import javax.validation.constraints.Pattern;
 
 import org.hibernate.validator.constraints.Length;
 
+import com.exposition.entity.Member;
+
 import lombok.Data;
 
 @Data
@@ -32,4 +34,15 @@ public class MemberFormDto {
     private String confirmEmail;
     
     private String tel;
+    
+    public static MemberFormDto createMemberDto(Member mem) {
+		MemberFormDto memDto = new MemberFormDto();
+		memDto.mid = mem.getMid();
+		memDto.name = mem.getName();
+		memDto.email = mem.getEmail();
+		memDto.password = mem.getPassword();
+		memDto.tel = mem.getTel();
+		return memDto;
+	}
+
 }

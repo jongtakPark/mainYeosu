@@ -40,7 +40,7 @@ public class Member {
 	private String mid;
 	
 	@NotNull
-	private String passwoad;
+	private String password;
 	
 	@Transient
     private String confirmPassword;
@@ -56,9 +56,9 @@ public class Member {
 	@Enumerated(EnumType.STRING)
 	private Role role;
 
-	@OneToMany(mappedBy = "member", fetch = FetchType.LAZY)
-	@ToString.Exclude
-	private List<FreeBoard> freeBoardList = new ArrayList<>();
+//	@OneToMany(mappedBy = "member", fetch = FetchType.LAZY)
+//	@ToString.Exclude
+//	private List<FreeBoard> freeBoardList = new ArrayList<>();
 	
 	//스프링시큐리티 설정 클래스에(SecurityConfig.java) 등록한 BCryptPasswordEncoder Bean으로 파라미터로 넘겨서 비밀번호를 암호화
 	public static Member createMember(MemberFormDto memberFormDto, PasswordEncoder passwordEncoder) {
@@ -67,7 +67,7 @@ public class Member {
 		member.setName(memberFormDto.getName());
 		String password = passwordEncoder.encode(memberFormDto.getPassword());
 		
-		member.setPasswoad(password);
+		member.setPassword(password);
 //		String comfirmPw = passwordEncoder.encode(memberFormDto.getConfirmPassword());
 //		member.setConfirmPassword(comfirmPw);
 		member.setEmail(memberFormDto.getEmail());
