@@ -5,6 +5,8 @@ layout:decorate="~{layouts/layout}">
 
 <head>
     <meta charset="UTF-8">
+    <meta name="_csrf" th:content="${_csrf.token}">
+	<meta name="_csrf_header" th:content="${_csrf.headerName}">
     <title>FindIdPw</title>
 <link rel="stylesheet" th:href="@{/css/findIdPw.css}">
 </head>
@@ -34,7 +36,7 @@ layout:decorate="~{layouts/layout}">
                     </div>
                     <div class="com_form_email">
                         <div class="com_form_a"><span>이메일</span></div>
-                        <div class="com_email_text"><input type="email" name="email"></div>
+                        <div class="com_email_text"><input type="email" name="email" id="email"></div>
                     </div>
                     <div class="com_ck">
                         <button>가입정보확인</button>
@@ -43,8 +45,7 @@ layout:decorate="~{layouts/layout}">
             </div>
         </form>
         
-        
-        <form action="/signup/findidpw" method="post">
+       
             <div class="per_find_body_id" id="per_find_body_id" style="display: none;">
                 <div class="id_per_form_">
                     <div class="ck_id">
@@ -53,22 +54,20 @@ layout:decorate="~{layouts/layout}">
                     </div>
                     <div class="per_form_id">
                         <div class="per_form_a"><span>이름</span></div>
-                        <div class="per_id_text"><input type="text" name="name"></div>
+                        <div class="per_id_text"><input type="text" name="name" id="name"></div>
                     </div>
                     <div class="per_form_email">
                         <div class="per_form_a"><span>이메일</span></div>
-                        <div class="per_email_text"><input type="email" name="email"></div>
+                        <div class="per_email_text"><input type="email" name="email" id="email1"></div>
                     </div>
-                     <div class="succ_div"><span class="succ" id="sMsg" ></span></div>
-                     <div class="succ_div"><span class="error" id="eMsg" ></span></div>
+                    <div class="succ_div"><span class="succ" id="sMsg" ></span></div>
+                    <div class="succ_div"><span class="error" id="eMsg" ></span></div>
                     <div class="per_ck">
                         <button id="find-id-btn">가입정보확인</button>
                     </div>
                 </div>
             </div>
-        </form>
-        
-        <form action="/signup/findpw" method="get">
+
             <div class="per_find_body_pw" id="per_find_body_pw"  style="display: none;">
                 <div class="pw_per_form_">
                     <div class="ck_id">
@@ -77,19 +76,20 @@ layout:decorate="~{layouts/layout}">
                     </div>
                     <div class="per_form_id">
                         <div class="per_form_a"><span>아이디</span></div>
-                        <div class="per_id_text"><input type="text" name="name"></div>
+                        <div class="per_id_text"><input type="text" name="name" id="mid"></div>
                     </div>
                     <div class="per_form_email">
                         <div class="per_form_a"><span>이메일</span></div>
-                        <div class="per_email_text"><input type="email" name="email"></div>
+                        <div class="per_email_text"><input type="email" name="email" id="email2"></div>
                     </div>
+                    <div class="succ_div"><span class="succ" id="sMsg" ></span></div>
+                    <div class="succ_div"><span class="error" id="eMsg" ></span></div>
                     <div class="per_ck">
-                        <button>가입정보확인</button>
+                        <button id="find-pw-btn">가입정보확인</button>
                     </div>
                 </div>
             </div>
             <script type="text/javascript" src="/javascript/findIdPw.js"></script>
-        </form>
 
     </div>
     </div>

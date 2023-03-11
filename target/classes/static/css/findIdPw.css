@@ -135,3 +135,24 @@
             margin-left: 30px;;
         }
         
+    .error_div{
+		text-align : center;
+    	margin-top : 20px;
+    	display: block;
+    	color: red;
+    }
+    .error{
+    	display : none;
+		color :red;
+    }
+    .succ_div{
+    	text-align : center;
+    	margin-top : 20px;
+    	display: block;
+    	color: green;
+    }
+    .succ{
+    	display : none;
+		color : green;
+    }
+        

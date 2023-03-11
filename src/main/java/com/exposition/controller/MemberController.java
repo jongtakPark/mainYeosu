@@ -2,8 +2,10 @@ package com.exposition.controller;
 
 import java.util.HashMap;
 import java.util.Optional;
+import java.util.concurrent.ExecutionException;
 
 import javax.annotation.PostConstruct;
+import javax.mail.MessagingException;
 import javax.validation.Valid;
 
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -175,6 +177,7 @@ public class MemberController{
 	public String findIdPw() {
 		return "member/findIdPw";
 	}
+	
 	//문제 없이 잘 작동하지만 member테이블의 id를 가져오려면 id가 바인딩 되어 있어야 함.
 	//설문게시판 페이지 넘어갈 때 session에 member id를 바인딩 해야함.
 	//권환 변경 USER -> VOLUNTEER
@@ -185,11 +188,27 @@ public class MemberController{
 		memberService.updateMember(member.get());
 		return "redirect:/";
 	}
-	//일반회원 아이디 찾기(이메일은 옴, 비동기처리가 안됨)
-//	@PostMapping(value="/findid")
-//	public String findId(@RequestParam("name") String name, String email) throws Exception {
-//		Member member = memberService.findByName(name);
-//		String mem = mailService.sendFindIdMail(email, member);
-//		return mem;
-//	}
+	
+	//일반회원 아이디 찾기(input태그에 적은 이름과 이메일의 회원이 다른경우에 에러를 보내는건 안함 나중에..)
+	@PostMapping(value="/findid")
+	@ResponseBody
+	public HashMap<String, Object> findId(@RequestParam("name") String name, @RequestParam("email") String email) throws MessagingException {
+		Member member = memberService.findByName(name);
+		Member mem = memberService.findByEmail(email);
+		HashMap<String, Object> map = new HashMap<>();
+		map.put("result", mailService.sendFindIdMail(email, member));
+		return map;
+	}
+	
+	//일반 회원 비밀번호 찾기 CompletableFuture으로 return 된 값은 .get()으로 가져온다.
+	@PostMapping(value="/findpw")
+	@ResponseBody
+	public String findPw(String mid, String email) throws MessagingException, InterruptedException, ExecutionException {
+		Member member = memberService.findByMid(mid);
+		String password =mailService.sendFindPwMail(email, member).get();
+		String pw= passwordEncoder.encode(password);
+		member.setPasswoad(pw);
+		memberService.updateMember(member);
+		return "success";
+	}
 }

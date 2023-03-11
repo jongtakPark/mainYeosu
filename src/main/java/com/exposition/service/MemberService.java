@@ -53,13 +53,40 @@ public class MemberService implements UserDetailsService {
 	public Optional<Member> findById(Long id) {
 		return memberRepository.findById(id);
 	}
-	//유저 회원 변경(권한)
+	
+	//유저 회원 변경
 	public Member updateMember(Member member) {
 		return memberRepository.save(member);
 	}
 	
 	//이름으로 유저 찾기
 	public Member findByName(String name) {
-		return memberRepository.findByName(name);
+		Member member = memberRepository.findByName(name);
+		if(member!=null) {
+			return member;
+		} else {
+			throw new NullPointerException("가입된 회원이 아닙니다");
+		}
 	}
+	
+	//이메일로 유저 찾기
+	public Member findByEmail(String email) {
+		Member member = memberRepository.findByEmail(email);
+		if(member!=null) {
+			return member;
+		} else {
+			throw new NullPointerException("가입된 회원이 아닙니다");
+		}
+	}
+	
+	//아이디로 회원 찾기
+	public Member findByMid(String mid) {
+		Member member = memberRepository.findByMid(mid);
+		if(member!=null) {
+			return member;
+		} else {
+			throw new NullPointerException("가입된 회원이 아닙니다");
+		}
+	}
+	
 }
