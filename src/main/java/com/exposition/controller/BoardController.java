@@ -95,7 +95,7 @@ public class BoardController {
 	@GetMapping(value="/modify")
 	public String modifyView(Model model) {
 		model.addAttribute("freeBoardDto", new FreeBoardDto());
-		return "board/boardwrite";
+		return "board/updatewrite";
 	}
 	
 	//게시글 수정등록
@@ -111,8 +111,8 @@ public class BoardController {
 		return "redirect:/board/freeboard";
 	}
 	
-	//게시글 삭제
-	@GetMapping(value="/delete/{id}")
+	//게시글 삭제(DeleteMapping을 사용하기 위해서 view.html에 form을 추가해서 사용해야 함)
+	@DeleteMapping(value="/delete/{id}")
 	public String deleteBoard(@PathVariable Long id) {
 		boardService.deleteBoard(id);
 		return "redirect:/board/freeboard";
