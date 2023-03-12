@@ -21,26 +21,26 @@ layout:decorate="~{layouts/layout}">
         <div class="title">
             <h1>주변관광지</h1>
         </div>
-
-                        <div class="photo" th:each="list : ${tourboard}">
+					<th:block th:each="tourboard, status:${tourboard.getContent()}">
+                        <div class="photo">
                             <div class="photo_pic">
-							<!--  	<img th:src="${list."   -->
+								<img th:src="${tourboard.savePath}">
                             </div>
                             <div class="photo_tit">
-                               <span th:text="${list.title}"></span>   
+                               <span th:text="${tourboard.title}"></span>   
                             </div>
                             <div class="photo_con">
-                          <span th:text="${list.content}"></span>  
+                          <span th:text="${tourboard.content}"></span>  
                             </div>
                         </div>
-                        
+                     </th:block>
      </div>
      <div class="wrap">
             <div class="pagebtn">
-			<th:block th:each="page:${#numbers.sequence(startPage,endPage)}">
-            <a th:if="${page==0? page==1 : page != nowPage}" th:href="@{/board/freeboard(page=${page-1})}" th:text ="${page}"></a>
-            <strong th:if="${page==nowPage}" th:text ="${page}" style="color:red"></strong>
-        </th:block>
+		 		<th:block th:each="page:${#numbers.sequence(startPage,endPage)}">
+            		<a th:if="${page==0? page==1 : page != nowPage}" th:href="@{/news/tour(page=${page})}" th:text ="${page}"></a>
+            		<strong th:if="${page==nowPage}" th:text ="${page}" style="color:red"></strong>
+        		</th:block>  
 			</div>
             <div class="regist">
                 <a href="/news/tourwrite">등록</a>
