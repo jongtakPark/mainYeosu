@@ -22,23 +22,26 @@ layout:decorate="~{layouts/layout}">
             <h1>주변관광지</h1>
         </div>
 
-                        <div class="photo">
+                        <div class="photo" th:each="list : ${tourboard}">
                             <div class="photo_pic">
-
+							<!--  	<img th:src="${list."   -->
                             </div>
                             <div class="photo_tit">
-                                <span></span>
+                               <span th:text="${list.title}"></span>   
                             </div>
                             <div class="photo_con">
-                                <span></span>
+                          <span th:text="${list.content}"></span>  
                             </div>
                         </div>
                         
      </div>
      <div class="wrap">
             <div class="pagebtn">
-                페이징
-            </div>
+			<th:block th:each="page:${#numbers.sequence(startPage,endPage)}">
+            <a th:if="${page==0? page==1 : page != nowPage}" th:href="@{/board/freeboard(page=${page-1})}" th:text ="${page}"></a>
+            <strong th:if="${page==nowPage}" th:text ="${page}" style="color:red"></strong>
+        </th:block>
+			</div>
             <div class="regist">
                 <a href="/news/tourwrite">등록</a>
             </div>

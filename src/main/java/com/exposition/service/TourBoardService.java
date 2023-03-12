@@ -2,12 +2,15 @@ package com.exposition.service;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.exposition.dto.TourBoardDto;
 import com.exposition.entity.File;
+import com.exposition.entity.FreeBoard;
 import com.exposition.entity.TourBoard;
 import com.exposition.repository.TourBoardRepository;
 
@@ -27,6 +30,12 @@ public class TourBoardService {
 //		return tourBoardRepository.save(tourBoard);
 //	}
 	
+	//주변 관광지 게시판 리스트 출력(페이징)
+	public Page<TourBoard> tourBoardList(Pageable pageable){
+		return tourBoardRepository.findAll(pageable);
+	}
+	
+	
 	//주변 관광지 글 저장
 	public TourBoard saveTour(List<MultipartFile> files, TourBoardDto tourBaordDto) throws Exception {
 		TourBoard tourBoard = tourBaordDto.createItem();
@@ -39,7 +48,6 @@ public class TourBoardService {
 			else
 				file.setThumbnail("N");
 			fileService.saveFile(file, files.get(i));
-			System.out.println(file);
 		}
 		return tourBoard;
 	}

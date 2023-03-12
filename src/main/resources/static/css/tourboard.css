@@ -44,7 +44,7 @@
     border: 1px solid blue;
 }
 
-.photo > .photo_pic{
+.photo .photo_pic{
     width: 330px;
     height: 150px;
     margin: auto;
@@ -52,7 +52,7 @@
     border: 1px solid red;
 }
 
-.photo > .photo_tit{
+.photo .photo_tit{
     width: 150px;
     height: 50px;
     margin: auto;
@@ -61,12 +61,12 @@
     border: 1px solid blue;
 }
 
-.photo > .photo_tit > span{
+.photo .photo_tit span{
     font-weight: bold;
     font-size: 20px;
 }
 
-.photo > .photo_con{
+.photo .photo_con span{
     width: 300px;
     height: 85px;
     margin: auto;
@@ -84,7 +84,6 @@
     height: 50px;
     margin: auto;
     margin-top: 25px;
-    border: 1px solid red;;
 }
 
 .wrap > .regist{

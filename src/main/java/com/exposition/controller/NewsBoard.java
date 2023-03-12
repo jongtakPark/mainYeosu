@@ -4,6 +4,10 @@ import java.util.List;
 
 import javax.validation.Valid;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -15,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.exposition.dto.TourBoardDto;
+import com.exposition.entity.TourBoard;
 import com.exposition.service.FileService;
 import com.exposition.service.TourBoardService;
 
@@ -29,7 +34,21 @@ public class NewsBoard {
 	private final TourBoardService tourBoardService;
 	//주변관광지 페이지 이동
 	@RequestMapping(value="/tour", method= {RequestMethod.GET, RequestMethod.POST})
-	public String tourPage() {
+	public String tourPage(Model model, @PageableDefault(page=0, size=6, sort="id", direction=Sort.Direction.DESC) Pageable pageable) {
+		
+		Page<TourBoard> list = tourBoardService.tourBoardList(pageable);
+		System.out.println(list.getContent().get(1).getId());
+		model.addAttribute("tourboard", list);
+	    //페이징	        
+	    int nowPage = list.getPageable().getPageNumber() + 1;	        
+	    int startPage =  Math.max(nowPage - 4, 1);
+	    int endPage = Math.min(nowPage+9, list.getTotalPages());
+
+	    model.addAttribute("list", list);
+	    model.addAttribute("nowPage",nowPage);
+	    model.addAttribute("startPage", startPage);
+	    model.addAttribute("endPage", endPage);
+		
 		return "news/tourboard";
 	}
 		
