@@ -196,8 +196,7 @@ public class MemberController{
 	@PostMapping(value="/findid")
 	@ResponseBody
 	public HashMap<String, Object> findId(@RequestParam("name") String name, @RequestParam("email") String email) throws MessagingException {
-		Member member = memberService.findByName(name);
-		Member mem = memberService.findByEmail(email);
+		Member member = memberService.findByNameAndEmail(name, email);
 		HashMap<String, Object> map = new HashMap<>();
 		map.put("result", mailService.sendFindIdMail(email, member));
 		return map;
@@ -207,11 +206,24 @@ public class MemberController{
 	@PostMapping(value="/findpw")
 	@ResponseBody
 	public String findPw(String mid, String email) throws MessagingException, InterruptedException, ExecutionException {
-		Member member = memberService.findByMid(mid);
+		Member member = memberService.findByMidAndEmail(mid, email);
 		String password =mailService.sendFindPwMail(email, member).get();
 		String pw= passwordEncoder.encode(password);
 		member.setPassword(pw);
 		memberService.updateMember(member);
 		return "success";
 	}
+	//기업 회원 비밀번호 찾기
+	@PostMapping(value="/findcompw")
+	@ResponseBody
+	public String findComPw(String com, String email) throws MessagingException, InterruptedException, ExecutionException {
+		Company company = companyService.findByComAndEmail(com, email);
+		String password =mailService.sendFindPwMail(email, company).get();
+		String pw= passwordEncoder.encode(password);
+		company.setPassword(pw);
+		companyService.updateCompany(company);
+		return "success";
+	}
+	
+	
 }

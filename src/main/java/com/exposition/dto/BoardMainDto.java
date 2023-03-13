@@ -19,4 +19,5 @@ public class BoardMainDto {
 		this.content = content;
 		this.savePath = savePath;
 	}
+	
 }

@@ -28,5 +28,9 @@ public class TourBoardDto {
 	public TourBoard createTourBoard() {
 		return modelMapper.map(this, TourBoard.class);
 	}
+	
+	public static TourBoardDto of(TourBoard tourBoard) {
+		return modelMapper.map(tourBoard, TourBoardDto.class);
+	}
 
 }

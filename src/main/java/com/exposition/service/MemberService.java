@@ -80,9 +80,9 @@ public class MemberService implements UserDetailsService {
 		// 	return null;
 		// }
 
-	//이름으로 유저 찾기
-	public Member findByName(String name) {
-		Member member = memberRepository.findByName(name);
+	//이름과 이메일로으로 유저 찾기
+	public Member findByNameAndEmail(String name, String email) {
+		Member member = memberRepository.findByNameAndEmail(name, email);
 		if(member!=null) {
 			return member;
 		} else {
@@ -90,9 +90,9 @@ public class MemberService implements UserDetailsService {
 		}
 	}
 	
-	//이메일로 유저 찾기
-	public Member findByEmail(String email) {
-		Member member = memberRepository.findByEmail(email);
+	//아이디와 이메일로 유저 찾기
+	public Member findByMidAndEmail(String mid, String email) {
+		Member member = memberRepository.findByMidAndEmail(mid, email);
 		if(member!=null) {
 			return member;
 		} else {

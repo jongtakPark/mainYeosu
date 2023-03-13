@@ -86,6 +86,32 @@ $("#find-pw-btn").click(function(){
 });
 
 
+//기업 회원 비밀번호 찾기(String으로 값 받을때)
+$("#find-com-pw-btn").click(function(){
+	var com = $("#com1").val();
+	var email = $("#email").val();
+	var sMsg = $("#sMsg")
+	var eMsg = $("#eMsg")
+	var sendData = "com="+com+"&email="+email;
+	$.ajax({
+            type: "post",
+			url: "/signup/findcompw",
+			data : sendData,
+			beforeSend: function(xhr){
+        		xhr.setRequestHeader(header, token);
+    		},
+			success : function(result){
+				showSuccMsg(sMsg,"입력하신 이메일에서 임시 비밀번호를 확인해 주세요");
+				eMsg.hide();
+			},
+			error : function(){
+				showErrorMsg(eMsg,"이름 또는 이메일을 다시 확인해주세요.");
+				sMsg.hide();
+			}
+		});
+});
+
+
  function showErrorMsg(obj, msg) {
         obj.attr("class", "error");
         obj.html(msg);
