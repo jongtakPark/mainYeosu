@@ -46,7 +46,7 @@ public class FileService {
 		
 		if(!StringUtils.isEmpty(oriImg)) {
 			img = uploadFile(itemImgLocation, oriImg, files.getBytes());
-			savePath = "/images/board/" + img;
+			savePath = "/image/images/" + img;
 		}
 		
 		file.updateFile(img, oriImg, savePath);
