@@ -55,16 +55,19 @@ public class NewsBoard {
 	@RequestMapping(value="/tour", method= {RequestMethod.GET, RequestMethod.POST})
 	public String tourPage(Model model, TourBoardDto tourBoardDto) {
 		
-		Pageable pageable = PageRequest.of(0, 3);
+		Pageable pageable = PageRequest.of(0, 4);
 		Page<BoardMainDto> tourBoardList = tourBoardService.getBoardMainPage(tourBoardDto, pageable);
-		System.out.println(tourBoardList.getContent());
-		
-		int nowPage = tourBoardList.getPageable().getPageNumber() + 1;	        
+		System.out.println(tourBoardList.getNumber());
+		System.out.println(tourBoardList.getPageable());
+		System.out.println(tourBoardList.getTotalPages());
+		System.out.println(tourBoardList.getNumberOfElements());
+		System.out.println(tourBoardList.getSize());
+		int nowPage = tourBoardList.getTotalPages() -1;	        
 		int startPage =  Math.max(nowPage - 4, 1);
 		int endPage = Math.min(nowPage+9, tourBoardList.getTotalPages());
 		model.addAttribute("tourboard", tourBoardList);
-		model.addAttribute("tourBoardDto", tourBoardDto);
-		model.addAttribute("maxPage", 5);
+//		model.addAttribute("tourBoardDto", tourBoardDto);
+//		model.addAttribute("maxPage", 5);
 		
 		model.addAttribute("nowPage",nowPage);
 		model.addAttribute("startPage", startPage);

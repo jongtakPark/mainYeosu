@@ -44,7 +44,7 @@ public class TourBoardService {
 	
 	//주변 관광지 글 저장
 	public TourBoard saveTour(List<MultipartFile> files, TourBoardDto tourBaordDto) throws Exception {
-		TourBoard tourBoard = tourBaordDto.createItem();
+		TourBoard tourBoard = tourBaordDto.createTourBoard();
 		tourBoardRepository.save(tourBoard);
 		for(int i=0; i<files.size(); i++) {
 			File file = new File();

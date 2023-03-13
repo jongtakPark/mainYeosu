@@ -25,7 +25,7 @@ public class TourBoardDto {
 	
 	private static ModelMapper modelMapper = new ModelMapper();
 	
-	public TourBoard createItem() {
+	public TourBoard createTourBoard() {
 		return modelMapper.map(this, TourBoard.class);
 	}
 
