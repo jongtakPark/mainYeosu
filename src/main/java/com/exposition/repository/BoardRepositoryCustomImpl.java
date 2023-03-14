@@ -11,7 +11,7 @@ import org.springframework.data.domain.Pageable;
 import com.exposition.dto.BoardMainDto;
 import com.exposition.dto.QBoardMainDto;
 import com.exposition.dto.TourBoardDto;
-import com.exposition.entity.QFile;
+import com.exposition.entity.QFiles;
 import com.exposition.entity.QTourBoard;
 import com.querydsl.core.QueryResults;
 import com.querydsl.jpa.impl.JPAQueryFactory;
@@ -27,7 +27,7 @@ public class BoardRepositoryCustomImpl implements BoardRepositoryCustom{
 	@Override
 	public Page<BoardMainDto> getBoardMainPage(TourBoardDto tourBoardDto, Pageable pageable){
 		QTourBoard tourBoard = QTourBoard.tourBoard;
-		QFile file = QFile.file;
+		QFiles file = QFiles.files;
 		
 		QueryResults<BoardMainDto> result = queryFactory
 				.select(new QBoardMainDto(tourBoard.id, tourBoard.title, tourBoard.content, file.savePath))

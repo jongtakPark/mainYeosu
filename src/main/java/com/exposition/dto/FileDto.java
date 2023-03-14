@@ -2,7 +2,7 @@ package com.exposition.dto;
 
 import org.modelmapper.ModelMapper;
 
-import com.exposition.entity.File;
+import com.exposition.entity.Files;
 
 import lombok.Data;
 
@@ -17,7 +17,7 @@ public class FileDto {
 	
 	private static ModelMapper modelMapper = new ModelMapper();
 	
-	public static FileDto of(File file) {
+	public static FileDto of(Files file) {
 		return modelMapper.map(file, FileDto.class);
 	}
 

@@ -2,6 +2,7 @@ package com.exposition.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -9,11 +10,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import org.springframework.security.crypto.password.PasswordEncoder;
-
-import com.exposition.constant.Role;
 import com.exposition.dto.FileDto;
-import com.exposition.dto.MemberFormDto;
 
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
@@ -22,10 +19,10 @@ import lombok.RequiredArgsConstructor;
 @Data
 @Table(name="files")
 @RequiredArgsConstructor
-public class File extends BaseEntity {
+public class Files extends BaseEntity {
 
 	@Id
-	@Column(name="file_id")
+	@Column(name="files_id")
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 	
@@ -41,16 +38,16 @@ public class File extends BaseEntity {
 	//저장위치
 	private String savePath;
 	
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name="tourboard_id")
 	private TourBoard tourboard;
 	
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name="freeboard_id")
 	private FreeBoard freeBoard;
 	
-	public static File createFile(FileDto fileDto) {
-		File file = new File();
+	public static Files createFile(FileDto fileDto) {
+		Files file = new Files();
 		file.setId(fileDto.getId());
 		file.setImg(fileDto.getImg());
 		file.setOriImg(fileDto.getOriImg());
@@ -64,5 +61,7 @@ public class File extends BaseEntity {
 		this.oriImg = oriImg;
 		this.savePath = savePath;
 	}
+
+
 	
 }

@@ -12,6 +12,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -84,7 +85,6 @@ public class NewsBoardController {
 		try {
 			TourBoardDto tourBoardDto = tourBoardService.getTourBoardDetail(tourBoardId);
 			model.addAttribute("tourBoardDto",tourBoardDto);
-			System.out.println(tourBoardDto);
 		} catch (EntityNotFoundException e) {
 			model.addAttribute("errorMessage","존재하지 않는 글 입니다");
 			model.addAttribute("tourBoardDto", new TourBoardDto());
@@ -99,7 +99,6 @@ public class NewsBoardController {
 		try {
 			TourBoardDto tourBoardDto = tourBoardService.getTourBoardDetail(tourBoardId);
 			model.addAttribute("tourBoardDto",tourBoardDto);
-			System.out.println(tourBoardDto);
 		} catch (EntityNotFoundException e) {
 			model.addAttribute("errorMessage","존재하지 않는 글 입니다");
 			model.addAttribute("tourBoardDto", new TourBoardDto());
@@ -108,10 +107,27 @@ public class NewsBoardController {
 		return "news/updatewrite";
 	}
 	
-	//주변 관광지 글 삭제하기
-	@DeleteMaaping(value="delete/{id}")
-	public String deleteBoard(@Pathvariale("id") Long id) {
+	//주변 관광지 글 수정 등록
+	@PostMapping(value="update/{id}")
+	public String updatesucc(TourBoardDto tourBoardDto, Model model, @RequestParam("files") List<MultipartFile> fileList) {
+		if(fileList.get(0).isEmpty()) {
+			model.addAttribute("errorMessage", "첫번째 이미지는 필수입니다.");
+			return "news/updatewrite";
+		}
+		try {
+			tourBoardService.updateTourBoard(tourBoardDto, fileList);
+		} catch (Exception e) {
+			model.addAttribute("errorMessage", "글 수정 중 에러가 발생하였습니다.");
+			return "news/updatewrite";
+		}
 		
+		return "redirect:/news/tour";
+	}
+	
+	//주변 관광지 글 삭제하기(첨부파일이 있을 경우 첨부파일을 먼저 지우고 게시글을 지워야 한다)
+	@DeleteMapping(value="delete/{id}")
+	public String deleteBoard(@PathVariable("id") Long id) {
+		tourBoardService.deleteBoard(id);
 		return "redirect:/news/tour";
 	}
 }

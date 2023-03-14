@@ -54,4 +54,9 @@ public class TourBoard {
 		tourBoard.setTitle(tourBoardDto.getTitle());
 		return tourBoard;
 	}
+	
+	public void updateTourBoard(TourBoardDto tourBoardDto) {
+		this.title = tourBoardDto.getTitle();
+		this.content = tourBoardDto.getContent();
+	}
 }
