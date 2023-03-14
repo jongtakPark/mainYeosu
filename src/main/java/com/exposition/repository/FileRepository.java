@@ -8,5 +8,5 @@ import com.exposition.entity.File;
 
 public interface FileRepository extends JpaRepository<File, Long>{
 
-	List<File> findByTourboard(Long tourBoradId);
+	List<File> findByTourboardId(Long tourBoradId);
 }

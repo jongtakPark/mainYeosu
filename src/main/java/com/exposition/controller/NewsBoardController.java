@@ -79,16 +79,39 @@ public class NewsBoardController {
 	}
 	
 	//주변 관광지 상세 페이지 이동
-	@GetMapping(value="view/{id}")
-	public String tourBoardDetail(@PathVariable("id") Long id, Model model) {
+	@GetMapping(value="view/{tourBoardId}")
+	public String tourBoardDetail(@PathVariable("tourBoardId") Long tourBoardId, Model model) {
 		try {
-			TourBoardDto tourBoardDto = tourBoardService.getTourBoardDetail(id);
+			TourBoardDto tourBoardDto = tourBoardService.getTourBoardDetail(tourBoardId);
 			model.addAttribute("tourBoardDto",tourBoardDto);
+			System.out.println(tourBoardDto);
 		} catch (EntityNotFoundException e) {
-			model.addAttribute("errorMessage","존재하지 않는 상품 입니다");
+			model.addAttribute("errorMessage","존재하지 않는 글 입니다");
 			model.addAttribute("tourBoardDto", new TourBoardDto());
 			return "news/tourboardwrite";
 		}
-		return "news/tourboardwrite";
+		return "news/tourboardview";
+	}
+	
+	//주변 관광지 수정 페이지로 이동
+	@GetMapping(value="/modify/{id}")
+	public String modifyBoard(@PathVariable("id") Long tourBoardId, Model model) {
+		try {
+			TourBoardDto tourBoardDto = tourBoardService.getTourBoardDetail(tourBoardId);
+			model.addAttribute("tourBoardDto",tourBoardDto);
+			System.out.println(tourBoardDto);
+		} catch (EntityNotFoundException e) {
+			model.addAttribute("errorMessage","존재하지 않는 글 입니다");
+			model.addAttribute("tourBoardDto", new TourBoardDto());
+			return "news/tourboardwrite";
+		}
+		return "news/updatewrite";
+	}
+	
+	//주변 관광지 글 삭제하기
+	@DeleteMaaping(value="delete/{id}")
+	public String deleteBoard(@Pathvariale("id") Long id) {
+		
+		return "redirect:/news/tour";
 	}
 }

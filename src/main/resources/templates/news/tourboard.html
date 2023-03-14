@@ -27,11 +27,9 @@ layout:decorate="~{layouts/layout}">
 								<img th:src="${tourboard.savePath}">
                             </div>
                             <div class="photo_tit">
-                               <a th:href="@{/news/view/{id}(id=${tourboard.id})}"><span th:text="${tourboard.title}"></span></a> 
+                               <a th:href="@{/news/view/{tourBoardId}(tourBoardId=${tourboard.id})}"><span th:text="${tourboard.title}"></span></a> 
                             </div>
-                            <div class="photo_con">
-                          <span th:text="${tourboard.content}"></span>  
-                            </div>
+
                         </div>
                      </th:block>
      </div>

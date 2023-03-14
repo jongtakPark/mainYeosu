@@ -148,7 +148,3 @@
 .info_submit  > button:hover{
     background: aqua;
 }
-.info_cont_inner textarea{
-    resize: none;
-    outline: none;
-}

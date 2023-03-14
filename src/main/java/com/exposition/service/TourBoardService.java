@@ -19,6 +19,7 @@ import com.exposition.entity.TourBoard;
 import com.exposition.repository.FileRepository;
 import com.exposition.repository.TourBoardRepository;
 
+import aj.org.objectweb.asm.Type;
 import lombok.RequiredArgsConstructor;
 
 @Service
@@ -56,7 +57,7 @@ public class TourBoardService {
 	//주변 관광지 상세 페이지 창
 	@Transactional(readOnly=true)
 	public TourBoardDto getTourBoardDetail(Long tourBoardId) {
-		List<File> fileList = fileRepository.findByTourboard(tourBoardId);
+		List<File> fileList = fileRepository.findByTourboardId(tourBoardId);
 		List<FileDto> fileDtoList = new ArrayList<>();
 		for(File file : fileList) {
 			FileDto fileDto = FileDto.of(file);
@@ -67,5 +68,9 @@ public class TourBoardService {
 		TourBoardDto tourBoardDto = TourBoardDto.of(tourBoard);
 		tourBoardDto.setFileDtoList(fileDtoList);
 		return tourBoardDto;
+	}
+	
+	public void deleteBoard(Long id) {
+		tourBoardRepository.delete(id);
 	}
 }
