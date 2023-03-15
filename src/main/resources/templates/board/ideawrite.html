@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+xmlns:layout=http://www.ultraq.net.nz/thymeleaf/layout
+layout:decorate="~{layouts/layout}">
+<head>
+    <meta charset="UTF-8">
+    <title>ideawrite</title>
+<link rel="stylesheet" th:href="@{/css/boarddetail.css}">
+</head>
+
+<body>
+<div layout:fragment="content">
+ <div class="subMenu">
+       <ul>
+           <li><a href="#">전시관안내</a></li>
+           <li><a href="#">행사장오시는길</a></li>
+           <li><a href="#">포토갤러리</a></li>
+           <li><a href="#">여수섬키워드</a></li>
+       </ul>
+   </div>
+   <div class="freeboard">
+       <div class="free_title">
+          <div class="title">
+               <span>국민아이디어</span>
+           </div>
+       </div>
+       <form action="/board/ideanew" method="post"  th:object="${ideaDto}">
+       <div class="info_content">
+            <div class="info_title">
+                <div class="info_title_inner">
+                    <label for="">
+                        제목
+                    </label>
+                    <input type="text"  th:field="*{title}">
+                </div>
+            </div>
+            <div class="info_cont">
+                <div class="info_cont_inner">
+                    <label for="">
+                        내용
+                    </label>
+                    <textarea name="" id="test" cols="83" rows="10" th:field="*{content}"></textarea>
+                </div>
+            </div>
+           
+            <div class="info_submit">
+               <button type="submit">작성 글 등록</button>
+            </div>
+       </div>
+       <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+    </form>
+   </div>
+ </div>
+    
+</body>
+</html>

@@ -1,227 +1,120 @@
-* {
-    margin: 0;
-    padding: 0;
-    color: black;
-    text-decoration: none;
-    list-style: none;
-}
-
-.all {
-    height: 100vh;
-    width: 100vw;
-}
-
-.header {
-    height: 100px;
-    width: 100%;
-    background-color: gray;
-    position: relative;
-}
-
-.logo {
-    width: 134px;
-    height: 57px;
-    left: 50px;
-    top: 20px;
-    position: absolute;
-}
-
-.menu_form {
-    width: 75;
-    height: 57px;
-    left: 15%;
-    top: 20px;
-    position: absolute;
-}
-
-.menu_list {
-    width: 100%;
-    height: 100%;
-    list-style-type: none;
-    text-align: center;
-}
-
-.menu_list>li {
-    margin-left: 30px;
-    font-size: 22px;
-    float: left;
-    margin-top: 13px;
-    cursor: pointer;
-}
-
-.menu_list>li>a {
-    color: black;
-}
-
-.menu_list>li>a:hover {
-    color: white;
-}
-
-.menu_on {
-    position: absolute;
-    left: 92%;
-    top: 20px;
-    width: 50px;
-    height: 50px;
-    cursor: pointer;
-}
-
-.yeosu_logo {
-    width: 100%;
-    height: 100%;
-    cursor: pointer;
-}
-
-.menu_img {
-    width: 50px;
-    height: 50px;
-}
-
-
-
-/*    로그인 CSS*/
-.main_login {
-    width: 50%;
-    height: 50%;
-    margin: auto;
-    margin-top: 100px;
-}
-
-.login_ {
-    font-size: 40px;
-    margin: auto;
-    width: 17%;
-}
-
-.login_id {
-    width: 40%;
-    height: 40px;
-    margin-left: 215px;
-    margin-top: 100px;
-}
-
-.login_pw {
-    width: 40%;
-    height: 40px;
-    margin-left: 215px;
-    margin-top: 30px;
-}
-
-.login {
-    background-color: #BDBDBD;
-    width: 40%;
-    height: 40px;
-    margin-left: 215px;
-    margin-top: 30px;
-    text-align: center;
-    line-height: 40px;
-    border-radius: 5px;
-}
-
-.login>a>span {
-    font-size: 20px;
-}
-
-.find_idpw {
-    width: 23%;
-    margin-left: 215px;
-}
-
-.membership {
-    margin-left: 65px;
-}
-
-/*자유게시판*/
-.all>.board {
-    position: relative;
-}
-
-.board>.subMeun {
-    position: relative;
-    width: 100%;
-    height: 50px;
-    border-bottom: 1px solid gray;
-
-    overflow: hidden;
-}
-
-.board>.subMeun>ul {
-    position: absolute;
-
-    width: 50%;
-    height: 50px;
-    left: 300px;
-    top: 14px;
-}
-
-.board>.subMeun>ul>li {
-    float: left;
-    margin-left: 60px;
-
-    font-size: 15px
-}
-.freelist {
-    margin-top: 40px;
-    margin-bottom: 30px;
-}
-.freelist > span {
-    /* background: blue; */
-    margin-left: 150px;
-    font-size: 25px; 
-    font-weight: bold;  
-}
-.freeBoard {
-    
-    margin-top: 20px;
-    margin-left: 150px;
-    width: 80%;
-    height: 550px;
-    border-top: 1px solid gray;
-    
-}
-.freeBoard table{
+.subMenu{
     margin-top: 10px;
-    width: 100%;
-    
-    
-    
-}
-.freeBoard th{
-    font-size: 25px;
-    font-weight: 500;
-    
-}
-.search{
-    margin-left: 800px;
-}
-tr{
-    margin-bottom: 40px;
-    border-bottom: 1px solid gray;
-    
-    
-}
-td{
-    font-size: 20px;   
-    /* text-align: center; */
     height: 50px;
-
+    border-bottom: 1px solid grey;
+}
+.subMenu > ul {
+    margin-left: 13%;
+    line-height: 35px;
+}
+.subMenu > ul > li{
+    list-style: none;
+    float: left;
+    margin-left: 50px;
+}
+.subMenu > ul > li > a{
+    text-decoration: none;
+    color: black;
+}
+.subMenu > ul > li > a:hover{
+   color : red;
 }
 
 
-.table tr td:first-child{
+/*    �����Խ���*/
+.idea{
+    width: 70%;
+    height: 800px;
+/*        border: 1px solid red;*/
+    margin: auto;
+}
+
+.idea_title{
+    position: relative;
+    border-bottom: 1px solid black;
+    height: 100px;
+}
+
+.idea_title > .title{
+    position: absolute;
+    margin-top: 30px;
+}
+
+.idea_title > .title > p{
+    font-size: 45px;
+    }
+
+.idea_content{
+    width: 100%;
+    height: 700px;
+    margin-top: 10px;
+    border-radius: 10px;
+}
+
+table{
+    width: 100%;
+}
+
+tr{
+    width: 100%;
+    z-index: 9999;
+    display: block;
+    box-sizing: border-box;
+    display: flex;
+    font-size: 18px;
+    margin-top: 10px;
+    padding-bottom: 10px;
+    
     text-align: center;
 }
-.table tr td:nth-child(2){
-    padding-left: 20px;
+thead > tr {
+    border-bottom: 2px solid black;
 }
 
-.table tr td:nth-child(3){
-    text-align: center;
+tr td:first-child{
+    flex: 14%;
 }
-.table tr td:last-child{
+tr td:nth-child(2){
+    flex: 57%;
+}
+tr td:nth-child(3){
+    flex: 13%;
+}
+tr td:last-child{
+    flex: 16%;
+}
+tbody tr td:nth-child(2){
+    text-align : left;
+}
+tbody > tr {
+    border-bottom: 1px solid grey;
+}
+.write{
+    position: absolute;
+    width: 120px;
+    height: 50px;
+    line-height: 50px;
     text-align: center;
+    right: 13%;
+    bottom: 50px;
+    background: #99DDEE;
+    border-radius: 10px;
+    border: 2px solid #666;
+    color: #666;
+    font-size: 22px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: 0.2s
+}
+.write:hover{
+    background-color: #39A3C0;
+    color: #fff;
 }
 
-table {
-    border-collapse: collapse;
+.pagebtn{		
+		text-align: center;
+		bottom: 60px;
+		position: absolute;
+	
+		width: 1250px;
 }

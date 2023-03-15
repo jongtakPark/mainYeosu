@@ -1,5 +1,5 @@
 /* Style for our header texts
-	* --------------------------------------- */
+   * --------------------------------------- */
     @font-face {
         font-family: 'Pretendard-Regular';
         src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
@@ -169,6 +169,21 @@ h1 {
     height: 110px;
 }
 
+.welcome{
+   width: 300px;
+   height: 150px;
+   color: black;
+   font-size: 30px;
+   position: absolute;
+   right: 50px;
+   top: 38%;
+}
+
+.welcome2{
+   color: #00488C;
+   font-size: 33px;
+}
+
 .main_sns {
     position: relative;
     height: 150px;
@@ -187,15 +202,8 @@ h1 {
 #section1 {
     width: 100%;
     height: 100%;
-<<<<<<< HEAD
-    background-image: url(/images/section01_bg.jpg);
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: center;
-    background-attachment: fixed;
-=======
     background-color: rgb(219,219,219);
->>>>>>> origin/main
+
 }
 
 #section1>.intro {
@@ -210,46 +218,30 @@ h1 {
 }
 
 .section1_inner h2 {
-<<<<<<< HEAD
     font-size: 40px;
-=======
     font-size: 35px;
->>>>>>> origin/main
     color: #333;
 }
 
 .section1_inner h1 {
-<<<<<<< HEAD
     font-size: 60px;
-=======
     font-size: 50px;
->>>>>>> origin/main
     color: black;
     font-weight: bold;
 }
 
 .section1_content {
     width: 1280px;
-<<<<<<< HEAD
     height: 706px;
-=======
     height: 530px;
->>>>>>> origin/main
     background-color: #fff;
     /* position: absolute;
     left: 10%;
     top: 30%; */
     margin: 0 auto;
-<<<<<<< HEAD
     margin-top: 10px;
 }
-.section1_content img{
-    width: 100%;
-    height: 100%;
-}
-=======
-    margin-top: 40px;
-}
+
 
 .section1_content img {
     width: 1280px;
@@ -287,23 +279,15 @@ strong{
 .cont1 ul li:last-child span{
     top: -1px;
 } */
->>>>>>> origin/main
 
 #section2 {
     width: 100%;
     height: 100%;
-<<<<<<< HEAD
-    background-image: url(/images/section01_bg.jpg);
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: center;
-    background-attachment: fixed;
+    background-color: rgb(219, 219, 219);
 } 
 #section2>.intro{
     margin: 0 auto;
     position: relative;
-}
-=======
     /* background-image: url(images/section01_bg.jpg);
     background-repeat: no-repeat;
     background-size: cover;
@@ -317,7 +301,6 @@ strong{
     position: relative;
 }
 
->>>>>>> origin/main
 .section2_inner {
     /* position: absolute;
     top: 16%;
@@ -339,27 +322,22 @@ strong{
 
 .swiper-slide {
     text-align: center;
-<<<<<<< HEAD
       font-size: 18px;
       background: #fff;
       display: flex;
       justify-content: center;
       align-items: center;
-=======
     font-size: 18px;
     background: #fff;
     display: flex;
     justify-content: center;
     align-items: center;
-
->>>>>>> origin/main
 }
 
 
 .swiper-slide img {
     display: block;
     width: 100%;
-<<<<<<< HEAD
     height: 100%;
     object-fit: cover;
 }
@@ -374,7 +352,6 @@ strong{
 .swiper_btn>h2{
     font-size: 40px;
     color: #fff;
-=======
     height: 80%;
     object-fit: cover;
 }
@@ -465,7 +442,6 @@ strong{
 .swiper_btn>h2 {
     font-size: 35px;
     color: black;
->>>>>>> origin/main
     font-weight: bold;
     padding-top: 130px;
 }
@@ -588,7 +564,7 @@ input[id="menu"]+label span:nth-child(3) {
 input[id="menu"]:checked+label span:nth-child(1) {
     top: 50%;
     transform: translateY(-50%) rotate(45deg);
-    background-color: #fff;
+    background-color: #666;
 }
 
 input[id="menu"]:checked+label span:nth-child(2) {
@@ -598,7 +574,7 @@ input[id="menu"]:checked+label span:nth-child(2) {
 input[id="menu"]:checked+label span:nth-child(3) {
     bottom: 50%;
     transform: translateY(50%) rotate(-45deg);
-    background-color: #fff;
+    background-color: #666;
 }
 
 .sidebar {

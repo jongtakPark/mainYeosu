@@ -74,6 +74,18 @@
 				<li><a href="#"><img src="images/youtube.png" alt=""></a></li>
 			</ul>
 		</div>
+		<div sec:authorize="hasAnyAuthority('ROLE_ADMIN')" class="welcome">
+         	<span sec:authentication="name" class="welcome2"></span>&nbsp;님 환영합니다
+        </div>      
+        <div sec:authorize="hasAnyAuthority('ROLE_USER')" class="welcome">
+            <span sec:authentication="name" class="welcome2"></span>&nbsp;님 환영합니다
+        </div>
+        <div sec:authorize="hasAnyAuthority('ROLE_COMPANY')" class="welcome">
+         	<span sec:authentication="name" class="welcome2"></span>&nbsp;님 환영합니다
+      	</div>
+      	<div sec:authorize="hasAnyAuthority('ROLE_VOLUNTEER')" class="welcome">
+        	 <span sec:authentication="name" class="welcome2"></span>&nbsp;님 환영합니다
+     	 </div>
 		<div class="main_lang">
 			<select name="lang" id="lang">
 				<option value="">
@@ -131,7 +143,7 @@
                 <div><a href="#">참가업체목록</a></div>
             <div><a class="memberSubMenu" href="/board/freeboard">자유게시판
                 <div><a href="#">관람후기</a></div>
-                <div><a href="#">국민아이디어</a></div>
+                <div><a href="/board/idea">국민아이디어</a></div>
                 <div><a href="board/survey">설문게시판</a></div>
                 <div sec:authorize="hasAnyAuthority('ROLE_VOLUNTEER')"><a href="#">자원봉사게시판</a></div>
                 </a></div>
@@ -153,7 +165,7 @@
            <div><a href="#">참가업체목록</a></div>
            <div><a class="adminSubMenu" href="/board/freeboard">자유게시판
                <div><a href="#">관람후기</a></div>
-               <div><a href="#">국민아이디어</a></div>
+               <div><a href="/board/idea">국민아이디어</a></div>
                <div><a href="board/survey">설문게시판</a></div>
                <div><a href="#">자원봉사게시판</a></div>
            </a></div>
