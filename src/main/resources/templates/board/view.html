@@ -49,14 +49,15 @@ layout:decorate="~{layouts/layout}">
                     </label>
                     <input type="text" th:value="${created}" readOnly >
                 </div>
-            </div>
-               <a href="/board/modify">수정</a>
+			</div>
        </div>
        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
     </form>
     <form th:action="@{/board/delete/{id}(id=${session.id})}" th:method="delete">
+    	
     	<div class="info_submit">
-               <button type="submit" class="submit">삭제하기</button>
+			<a href="/board/modify">수정</a>
+			<button type="submit" class="submit">삭제하기</button>
          </div>
     </form>
    </div>

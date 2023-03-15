@@ -4,7 +4,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.exposition.entity.Company;
 
-public interface CompanyRepository extends JpaRepository<Company, Long> {
+public interface CompanyRepository extends JpaRepository<Company, Long>, CompanyRepositoryCustom {
 	
 	Company findByCom(String string);
 	boolean existsByCom(String com);

@@ -1,5 +1,7 @@
 package com.exposition.dto;
 
+import java.time.LocalDateTime;
+
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
@@ -32,5 +34,11 @@ public class CompanyFormDto {
     private String confirmEmail;
     
     private String tel;
+    
+    private String approval;
+    
+    private LocalDateTime startDay;
+	
+	private LocalDateTime finishDay;
 
 }

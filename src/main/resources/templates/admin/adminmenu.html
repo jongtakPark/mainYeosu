@@ -5,7 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <title>AdminMenu</title>
-<link rel="stylesheet" th:href="@{/css/adminMenu.css}">
+<link rel="stylesheet" th:href="@{/css/adminmenu.css}">
 </head>
 <body>
 <div layout:fragment="content">
@@ -19,24 +19,26 @@
        <div class="title">
            <h1>업체등록 게시판</h1>
        </div>
+       <div class="approval_content">
        <table width="100%">
            <thead>
                <tr>
-                   <td width="25%">기업명</td>
-                   <td width="25%">장소</td>
-                   <td width="15%">날짜</td>
-                   <td width="15%">승인상황</td>
+                   <td>신청한 기업</td>
+                   <td>신청한 장소</td>
+                   <td>신청한 날짜</td>
+                   <td>승인상황</td>
                </tr>
            </thead>
            <tbody>
-               <tr>
-                   <td><a href="#"><span></span></a></td>
-                   <td ></td>
-                   <td ></td>
-                   <td ></td>
+               <tr th:each="list : ${appCom}">
+                   <td th:text="${list.com}">></td>
+                   <td th:text="${list.email}"></td>
+                   <td>[[${#temporals.format(list.startDay, 'yyyy-MM-dd')}]]~[[${#temporals.format(list.finishDay, 'yyyy-MM-dd')}]]</td>
+                   <td></td>
                </tr>
            </tbody>
        </table>
+       </div>
    </div>
 </div>
 </body>

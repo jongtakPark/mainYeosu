@@ -21,7 +21,7 @@ layout:decorate="~{layouts/layout}">
    <div class="freeboard">
        <div class="free_title">
           <div class="title">
-               <span>국민아이디어</span>
+               <span>국민아이디어 수정</span>
            </div>
        </div>
        <form th:action="@{'/board/ideamodcomplete/'+${session.id}}" th:method="put"  th:object="${ideaDto}">
@@ -47,10 +47,10 @@ layout:decorate="~{layouts/layout}">
                     <label for="">
                         작성자
                     </label>
-                    <input type="text" value="1" readOnly >
+                    <input type="text" th:value="${session.created}" readOnly >
                 </div>
             </div>
-            <div class="info_submit">
+            <div class="infosubmit">
                <button type="submit">등록</button>
             </div>
        </div>

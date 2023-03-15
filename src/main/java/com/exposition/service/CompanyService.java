@@ -1,5 +1,7 @@
 package com.exposition.service;
 
+import java.util.List;
+
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -7,8 +9,8 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.exposition.dto.CompanyFormDto;
 import com.exposition.entity.Company;
-import com.exposition.entity.Member;
 import com.exposition.repository.CompanyRepository;
 
 import lombok.RequiredArgsConstructor;
@@ -62,6 +64,11 @@ public class CompanyService implements UserDetailsService {
 	//기업 유저 회원 변경
 	public Company updateCompany(Company company) {
 		return companyRepository.save(company);
+	}
+	
+	//업체 등록 신청을 한 기업 찾기
+	public List<Company> findApprovalCom(Company company){
+		return companyRepository.getApprovalCom(company);
 	}
 
 }

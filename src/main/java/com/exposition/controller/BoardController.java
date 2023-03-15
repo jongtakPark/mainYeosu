@@ -86,6 +86,7 @@ public class BoardController {
 		session.setAttribute("title", view.get().getTitle());
 		session.setAttribute("content", view.get().getContent());
 		session.setAttribute("id", view.get().getId());
+		session.setAttribute("created", view.get().getCreatedBy());
 		model.addAttribute("title", view.get().getTitle());
 		model.addAttribute("content", view.get().getContent());
 		model.addAttribute("created", view.get().getCreatedBy());
@@ -164,6 +165,7 @@ public class BoardController {
        session.setAttribute("title", view.get().getTitle());
        session.setAttribute("content", view.get().getContent());
        session.setAttribute("id", view.get().getId());
+       session.setAttribute("created", view.get().getCreatedBy());
        model.addAttribute("title", view.get().getTitle());
        model.addAttribute("content", view.get().getContent());
        model.addAttribute("created", view.get().getCreatedBy());
@@ -190,4 +192,11 @@ public class BoardController {
        // model.addAttribute("freeboard",boardService.boardList()));
        return "redirect:/board/idea";
     }
+    
+    //국민 아이디어 게시글 삭제(DeleteMapping을 사용하기 위해서 view.html에 form을 추가해서 사용해야 함)
+  	@DeleteMapping(value="/idea/delete/{id}")
+  	public String deleteIdeaBoard(@PathVariable Long id) {
+  		boardService.deleteBoard(id);
+  		return "redirect:/board/idea";
+  	}
 }

@@ -1,20 +1,19 @@
 package com.exposition.entity;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.time.LocalDateTime;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import org.hibernate.annotations.ColumnDefault;
+import org.hibernate.annotations.DynamicInsert;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import com.exposition.constant.Role;
@@ -22,11 +21,11 @@ import com.exposition.dto.CompanyFormDto;
 
 import groovyjarjarantlr4.v4.runtime.misc.NotNull;
 import lombok.Data;
-import lombok.ToString;
 
 @Entity
 @Table(name="company")
 @Data
+@DynamicInsert
 public class Company {
 	@Id
 	@Column(name="company_id")
@@ -50,12 +49,20 @@ public class Company {
 	
 	private String tel;
 	
+	@ColumnDefault("'Y'")
+	private String approval;
+	
+	private LocalDateTime startDay;
+	
+	private LocalDateTime finishDay;
+	
+	
 	@Enumerated(EnumType.STRING)
 	private Role role;
 
-	@OneToMany(mappedBy = "company", fetch = FetchType.LAZY)
-	@ToString.Exclude
-	private List<FreeBoard> freeBoardList = new ArrayList<>();
+//	@OneToMany(mappedBy = "company", fetch = FetchType.LAZY)
+//	@ToString.Exclude
+//	private List<FreeBoard> freeBoardList = new ArrayList<>();
 	
 	//스프링시큐리티 설정 클래스에(SecurityConfig.java) 등록한 BCryptPasswordEncoder Bean으로 파라미터로 넘겨서 비밀번호를 암호화
 	public static Company createCompany(CompanyFormDto companyFormDto, PasswordEncoder passwordEncoder) {
@@ -66,6 +73,9 @@ public class Company {
 		company.setPassword(password);
 		company.setEmail(companyFormDto.getEmail());
 		company.setTel(companyFormDto.getTel());
+		company.setApproval(companyFormDto.getApproval());
+		company.setStartDay(companyFormDto.getStartDay());
+		company.setFinishDay(companyFormDto.getFinishDay());
 		company.setRole(Role.COMPANY);
 		return company;
 	}

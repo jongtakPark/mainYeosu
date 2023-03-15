@@ -25,8 +25,7 @@
 /*    자유게시판*/
 .freeboard{
     width: 70%;
-    
-/*        border: 1px solid red;*/
+    height: 870px;
     margin: auto;
 }
 
@@ -57,7 +56,7 @@
 
 .info_content{
     width: 100%;
-    height: 800px;      
+    height: 700px;      
     margin: 0 auto;
     margin-top: 10px;
 }
@@ -118,6 +117,33 @@
     font-size: 18px;
     border-bottom: 2px solid black;
 }
+.info_create{
+    width: 100%;
+    height: 50px;
+}
+.info_create_inner{
+    width: 100%;
+    height: 50px;
+    text-align: center;
+    line-height: 50px; 
+    display: flex;
+    justify-content: center;
+    border-bottom: 2px solid black;
+}
+.info_create_inner label{
+    width: 150px;
+    font-size: 18px;
+}
+.info_create_inner input{
+    width: 91%;
+    outline: none;
+    padding: 0;
+    box-sizing: border-box;
+    display: block;
+    font-size: 18px;
+    border: none;
+    background: #98D1CF;
+}
 
 .info_file {
   margin-top: 20px;
@@ -132,19 +158,53 @@
   border-radius: 10px;
   cursor: pointer;
 }
+.info_submit > a{
+	display : display;
+    border : 2px solid black;
+    width: 130px;
+    text-align : center;
+    height: 50px;
+    line-height : 47px;
+    border-radius: 20px;
+    font-size: 18px;
+    margin-left: 70%;
+    float : left;
+    background : #F0F0F0;
+}
+.info_submit > a:hover{
+    background: aqua;
+}
 .info_submit{
     width: 100%;
     height: 50px;
-    margin-top: 20px;
+    margin-bottom : 10px;
 }
 .info_submit  > button{
-    display: block;
+    display : inline;
+    width: 130px;
+    height: 50px;
+    border-radius: 20px;
+    font-size: 18px;
+    margin-left: 5%;
+    border : 2px solid black;
+}
+.info_submit  > button:hover{
+    background: aqua;
+}
+
+.infosubmit{
+    width: 100%;
+    height: 50px;
+    margin-top : 50px;
+}
+.infosubmit > button{
     width: 130px;
     height: 50px;
     border-radius: 20px;
     font-size: 18px;
     margin-left: 85%;
+    border : 2px solid black;
 }
-.info_submit  > button:hover{
+.infosubmit  > button:hover{
     background: aqua;
 }
