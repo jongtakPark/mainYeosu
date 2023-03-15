@@ -62,11 +62,9 @@ public class FileService {
 	public void updateFile(Long FileId, MultipartFile files) throws Exception {
 		if(!files.isEmpty()) {
 			Files saveFile = fileRepository.findById(FileId).orElseThrow(EntityNotFoundException::new);
-			
 			if(!StringUtils.isEmpty(saveFile.getImg())) {
 				deleteComFile(itemImgLocation+"/"+saveFile.getImg());
 			}
-			
 			String oriImg = files.getOriginalFilename();
 			String img = uploadFile(itemImgLocation, oriImg, files.getBytes());
 			String savePath = "/image/images/" + img;

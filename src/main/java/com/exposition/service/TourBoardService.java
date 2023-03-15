@@ -38,8 +38,8 @@ public class TourBoardService {
 	
 	
 	//주변 관광지 글 저장
-	public TourBoard saveTour(List<MultipartFile> files, TourBoardDto tourBaordDto) throws Exception {
-		TourBoard tourBoard = tourBaordDto.createTourBoard();
+	public TourBoard saveTour(List<MultipartFile> files, TourBoardDto tourBoardDto) throws Exception {
+		TourBoard tourBoard = tourBoardDto.createTourBoard();
 		tourBoardRepository.save(tourBoard);
 		for(int i=0; i<files.size(); i++) {
 			Files file = new Files();
@@ -58,6 +58,7 @@ public class TourBoardService {
 	public TourBoardDto getTourBoardDetail(Long tourBoardId) {
 		List<Files> fileList = fileRepository.findByTourboardId(tourBoardId);
 		List<FileDto> fileDtoList = new ArrayList<>();
+		List<FileDto> fileIds = new ArrayList<>();
 		for(Files file : fileList) {
 			FileDto fileDto = FileDto.of(file);
 			fileDtoList.add(fileDto);
@@ -68,18 +69,24 @@ public class TourBoardService {
 		tourBoardDto.setFileDtoList(fileDtoList);
 		return tourBoardDto;
 	}
+	
 	//게시글 수정 글 등록
 	public Long updateTourBoard(TourBoardDto tourBoardDto, List<MultipartFile> fileList) throws Exception {
-		TourBoard tourBoard = tourBoardRepository.findById(tourBoardDto.getId()).orElseThrow(EntityNotFoundException::new);
-		tourBoard.updateTourBoard(tourBoardDto);
-		List<Long> fileIds = tourBoardDto.getFileIds();
-		
+		TourBoard tourBoard = tourBoardDto.createTourBoard();
+		tourBoardRepository.save(tourBoard);
+		deleteFile(tourBoard.getId());
 		for(int i=0; i<fileList.size(); i++) {
-			fileService.updateFile(fileIds.get(i), fileList.get(i));
-			System.out.println("확인");
+			Files file = new Files();
+			file.setTourboard(tourBoard);
+			if(i==0) 
+				file.setThumbnail("Y");
+			else
+				file.setThumbnail("N");
+			fileService.saveFile(file, fileList.get(i));
 		}
-		return tourBoard.getId();
+		return tourBoardDto.getId();
 	}
+	
 	
 	//주변 관광지 글 삭제(나중에 첨부파일이 있는 게시판은 이걸 이용해서 삭제하면 됨)
 	public void deleteBoard(Long id) {
@@ -89,9 +96,23 @@ public class TourBoardService {
 			for(int i=0; i<list.size(); i++) {
 				fileService.deleteFile(list.get(i).getId());
 				fileService.deleteComFile("C:/images/" + list.get(i).getImg());
+				System.out.println("언제 실행되나요~");
 			}
 		}
 		tourBoardRepository.deleteById(id);
+	}
+	
+	//첨부파일만 삭제하기(게시글 수정시에 사용될것)
+	public void deleteFile(Long id) {
+		Long tourBoardId = findById(id).getId();
+		List<Files> list = fileService.findByTourBoardId(tourBoardId);
+		if(list!=null) {
+			for(int i=0; i<list.size(); i++) {
+				fileService.deleteFile(list.get(i).getId());
+				fileService.deleteComFile("C:/images/" + list.get(i).getImg());
+				System.out.println("언제 실행되나요~");
+			}
+		}
 	}
 	
 	//주변 관광지 글 찾아오기(첨부파일을 먼저 삭제 후 게시글을 지우기 위해)
