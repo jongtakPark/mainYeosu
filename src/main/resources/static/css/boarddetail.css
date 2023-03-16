@@ -117,6 +117,32 @@
     font-size: 18px;
     border-bottom: 2px solid black;
 }
+.info_cont_inner .survey{
+    width: 91%;
+    outline: none;
+    padding: 0;
+    box-sizing: border-box;
+    display: block;
+    border: none;
+    background: #98D1CF;
+    font-size: 18px;
+    border-bottom: 2px solid black;
+    line-height : 40px;
+}
+.survey .survey_box{
+	height : 100%;
+}
+.survey_ck {
+	margin : 25px 0 25px 0;	
+}
+.survey_ck p {
+	font-weight : bold;
+	font-size : 20px;
+	margin-bottom : 15px;
+}
+.survey_ck span {
+	margin : 0 20px 0 10px;
+}
 .info_create{
     width: 100%;
     height: 50px;
@@ -187,6 +213,7 @@
     font-size: 18px;
     margin-left: 5%;
     border : 2px solid black;
+    cursor:pointer
 }
 .info_submit  > button:hover{
     background: aqua;
@@ -204,7 +231,43 @@
     font-size: 18px;
     margin-left: 85%;
     border : 2px solid black;
+    cursor:pointer
 }
 .infosubmit  > button:hover{
+    background: aqua;
+}
+.complete{
+    width: 1%;
+    height: 50px;
+    margin-bottom : -50px;
+    margin-left: 70%;
+}
+.complete > button{
+    width: 130px;
+    height: 50px;
+    border-radius: 20px;
+    font-size: 18px;
+    border : 2px solid black;
+    cursor:pointer
+}
+.complete > button:hover{
+    background: aqua;
+}
+.delete{
+    width: 1%;
+    height: 50px;
+    margin-bottom : 10px;
+    margin-left: 85%;
+}
+.delete  > button{
+    display : inline;
+    width: 130px;
+    height: 50px;
+    border-radius: 20px;
+    font-size: 18px;
+    border : 2px solid black;
+    cursor:pointer
+}
+.delete  > button:hover{
     background: aqua;
 }

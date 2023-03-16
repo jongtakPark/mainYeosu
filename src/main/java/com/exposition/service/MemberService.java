@@ -60,25 +60,6 @@ public class MemberService implements UserDetailsService {
 	public Member updateMember(Member member) {
 		return memberRepository.save(member);
 	}
-	
-
-	// MemberDto -> Member 변환
-//		private Member change(Member ori, MemberFormDto dto) {
-//			System.out.println(dto);
-//			ori.setName(dto.getName());
-//			ori.setEmail(dto.getEmail());
-//			if (!dto.getPassword().isEmpty())
-//				ori.setPassword(dto.getPassword());
-//			return ori;
-//		}
-		
-		// Email 체크
-		// public MemberFormDto findByEmail(String email) {
-		// 	Member mem = memberRepository.findByEmail(email);
-		// 	if (mem != null)
-		// 		return MemberFormDto.createMemberDto(mem);
-		// 	return null;
-		// }
 
 	//이름과 이메일로으로 유저 찾기
 	public Member findByNameAndEmail(String name, String email) {

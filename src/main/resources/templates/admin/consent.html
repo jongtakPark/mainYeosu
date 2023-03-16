@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+		xmlns:layout=http://www.ultraq.net.nz/thymeleaf/layout
+		layout:decorate="~{layouts/layout}">
+<head>
+    <meta charset="UTF-8">
+    <title>AdminMenu</title>
+<link rel="stylesheet" th:href="@{/css/consent.css}">
+<script type="text/javascript">
+
+</script>
+</head>
+<body>
+<div layout:fragment="content">
+    <div class="subMenu">
+        <ul>
+           <li><a href="#">승인관리</a></li>
+           <li><a href="/admin/management">회원관리</a></li>
+       </ul>
+   </div>
+   <div class="container">
+   	   <select name="sel" id="sel">
+   	   		<option value="company" class="comp" id="2">기업</option>
+   	   		<option value="volunteer" class="volu" id="3">자원봉사</option>
+   	   </select>
+   	   <div class="container2" id="cont2">
+       <div class="title">
+           <h1>기업 승인관리</h1>
+       </div>
+       <div class="approval_content">
+       <table width="100%">
+           <thead>
+               <tr>
+               	   <td>번호</td>
+                   <td>신청한 기업</td>
+                   <td>이메일</td>
+                   <td>신청한 장소</td>
+                   <td>신청날짜</td>
+                   <td>승인</td>
+               </tr>
+           </thead>
+           <tbody>
+               <tr th:each="list : ${appCom}">
+               	   <td></td>
+                   <td th:text="${list.com}"></td>
+                   <td th:text="${list.email}"></td>
+                   <td></td>
+                   <td>[[${#temporals.format(list.startDay, 'yyyy-MM-dd')}]]~[[${#temporals.format(list.finishDay, 'yyyy-MM-dd')}]]</td>
+                   <td><button class="recognize">승인</button></td>
+               </tr>
+           </tbody>
+       </table>
+       </div>
+       </div>
+       <div class="container3" id="cont3">
+       <div class="title">
+           <h1>자원봉사자 승인관리</h1>
+       </div>
+       <div class="approval_content">
+       <table width="100%">
+           <thead>
+               <tr>
+               	   <td>번호</td>
+                   <td>신청자</td>
+                   <td>이메일</td>
+                   <td>아이디</td>
+                   <td>신청날짜</td>
+                   <td>승인</td>
+               </tr>
+           </thead>
+           <tbody>
+               <tr th:each="list : ${appCom}">
+                   <td></td>
+                   <td th:text="${list.com}"></td>
+                   <td th:text="${list.email}"></td>
+                   <td ></td>
+                   <td>[[${#temporals.format(list.startDay, 'yyyy-MM-dd')}]]~[[${#temporals.format(list.finishDay, 'yyyy-MM-dd')}]]</td>
+                   <td><button class="recognize">승인</button></td>
+               </tr>
+           </tbody>
+       </table>
+       </div>
+       </div>
+       <script type="text/javascript" src="/javascript/consent.js"></script>
+   </div>
+</div>
+</body>
+</html>

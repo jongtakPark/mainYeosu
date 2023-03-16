@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+		xmlns:layout=http://www.ultraq.net.nz/thymeleaf/layout
+		layout:decorate="~{layouts/layout}">
+<head>
+    <meta charset="UTF-8">
+    <title>AdminMenu</title>
+<link rel="stylesheet" th:href="@{/css/management.css}">
+<script type="text/javascript">
+
+</script>
+</head>
+<body>
+<div layout:fragment="content">
+    <div class="subMenu">
+        <ul>
+           <li><a href="/admin/consent">승인관리</a></li>
+           <li><a href="#">회원관리</a></li>
+       </ul>
+   </div>
+   <div class="container">
+   	   <select name="sel" id="sel">
+   	   		<option value="company" class="comp" id="2">기업회원</option>
+   	   		<option value="user" class="user" id="3">일반회원</option>
+   	   </select>
+   	   <div class="container2" id="cont2">
+       <div class="title">
+           <h1>기업 회원관리</h1>
+       </div>
+       <div class="approval_content">
+       <table width="100%">
+           <thead>
+               <tr>
+               	   <td>번호</td>
+                   <td>기업명</td>
+                   <td>사업자번호</td>
+                   <td>이메일</td>
+                   <td>업체등록현황</td>
+               </tr>
+           </thead>
+           <tbody>
+               <tr th:each="list : ${appCom}">
+               	   <td></td>
+                   <td></td>
+                   <td></td>
+                   <td></td>
+                   <td></td>
+               </tr>
+           </tbody>
+       </table>
+       </div>
+       </div>
+       <div class="container3" id="cont3">
+       <div class="title">
+           <h1>일반 회원관리</h1>
+       </div>
+       <div class="approval_content">
+       <table width="100%">
+           <thead>
+               <tr>
+               	   <td>번호</td>
+                   <td>이름</td>
+                   <td>아이디</td>
+                   <td>이메일</td>
+                   <td>권한</td>
+               </tr>
+           </thead>
+           <tbody>
+               <tr th:each="list : ${appCom}">
+                   <td></td>
+                   <td></td>
+                   <td></td>
+                   <td></td>
+                   <td></td>
+               </tr>
+           </tbody>
+       </table>
+       </div>
+       </div>
+       <script type="text/javascript" src="/javascript/management.js"></script>
+   </div>
+</div>
+</body>
+</html>

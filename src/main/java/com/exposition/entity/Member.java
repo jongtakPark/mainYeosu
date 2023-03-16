@@ -15,6 +15,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import org.hibernate.annotations.ColumnDefault;
+import org.hibernate.annotations.DynamicInsert;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import com.exposition.constant.Role;
@@ -28,6 +30,7 @@ import lombok.ToString;
 @Table(name="member")
 @Data
 @ToString
+@DynamicInsert
 public class Member {
 	
 	@Id
@@ -55,6 +58,9 @@ public class Member {
 	
 	@Enumerated(EnumType.STRING)
 	private Role role;
+	
+	@ColumnDefault("'N'")
+	private String survey;
 
 //	@OneToMany(mappedBy = "member", fetch = FetchType.LAZY)
 //	@ToString.Exclude

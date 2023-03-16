@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+xmlns:layout=http://www.ultraq.net.nz/thymeleaf/layout
+layout:decorate="~{layouts/layout}">
+<head>
+    <meta charset="UTF-8">
+    <title>boardwrite</title>
+<link rel="stylesheet" th:href="@{/css/boarddetail.css}">
+</head>
+
+<body>
+<div layout:fragment="content">
+ <div class="subMenu">
+       <ul>
+           <li><a href="#">관광후기</a></li>
+           <li><a href="#">국민아이디어</a></li>
+           <li><a href="#">설문게시판</a></li>
+           <li><a href="#">여수섬키워드</a></li>
+       </ul>
+   </div>
+   <div class="freeboard">
+       <div class="free_title">
+          <div class="title">
+               <span>설문조사 글 상세보기</span>
+           </div>
+       </div>
+       <form action="/board/survey/new" method="post"  th:object="${surveyboard}">
+       <div class="info_content">
+            <div class="info_title">
+                <div class="info_title_inner">
+                    <label for="">
+                        제목
+                    </label>
+                    <input type="text"  th:field="*{title}" readOnly>
+                </div>
+            </div>
+            <div class="info_cont">
+                <div class="info_cont_inner">
+                    <label for="">
+                        설문조사
+                    </label>
+                    <div class="survey" name="" id="test" cols="83" rows="10" th:field="*{content}">
+                    	 <div class="survey_box">
+                			<div class="survey_ck">
+                    			<p>1.원하는 정보에 관한 만족도 조사</p>
+                    			<input type="radio" name="ck1"   /><span>매우만족</span>
+                    			<input type="radio" name="ck1"   /><span>만족</span>
+                    			<input type="radio" name="ck1"   /><span>보통</span>
+                    			<input type="radio" name="ck1"   /><span>불만족</span>
+                    			<input type="radio" name="ck1"   /><span>매우불만족</span>
+               				 </div>
+                			<div class="survey_ck">
+                    			<p>2.추후 수정</p>
+                    			<input type="radio" name="ck2"   /><span>매우만족</span>
+                    			<input type="radio" name="ck2"   /><span>만족</span>
+                    			<input type="radio" name="ck2"   /><span>보통</span>
+                    			<input type="radio" name="ck2"   /><span>불만족</span>
+                    			<input type="radio" name="ck2"   /><span>매우불만족</span>
+                			</div>
+                			<div class="survey_ck">
+                    			<p>3.추후 수정</p>
+                    			<input type="radio" name="ck3"   /><span>매우만족</span>
+                    			<input type="radio" name="ck3"   /><span>만족</span>
+                    			<input type="radio" name="ck3"   /><span>보통</span>
+                    			<input type="radio" name="ck3"   /><span>불만족</span>
+                    			<input type="radio" name="ck3"   /><span>매우불만족</span>
+                			</div>
+                			<div class="survey_ck">
+                    			<p>4.추후 수정</p>
+                    			<input type="radio" name="ck4"   /><span>매우만족</span>
+                    			<input type="radio" name="ck4"   /><span>만족</span>
+                    			<input type="radio" name="ck4"   /><span>보통</span>
+                    			<input type="radio" name="ck4"   /><span>불만족</span>
+                    			<input type="radio" name="ck4"   /><span>매우불만족</span>
+                			</div>
+                		</div>
+                    </div>
+                </div>
+            </div>
+
+       </div>
+       <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+    </form>
+   <form th:action="@{/board/survey/complete}" th:method="put" class="complete-form">
+    	<div class="complete">
+			<button type="submit" class="submit">설문조사 완료</button>
+         </div>
+    </form>
+    <form th:action="@{/board/survey/delete/{id}(id=${session.id})}" th:method="delete">
+    	<div class="delete">
+			<button type="submit" class="submit">삭제하기</button>
+         </div>
+    </form>
+   </div>
+ </div>
+    
+</body>
+</html>

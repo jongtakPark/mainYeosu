@@ -26,7 +26,7 @@ layout:decorate="~{layouts/layout}">
                             <div class="photo_pic">
 								<img th:src="${tourboard.savePath}">
                             </div>
-                            <div class="photo_tit">
+                            <div contenteditable class="photo_tit">
                                <a th:href="@{/news/view/{tourBoardId}(tourBoardId=${tourboard.id})}"><span th:text="${tourboard.title}"></span></a> 
                             </div>
 

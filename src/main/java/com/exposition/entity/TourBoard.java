@@ -25,7 +25,7 @@ import lombok.ToString;
 @Data
 @Table(name="tourboard")
 @RequiredArgsConstructor
-public class TourBoard {
+public class TourBoard extends BaseEntity{
 	
 	@Id
 	@Column(name="tourboard_id")

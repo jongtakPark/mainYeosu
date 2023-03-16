@@ -9,6 +9,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -23,8 +25,11 @@ import com.exposition.dto.FreeBoardDto;
 import com.exposition.dto.IdeaDto;
 import com.exposition.entity.FreeBoard;
 import com.exposition.entity.Idea;
+import com.exposition.entity.Member;
+import com.exposition.entity.Survey;
 import com.exposition.service.BoardService;
 import com.exposition.service.IdeaService;
+import com.exposition.service.MemberService;
 
 import lombok.RequiredArgsConstructor;
 
@@ -34,12 +39,7 @@ import lombok.RequiredArgsConstructor;
 public class BoardController {
 	private final BoardService boardService;
 	private final IdeaService ideaService;
-	
-	//설문조사게시판
-	@GetMapping(value="/survey")
-	public String survey() {
-		return "board/survey";
-	}
+	private final MemberService memberService;
 	
 	//자유게시판
 	@GetMapping(value="/freeboard")
@@ -196,7 +196,59 @@ public class BoardController {
     //국민 아이디어 게시글 삭제(DeleteMapping을 사용하기 위해서 view.html에 form을 추가해서 사용해야 함)
   	@DeleteMapping(value="/idea/delete/{id}")
   	public String deleteIdeaBoard(@PathVariable Long id) {
-  		boardService.deleteBoard(id);
+  		ideaService.deleteBoard(id);
   		return "redirect:/board/idea";
+  	}
+  	
+    //설문조사게시판
+  	@GetMapping(value="/survey")
+  	public String survey(Model model, @PageableDefault(page=0, size=10, sort="id", direction=Sort.Direction.DESC) Pageable pageable) {
+  		
+  		Page<Survey> list = boardService.surveyBoardList(pageable);
+
+        model.addAttribute("survey",boardService.surveyBoardList(pageable));
+
+        //페이징	        
+        int nowPage = list.getPageable().getPageNumber() + 1;	        
+        int startPage =  Math.max(nowPage - 4, 1);
+        int endPage = Math.min(nowPage+9, list.getTotalPages());
+
+        model.addAttribute("list", list);
+        model.addAttribute("nowPage",nowPage);
+        model.addAttribute("startPage", startPage);
+        model.addAttribute("endPage", endPage);
+
+  		return "board/survey";
+  	}
+  	
+  	//설문조사 게시판 작성 페이지 이동
+  	@GetMapping(value="/surveywrite")
+  	public String surveyWrite(Model model) {
+  		model.addAttribute("surveyboard", new FreeBoardDto());
+  		return "board/surveywrite";
+  	}
+  			
+  	//설문조사 작성 글 저장
+  	@PostMapping(value="/survey/new")
+  	public String surveyNew(FreeBoardDto freeBoardDto) {
+  		Survey survey = Survey.createSurvey(freeBoardDto);
+  		boardService.surveyBoardSave(survey);
+  		return "redirect:/board/survey";
+  	}
+  	//설문조사 상세 페이지 이동
+  	@GetMapping(value="/survey/view/{id}")
+  	public String surveyView(@PathVariable("id") Long id, Model model) {
+  		Survey survey = boardService.findSurveyBoard(id);
+  		FreeBoardDto surveyFormDto = FreeBoardDto.of(survey);
+  		model.addAttribute("surveyboard", surveyFormDto);
+  		return "board/surveyview";
+  	}
+  	//설문조사 완료
+  	@PutMapping(value="/survey/complete")
+  	public String surveyComplete(@AuthenticationPrincipal User user) {
+  		Member member = memberService.findByMid(user.getUsername());
+  		member.setSurvey("Y");
+  		memberService.updateMember(member);
+  		return "redirect:/board/survey";
   	}
 }
