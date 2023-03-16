@@ -6,6 +6,9 @@ layout:decorate="~{layouts/layout}">
     <meta charset="UTF-8">
     <title>boardwrite</title>
 <link rel="stylesheet" th:href="@{/css/boarddetail.css}">
+<th:block layout:fragment="script">
+
+</th:block>
 </head>
 
 <body>
@@ -43,35 +46,35 @@ layout:decorate="~{layouts/layout}">
                     	 <div class="survey_box">
                 			<div class="survey_ck">
                     			<p>1.원하는 정보에 관한 만족도 조사</p>
-                    			<input type="radio" name="ck1"   /><span>매우만족</span>
-                    			<input type="radio" name="ck1"   /><span>만족</span>
-                    			<input type="radio" name="ck1"   /><span>보통</span>
-                    			<input type="radio" name="ck1"   /><span>불만족</span>
-                    			<input type="radio" name="ck1"   /><span>매우불만족</span>
+                    			<input type="radio" name="ck1" /><span>매우만족</span>
+                    			<input type="radio" name="ck1" /><span>만족</span>
+                    			<input type="radio" name="ck1" checked/><span>보통</span>
+                    			<input type="radio" name="ck1" /><span>불만족</span>
+                    			<input type="radio" name="ck1" /><span>매우불만족</span>
                				 </div>
                 			<div class="survey_ck">
                     			<p>2.추후 수정</p>
-                    			<input type="radio" name="ck2"   /><span>매우만족</span>
-                    			<input type="radio" name="ck2"   /><span>만족</span>
-                    			<input type="radio" name="ck2"   /><span>보통</span>
-                    			<input type="radio" name="ck2"   /><span>불만족</span>
-                    			<input type="radio" name="ck2"   /><span>매우불만족</span>
+                    			<input type="radio" name="ck2" /><span>매우만족</span>
+                    			<input type="radio" name="ck2" /><span>만족</span>
+                    			<input type="radio" name="ck2" checked /><span>보통</span>
+                    			<input type="radio" name="ck2" /><span>불만족</span>
+                    			<input type="radio" name="ck2" /><span>매우불만족</span>
                 			</div>
                 			<div class="survey_ck">
                     			<p>3.추후 수정</p>
-                    			<input type="radio" name="ck3"   /><span>매우만족</span>
-                    			<input type="radio" name="ck3"   /><span>만족</span>
-                    			<input type="radio" name="ck3"   /><span>보통</span>
-                    			<input type="radio" name="ck3"   /><span>불만족</span>
-                    			<input type="radio" name="ck3"   /><span>매우불만족</span>
+                    			<input type="radio" name="ck3" /><span>매우만족</span>
+                    			<input type="radio" name="ck3" /><span>만족</span>
+                    			<input type="radio" name="ck3" checked/><span>보통</span>
+                    			<input type="radio" name="ck3" /><span>불만족</span>
+                    			<input type="radio" name="ck3" /><span>매우불만족</span>
                 			</div>
                 			<div class="survey_ck">
                     			<p>4.추후 수정</p>
-                    			<input type="radio" name="ck4"   /><span>매우만족</span>
-                    			<input type="radio" name="ck4"   /><span>만족</span>
-                    			<input type="radio" name="ck4"   /><span>보통</span>
-                    			<input type="radio" name="ck4"   /><span>불만족</span>
-                    			<input type="radio" name="ck4"   /><span>매우불만족</span>
+                    			<input type="radio" name="ck4" /><span>매우만족</span>
+                    			<input type="radio" name="ck4" /><span>만족</span>
+                    			<input type="radio" name="ck4" checked  /><span>보통</span>
+                    			<input type="radio" name="ck4" /><span>불만족</span>
+                    			<input type="radio" name="ck4" /><span>매우불만족</span>
                 			</div>
                 		</div>
                     </div>
@@ -83,7 +86,7 @@ layout:decorate="~{layouts/layout}">
     </form>
    <form th:action="@{/board/survey/complete}" th:method="put" class="complete-form">
     	<div class="complete">
-			<button type="submit" class="submit">설문조사 완료</button>
+			<button type="submit" id="submit1" onclick="check()">설문조사 완료</button>
          </div>
     </form>
     <form th:action="@{/board/survey/delete/{id}(id=${session.id})}" th:method="delete">
@@ -93,6 +96,5 @@ layout:decorate="~{layouts/layout}">
     </form>
    </div>
  </div>
-    
 </body>
 </html>

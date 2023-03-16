@@ -12,8 +12,10 @@ import com.exposition.dto.BoardMainDto;
 import com.exposition.dto.QBoardMainDto;
 import com.exposition.dto.TourBoardDto;
 import com.exposition.entity.QFiles;
+import com.exposition.entity.QMember;
 import com.exposition.entity.QTourBoard;
 import com.querydsl.core.QueryResults;
+import com.querydsl.core.Tuple;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 
 public class BoardRepositoryCustomImpl implements BoardRepositoryCustom{
@@ -43,5 +45,16 @@ public class BoardRepositoryCustomImpl implements BoardRepositoryCustom{
 		Long total = result.getTotal();
 		return new PageImpl<>(list, pageable, total);
 				
+	}
+	
+	@Override
+	public List<Tuple> eventPrizeMember() {
+		QMember member = QMember.member;
+		
+		List<Tuple> results =queryFactory
+				.select(member.mid, member.email)
+				.from(member).where(member.eventCount.eq("N")).limit(3).fetch();
+				
+		return results;		
 	}
 }

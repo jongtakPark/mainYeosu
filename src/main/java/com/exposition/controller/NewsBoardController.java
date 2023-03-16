@@ -22,9 +22,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.exposition.dto.BoardMainDto;
+import com.exposition.dto.EventBoardDto;
 import com.exposition.dto.TourBoardDto;
+import com.exposition.entity.EventBoard;
+import com.exposition.service.EventBoardService;
 import com.exposition.service.FileService;
 import com.exposition.service.TourBoardService;
+import com.querydsl.core.Tuple;
 
 import lombok.RequiredArgsConstructor;
 
@@ -35,6 +39,7 @@ public class NewsBoardController {
 
 	private final FileService fileService;
 	private final TourBoardService tourBoardService;
+	private final EventBoardService eventBoardService;
 	
 	//주변관광지 페이지 이동
 	@RequestMapping(value="/tour", method= {RequestMethod.GET, RequestMethod.POST})
@@ -130,4 +135,27 @@ public class NewsBoardController {
 		tourBoardService.deleteBoard(id);
 		return "redirect:/news/tour";
 	}
+	
+	//이벤트 게시판 이동
+	@GetMapping(value="/event")
+	public String eventBoard(Model model) {
+		model.addAttribute("eventBoardList", eventBoardService.findAll());
+		return "news/eventboard";
+	}
+	//이벤트 게시판 글쓰기 창으로 이동
+	@GetMapping(value="/eventboardwrite")
+	public String eventBoardWrite(Model model) {
+		model.addAttribute("eventBoardDto", new EventBoardDto());
+		return "news/eventboardwrite";
+	}
+	//이벤트 게시판 글 등록과 동시에 이벤트 당첨자 회원을 3명 뽑음
+	@PostMapping(value="/new")
+	public String eventBoardNew(EventBoardDto eventBoardDto) {
+		EventBoard eventBoard = eventBoardDto.createEventBoard();
+		List<Tuple> mem = tourBoardService.saveBoardAndSelectMember(eventBoard);
+		System.out.println(mem);
+		return "redirect:/news/event";
+	}
+
+	
 }
