@@ -117,6 +117,17 @@
     font-size: 18px;
     border-bottom: 2px solid black;
 }
+.info_cont_inner .eventContent{
+    width: 91%;
+    outline: none;
+    padding: 0;
+    box-sizing: border-box;
+    display: block;
+    border: none;
+    background: #98D1CF;
+    font-size: 18px;
+    border-bottom: 2px solid black;
+}
 .info_cont_inner .survey{
     width: 91%;
     outline: none;

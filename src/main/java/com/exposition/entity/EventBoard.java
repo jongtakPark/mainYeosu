@@ -21,6 +21,6 @@ public class EventBoard extends BaseEntity{
 	
 	private String title;
 	
-	
+	private String content;
 	
 }

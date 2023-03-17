@@ -118,4 +118,15 @@ public class MailService {
 	      return CompletableFuture.completedFuture(authKey);
 	    }
 	
+	@Async //Async는 return 값이 void가 됨.
+	public void eventSendhMail(String email, String mid) throws MessagingException{
+	    MimeMessage mailMessage = mailSender.createMimeMessage();
+	    String mailContent = mid +" 님은 이벤트에 당첨 되셨습니다 축하드립니다!!";    
+	        mailMessage.setSubject("여수세계섬박람회 이벤트 당첨 메일", "utf-8"); 
+	        mailMessage.setText(mailContent, "utf-8", "html");  
+	        mailMessage.addRecipient(Message.RecipientType.TO, new InternetAddress(email));
+	        mailSender.send(mailMessage); // <--회원가입시 email란에 입력한 이메일주소로 인증메일이 보내진다.
+
+	    }
+	
 }

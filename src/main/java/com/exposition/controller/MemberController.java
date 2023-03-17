@@ -61,20 +61,22 @@ public class MemberController{
 		memberService.saveMember(member);
 
 		//일반회원
-		check = memberService.checkMidDuplicate("2");
+		for(int i=2; i<11; i++) {
+		check = memberService.checkMidDuplicate(String.valueOf(i));
 		if (check)
 			return;
-		memberFormDto.setMid("user");
+		memberFormDto.setMid("user" + String.valueOf(i));
 		memberFormDto.setPassword("user");
 		memberFormDto.setName("사용자");
-		memberFormDto.setEmail("User"+"@userEmail.com");
+		memberFormDto.setEmail("User"+String.valueOf(i)+"@userEmail.com");
 		member = Member.createMember(memberFormDto, passwordEncoder);
 		String password1 = passwordEncoder.encode(memberFormDto.getPassword());
 		member.setPassword(password1);
 		member.setRole(Role.USER);
 		memberService.saveMember(member);
+		}
 		//기업회원
-		check = companyService.checkComDuplicate("3");
+		check = companyService.checkComDuplicate("11");
 		if (check)
 			return;
 		CompanyFormDto companyFormDto = new CompanyFormDto();

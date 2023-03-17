@@ -2,8 +2,11 @@ package com.exposition.controller;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Random;
 
 import javax.persistence.EntityNotFoundException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.data.domain.Page;
@@ -23,12 +26,16 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.exposition.dto.BoardMainDto;
 import com.exposition.dto.EventBoardDto;
+import com.exposition.dto.EventMemberDto;
 import com.exposition.dto.TourBoardDto;
 import com.exposition.entity.EventBoard;
+import com.exposition.entity.Member;
+import com.exposition.entity.QMember;
 import com.exposition.service.EventBoardService;
 import com.exposition.service.FileService;
+import com.exposition.service.MailService;
+import com.exposition.service.MemberService;
 import com.exposition.service.TourBoardService;
-import com.querydsl.core.Tuple;
 
 import lombok.RequiredArgsConstructor;
 
@@ -40,6 +47,8 @@ public class NewsBoardController {
 	private final FileService fileService;
 	private final TourBoardService tourBoardService;
 	private final EventBoardService eventBoardService;
+	private final MemberService memberService;
+	private final MailService mailService;
 	
 	//주변관광지 페이지 이동
 	@RequestMapping(value="/tour", method= {RequestMethod.GET, RequestMethod.POST})
@@ -150,11 +159,47 @@ public class NewsBoardController {
 	}
 	//이벤트 게시판 글 등록과 동시에 이벤트 당첨자 회원을 3명 뽑음
 	@PostMapping(value="/new")
-	public String eventBoardNew(EventBoardDto eventBoardDto) {
+	public String eventBoardNew(EventBoardDto eventBoardDto, Model model, HttpServletRequest request) throws Exception {
+		QMember member = QMember.member;
+		Random rnd = new Random();
 		EventBoard eventBoard = eventBoardDto.createEventBoard();
-		List<Tuple> mem = tourBoardService.saveBoardAndSelectMember(eventBoard);
-		System.out.println(mem);
+		List<EventMemberDto> mem = tourBoardService.saveBoardAndSelectMember(eventBoard);
+		HttpSession session = request.getSession();
+		session.setAttribute("mem", mem);
+		for(int i=0; i<3; i++) {
+			if(mem.size()<3) {
+				model.addAttribute("errorMessage", "이벤트 당첨자 수가 맞지 않습니다.");
+				return "news/eventboardwrite";
+			} else {
+				int j = rnd.nextInt(mem.size());
+				Member members = Member.EventMember(mem.get(j));
+				Member m = memberService.findById(members.getId()).get();
+				mailService.eventSendhMail(m.getEmail(), m.getMid());
+				if(m.getEventCount()=="Y") {
+					int k = rnd.nextInt(mem.size()+1);
+					Member memberss = Member.EventMember(mem.get(k));
+					Member me = memberService.findById(memberss.getId()).get();
+					me.setEventCount("Y");
+					mailService.eventSendhMail(me.getEmail(), me.getMid());
+					memberService.updateMember(me);
+				} else {
+					m.setEventCount("Y");
+					memberService.updateMember(m);
+					mailService.eventSendhMail(m.getEmail(), m.getMid());
+				}
+			}
+		}
 		return "redirect:/news/event";
+	}
+	
+	//이벤트 게시판 상세창으로 이동
+	@GetMapping(value="/eventboardview/{id}")
+	public String eventBoardView(@PathVariable("id") Long id, Model model) {
+		EventBoard eventBoard = eventBoardService.findById(id);
+		EventBoardDto eventBoardDto = EventBoardDto.of(eventBoard);
+		model.addAttribute("eventBoardDto", eventBoardDto);
+		System.out.println(eventBoardDto);
+		return "/news/eventboardview";
 	}
 
 	

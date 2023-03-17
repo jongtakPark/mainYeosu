@@ -38,7 +38,7 @@ layout:decorate="~{layouts/layout}">
                        
                       <td th:text="${list.id}"></td>
                     <td>
-                       <a th:href="@{/news/view/{id}(id=${list.id})}"><span th:text="${list.title}"></span></a>
+                       <a th:href="@{/news/eventboardview/{id}(id=${list.id})}"><span th:text="${list.title}"></span></a>
                     </td>
                     <td>
                         <span th:text="${list.createdBy}"></span>

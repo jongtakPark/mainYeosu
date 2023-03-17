@@ -22,6 +22,7 @@ import org.hibernate.annotations.DynamicInsert;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import com.exposition.constant.Role;
+import com.exposition.dto.EventMemberDto;
 import com.exposition.dto.MemberFormDto;
 
 import groovyjarjarantlr4.v4.runtime.misc.NotNull;
@@ -61,11 +62,11 @@ public class Member {
 	@Enumerated(EnumType.STRING)
 	private Role role;
 	
-	@ColumnDefault("'N'")
-	private String survey;
+	@ColumnDefault("'Y'")
+	private String survey;  //설문조사 참여 Y/N
 	
 	@ColumnDefault("'N'")
-	private String eventCount;
+	private String eventCount;  //이벤트 당첨 Y/N
 
 
 	
@@ -75,13 +76,19 @@ public class Member {
 		member.setMid(memberFormDto.getMid());
 		member.setName(memberFormDto.getName());
 		String password = passwordEncoder.encode(memberFormDto.getPassword());
-		
 		member.setPassword(password);
-//		String comfirmPw = passwordEncoder.encode(memberFormDto.getConfirmPassword());
-//		member.setConfirmPassword(comfirmPw);
 		member.setEmail(memberFormDto.getEmail());
 		member.setTel(memberFormDto.getTel());
 		member.setRole(Role.ADMIN);
+		return member;
+	}
+	
+	public static Member EventMember(EventMemberDto eventMemberDto) {
+		Member member = new Member();
+		member.setId(eventMemberDto.getId());
+		member.setMid(eventMemberDto.getMid());
+		member.setEmail(eventMemberDto.getEmail());
+		member.setEventCount(eventMemberDto.getEventCount());
 		return member;
 	}
 }

@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.exposition.dto.BoardMainDto;
+import com.exposition.dto.EventMemberDto;
 import com.exposition.dto.FileDto;
 import com.exposition.dto.TourBoardDto;
 import com.exposition.entity.EventBoard;
@@ -21,7 +22,6 @@ import com.exposition.repository.BoardRepository;
 import com.exposition.repository.EventBoardRepository;
 import com.exposition.repository.FileRepository;
 import com.exposition.repository.TourBoardRepository;
-import com.querydsl.core.Tuple;
 
 import lombok.RequiredArgsConstructor;
 
@@ -123,8 +123,8 @@ public class TourBoardService {
 		return tourBoardRepository.findById(id).get();
 	}
 	
-	//이벤트 게시판 글 작성과 동시에 이벤트 당첨자 회원 3명을 뽑음
-	public List<Tuple> saveBoardAndSelectMember(EventBoard eventBoard){
+	//이벤트 게시판 글 작성과 동시에 이벤트 당첨자 회원 뽑음
+	public List<EventMemberDto> saveBoardAndSelectMember(EventBoard eventBoard){
 		eventBoardRepository.save(eventBoard);
 		return boardRepository.eventPrizeMember();
 	}
