@@ -119,9 +119,9 @@ public class MailService {
 	    }
 	
 	@Async //Async는 return 값이 void가 됨.
-	public void eventSendhMail(String email, String mid) throws MessagingException{
+	public void eventSendhMail(String email, String name) throws MessagingException{
 	    MimeMessage mailMessage = mailSender.createMimeMessage();
-	    String mailContent = mid +" 님은 이벤트에 당첨 되셨습니다 축하드립니다!!";    
+	    String mailContent = name +"님은 이벤트에 당첨 되셨습니다 축하드립니다!!";    
 	        mailMessage.setSubject("여수세계섬박람회 이벤트 당첨 메일", "utf-8"); 
 	        mailMessage.setText(mailContent, "utf-8", "html");  
 	        mailMessage.addRecipient(Message.RecipientType.TO, new InternetAddress(email));

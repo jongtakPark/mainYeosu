@@ -33,8 +33,6 @@ public class TourBoardService {
 	private final TourBoardRepository tourBoardRepository;
 	private final FileService fileService;
 	private final FileRepository fileRepository;
-	private final EventBoardRepository eventBoardRepository;
-	private final BoardRepository boardRepository;
 
 	//주변 관광지 게시판 리스트 출력(페이징)
 	public Page<BoardMainDto> getBoardMainPage(TourBoardDto tourBoardDto, Pageable pageable){
@@ -121,12 +119,6 @@ public class TourBoardService {
 	//주변 관광지 글 찾아오기(첨부파일을 먼저 삭제 후 게시글을 지우기 위해)
 	public TourBoard findById(Long id){
 		return tourBoardRepository.findById(id).get();
-	}
-	
-	//이벤트 게시판 글 작성과 동시에 이벤트 당첨자 회원 뽑음
-	public List<EventMemberDto> saveBoardAndSelectMember(EventBoard eventBoard){
-		eventBoardRepository.save(eventBoard);
-		return boardRepository.eventPrizeMember();
 	}
 	
 }

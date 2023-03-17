@@ -160,42 +160,35 @@ public class NewsBoardController {
 	//이벤트 게시판 글 등록과 동시에 이벤트 당첨자 회원을 3명 뽑음
 	@PostMapping(value="/new")
 	public String eventBoardNew(EventBoardDto eventBoardDto, Model model) throws Exception {
-		QMember member = QMember.member;
 		Random rnd = new Random();
 		EventBoard eventBoard = eventBoardDto.createEventBoard();
-		List<EventMemberDto> mem = tourBoardService.saveBoardAndSelectMember(eventBoard);
 		for(int i=0; i<3; i++) {
-			if(mem.size()<3) {
-				model.addAttribute("errorMessage", "이벤트 당첨자 수가 맞지 않습니다.");
+			List<EventMemberDto> mem = eventBoardService.saveBoardAndSelectMember(eventBoard);
+			if(mem.size()<1) {
+				model.addAttribute("errorMessage", "이벤트 당첨 조건에 맞는 회원이 없습니다.");
 				return "news/eventboardwrite";
 			} else {
 				int j = rnd.nextInt(mem.size());
-				Member members = Member.EventMember(mem.get(j));
-				Member m = memberService.findById(members.getId()).get();
-				mailService.eventSendhMail(m.getEmail(), m.getMid());
-				if(m.getEventCount()=="Y") {
-					int k = rnd.nextInt(mem.size()+1);
-					Member memberss = Member.EventMember(mem.get(k));
-					Member me = memberService.findById(memberss.getId()).get();
-					me.setEventCount("Y");
-					mailService.eventSendhMail(me.getEmail(), me.getMid());
-					memberService.updateMember(me);
-				} else {
-					m.setEventCount("Y");
-					memberService.updateMember(m);
-					mailService.eventSendhMail(m.getEmail(), m.getMid());
-				}
+				Member member = Member.EventMember(mem.get(j));
+				Member m = memberService.findById(member.getId()).get();
+				mailService.eventSendhMail(m.getEmail(), m.getName());
+				m.setEventCount("Y");
+				m.setEventBoardId(eventBoard.getId());
+				memberService.updateMember(m);
 			}
 		}
 		return "redirect:/news/event";
 	}
+
 	
 	//이벤트 게시판 상세창으로 이동
 	@GetMapping(value="/eventboardview/{id}")
 	public String eventBoardView(@PathVariable("id") Long id, Model model) {
 		EventBoard eventBoard = eventBoardService.findById(id);
+		List<Member> member = memberService.findByEventBoardId(id);
 		EventBoardDto eventBoardDto = EventBoardDto.of(eventBoard);
 		model.addAttribute("eventBoardDto", eventBoardDto);
+		model.addAttribute("member", member);
 		return "/news/eventboardview";
 	}
 

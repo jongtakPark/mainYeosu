@@ -13,6 +13,7 @@ import com.exposition.dto.EventMemberDto;
 import com.exposition.dto.QBoardMainDto;
 import com.exposition.dto.QEventMemberDto;
 import com.exposition.dto.TourBoardDto;
+import com.exposition.entity.QEventBoard;
 import com.exposition.entity.QFiles;
 import com.exposition.entity.QMember;
 import com.exposition.entity.QTourBoard;

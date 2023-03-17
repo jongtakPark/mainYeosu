@@ -68,7 +68,7 @@ public class Member {
 	@ColumnDefault("'N'")
 	private String eventCount;  //이벤트 당첨 Y/N
 
-
+	private Long eventBoardId;
 	
 	//스프링시큐리티 설정 클래스에(SecurityConfig.java) 등록한 BCryptPasswordEncoder Bean으로 파라미터로 넘겨서 비밀번호를 암호화
 	public static Member createMember(MemberFormDto memberFormDto, PasswordEncoder passwordEncoder) {

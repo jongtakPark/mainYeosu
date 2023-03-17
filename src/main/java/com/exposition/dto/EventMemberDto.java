@@ -11,6 +11,7 @@ public class EventMemberDto {
 	private String mid;
 	private String email;
 	private String eventCount;
+
 	
 	@QueryProjection
 	public EventMemberDto(Long id, String mid, String email, String eventCount) {
@@ -18,5 +19,6 @@ public class EventMemberDto {
 		this.email = email;
 		this.mid = mid;
 		this.eventCount = eventCount;
+
 	}
 }

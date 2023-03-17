@@ -1,5 +1,6 @@
 package com.exposition.service;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.security.core.userdetails.User;
@@ -9,7 +10,6 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.exposition.dto.MemberFormDto;
 import com.exposition.entity.Member;
 import com.exposition.repository.MemberRepository;
 
@@ -88,6 +88,16 @@ public class MemberService implements UserDetailsService {
 			return member;
 		} else {
 			throw new NullPointerException("가입된 회원이 아닙니다");
+		}
+	}
+	
+	//이벤트 당첨자 찾기
+	public List<Member> findByEventBoardId(Long id) {
+		List<Member> member = memberRepository.findByEventBoardId(id);
+		if(member!=null) {
+			return member;
+		} else {
+			throw new NullPointerException("이벤트에 당첨된 회원이 없습니다.");
 		}
 	}
 	

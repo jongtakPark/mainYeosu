@@ -39,9 +39,11 @@ layout:decorate="~{layouts/layout}">
                     <label for="" >
                         내용
                     </label>
-                    <div name="" id="test" class="eventContent" cols="83" rows="10" th:field="*{content}">
+                    <div name="" id="test" class="eventContent" cols="83" rows="10">
+                    	<span th:text="*{content}"></span>
                     	<table>
-                    	
+                    		<tr th:each="mem : ${member}">
+                    			<td><span th:text="${mem.mid}"></span></td>
                     	</table>
                     </div>
                 </div>
