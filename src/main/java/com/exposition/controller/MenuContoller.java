@@ -31,5 +31,5 @@ public class MenuContoller {
 	@GetMapping(value="/reviewshow")	
 	public String reviewshow() {
 		return "board/reviewshow";
-		}		
+	}		
 }

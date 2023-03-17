@@ -180,7 +180,6 @@ public class NewsBoardController {
 		return "redirect:/news/event";
 	}
 
-	
 	//이벤트 게시판 상세창으로 이동
 	@GetMapping(value="/eventboardview/{id}")
 	public String eventBoardView(@PathVariable("id") Long id, Model model) {

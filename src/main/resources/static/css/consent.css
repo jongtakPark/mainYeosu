@@ -122,3 +122,15 @@ tbody > tr {
 	top: 38px;
 	z-index:9999;
 }
+.wrap{
+    width: 70%;
+    height: 100px;
+    margin: auto;
+}
+
+.wrap > .pagebtn{
+    width: 100px;
+    height: 50px;
+    margin: auto;
+    margin-top: 25px;
+}

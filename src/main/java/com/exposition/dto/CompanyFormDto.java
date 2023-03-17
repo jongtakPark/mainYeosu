@@ -9,9 +9,13 @@ import javax.validation.constraints.Pattern;
 
 import org.hibernate.validator.constraints.Length;
 
+import com.querydsl.core.annotations.QueryProjection;
+
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
+@NoArgsConstructor
 public class CompanyFormDto {
 	
 	@NotBlank(message = "사업자번호(아이디)는 필수 입력값입니다.")
@@ -40,5 +44,16 @@ public class CompanyFormDto {
     private LocalDateTime startDay;
 	
 	private LocalDateTime finishDay;
+
+	
+	@QueryProjection
+	public CompanyFormDto(String com, String name, String email, String approval, LocalDateTime startDay, LocalDateTime finishDay) {
+		this.com = com;
+		this.name = name;
+		this.email = email;
+		this.approval = approval;
+		this.startDay = startDay;
+		this.finishDay = finishDay;
+	}
 
 }

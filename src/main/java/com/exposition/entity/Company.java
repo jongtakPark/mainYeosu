@@ -50,7 +50,7 @@ public class Company {
 	private String tel;
 	
 	@ColumnDefault("'Y'")
-	private String approval;
+	private String approval; //업체등록 신청
 	
 	private LocalDateTime startDay;
 	

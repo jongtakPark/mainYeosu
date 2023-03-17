@@ -1,7 +1,7 @@
 package com.exposition.service;
 
-import java.util.List;
-
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -67,8 +67,8 @@ public class CompanyService implements UserDetailsService {
 	}
 	
 	//업체 등록 신청을 한 기업 찾기
-	public List<Company> findApprovalCom(Company company){
-		return companyRepository.getApprovalCom(company);
+	public Page<CompanyFormDto> findApprovalCom(CompanyFormDto companyFormDto, Pageable pageable){
+		return companyRepository.getApprovalCom(companyFormDto,  pageable);
 	}
 
 }

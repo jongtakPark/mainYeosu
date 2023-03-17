@@ -8,10 +8,13 @@ import javax.validation.constraints.Pattern;
 import org.hibernate.validator.constraints.Length;
 
 import com.exposition.entity.Member;
+import com.querydsl.core.annotations.QueryProjection;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
+@NoArgsConstructor
 public class MemberFormDto {
 	
 	@NotBlank(message = "아이디는 필수 입력 값입니다.")
@@ -35,6 +38,7 @@ public class MemberFormDto {
     
     private String tel;
     
+    
     public static MemberFormDto createMemberDto(Member mem) {
 		MemberFormDto memDto = new MemberFormDto();
 		memDto.mid = mem.getMid();
@@ -44,5 +48,12 @@ public class MemberFormDto {
 		memDto.tel = mem.getTel();
 		return memDto;
 	}
+    
+    @QueryProjection
+    public MemberFormDto(String mid, String name, String email) {
+    	this.mid = mid;
+    	this.name = name;
+    	this.email = email;
+    }
 
 }

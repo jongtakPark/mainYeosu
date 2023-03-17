@@ -1,11 +1,11 @@
 package com.exposition.repository;
 
-import java.util.List;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 import com.exposition.dto.CompanyFormDto;
-import com.exposition.entity.Company;
 
 public interface CompanyRepositoryCustom {
 
-	List<Company> getApprovalCom(Company company);
+	Page<CompanyFormDto> getApprovalCom(CompanyFormDto companyFormDto, Pageable pageable);
 }
