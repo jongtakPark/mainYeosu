@@ -159,13 +159,11 @@ public class NewsBoardController {
 	}
 	//이벤트 게시판 글 등록과 동시에 이벤트 당첨자 회원을 3명 뽑음
 	@PostMapping(value="/new")
-	public String eventBoardNew(EventBoardDto eventBoardDto, Model model, HttpServletRequest request) throws Exception {
+	public String eventBoardNew(EventBoardDto eventBoardDto, Model model) throws Exception {
 		QMember member = QMember.member;
 		Random rnd = new Random();
 		EventBoard eventBoard = eventBoardDto.createEventBoard();
 		List<EventMemberDto> mem = tourBoardService.saveBoardAndSelectMember(eventBoard);
-		HttpSession session = request.getSession();
-		session.setAttribute("mem", mem);
 		for(int i=0; i<3; i++) {
 			if(mem.size()<3) {
 				model.addAttribute("errorMessage", "이벤트 당첨자 수가 맞지 않습니다.");
@@ -198,7 +196,6 @@ public class NewsBoardController {
 		EventBoard eventBoard = eventBoardService.findById(id);
 		EventBoardDto eventBoardDto = EventBoardDto.of(eventBoard);
 		model.addAttribute("eventBoardDto", eventBoardDto);
-		System.out.println(eventBoardDto);
 		return "/news/eventboardview";
 	}
 
