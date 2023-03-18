@@ -109,4 +109,8 @@ public class MemberService implements UserDetailsService {
 		return memberRepository.getAppVolunteer(memberFormDto, pageable);
 	}
 	
+	//일반회원을 자원봉사 회원으로 변경
+	public void updateMemToVol(MemberFormDto memberFormDto) {
+		memberRepository.updateMemToVol(memberFormDto);
+	}
 }

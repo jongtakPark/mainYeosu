@@ -9,4 +9,6 @@ import com.exposition.entity.Member;
 public interface MemberRepositoryCustom {
 
 	Page<MemberFormDto> getAppVolunteer(MemberFormDto memberFormDto, Pageable pageable);
+	
+	void updateMemToVol(MemberFormDto memberFormDto);
 }

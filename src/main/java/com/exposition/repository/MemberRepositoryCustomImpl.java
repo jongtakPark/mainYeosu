@@ -8,6 +8,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 
+import com.exposition.constant.Role;
 import com.exposition.dto.MemberFormDto;
 import com.exposition.dto.QMemberFormDto;
 import com.exposition.entity.Member;
@@ -35,5 +36,12 @@ private JPAQueryFactory queryFactory;
 		Long total = result.getTotal();
 		return new PageImpl<>(list, pageable, total);
 
+	}
+	
+	@Override 
+	public void updateMemToVol(MemberFormDto memberFormDto){
+		QMember mem = QMember.member;
+		
+		queryFactory.update(mem).set(mem.role, Role.VOLUNTEER).set(mem.approval, "O").where(mem.approval.eq("Y")).execute();
 	}
 }
