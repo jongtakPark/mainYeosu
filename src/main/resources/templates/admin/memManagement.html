@@ -34,6 +34,7 @@
                    <td>아이디</td>
                    <td>이메일</td>
                    <td>권한</td>
+                   <td>회원정보수정</td>
                </tr>
            </thead>
            <tbody>
@@ -43,12 +44,21 @@
                    <td th:text="${list.mid}"></td>
                    <td th:text="${list.email}"></td>
                    <td th:text="${list.Role}"></td>
+                   <td><form th:action="@{/admin/modifyMem/{mid}(mid=${list.mid})}" th:method="get">
+                   <input type="submit" class="recognize" value="수정" style="cursor:pointer;">
+                   <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+                   </form></td>
                </tr>
            </tbody>
        </table>
        </div>
        </div>
-       <script type="text/javascript" src="/javascript/management.js"></script>
+       		<div class="pagebtn">
+			<th:block th:each="page:${#numbers.sequence(startPage,endPage)}">
+            <a th:if="${page==0? page==1 : page != nowPage}" th:href="@{/admin/memManagement(page=${page-1})}" th:text ="${page}"></a>
+            <strong th:if="${page==nowPage}" th:text ="${page}" style="color:red"></strong>
+       		 </th:block>
+			</div>
    </div>
 </div>
 </body>

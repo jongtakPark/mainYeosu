@@ -5,6 +5,8 @@ import java.util.Optional;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -87,15 +89,41 @@ public class AdminController {
 	
 	//회원관리 페이지 이동
 	@GetMapping(value="/memManagement")
-	public String memManagement(Model model) {
-	    model.addAttribute("memManage", memberService.findAllMember());
+	public String memManagement(Model model, @PageableDefault(page=0, size=10, sort="id", direction=Sort.Direction.DESC) Pageable pageable) {
+	    Page<Member> memList =  memberService.findAllMember(pageable);
+	    model.addAttribute("memManage", memList);
+	    int nowPage = memList.getPageable().getPageNumber() + 1;	        
+        int startPage =  Math.max(nowPage - 4, 1);
+        int endPage = Math.min(nowPage+9, memList.getTotalPages());
+
+        model.addAttribute("nowPage",nowPage);
+        model.addAttribute("startPage", startPage);
+        model.addAttribute("endPage", endPage);
 		return "admin/memManagement";
 	}
 	
 	//기업관리 페이지 이동
 	@GetMapping(value="/comManagement")
-	public String comManagement() {
+	public String comManagement(Model model, @PageableDefault(page=0, size=10, sort="id", direction=Sort.Direction.DESC) Pageable pageable) {
+		Page<Company> comList = companyService.findAllComapny(pageable);
+		model.addAttribute("comManage", comList);
+		int nowPage = comList.getPageable().getPageNumber() + 1;	        
+        int startPage =  Math.max(nowPage - 4, 1);
+        int endPage = Math.min(nowPage+9, comList.getTotalPages());
+
+        model.addAttribute("nowPage",nowPage);
+        model.addAttribute("startPage", startPage);
+        model.addAttribute("endPage", endPage);
 		return "admin/comManagement";
+	}
+	
+	//일반 회원 수정 페이지 이동
+	@GetMapping(value="modifyMem/{mid}")
+	public String modifyMem(Model model, @PathVariable String mid) {
+		Member member = memberService.findByMid(mid);
+		MemberFormDto memberFormDto = MemberFormDto.of(member);
+		model.addAttribute("memberFormDto", memberFormDto);
+		return "member/memberModify";
 	}
 	
 }

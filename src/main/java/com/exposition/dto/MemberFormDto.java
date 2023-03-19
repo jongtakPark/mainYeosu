@@ -6,7 +6,9 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Pattern;
 
 import org.hibernate.validator.constraints.Length;
+import org.modelmapper.ModelMapper;
 
+import com.exposition.entity.EventBoard;
 import com.exposition.entity.Member;
 import com.querydsl.core.annotations.QueryProjection;
 
@@ -38,7 +40,6 @@ public class MemberFormDto {
     
     private String tel;
     
-    
     public static MemberFormDto createMemberDto(Member mem) {
 		MemberFormDto memDto = new MemberFormDto();
 		memDto.mid = mem.getMid();
@@ -55,5 +56,11 @@ public class MemberFormDto {
     	this.name = name;
     	this.email = email;
     }
+    
+    private static ModelMapper modelMapper = new ModelMapper();
+	
+	public static MemberFormDto of(Member member) {
+		return modelMapper.map(member, MemberFormDto.class);
+	}
 
 }

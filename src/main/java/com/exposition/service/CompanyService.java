@@ -35,6 +35,11 @@ public class CompanyService implements UserDetailsService {
 		}	
 	}
 	
+	//기업회원 전체 조회
+	public Page<Company> findAllComapny(Pageable pageable){
+		return companyRepository.findAll(pageable);
+	}
+	
 	public Company findByCom(String com) {
 		return companyRepository.findByCom(com);
 	}

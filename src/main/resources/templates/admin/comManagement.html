@@ -37,45 +37,23 @@
                </tr>
            </thead>
            <tbody>
-               <tr th:each="list : ${appCom}">
-               	   <td></td>
-                   <td></td>
-                   <td></td>
-                   <td></td>
-                   <td></td>
+               <tr th:each="list : ${comManage}">
+               	   <td th:text="${list.id}"></td>
+                   <td th:text="${list.name}"></td>
+                   <td th:text="${list.com}"></td>
+                   <td th:text="${list.email}"></td>
+                   <td th:text="${list.approval}"></td>
                </tr>
            </tbody>
        </table>
        </div>
        </div>
-       <div class="container3" id="cont3">
-       <div class="title">
-           <h1>일반 회원관리</h1>
-       </div>
-       <div class="approval_content">
-       <table width="100%">
-           <thead>
-               <tr>
-               	   <td>번호</td>
-                   <td>이름</td>
-                   <td>아이디</td>
-                   <td>이메일</td>
-                   <td>권한</td>
-               </tr>
-           </thead>
-           <tbody>
-               <tr th:each="list : ${appCom}">
-                   <td></td>
-                   <td></td>
-                   <td></td>
-                   <td></td>
-                   <td></td>
-               </tr>
-           </tbody>
-       </table>
-       </div>
-       </div>
-       <script type="text/javascript" src="/javascript/management.js"></script>
+       		<div class="pagebtn">
+			<th:block th:each="page:${#numbers.sequence(startPage,endPage)}">
+            <a th:if="${page==0? page==1 : page != nowPage}" th:href="@{/admin/comManagement(page=${page-1})}" th:text ="${page}"></a>
+            <strong th:if="${page==nowPage}" th:text ="${page}" style="color:red"></strong>
+       		 </th:block>
+			</div>
    </div>
 </div>
 </body>

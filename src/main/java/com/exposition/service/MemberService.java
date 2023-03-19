@@ -39,8 +39,8 @@ public class MemberService implements UserDetailsService {
 	}
 	
 	//회원 전체 조회
-	public List<Member> findAllMember(){
-		return memberRepository.findAll();
+	public Page<Member> findAllMember(Pageable pageable){
+		return memberRepository.findAll(pageable);
 	}
 
 	//ajax를 이용한 중복검사
@@ -122,5 +122,10 @@ public class MemberService implements UserDetailsService {
 	//일반회원을 자원봉사 회원으로 모두 변경
 	public void updateAllMemToAll() {
 		memberRepository.updateAllMemToVol();
+	}
+	
+	//일반회원 탈퇴
+	public void deleteMem(Member member) {
+		memberRepository.delete(member);
 	}
 }

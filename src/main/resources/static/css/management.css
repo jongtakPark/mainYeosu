@@ -71,19 +71,22 @@ thead tr td:nth-child(1){
 	flex: 27%;
 }
 #cont2 tr td:last-child{
-    flex: 16%;
+    flex: 10%;
 }
 #cont3 tr td:first-child{
     flex: 10%;
 }
 #cont3 tr td:nth-child(2){
-    flex: 20%;
+    flex: 15%;
 }
 #cont3 tr td:nth-child(3){
-    flex: 27%;
+    flex: 23%;
 }
 #cont3 tr td:nth-child(4){
     flex: 27%;
+}
+#cont3 tr td:nth-child(5){
+    flex: 15%;
 }
 #cont3 tr td:last-child{
     flex: 16%;
@@ -114,4 +117,10 @@ tbody > tr {
 	right:0;
 	top: 38px;
 	z-index:9999;
+}
+.pagebtn{		
+	text-align: center;
+	bottom: 90px;
+	position: absolute;
+	width: 1250px;
 }
