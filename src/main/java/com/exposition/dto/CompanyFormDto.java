@@ -8,7 +8,9 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Pattern;
 
 import org.hibernate.validator.constraints.Length;
+import org.modelmapper.ModelMapper;
 
+import com.exposition.entity.Company;
 import com.querydsl.core.annotations.QueryProjection;
 
 import lombok.Data;
@@ -55,5 +57,6 @@ public class CompanyFormDto {
 		this.startDay = startDay;
 		this.finishDay = finishDay;
 	}
+	
 
 }

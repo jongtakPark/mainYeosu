@@ -16,7 +16,7 @@ public class FreeBoardDto {
 	private String title;
 	private String content;
 
-private static ModelMapper modelMapper = new ModelMapper();
+	private static ModelMapper modelMapper = new ModelMapper();
 	
 	public static FreeBoardDto of(Survey survey) {
 		return modelMapper.map(survey, FreeBoardDto.class);

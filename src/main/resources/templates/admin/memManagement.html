@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+		xmlns:layout=http://www.ultraq.net.nz/thymeleaf/layout
+		layout:decorate="~{layouts/layout}">
+<head>
+    <meta charset="UTF-8">
+    <title>AdminMenu</title>
+<link rel="stylesheet" th:href="@{/css/management.css}">
+<script type="text/javascript">
+
+</script>
+</head>
+<body>
+<div layout:fragment="content">
+    <div class="subMenu">
+        <ul>
+           <li><a href="#">기업 승인관리</a></li>
+           <li><a href="/admin/memConsent">자원 봉사자 승인관리</a></li>
+           <li><a href="/admin/memManagement">회원관리</a></li>
+           <li><a href="/admin/comManagement">기업관리</a></li>
+       </ul>
+   </div>
+   <div class="container">
+       <div class="container3" id="cont3">
+       <div class="title">
+           <h1>회원관리</h1>
+       </div>
+       <div class="approval_content">
+       <table width="100%">
+           <thead>
+               <tr>
+               	   <td>번호</td>
+                   <td>이름</td>
+                   <td>아이디</td>
+                   <td>이메일</td>
+                   <td>권한</td>
+               </tr>
+           </thead>
+           <tbody>
+               <tr th:each="list : ${memManage}">
+                   <td th:text="${list.id}"></td>
+                   <td th:text="${list.name}"></td>
+                   <td th:text="${list.mid}"></td>
+                   <td th:text="${list.email}"></td>
+                   <td th:text="${list.Role}"></td>
+               </tr>
+           </tbody>
+       </table>
+       </div>
+       </div>
+       <script type="text/javascript" src="/javascript/management.js"></script>
+   </div>
+</div>
+</body>
+</html>

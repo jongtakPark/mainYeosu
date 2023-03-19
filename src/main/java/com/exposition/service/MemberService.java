@@ -37,6 +37,11 @@ public class MemberService implements UserDetailsService {
 			throw new IllegalStateException("이미 가입된 회원입니다");
 		}	
 	}
+	
+	//회원 전체 조회
+	public List<Member> findAllMember(){
+		return memberRepository.findAll();
+	}
 
 	//ajax를 이용한 중복검사
 	public boolean checkMidDuplicate(String mid) {
@@ -112,5 +117,10 @@ public class MemberService implements UserDetailsService {
 	//일반회원을 자원봉사 회원으로 변경
 	public void updateMemToVol(MemberFormDto memberFormDto) {
 		memberRepository.updateMemToVol(memberFormDto);
+	}
+	
+	//일반회원을 자원봉사 회원으로 모두 변경
+	public void updateAllMemToAll() {
+		memberRepository.updateAllMemToVol();
 	}
 }

@@ -68,8 +68,8 @@ public class Member {
 	@ColumnDefault("'N'")
 	private String eventCount;  //이벤트 당첨 Y/N
 	
-	@ColumnDefault("'Y'")
-	private String approval; //업체등록 신청
+	@ColumnDefault("'W'")
+	private String approval; //자원봉사 봉사 지원 신청 Y/W/N
 
 	private Long eventBoardId;
 	

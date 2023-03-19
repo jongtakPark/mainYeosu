@@ -34,6 +34,10 @@ public class CompanyService implements UserDetailsService {
 			throw new IllegalStateException("이미 가입된 회원입니다");
 		}	
 	}
+	
+	public Company findByCom(String com) {
+		return companyRepository.findByCom(com);
+	}
 	//ajax를 이용한 중복검사
 	public boolean checkComDuplicate(String com) {
 		return companyRepository.existsByCom(com);
@@ -69,6 +73,11 @@ public class CompanyService implements UserDetailsService {
 	//업체 등록 신청을 한 기업 찾기
 	public Page<CompanyFormDto> findApprovalCom(CompanyFormDto companyFormDto, Pageable pageable){
 		return companyRepository.getApprovalCom(companyFormDto,  pageable);
+	}
+	
+	//업체등록 신청한 기업 승인
+	public void updateApp(String com) {
+		companyRepository.updateApp(com);
 	}
 
 }

@@ -13,7 +13,6 @@
         <ul>
            <li><a href="#">기업 승인관리</a></li>
            <li><a href="/admin/memConsent">자원 봉사자 승인관리</a></li>
-           <li><a href="/admin/management">회원관리</a></li>
            <li><a href="/admin/memManagement">회원관리</a></li>
            <li><a href="/admin/comManagement">기업관리</a></li>
        </ul>
@@ -42,7 +41,9 @@
                    <td th:text="${list.email}"></td>
                    <td></td>
                    <td>[[${#temporals.format(list.startDay, 'yyyy-MM-dd')}]]~[[${#temporals.format(list.finishDay, 'yyyy-MM-dd')}]]</td>
-                   <td><button class="recognize">승인</button></td>
+                   <td><form th:action="@{/admin/conCom/{com}(com=${list.com})}" th:method="put"><input type="submit" class="recognize" value="승인">
+                   <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+                   </form></td>
                </tr>
            </tbody>
        </table>

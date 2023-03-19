@@ -24,13 +24,14 @@ private JPAQueryFactory queryFactory;
 		this.queryFactory = new JPAQueryFactory(em);
 	}
 	
+	//자원봉사 지원자 조회
 	@Override
 	public Page<MemberFormDto> getAppVolunteer(MemberFormDto memberFormDto, Pageable pageable){
 		QMember mem = QMember.member;
 		
 		QueryResults<MemberFormDto> result = queryFactory
 				.select(new QMemberFormDto(mem.mid, mem.name, mem.email)).from(mem)
-				.where(mem.approval.eq("Y")).fetchResults();
+				.where(mem.approval.eq("W")).fetchResults();
 		
 		List<MemberFormDto> list = result.getResults();
 		Long total = result.getTotal();
@@ -38,10 +39,28 @@ private JPAQueryFactory queryFactory;
 
 	}
 	
+	//일반회원을 자원봉사 회원으로 변경
 	@Override 
 	public void updateMemToVol(MemberFormDto memberFormDto){
 		QMember mem = QMember.member;
 		
-		queryFactory.update(mem).set(mem.role, Role.VOLUNTEER).set(mem.approval, "O").where(mem.approval.eq("Y")).execute();
+		queryFactory.update(mem)
+		.set(mem.role, Role.VOLUNTEER).set(mem.approval, "Y")
+		.where(mem.approval.eq("W"))
+		.where(mem.mid.eq(memberFormDto.getMid()))
+		.execute();
+		
+	}
+	
+	//일반회원을 자원봉사 회원으로 모두변경
+	@Override 
+	public void updateAllMemToVol(){
+		QMember mem = QMember.member;
+		
+		queryFactory.update(mem)
+		.set(mem.role, Role.VOLUNTEER).set(mem.approval, "Y")
+		.where(mem.approval.eq("W"))
+		.execute();
+		
 	}
 }

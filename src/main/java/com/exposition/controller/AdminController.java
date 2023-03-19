@@ -2,9 +2,6 @@ package com.exposition.controller;
 
 import java.util.Optional;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
-
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -16,11 +13,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.exposition.constant.Role;
 import com.exposition.dto.CompanyFormDto;
 import com.exposition.dto.MemberFormDto;
+import com.exposition.entity.Company;
 import com.exposition.entity.Member;
 import com.exposition.service.CompanyService;
 import com.exposition.service.MemberService;
@@ -38,10 +34,9 @@ public class AdminController {
 	
 	//기업 승인게시판 페이지 이동
 	@RequestMapping(value="/comConsent", method= {RequestMethod.PUT, RequestMethod.GET})
-	public String comConsent(CompanyFormDto companyFormDto, MemberFormDto memberFormDto, Model model, Optional<Integer> page, HttpServletRequest request) {
+	public String comConsent(CompanyFormDto companyFormDto, Model model, Optional<Integer> page) {
 		Pageable pageable = PageRequest.of(page.isPresent()? page.get() : 0 , 10);
 		Page<CompanyFormDto> appComList = companyService.findApprovalCom(companyFormDto, pageable);
-		HttpSession session = request.getSession();
 		int nowPage = appComList.getPageable().getPageNumber() + 1 ;
 	    int startPage =  Math.max(nowPage - 4, 1);
 	    int endPage = Math.min(nowPage+9, appComList.getTotalPages());
@@ -49,16 +44,21 @@ public class AdminController {
 	    model.addAttribute("startPage", startPage);
 	    model.addAttribute("endPage", endPage);
 		model.addAttribute("appCom", appComList);
-		session.setAttribute("appCom", appComList);
 		return "admin/comConsent";
+	}
+	
+	//업체등록 신청한 기업 승인
+	@PutMapping(value="/conCom/{com}")
+	public String updateComConsent(@PathVariable String com) {
+		companyService.updateApp(com);
+		return "redirect:/admin/comConsent";
 	}
 	
 	//자원봉사 승인페이지 이동
 	@RequestMapping(value="/memConsent", method= {RequestMethod.PUT, RequestMethod.GET})
-	public String comConsent(MemberFormDto memberFormDto, Model model, Optional<Integer> page, HttpServletRequest request) {
+	public String comConsent(MemberFormDto memberFormDto, Model model, Optional<Integer> page) {
 		Pageable pageable = PageRequest.of(page.isPresent()? page.get() : 0 , 10);
 		Page<MemberFormDto> appMemList = memberService.findByAppVolunteer(memberFormDto, pageable);
-		HttpSession session = request.getSession();
 	    int nowPage = appMemList.getPageable().getPageNumber() + 1 ;
 	    int startPage =  Math.max(nowPage - 4, 1);
 	    int endPage = Math.min(nowPage+9, appMemList.getTotalPages());
@@ -66,18 +66,13 @@ public class AdminController {
 	    model.addAttribute("startPage", startPage);
 	    model.addAttribute("endPage", endPage);
 		model.addAttribute("appMem", appMemList);
-		session.setAttribute("appMem", appMemList);
 		return "admin/memConsent";
 	}
 	
 	//일반회원 모두를 자원봉사회원으로 승인
 	@PutMapping(value="/conMemAll")
-	public String conMemAll(HttpServletRequest request) {
-		HttpSession session = request.getSession();
-		Page<MemberFormDto> appMemList = (Page<MemberFormDto>) session.getAttribute("appMem");
-		for(int i=0; i<appMemList.getSize(); i++) {
-			memberService.updateMemToVol(appMemList.getContent().get(i));
-		}
+	public String conMemAll() {
+		memberService.updateAllMemToAll();
 		return "redirect:/admin/memConsent";
 	}
 	
@@ -91,11 +86,16 @@ public class AdminController {
 	}
 	
 	//회원관리 페이지 이동
-	@GetMapping(value="/management")
-	public String adminMenu2() {
-	    return "admin/management";
+	@GetMapping(value="/memManagement")
+	public String memManagement(Model model) {
+	    model.addAttribute("memManage", memberService.findAllMember());
+		return "admin/memManagement";
 	}
 	
-	
+	//기업관리 페이지 이동
+	@GetMapping(value="/comManagement")
+	public String comManagement() {
+		return "admin/comManagement";
+	}
 	
 }
