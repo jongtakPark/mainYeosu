@@ -6,15 +6,21 @@ layout:decorate="~{layouts/layout}">
     <meta charset="UTF-8">
     <title>주변광광지</title>
 <link rel="stylesheet" th:href="@{/css/tourboard.css}">
+<script src="https://code.jquery.com/jquery-3.1.0.js"></script>
 <script type="text/javascript">
-$(document).ready(function () {
+ $(document).ready(function () {
 //클래스 개수 가져오기
-var class_cnt = document.getElementsByClassName('keyword').length;
-var class_cnt1 = document.querySelector('keyword : nth-child(1)');
-console.log(class_cnt1);
-for(var i = 1; i< class_cnt+1; i++){
-	$('.keyword : nth-child(i)').addEventListener('mouseenter', () => {
-		$('.keyword_back_pic : nth-child(i)').show();
+let class1 = document.getElementsByClassName('keyword');
+for(let i = 0; i< class1.length; i++){
+	class1[i].addEventListener('mouseenter', () => {
+		class1[i].children[0].style.display='none';
+		class1[i].children[2].style.display='none';
+		class1[i].children[1].style.display='block';
+	});
+class1[i].addEventListener('mouseleave', () => {
+		class1[i].children[0].style.display='block';
+		class1[i].children[2].style.display='block';
+		class1[i].children[1].style.display='none';
 	});
 }
 });
@@ -37,7 +43,7 @@ for(var i = 1; i< class_cnt+1; i++){
 					<th:block th:each="keyword, status:${keyword.getContent()}">
                         <div class="keyword">
                             <div class="keyword_pic">
-								<img th:src="${keyword.savePath}">
+								<img class="keywordImg" th:src="${keyword.savePath}">
                             </div>
                             <div class="keyword_back_pic">
 								<img th:src="${keyword.backSavePath}">
