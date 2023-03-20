@@ -1,19 +1,12 @@
 package com.exposition.entity;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
@@ -24,6 +17,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import com.exposition.constant.Role;
 import com.exposition.dto.EventMemberDto;
 import com.exposition.dto.MemberFormDto;
+import com.exposition.dto.MemberModifyFormDto;
 
 import groovyjarjarantlr4.v4.runtime.misc.NotNull;
 import lombok.Data;
@@ -83,6 +77,15 @@ public class Member {
 		member.setEmail(memberFormDto.getEmail());
 		member.setTel(memberFormDto.getTel());
 		member.setRole(Role.ADMIN);
+		return member;
+	}
+	
+	public static Member modifyMember(MemberModifyFormDto memberModifyFormDto, PasswordEncoder passwordEncoder) {
+		Member member = new Member();
+		member.setMid(memberModifyFormDto.getMid());
+		String password = passwordEncoder.encode(memberModifyFormDto.getPassword());
+		member.setPassword(password);
+		member.setRole(memberModifyFormDto.getRole());
 		return member;
 	}
 	

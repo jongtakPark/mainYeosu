@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.exposition.dto.CompanyFormDto;
 import com.exposition.dto.MemberFormDto;
+import com.exposition.dto.MemberModifyFormDto;
 import com.exposition.entity.Company;
 import com.exposition.entity.Member;
 import com.exposition.service.CompanyService;
@@ -121,9 +122,9 @@ public class AdminController {
 	@GetMapping(value="modifyMem/{mid}")
 	public String modifyMem(Model model, @PathVariable String mid) {
 		Member member = memberService.findByMid(mid);
-		MemberFormDto memberFormDto = MemberFormDto.of(member);
-		model.addAttribute("memberFormDto", memberFormDto);
-		return "member/memberModify";
+		MemberModifyFormDto memberModifyFormDto = MemberModifyFormDto.of(member);
+		model.addAttribute("memberModifyFormDto", memberModifyFormDto);
+		return "admin/adminMemberModify";
 	}
 	
 }
