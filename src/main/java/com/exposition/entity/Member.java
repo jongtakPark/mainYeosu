@@ -83,8 +83,6 @@ public class Member {
 	public static Member modifyMember(MemberModifyFormDto memberModifyFormDto, PasswordEncoder passwordEncoder) {
 		Member member = new Member();
 		member.setMid(memberModifyFormDto.getMid());
-		String password = passwordEncoder.encode(memberModifyFormDto.getPassword());
-		member.setPassword(password);
 		member.setRole(memberModifyFormDto.getRole());
 		return member;
 	}

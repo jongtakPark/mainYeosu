@@ -10,12 +10,15 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
+import com.exposition.constant.Role;
 import com.exposition.dto.CompanyFormDto;
 import com.exposition.dto.MemberFormDto;
 import com.exposition.dto.MemberModifyFormDto;
@@ -125,6 +128,31 @@ public class AdminController {
 		MemberModifyFormDto memberModifyFormDto = MemberModifyFormDto.of(member);
 		model.addAttribute("memberModifyFormDto", memberModifyFormDto);
 		return "admin/adminMemberModify";
+	}
+	
+	//일반회원 탈퇴
+	@DeleteMapping(value="memDelete/{mid}")
+	public String memDelete(@PathVariable String mid) {
+		Member member = memberService.findByMid(mid);
+		memberService.deleteMem(member);
+		return "redirect:/admin/memManagement";
+	}
+	
+	//일반회원 권한 수정
+	@PutMapping(value="memModify/{mid}")
+	public String memModify(@PathVariable String mid, @RequestParam("Role") Role role) {
+		Member member = memberService.findByMid(mid);
+		member.setRole(role);
+		memberService.updateMember(member);
+		return "redirect:/admin/memManagement";
+	}
+	
+	//기업회원 탈퇴
+	@DeleteMapping(value="comDelete/{com}")
+	public String comDelete(@PathVariable String com) {
+		Company comapny = companyService.findByCom(com);
+		companyService.deleteCom(comapny);
+		return "redirect:/admin/comManagement";
 	}
 	
 }

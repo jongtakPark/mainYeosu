@@ -7,6 +7,7 @@ import javax.validation.constraints.NotBlank;
 
 import org.modelmapper.ModelMapper;
 
+import com.exposition.entity.Keyword;
 import com.exposition.entity.TourBoard;
 
 import lombok.Data;
@@ -29,8 +30,13 @@ public class TourBoardDto {
 		return modelMapper.map(this, TourBoard.class);
 	}
 	
+	public Keyword createKeyword() {
+		return modelMapper.map(this, Keyword.class);
+	}
+	
 	public static TourBoardDto of(TourBoard tourBoard) {
 		return modelMapper.map(tourBoard, TourBoardDto.class);
 	}
+	
 
 }

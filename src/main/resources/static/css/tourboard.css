@@ -77,6 +77,49 @@
     height: 85px;
     margin: auto;
 }
+.keyword{
+    position: relative;
+    float: left;
+    width: 350px;
+    height: 300px;
+    margin-top: 30px;
+    margin-left: 65px;
+}
+
+.keyword .keyword_pic{
+    width: 100%;
+    height: 250px;
+    margin: auto;
+
+}
+.keyword .keyword_pic img{
+    width: 100%;
+    height: 250px;
+}
+
+.keyword .keyword_tit{
+    width: 100%;
+    height: 50px;
+    text-align: center;
+    line-height: 50px;
+}
+
+.keyword .keyword_tit span{
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.keyword .keyword_back_pic{
+    width: 100%;
+    height: 300px;
+    margin: auto;
+    display : none;
+
+}
+.keyword .keyword_back_pic img{
+    width: 100%;
+    height: 300px;
+}
 
 .wrap{
     width: 70%;

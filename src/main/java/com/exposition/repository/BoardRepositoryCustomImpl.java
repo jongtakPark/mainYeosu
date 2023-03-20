@@ -15,6 +15,7 @@ import com.exposition.dto.QEventMemberDto;
 import com.exposition.dto.TourBoardDto;
 import com.exposition.entity.QEventBoard;
 import com.exposition.entity.QFiles;
+import com.exposition.entity.QKeyword;
 import com.exposition.entity.QMember;
 import com.exposition.entity.QTourBoard;
 import com.querydsl.core.QueryResults;
@@ -27,7 +28,7 @@ public class BoardRepositoryCustomImpl implements BoardRepositoryCustom{
 	public BoardRepositoryCustomImpl(EntityManager em) {
 		this.queryFactory = new JPAQueryFactory(em);
 	}
-	
+	//주변관광지
 	@Override
 	public Page<BoardMainDto> getBoardMainPage(TourBoardDto tourBoardDto, Pageable pageable){
 		QTourBoard tourBoard = QTourBoard.tourBoard;
@@ -60,4 +61,25 @@ public class BoardRepositoryCustomImpl implements BoardRepositoryCustom{
 		
 		return results;		
 	}
+	//여수섬키워드 앞면
+	@Override
+	public Page<BoardMainDto> getKeywordMainPage(TourBoardDto tourBoardDto, Pageable pageable){
+		QKeyword keyword = QKeyword.keyword;
+		QFiles file = QFiles.files;
+		
+		QueryResults<BoardMainDto> result = queryFactory
+				.select(new QBoardMainDto(keyword.id, keyword.title, keyword.content, file.savePath, file.backSavePath))
+				.from(file)
+				.join(file.keyword, keyword)
+				.orderBy(keyword.id.desc())
+				.offset(pageable.getOffset())
+				.limit(pageable.getPageSize())
+				.fetchResults();
+		
+		List<BoardMainDto> list = result.getResults();
+		Long total = result.getTotal();
+		return new PageImpl<>(list, pageable, total);
+				
+	}
+	
 }

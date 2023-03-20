@@ -11,6 +11,7 @@ public class BoardMainDto {
 	private String title;
 	private String content;
 	private String savePath;
+	private String backSavePath;
 	
 	@QueryProjection
 	public BoardMainDto(Long id, String title, String content, String savePath) {
@@ -18,6 +19,15 @@ public class BoardMainDto {
 		this.title = title;
 		this.content = content;
 		this.savePath = savePath;
+	}
+	
+	@QueryProjection
+	public BoardMainDto(Long id, String title, String content, String savePath, String backSavePath) {
+		this.id = id;
+		this.title = title;
+		this.content = content;
+		this.savePath = savePath;
+		this.backSavePath = backSavePath;
 	}
 	
 }

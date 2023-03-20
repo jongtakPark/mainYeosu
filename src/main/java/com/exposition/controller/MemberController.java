@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -228,13 +229,7 @@ public class MemberController{
 		return "success";
 	}
 	
-	//일반회원 탈퇴
-	@DeleteMapping(value="memDelete/{mid}")
-	public String memDelete(@PathVariable String mid) {
-		Member member = memberService.findByMid(mid);
-		memberService.deleteMem(member);
-		return "redirect:/admin/memManagement";
-	}
+	
 	
 	
 }

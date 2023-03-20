@@ -65,10 +65,13 @@ thead tr td:nth-child(1){
     flex: 20%;
 }
 #cont2 tr td:nth-child(3){
-    flex: 27%;
+    flex: 20%;
 }
 #cont2 tr td:nth-child(4){
-	flex: 27%;
+	flex: 20%;
+}
+#cont2 tr td:nth-child(5){
+	flex: 14%;
 }
 #cont2 tr td:last-child{
     flex: 10%;

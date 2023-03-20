@@ -19,12 +19,6 @@ public class MemberModifyFormDto {
 	
 	private String name;
 	
-	@NotEmpty(message = "비밀번호는 필수 입력 값입니다.")
-	@Pattern(regexp = "(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{8,16}", message = "8~16자 영문 대 소문자, 숫자를 사용하세요.")
-	private String password;
-    
-	private String confirmPassword;
-	
 	@Enumerated(EnumType.STRING)
 	private Role role;
 	

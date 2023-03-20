@@ -14,7 +14,7 @@
 <div layout:fragment="content">
     <div class="subMenu">
         <ul>
-           <li><a href="#">기업 승인관리</a></li>
+           <li><a href="/admin/comConsent">기업 승인관리</a></li>
            <li><a href="/admin/memConsent">자원 봉사자 승인관리</a></li>
            <li><a href="/admin/memManagement">회원관리</a></li>
            <li><a href="/admin/comManagement">기업관리</a></li>
@@ -34,6 +34,7 @@
                    <td>사업자번호</td>
                    <td>이메일</td>
                    <td>업체등록현황</td>
+                   <td>회원탈퇴</td>
                </tr>
            </thead>
            <tbody>
@@ -43,6 +44,10 @@
                    <td th:text="${list.com}"></td>
                    <td th:text="${list.email}"></td>
                    <td th:text="${list.approval}"></td>
+                   <td><form th:action="@{/admin/comDelete/{com}(com=${list.com})}" th:method="delete">
+                   <input type="submit" class="recognize" value="탈퇴" style="cursor:pointer;">
+                   <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+                   </form></td>
                </tr>
            </tbody>
        </table>

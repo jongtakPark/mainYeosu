@@ -84,5 +84,10 @@ public class CompanyService implements UserDetailsService {
 	public void updateApp(String com) {
 		companyRepository.updateApp(com);
 	}
+	
+	//기업 회원 탈퇴
+	public void deleteCom(Company company) {
+		companyRepository.delete(company);
+	}
 
 }

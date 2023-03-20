@@ -17,7 +17,7 @@ layout:decorate="~{layouts/layout}">
             <div class="title_ent">
                 <span>일반회원 정보 수정</span>
             </div>
-             <form action="/signup/new" method="post" th:object="${memberModifyFormDto}" onsubmit="return submitCheck();">
+             <form th:action="@{/admin/memModify/{mid}(mid=${memberModifyFormDto.mid})}" th:method="put" th:object="${memberModifyFormDto}">
              <div class="per_a">
                  <div class="per_id"><span>아이디</span></div>
                  <div><input  class="per_tex" name="mid" id="mid" th:field="*{mid}" type="text" readOnly></div>
@@ -26,28 +26,23 @@ layout:decorate="~{layouts/layout}">
                  <div class="per_name"><span>이름</span></div>
                  <div><input class="per_tex" type="text" name="name" id="name" th:field="*{name}" readOnly></div>
              </div>
-            <div class="per_c">
-                 <div class="per_pw"><span>비밀번호</span></div>
-                 <div><input class="per_tex" type="password" name="password" id="password" th:field="*{password}" placeholder="  비밀번호를 입력해주세요"></div>
-             </div>
-         <p th:if="${#fields.hasErrors('password')}"  th:errors="*{password}" class="fieldError" id="fieldErrorPw">Incorrect data</p> 
-             <div class="error_div"><span class="error" id="passwordMsg" ></span></div>
-             <div class="per_d">
-                 <div class="per_pw_ck"><span>비밀번호확인</span></div>
-                 <div><input class="per_tex" type="password" name="password2" id="password2" th:field="*{confirmPassword}" placeholder="  비밀번호를 입력해주세요"></div>
-             </div>
-             <div class="error_div"><span class="error" id="passwordMsg1" ></span></div>
-             <div class="succ_div"><span class="succ" id="passwordMsg2" ></span></div>
              <div class="per_e">
                  <div class="per_mail"><span>이메일</span></div>
                  <div><input class="per_tex" name="email" id="email" th:field="*{email}" placeholder="  이메일을 입력해주세요" readOnly></div>
              </div>
+             <div class="per_g">
+                 <div class="per_tel"><span>권한</span></div>
+                 <div><select class="per_tex" th:field="*{Role}" name="Role" id="tel">
+                 	<option th:value="USER" th:field="*{Role}">USER</option>
+                 	<option th:value="VOLUNTEER" th:field="*{Role}">VOLUNTEER</option>
+                 	<option th:value="ADMIN" th:field="*{Role}">ADMIN</option>
+                 </select></div>
+             </div>
              <input type="submit" class="modify" id="regist" value="수정완료">
              <a href="/admin/memManagement"><input class="cancel-modify" value="취소"></a>
              <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
-             <script type="text/javascript" src="/javascript/personal.js"></script>  
              </form>
-			<form th:action="@{/signup/memDelete/{mid}(mid=${memberModifyFormDto.mid})}" th:method="delete">
+			<form th:action="@{/admin/memDelete/{mid}(mid=${memberModifyFormDto.mid})}" th:method="delete">
 				<input type="submit" class="withdrawal" value="탈퇴">
 			</form>
         </div>

@@ -48,10 +48,6 @@
            </tbody>
        </table>
        </div>
-       <form th:action="@{/admin/conComAll}" th:method="put" >
-       		<input type="submit" value="모두승인" class="conAll">
-       		<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
-       </form>
        <div class="wrap">
          <div class="pagebtn">
 		 	 <th:block th:each="page:${#numbers.sequence(startPage,endPage)}">

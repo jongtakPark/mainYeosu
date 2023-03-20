@@ -38,6 +38,9 @@ public class Files extends BaseEntity {
 	//저장위치
 	private String savePath;
 	
+	//뒷면 이미지 저장위치
+	private String backSavePath;
+	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name="tourboard_id")
 	private TourBoard tourboard;
@@ -45,6 +48,10 @@ public class Files extends BaseEntity {
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name="freeboard_id")
 	private FreeBoard freeBoard;
+	
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name="keyword_id")
+	private Keyword keyword;
 	
 	public static Files createFile(FileDto fileDto) {
 		Files file = new Files();
@@ -60,6 +67,12 @@ public class Files extends BaseEntity {
 		this.img = img;
 		this.oriImg = oriImg;
 		this.savePath = savePath;
+	}
+	
+	public void updateBackFile(String img, String oriImg, String backSavePath) {
+		this.img = img;
+		this.oriImg = oriImg;
+		this.backSavePath = backSavePath;
 	}
 
 

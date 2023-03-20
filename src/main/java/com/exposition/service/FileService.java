@@ -58,6 +58,31 @@ public class FileService {
 		fileRepository.save(file);
 	}
 	
+	
+	//여수섬키워드 사진 등록할 때 뒷면 이미지
+	public void saveKeyword(Files file, MultipartFile files) throws Exception {
+		String oriImg = files.getOriginalFilename();
+		String img = "";
+		String backSavePath = "";
+			
+		if(!StringUtils.isEmpty(oriImg)) {
+			img = uploadFile(itemImgLocation, oriImg, files.getBytes());
+			backSavePath = "/image/images/" + img;
+		}
+			
+		file.updateBackFile(img, oriImg, backSavePath);
+		fileRepository.save(file);
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	//게시글 수정시 첨부파일 변경
 	public void updateFile(Long FileId, MultipartFile files) throws Exception {
 		if(!files.isEmpty()) {

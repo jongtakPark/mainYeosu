@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+xmlns:layout=http://www.ultraq.net.nz/thymeleaf/layout
+layout:decorate="~{layouts/layout}">
+
+<head>
+    <meta charset="UTF-8">
+    <title>주변관광지작성창</title>
+<link rel="stylesheet" th:href="@{/css/tourboardwrite.css}">
+
+</head>
+
+<body>
+<div layout:fragment="content">
+ <div class="subMenu">
+       <ul>
+           <li><a href="#">전시관소개</a></li>
+            <li><a href="#">행사장오시는길</a></li>
+            <li><a href="#">여수섬키워드</a></li>
+       </ul>
+   </div>
+   <div class="freeboard">
+       <div class="free_title">
+          <div class="title">
+               <span>여수섬키워드 글 쓰기</span>
+           </div>
+       </div>
+       <form action="/introduction/keywordSave" th:method="post" th:object="${keywordWrite}" enctype="multipart/form-data">
+       <input type="hidden" th:field="*{id}">
+       <div class="info_content">
+            <div class="info_title">
+                <div class="info_title_inner">
+                    <label for="">
+                        제목
+                    </label>
+                    <input type="text" name="title" th:field="*{title}">
+                </div>
+            </div>
+            <p th:if="${#fields.hasErrors('title')}" th:errors="*{title}" class="fieldError">Incorrect data</p>
+            <div class="info_cont">
+                <div class="info_cont_inner">
+                    <label for="">
+                        내용
+                    </label>
+                    <textarea id="test" cols="83" rows="10" name="content" th:field="*{content}"></textarea>
+                </div>
+            </div>
+       		<div class="info_file">
+                <input type="file" multiple="multiple" id="file" name="files" class="file">
+            </div>
+            <div class="info_submit">
+               <button type="submit" class="submit">글 등록</button>
+            </div>
+        
+       </div>
+       <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+       <script type="text/javascript" src="/javascript/tourboardwrite.js"></script>
+    </form>
+   </div>
+ </div>
+    
+</body>
+</html>
