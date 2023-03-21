@@ -53,6 +53,10 @@ public class Files extends BaseEntity {
 	@JoinColumn(name="keyword_id")
 	private Keyword keyword;
 	
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name="reservation_id")
+	private Reservation reservation;
+	
 	public static Files createFile(FileDto fileDto) {
 		Files file = new Files();
 		file.setId(fileDto.getId());

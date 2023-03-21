@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+xmlns:layout=http://www.ultraq.net.nz/thymeleaf/layout
+layout:decorate="~{layouts/layout}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="_csrf_header" th:content="${_csrf.headerName}">
+<meta name="_csrf" th:content="${_csrf.token}">
+    <title>Calendar</title>
+<link rel="stylesheet" th:href="@{/css/calendar.css}">
+<script type="text/javascript" src="/javascript/index.global.js"></script>
+<!-- <script type="text/javascript" src="/javascript/calendar.js"></script> -->
+<script th:inline="javascript">
+$(document).ready(function(){
+	var startDay=[[${startDay}]];
+	var endDay=[[${endDay}]];
+
+var calendarEl = document.getElementById('calendar');
+
+var calendar = new FullCalendar.Calendar(calendarEl, {
+		select: function(start){
+        var header = $("meta[name='_csrf_header']").attr('content');
+		var token = $("meta[name='_csrf']").attr('content');
+  		
+  		$.ajax({
+  			url: "/lease/reservation",
+  			type: 'POST',
+  			async:false,
+				data: JSON.stringify(start),
+			contentType: "application/json",
+				dataType: 'json',
+				beforeSend: function(xhr){
+    xhr.setRequestHeader(header, token);
+	},
+	success : function(result){
+			location.href="/lease/new";
+			console.log("왔니");
+		},
+		error : function(){
+		}
+   		});
+  },
+
+	
+  height: '800px',
+  expandRows: true,
+  slotMinTime: '08:00',
+  slotMaxTime: '20:00',
+  headerToolbar: {
+    center: 'title',
+  },
+  locale: "ko",
+  initialDate: '2026-07-17',
+  initialView: 'dayGridMonth',
+  editable: true,
+  selectable: true,
+  nowIndicator: true,
+  dayMaxEvents: true, 
+  
+  events: [
+    {
+      title: 'All Day Event',
+      start: '2023-01-01',
+    },
+    {
+      title: 'Long Event',
+      start: startDay,
+      end: endDay
+    },
+    {
+      groupId: 999,
+      title: 'Repeating Event',
+      start: '2023-01-09T16:00:00'
+    },
+    {
+      groupId: 999,
+      title: 'Repeating Event',
+      start: '2026-07-16T16:00:00'
+    },
+    {
+      title: 'Conference',
+      start: '2023-01-11',
+      end: '2023-01-13'
+    },
+    {
+      title: 'Meeting',
+      start: '2023-01-12T10:30:00',
+      end: '2023-01-12T12:30:00'
+    },
+    {
+      title: 'Lunch',
+      start: '2023-01-12T12:00:00'
+    },
+    {
+      title: 'Meeting',
+      start: '2023-01-12T14:30:00'
+    },
+    {
+      title: 'Happy Hour',
+      start: '2023-01-12T17:30:00'
+    },
+    {
+      title: 'Dinner',
+      start: '2023-01-12T20:00:00'
+    },
+    {
+      title: 'Birthday Party',
+      start: '2023-01-13T07:00:00'
+    },
+    {
+      title: 'Click for Google',
+      url: 'http://google.com/',
+      start: '2023-01-28'
+    }
+  ],
+  
+});
+
+calendar.render();
+});
+</script>
+</head>
+<body>  
+
+<div layout:fragment="content">    
+<div id='calendar-container'>
+    <div id='calendar'></div>
+  </div>
+  <form action="/lease/new" th:method="post" enctype="multipart/form-data"> 
+  <h1>예약하기</h1>
+   <div class="main_reservation">
+            
+            <div class="com_b">
+                <div class="com_file">
+                    <span>첨부파일</span>
+                </div>
+                <div>
+                    <input class="com_tex" type="file" multiple="multiple" name="files">
+                </div>
+            </div>
+            <div class="com_c">
+                <div class="com_con"><span>상세내용</span></div>
+                <div><input class="com_tex2" type="text" placeholder=" 상세설명" name="content"></div>
+            </div>
+            <input class="regist" type="submit" value="예약">                      
+        </div>
+        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+       </form>
+</div>
+</body>
+</html>
