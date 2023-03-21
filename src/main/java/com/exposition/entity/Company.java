@@ -52,11 +52,6 @@ public class Company {
 	@ColumnDefault("'W'")
 	private String approval; //업체등록 신청
 	
-	private LocalDateTime startDay;
-	
-	private LocalDateTime finishDay;
-	
-	
 	@Enumerated(EnumType.STRING)
 	private Role role;
 
@@ -74,8 +69,6 @@ public class Company {
 		company.setEmail(companyFormDto.getEmail());
 		company.setTel(companyFormDto.getTel());
 		company.setApproval(companyFormDto.getApproval());
-		company.setStartDay(companyFormDto.getStartDay());
-		company.setFinishDay(companyFormDto.getFinishDay());
 		company.setRole(Role.COMPANY);
 		return company;
 	}

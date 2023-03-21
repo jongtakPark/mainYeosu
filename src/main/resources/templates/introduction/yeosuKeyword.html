@@ -12,16 +12,16 @@ layout:decorate="~{layouts/layout}">
 //클래스 개수 가져오기
 let class1 = document.getElementsByClassName('keyword');
 for(let i = 0; i< class1.length; i++){
-	class1[i].addEventListener('mouseenter', () => {
-		class1[i].children[0].style.display='none';
-		class1[i].children[2].style.display='none';
-		class1[i].children[1].style.display='block';
-	});
+   class1[i].addEventListener('mouseenter', () => {
+      class1[i].children[0].style.display='none';
+      class1[i].children[2].style.display='none';
+      class1[i].children[1].style.display='block';
+   });
 class1[i].addEventListener('mouseleave', () => {
-		class1[i].children[0].style.display='block';
-		class1[i].children[2].style.display='block';
-		class1[i].children[1].style.display='none';
-	});
+      class1[i].children[0].style.display='block';
+      class1[i].children[2].style.display='block';
+      class1[i].children[1].style.display='none';
+   });
 }
 });
 </script>
@@ -40,34 +40,36 @@ class1[i].addEventListener('mouseleave', () => {
         <div class="title">
             <h1>여수섬 키워드</h1>
         </div>
-					<th:block th:each="keyword, status:${keyword.getContent()}">
+               <th:block th:each="keyword, status:${keyword.getContent()}" class="blo">
+                        <div class="flip">
                         <div class="keyword">
                             <div class="keyword_pic">
-								<img class="keywordImg" th:src="${keyword.savePath}">
+                        <img class="keywordImg" th:src="${keyword.savePath}">
                             </div>
                             <div class="keyword_back_pic">
-								<img th:src="${keyword.backSavePath}">
+                        <img th:src="${keyword.backSavePath}">
                             </div>
-                            <div class="keyword_tit">
-                               <a th:href="@{/news/view/{tourBoardId}(tourBoardId=${keyword.id})}"><span th:text="${keyword.title}"></span></a> 
-                            </div>
-
+                            
                         </div>
+                        <div class="keyword_tit">
+                            <a th:href="@{/news/view/{tourBoardId}(tourBoardId=${keyword.id})}"><span th:text="${keyword.title}"></span></a> 
+                         </div>
+                        </div>
+                        
                      </th:block>
      </div>
      <div class="wrap">
            <div class="pagebtn">
-		 	 <th:block th:each="page:${#numbers.sequence(startPage,endPage)}">
-            		<a th:if="${endPage==0? endPage==1 : page != nowPage}" th:href="@{/news/tour(page=${page-1})}" th:text ="${page}"></a>
-            		<strong th:if="${page==nowPage}" th:text ="${page}" style="color:red"></strong>
-        		</th:block>  
-			</div>
+           <th:block th:each="page:${#numbers.sequence(startPage,endPage)}">
+                  <a th:if="${endPage==0? endPage==1 : page != nowPage}" th:href="@{/news/tour(page=${page-1})}" th:text ="${page}"></a>
+                  <strong th:if="${page==nowPage}" th:text ="${page}" style="color:red"></strong>
+              </th:block>  
+         </div>
             <div class="regist">
-                <a href="/introduction/keywordWrite">등록</a>
+                <a href="/introduction/keywordWrite" class="b1">등록</a>
             </div>
      </div>
            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
-<!--            <script type="text/javascript" src="/javascript/keyword.js"></script> -->
 </div>
 
 </body>

@@ -13,6 +13,7 @@ import com.exposition.dto.MemberFormDto;
 import com.exposition.dto.QCompanyFormDto;
 import com.exposition.entity.Company;
 import com.exposition.entity.QCompany;
+import com.exposition.entity.QReservation;
 import com.querydsl.core.QueryResults;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 
@@ -28,9 +29,9 @@ private JPAQueryFactory queryFactory;
 	@Override
 	public Page<CompanyFormDto> getApprovalCom(CompanyFormDto companyFormDto, Pageable pageable){
 		QCompany company = QCompany.company;
-		
+		QReservation reservation = QReservation.reservation;
 		QueryResults<CompanyFormDto> result = queryFactory
-				.select(new QCompanyFormDto(company.com, company.name, company.email , company.approval, company.startDay, company.finishDay))
+				.select(new QCompanyFormDto(company.com, company.name, company.email , company.approval, reservation.startDay, reservation.endDay))
 				.from(company)
 				.where(company.approval.eq("W")).fetchResults();
 		

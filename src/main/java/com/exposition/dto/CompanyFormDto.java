@@ -43,13 +43,13 @@ public class CompanyFormDto {
     
     private String approval;
     
-    private LocalDateTime startDay;
+    private String startDay;
 	
-	private LocalDateTime finishDay;
+	private String finishDay;
 
 	
 	@QueryProjection
-	public CompanyFormDto(String com, String name, String email, String approval, LocalDateTime startDay, LocalDateTime finishDay) {
+	public CompanyFormDto(String com, String name, String email, String approval, String startDay, String finishDay) {
 		this.com = com;
 		this.name = name;
 		this.email = email;
