@@ -12,6 +12,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.ColumnDefault;
+import org.hibernate.annotations.DynamicInsert;
+
 import lombok.Data;
 
 @Entity
@@ -27,11 +30,12 @@ public class Reservation {
 	
 	private String location;
 	
+	private String content;
+	
 	private String startDay;
 	
 	private String endDay;
 	
-	private String content;
 	
 	@OneToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "company_id")

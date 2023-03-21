@@ -22,10 +22,10 @@
         background-size: 100%;
         position: relative;
     }
-    .cont_image > div:hover{
+    .cont_image  input:hover{
         color: lightsalmon;
     }
-    .cont_image div p{
+    .cont_image div input{
     	color : inherit;
     }
     .a-1{
@@ -37,14 +37,20 @@
         top: 100px;
         left: 178px;
         border-radius: 90px 0px 0px 20px;
-        cursor: pointer;
+
     }
-    .a-1 p{
+    .a-1 input{
         font-size: 13px;
         position: absolute;
+        width: 90px;
+        height: 80px;
+        line-height : 110px;
         margin: 0;
-        left: 30px;
-        top: 40px;
+        border-radius: 90px 0px 0px 20px;
+        cursor: pointer;
+        border : none;
+        background-color:transparent;
+
         
     }
     .a-2{
@@ -56,14 +62,18 @@
         left: 267px;
         top: 62px;
         border-radius: 50px 0px 0px 0px;
-        cursor: pointer;
     }
-    .a-2 p{
+    .a-2 input{
         font-size: 13px;
         position: absolute;
+        width: 103px;
+        height: 118px;
+        line-height : 140px;
         margin: 0;
-        left: 26px;
-        top: 60px;
+        border : none;
+        border-radius: 60px 0px 0px 0px;
+        background-color:transparent;
+        cursor: pointer;
     }
     .a-3{
         position: absolute;
@@ -409,15 +419,18 @@
         left: 493px;
         top: 38px;
         border-radius: 0px 20px 0px 0px;
-        cursor: pointer;
     }
-    .b-1 p{
+    .b-1 input{
         font-size: 13px;
         margin: 0;
+        width: 71px;
+        height: 95px;
         position: absolute;
         text-align: center;
-        top: 40px;
-        left: 13px;
+        border : none;
+        border-radius: 0px 20px 0px 0px;
+        background-color:transparent;
+        cursor: pointer;
     }
     .b-2{
         position: absolute;
@@ -428,15 +441,20 @@
         left: 582px;
         top: 40px;
         border-radius: 24px 29px 0px 0px;
-        cursor: pointer;
+
     }
-    .b-2 p{
+    .b-2 input{
         font-size: 13px;
         margin: 0;
+        width: 102px;
+        height: 70px;
+        line-height : 80px;
         position: absolute;
         text-align: center;
-        top: 30px;
-        left: 30px;
+        border : none;
+        border-radius: 24px 29px 0px 0px;
+        background-color:transparent;
+        cursor: pointer;
     }
     .b-3{
         position: absolute;
@@ -447,15 +465,18 @@
         left: 582px;
         top: 110px;
         border-radius: 0px 0px 0px 19px;
-        cursor: pointer;
     }
-    .b-3 p{
+    .b-3 input{
         font-size: 13px;
         margin: 0;
+        width: 51px;
+        height: 50px;
         position: absolute;
         text-align: center;
-        top: 15px;
-        left: 4px;
+        border : none;
+        border-radius: 0px 0px 0px 19px;
+        background-color:transparent;
+        cursor: pointer;
     }
     .b-4{
         position: absolute;
@@ -466,15 +487,18 @@
         top: 110px;
         left: 632px;
         border-radius: 0px 0px 15px 0px;
-        cursor: pointer;
     }
-    .b-4 p{
+    .b-4 input{
         font-size: 13px;
         margin: 0;
+        width: 52px;
+        height: 50px;
         position: absolute;
         text-align: center;
-        left: 4px;
-        top: 15px;
+        border : none;
+        border-radius: 0px 0px 15px 0px;
+        background-color:transparent;
+        cursor: pointer;
     }
     .b-5{
         position: absolute;
@@ -485,15 +509,18 @@
         top: 60px;
         left: 696px;
         border-radius: 15px 50px 80px 30px;
-        cursor: pointer;
     }
-    .b-5 p{
+    .b-5 input{
         font-size: 13px;
         margin: 0;
+        width: 99px;
+        height: 121px;
         position: absolute;
         text-align: center;
-        left: 30px;
-        top: 50px;
+        border : none;
+        border-radius: 15px 50px 80px 30px;
+        background-color:transparent;
+        cursor: pointer;
     }
     .b-6{
         position: absolute;

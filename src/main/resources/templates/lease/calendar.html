@@ -9,12 +9,14 @@ layout:decorate="~{layouts/layout}">
     <title>Calendar</title>
 <link rel="stylesheet" th:href="@{/css/calendar.css}">
 <script type="text/javascript" src="/javascript/index.global.js"></script>
-<!-- <script type="text/javascript" src="/javascript/calendar.js"></script> -->
 <script th:inline="javascript">
 $(document).ready(function(){
-	var startDay=[[${startDay}]];
-	var endDay=[[${endDay}]];
-
+	var list=[[${list}]];
+	for(var i =0, result=[]; i<list.length; i++){
+		result.push({"title":list[i].approval,"start":list[i].startDay, "end":list[i].endDay});
+	}
+	console.log(result);
+	
 var calendarEl = document.getElementById('calendar');
 
 var calendar = new FullCalendar.Calendar(calendarEl, {
@@ -33,8 +35,6 @@ var calendar = new FullCalendar.Calendar(calendarEl, {
     xhr.setRequestHeader(header, token);
 	},
 	success : function(result){
-			location.href="/lease/new";
-			console.log("왔니");
 		},
 		error : function(){
 		}
@@ -57,62 +57,8 @@ var calendar = new FullCalendar.Calendar(calendarEl, {
   nowIndicator: true,
   dayMaxEvents: true, 
   
-  events: [
-    {
-      title: 'All Day Event',
-      start: '2023-01-01',
-    },
-    {
-      title: 'Long Event',
-      start: startDay,
-      end: endDay
-    },
-    {
-      groupId: 999,
-      title: 'Repeating Event',
-      start: '2023-01-09T16:00:00'
-    },
-    {
-      groupId: 999,
-      title: 'Repeating Event',
-      start: '2026-07-16T16:00:00'
-    },
-    {
-      title: 'Conference',
-      start: '2023-01-11',
-      end: '2023-01-13'
-    },
-    {
-      title: 'Meeting',
-      start: '2023-01-12T10:30:00',
-      end: '2023-01-12T12:30:00'
-    },
-    {
-      title: 'Lunch',
-      start: '2023-01-12T12:00:00'
-    },
-    {
-      title: 'Meeting',
-      start: '2023-01-12T14:30:00'
-    },
-    {
-      title: 'Happy Hour',
-      start: '2023-01-12T17:30:00'
-    },
-    {
-      title: 'Dinner',
-      start: '2023-01-12T20:00:00'
-    },
-    {
-      title: 'Birthday Party',
-      start: '2023-01-13T07:00:00'
-    },
-    {
-      title: 'Click for Google',
-      url: 'http://google.com/',
-      start: '2023-01-28'
-    }
-  ],
+  events: result,
+  
   
 });
 

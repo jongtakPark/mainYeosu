@@ -1497,7 +1497,7 @@ var FullCalendar = (function (exports) {
         dragRevertDuration: 500,
         dragScroll: true,
         allDayMaintainDuration: false,
-        unselectAuto: true,
+        unselectAuto: false,
         dropAccept: '*',
         eventOrder: 'start,-duration,allDay,title',
         dayPopoverFormat: { month: 'long', day: 'numeric', year: 'numeric' },

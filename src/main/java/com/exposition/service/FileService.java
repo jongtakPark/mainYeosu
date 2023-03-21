@@ -43,7 +43,7 @@ public class FileService {
 			return savedFileName; 
 		}
 	
-	//첨부파일 테이블에 등록
+	//첨부파일 테이블에 등록,
 	public void saveFile(Files file, MultipartFile files) throws Exception {
 		String oriImg = files.getOriginalFilename();
 		String img = "";

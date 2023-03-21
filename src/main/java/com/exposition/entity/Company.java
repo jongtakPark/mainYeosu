@@ -49,7 +49,7 @@ public class Company {
 	
 	private String tel;
 	
-	@ColumnDefault("'W'")
+	@ColumnDefault("'예약없음'")
 	private String approval; //업체등록 신청
 	
 	@Enumerated(EnumType.STRING)

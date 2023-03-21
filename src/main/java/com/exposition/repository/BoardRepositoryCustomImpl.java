@@ -49,7 +49,7 @@ public class BoardRepositoryCustomImpl implements BoardRepositoryCustom{
 		return new PageImpl<>(list, pageable, total);
 				
 	}
-	
+	//이벤트 대상자 조회
 	@Override
 	public List<EventMemberDto> eventPrizeMember() {
 		QMember member = QMember.member;
