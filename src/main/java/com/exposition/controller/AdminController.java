@@ -50,7 +50,6 @@ public class AdminController {
 	    model.addAttribute("startPage", startPage);
 	    model.addAttribute("endPage", endPage);
 		model.addAttribute("appCom", appComList);
-		System.out.println(appComList.getContent());
 		return "admin/comConsent";
 	}
 	

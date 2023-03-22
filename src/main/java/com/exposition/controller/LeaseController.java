@@ -34,14 +34,25 @@ public class LeaseController {
 
 	private final CompanyService companyService;
 	private final ReservationService reservationService;
+	//업체등록 장소 선택 페이지로 이동
 	@GetMapping(value="/")
 	public String Lease(Model model) {
 		model.addAttribute("reservationDto", new ReservationDto());
 		return "lease/lease";
 	}
 	//DB에서 endDay 가져올때 +1 해줘야함
+	//장소 선택후 기간 선택 페이지로 이동
 	@GetMapping(value="/calendar")
-	public String caldendar(Model model, HttpServletRequest request, ReservationDto reservationDto) throws Exception {
+	public String caldendar(Model model, HttpServletRequest request, ReservationDto reservationDto, Principal principal) throws Exception {
+		Company company = companyService.findByCom(principal.getName());
+		if(company.getApproval().equals("예약신청중")) {
+			model.addAttribute("errorMessage", "예약 신청중입니다. 등록 수정을 원하시면 마이페이지에서 취소하시고 다시 신청해주세요");
+			return "lease/lease";
+		}
+		if(company.getApproval().equals("예약완료")) {
+			model.addAttribute("errorMessage", "예약이 완료 되었습니다. 등록 수정을 원하시면 마이페이지에서 취소하시고 다시 신청해주세요");
+			return "lease/lease";
+		}
 		SimpleDateFormat dtFormat = new SimpleDateFormat("yyyy-MM-dd");
 		HttpSession session = request.getSession();
 		session.setAttribute("location", reservationDto);
@@ -71,7 +82,7 @@ public class LeaseController {
 		endDay = dtFormat.format(cal.getTime());
 		HttpSession session = request.getSession();
 		if(endDay==null && startDay==null) {
-			model.addAttribute("errorMessage", "등록 기간을 드래그해주세요.");
+			model.addAttribute("errorMessage", "등록 기간을 드래그로 선택해주세요.");
 			return "lease/calendar";
 		} else {
 			session.setAttribute("endDay", endDay);
@@ -83,18 +94,18 @@ public class LeaseController {
 	//예약 신청
 	@PostMapping(value="/new")
 	public String newReservation(@RequestParam("content") String content, HttpServletRequest request, @RequestParam(value = "files", required = false) List<MultipartFile> files, Model model, ReservationDto reservationDto, Principal principal) throws Exception {
+		HttpSession session = request.getSession();
+		reservationDto = (ReservationDto) session.getAttribute("location");
 		if(files.get(0).isEmpty()) {
-			model.addAttribute("errorMessage", "이미지는 필수 입니다.");
+			model.addAttribute("errorMessage", "이미지 첨부는 필수 입니다.");
+			model.addAttribute("reservationDto", reservationDto);
 			return "lease/calendar";
 		}
 		Company company = companyService.findByCom(principal.getName());
 		company.setApproval("예약신청중");
 		companyService.updateCompany(company);
-		HttpSession session = request.getSession();
 		String endDay = (String) session.getAttribute("endDay");
 		String startDay =(String) session.getAttribute("startDay");
-		reservationDto = (ReservationDto) session.getAttribute("location");
-		reservationDto.setLocation(reservationDto.getLocation());
 		reservationDto.setContent(content);
 		reservationDto.setStartDay(startDay);
 		reservationDto.setEndDay(endDay);

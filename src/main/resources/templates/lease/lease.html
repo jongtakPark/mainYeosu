@@ -7,6 +7,16 @@ layout:decorate="~{layouts/layout}">
     <title>Lease</title>
 <link rel="stylesheet" th:href="@{/css/lease.css}">
 </head>
+<th:block layout:fragment="script">
+<script th:inline="javascript">
+$(document).ready(function(){
+		var errorMessage = [[${errorMessage}]];
+		if(errorMessage != null){
+			alert(errorMessage);
+	}
+});
+</script>
+</th:block>
 <body>  
 <div layout:fragment="content">    
         <div class="attend">

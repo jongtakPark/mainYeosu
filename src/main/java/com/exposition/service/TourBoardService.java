@@ -61,7 +61,6 @@ public class TourBoardService {
 	public TourBoardDto getTourBoardDetail(Long tourBoardId) {
 		List<Files> fileList = fileRepository.findByTourboardId(tourBoardId);
 		List<FileDto> fileDtoList = new ArrayList<>();
-		List<FileDto> fileIds = new ArrayList<>();
 		for(Files file : fileList) {
 			FileDto fileDto = FileDto.of(file);
 			fileDtoList.add(fileDto);

@@ -22,6 +22,7 @@ public class ReservationDto {
 	private Long id;
 	@Enumerated(EnumType.STRING)
 	private String location;
+	private String name;
 	private String content;
 	private String startDay;
 	private String endDay;
@@ -36,11 +37,26 @@ public class ReservationDto {
 		return modelMapper.map(this, Reservation.class);
 	}
 	
+	public static ReservationDto of(Reservation reservation) {
+		return modelMapper.map(reservation, ReservationDto.class);
+	}
+	
 	@QueryProjection
 	public ReservationDto(String startDay, String endDay, String approval) {
 		this.startDay = startDay;
 		this.endDay = endDay;
 		this.approval = approval;
+	}
+	
+	@QueryProjection
+	public ReservationDto(String name, Long id, String startDay, String endDay, String location, String content) {
+		this.name = name;
+		this.id = id;
+		this.startDay = startDay;
+		this.endDay = endDay;
+		this.location = location;
+		this.content = content;
+
 	}
 	
 }

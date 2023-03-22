@@ -12,10 +12,15 @@ layout:decorate="~{layouts/layout}">
 <script th:inline="javascript">
 $(document).ready(function(){
 	var list=[[${list}]];
+	if(list!=null){
 	for(var i =0, result=[]; i<list.length; i++){
 		result.push({"title":list[i].approval,"start":list[i].startDay, "end":list[i].endDay});
 	}
-	console.log(result);
+	}
+	var errorMessage = [[${errorMessage}]];
+	if(errorMessage != null){
+		alert(errorMessage);
+	}
 	
 var calendarEl = document.getElementById('calendar');
 
