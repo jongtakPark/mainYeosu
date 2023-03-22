@@ -1346,4 +1346,7 @@
         top: 51px;
         left: 35px;
     }
+    .image > img {
+    	width : 800px;
+    }
    

@@ -59,7 +59,11 @@ var calendar = new FullCalendar.Calendar(calendarEl, {
   selectOverlap: function(event) {
 	    return event.rendering === 'background';
 	  },
-
+  validRange: {
+	start: '2026-07-17',
+	end: '2026-08-17'
+	},	  
+  firstDay : 1,
   events: result,
 
   
@@ -76,7 +80,7 @@ calendar.render();
     <div id='calendar'></div>
   </div>
   <form action="/lease/new" th:method="post" enctype="multipart/form-data"> 
-  <h1>예약하기</h1>
+  <h1>예약하기([[${reservationDto.location}]])</h1>
    <div class="main_reservation">
             
             <div class="com_b">

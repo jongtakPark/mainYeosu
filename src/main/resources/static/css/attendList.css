@@ -1,13 +1,13 @@
 @charset "UTF-8";
  .attend {
         width: 70%;
-        height: 1200px;
+        height: 1700px;
         margin: auto;
         position: relative;
     }
     h1{
         margin-top : 20px;
-    	padding-bottom : 20px;
+       padding-bottom : 20px;
         font-size: 45px;
         border-bottom: 1px solid grey;
     }
@@ -22,11 +22,11 @@
         background-size: 100%;
         position: relative;
     }
-    .cont_image  input:hover{
+    .cont_image > div:hover{
         color: lightsalmon;
     }
-    .cont_image div input{
-    	color : inherit;
+    .cont_image div p{
+       color : inherit;
     }
     .a-1{
         position: absolute;
@@ -37,20 +37,14 @@
         top: 100px;
         left: 178px;
         border-radius: 90px 0px 0px 20px;
-
+        cursor: pointer;
     }
-    .a-1 input{
+    .a-1 p{
         font-size: 13px;
         position: absolute;
-        width: 90px;
-        height: 80px;
-        line-height : 110px;
         margin: 0;
-        border-radius: 90px 0px 0px 20px;
-        cursor: pointer;
-        border : none;
-        background-color:transparent;
-
+        left: 30px;
+        top: 40px;
         
     }
     .a-2{
@@ -62,18 +56,14 @@
         left: 267px;
         top: 62px;
         border-radius: 50px 0px 0px 0px;
+        cursor: pointer;
     }
-    .a-2 input{
+    .a-2 p{
         font-size: 13px;
         position: absolute;
-        width: 103px;
-        height: 118px;
-        line-height : 140px;
         margin: 0;
-        border : none;
-        border-radius: 60px 0px 0px 0px;
-        background-color:transparent;
-        cursor: pointer;
+        left: 26px;
+        top: 60px;
     }
     .a-3{
         position: absolute;
@@ -419,18 +409,15 @@
         left: 493px;
         top: 38px;
         border-radius: 0px 20px 0px 0px;
+        cursor: pointer;
     }
-    .b-1 input{
+    .b-1 p{
         font-size: 13px;
         margin: 0;
-        width: 71px;
-        height: 95px;
         position: absolute;
         text-align: center;
-        border : none;
-        border-radius: 0px 20px 0px 0px;
-        background-color:transparent;
-        cursor: pointer;
+        top: 40px;
+        left: 13px;
     }
     .b-2{
         position: absolute;
@@ -441,20 +428,15 @@
         left: 582px;
         top: 40px;
         border-radius: 24px 29px 0px 0px;
-
+        cursor: pointer;
     }
-    .b-2 input{
+    .b-2 p{
         font-size: 13px;
         margin: 0;
-        width: 102px;
-        height: 70px;
-        line-height : 80px;
         position: absolute;
         text-align: center;
-        border : none;
-        border-radius: 24px 29px 0px 0px;
-        background-color:transparent;
-        cursor: pointer;
+        top: 30px;
+        left: 30px;
     }
     .b-3{
         position: absolute;
@@ -465,18 +447,15 @@
         left: 582px;
         top: 110px;
         border-radius: 0px 0px 0px 19px;
+        cursor: pointer;
     }
-    .b-3 input{
+    .b-3 p{
         font-size: 13px;
         margin: 0;
-        width: 51px;
-        height: 50px;
         position: absolute;
         text-align: center;
-        border : none;
-        border-radius: 0px 0px 0px 19px;
-        background-color:transparent;
-        cursor: pointer;
+        top: 15px;
+        left: 4px;
     }
     .b-4{
         position: absolute;
@@ -487,18 +466,15 @@
         top: 110px;
         left: 632px;
         border-radius: 0px 0px 15px 0px;
+        cursor: pointer;
     }
-    .b-4 input{
+    .b-4 p{
         font-size: 13px;
         margin: 0;
-        width: 52px;
-        height: 50px;
         position: absolute;
         text-align: center;
-        border : none;
-        border-radius: 0px 0px 15px 0px;
-        background-color:transparent;
-        cursor: pointer;
+        left: 4px;
+        top: 15px;
     }
     .b-5{
         position: absolute;
@@ -509,18 +485,15 @@
         top: 60px;
         left: 696px;
         border-radius: 15px 50px 80px 30px;
+        cursor: pointer;
     }
-    .b-5 input{
+    .b-5 p{
         font-size: 13px;
         margin: 0;
-        width: 99px;
-        height: 121px;
         position: absolute;
         text-align: center;
-        border : none;
-        border-radius: 15px 50px 80px 30px;
-        background-color:transparent;
-        cursor: pointer;
+        left: 30px;
+        top: 50px;
     }
     .b-6{
         position: absolute;
@@ -1346,7 +1319,121 @@
         top: 51px;
         left: 35px;
     }
-    .image > img {
-    	width : 800px;
+    /* 예약하기메뉴  */
+    .reservation {
+        height: 100px;
+        width: 100%;
+        margin: auto;
+        border-bottom: 1px solid black;
     }
+
+    .title_reservation>span {
+        margin-left: 5%;
+        font-size: 30px;
+        line-height: 150px;
+
+    }
+
+    .main_reservation {
+        height: 450px;
+        width: 60%;
+        margin: auto;
+        margin-top: 50px;
+    }
+
+    .com_a {
+        width: 110%;
+        height: 40px;
+        margin: auto;
+        margin-top: 40px;
+      
+    }
+
+    .com_b {
+        width: 110%;
+        height: 40px;
+        margin: auto;
+        margin-top: 5px;
+       
+    }
+
+    .com_c {
+        width: 110%;
+        height: 213px;
+        margin: auto;
+        margin-top: 5px;
    
+    }
+
+    .com_id {
+        position: relative;
+        background-color: #E6E6E6;
+        float: left;
+        text-align: center;
+        line-height: 30px;
+        width: 15%;
+        height: 30px;
+        margin-left: 20%;
+        margin-top: 10px;
+    }
+
+    .com_tex {        
+        width: 30%;
+        height: 30px;
+        margin-top: 10px;
+        margin-left: 2%;
+        border-radius: 5px;
+        float: left;
+    }
+
+    .com_file {
+        position: relative;
+        background-color: #E6E6E6;
+        float: left;
+        text-align: center;
+        line-height: 30px;
+        width: 15%;
+        height: 30px;
+        margin-left: 20%;
+        margin-top: 10px;
+    }    
+    
+    .com_file_ck {     
+        height: 30px;
+    }
+
+    .com_file_ck > input{
+        margin-top: 10px;
+        margin-left: 20px;
+        width: 100px;
+        height: 35px;
+    }
+    .com_con {
+        position: relative;
+        background-color: #E6E6E6;
+        float: left;
+        text-align: center;
+        line-height: 30px;
+        width: 15%;
+        height: 30px;
+        margin-left: 20%;
+        margin-top: 10px;
+    }
+
+    .com_tex2 {
+        width: 30%;
+        height: 200px;
+        margin-top: 10px;
+        margin-left: 2%;
+        border-radius: 5px;
+        float: left;
+    
+    }
+
+    .regist {  
+        display: block;
+        margin: auto;
+        margin-top : 10px;
+        width: 130px;
+        height: 30px;
+    }

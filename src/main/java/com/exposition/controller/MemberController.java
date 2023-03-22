@@ -78,21 +78,23 @@ public class MemberController{
 		memberService.saveMember(member);
 		}
 		//기업회원
-		check = companyService.checkComDuplicate("11");
+		for(int i=11; i<16; i++) {
+		check = companyService.checkComDuplicate(String.valueOf(i));
 		if (check)
 			return;
 		CompanyFormDto companyFormDto = new CompanyFormDto();
-		companyFormDto.setCom("com");
+		companyFormDto.setCom("com" + String.valueOf(i));
 		companyFormDto.setPassword("com");
 		companyFormDto.setName("기업");
-		companyFormDto.setEmail("com"+"@userEmail.com");
+		companyFormDto.setEmail("com"+String.valueOf(i)+"@userEmail.com");
 		Company company = Company.createCompany(companyFormDto, passwordEncoder);
 		String password2 = passwordEncoder.encode(companyFormDto.getPassword());
 		company.setPassword(password2);
 		company.setRole(Role.COMPANY);
 		companyService.saveCompany(company);
-
+		
 		}
+	}
 		
 	
 	
