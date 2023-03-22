@@ -31,9 +31,10 @@ private JPAQueryFactory queryFactory;
 		QCompany company = QCompany.company;
 		QReservation reservation = QReservation.reservation;
 		QueryResults<CompanyFormDto> result = queryFactory
-				.select(new QCompanyFormDto(company.com, company.name, company.email , company.approval, reservation.startDay, reservation.endDay))
-				.from(company)
-				.where(company.approval.eq("W")).fetchResults();
+				.select(new QCompanyFormDto(company.com, company.name, company.email , reservation.location, reservation.startDay, reservation.endDay))
+				.from(reservation)
+				.join(reservation.company, company)
+				.where(company.approval.eq("예약신청중")).fetchResults();
 		
 		List<CompanyFormDto> list = result.getResults();
 		Long total = result.getTotal();

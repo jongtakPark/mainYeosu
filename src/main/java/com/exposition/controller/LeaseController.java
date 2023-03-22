@@ -41,20 +41,26 @@ public class LeaseController {
 	}
 	//DB에서 endDay 가져올때 +1 해줘야함
 	@GetMapping(value="/calendar")
-	public String caldendar(Model model, HttpServletRequest request, ReservationDto reservationDto) {
+	public String caldendar(Model model, HttpServletRequest request, ReservationDto reservationDto) throws Exception {
+		SimpleDateFormat dtFormat = new SimpleDateFormat("yyyy-MM-dd");
 		HttpSession session = request.getSession();
 		session.setAttribute("location", reservationDto);
 		List<ReservationDto> list = reservationService.getSameLocationReservation(reservationDto);
-		System.out.println(list);
+		for(int i=0; i<list.size(); i++) {
+			Date dt = dtFormat.parse(list.get(i).getEndDay());
+			Calendar cal = Calendar.getInstance();
+			cal.setTime(dt);
+			cal.add(Calendar.DATE, +1);
+			String endDay = dtFormat.format(cal.getTime());
+			list.get(i).setEndDay(endDay);
+		}
 		model.addAttribute("list", list);
-//		model.addAttribute("endDay", endDay);
 		return "lease/calendar";
 	}
 	
 	@ResponseBody
 	@PostMapping(value="/reservation")
-	public String reservation(@RequestBody Map<String, Object> reserve_date, HttpServletRequest request) throws Exception  {
-		System.out.println(reserve_date);
+	public String reservation(@RequestBody Map<String, Object> reserve_date, HttpServletRequest request, Model model) throws Exception  {
 		String startDay = (String) reserve_date.get("startStr");
 		String endDay = (String) reserve_date.get("end");
 		SimpleDateFormat dtFormat = new SimpleDateFormat("yyyy-MM-dd");
@@ -64,10 +70,14 @@ public class LeaseController {
 
 		endDay = dtFormat.format(cal.getTime());
 		HttpSession session = request.getSession();
-		if(endDay!=null && startDay!=null) {
+		if(endDay==null && startDay==null) {
+			model.addAttribute("errorMessage", "등록 기간을 드래그해주세요.");
+			return "lease/calendar";
+		} else {
 			session.setAttribute("endDay", endDay);
 			session.setAttribute("startDay", startDay);
 		}
+		
 		return "success";
 	}
 	//예약 신청

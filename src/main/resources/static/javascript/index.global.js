@@ -1472,10 +1472,6 @@ var FullCalendar = (function (exports) {
         dayHeaders: true,
         initialView: '',
         aspectRatio: 1.35,
-        headerToolbar: {
-            center: '',
-            end: 'today prev,next',
-        },
         weekends: true,
         weekNumbers: false,
         weekNumberCalculation: 'local',
@@ -12845,7 +12841,7 @@ var FullCalendar = (function (exports) {
             },
             dayGridMonth: {
                 type: 'dayGrid',
-                duration: { months: 1 },
+                duration: { weeks: 6 },
                 fixedWeekCount: false,
             },
             dayGridYear: {

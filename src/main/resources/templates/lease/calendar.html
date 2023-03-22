@@ -52,13 +52,16 @@ var calendar = new FullCalendar.Calendar(calendarEl, {
   locale: "ko",
   initialDate: '2026-07-17',
   initialView: 'dayGridMonth',
-  editable: true,
+  editable: false,
   selectable: true,
   nowIndicator: true,
   dayMaxEvents: true, 
-  
+  selectOverlap: function(event) {
+	    return event.rendering === 'background';
+	  },
+
   events: result,
-  
+
   
 });
 
