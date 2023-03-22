@@ -47,7 +47,7 @@ private JPAQueryFactory queryFactory;
 		QCompany company = QCompany.company;
 		
 		queryFactory.update(company)
-		.set(company.approval, "Y")
+		.set(company.approval, "예약완료")
 		.where(company.com.eq(com))
 		.execute();
 	}
