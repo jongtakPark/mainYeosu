@@ -1,5 +1,6 @@
 package com.exposition.entity;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -56,7 +57,7 @@ public class Company {
 	@Enumerated(EnumType.STRING)
 	private Role role;
 	
-	@OneToOne(mappedBy="company")
+	@OneToOne(mappedBy="company", cascade=CascadeType.ALL)
 	@JoinColumn(name = "reservation_id")
 	@ToString.Exclude
 	private Reservation reservation;

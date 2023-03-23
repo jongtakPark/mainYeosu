@@ -54,7 +54,7 @@ public class Files extends BaseEntity {
 	@JoinColumn(name="keyword_id")
 	private Keyword keyword;
 	
-	@ManyToOne(fetch = FetchType.LAZY, cascade=CascadeType.ALL)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name="reservation_id")
 	private Reservation reservation;
 	

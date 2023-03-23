@@ -15,4 +15,7 @@ public interface CompanyRepositoryCustom {
 	
 	//기업회원 모두 조회
 	Page<CompanyFormDto> findAllCom(Pageable pageable);
+	
+	//기업회원 갯수 조회
+	Long findAllComCount();
 }

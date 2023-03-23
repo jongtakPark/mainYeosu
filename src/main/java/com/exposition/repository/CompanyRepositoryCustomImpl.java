@@ -32,7 +32,10 @@ private JPAQueryFactory queryFactory;
 				.select(new QCompanyFormDto(company.com, company.name, company.email , reservation.location, reservation.startDay, reservation.endDay))
 				.from(reservation)
 				.join(reservation.company, company)
-				.where(company.approval.eq("예약신청중")).fetchResults();
+				.where(company.approval.eq("예약신청중"))
+				.offset(pageable.getOffset())
+				.limit(pageable.getPageSize())
+				.fetchResults();
 		
 		List<CompanyFormDto> list = result.getResults();
 		Long total = result.getTotal();
@@ -58,15 +61,23 @@ private JPAQueryFactory queryFactory;
 		
 		List<CompanyFormDto> results = queryFactory
 				.select(new QCompanyFormDto(company.com, company.name, company.email, reservation.location, reservation.startDay, reservation.endDay, company.approval))
-				.from(company)
-//				.join(company.reservation, reservation)
+				.from(reservation)
+				.rightJoin(reservation.company, company)
 				.offset(pageable.getOffset())
 				.limit(pageable.getPageSize())
 				.fetch();
 		
-		
-		System.out.println(results);
 		return new PageImpl<>(results, pageable, results.size());
+	}
+	
+	//기업회원 갯수 조회
+	@Override
+	public Long findAllComCount() {
+		QCompany company = QCompany.company;
 		
+		Long count = queryFactory
+				.selectFrom(company)
+				.fetchCount();
+		return count;
 	}
 }

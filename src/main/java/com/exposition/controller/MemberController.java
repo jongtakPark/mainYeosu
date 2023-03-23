@@ -7,6 +7,7 @@ import java.util.concurrent.ExecutionException;
 
 import javax.annotation.PostConstruct;
 import javax.mail.MessagingException;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -244,7 +245,7 @@ public class MemberController{
 	
 	//마이페이지 비밀번호 변경      
 	@PostMapping(value="/mypageupdate/{mid}")
-    public String modifyMember(@PathVariable String mid, Model model, MemberFormDto memberFormDto) {   
+    public String modifyMember(@PathVariable String mid, Model model, @Valid MemberFormDto memberFormDto, BindingResult bindinResult) {   
 	    Member member = memberService.findByMid(mid);
 	    String password= passwordEncoder.encode(memberFormDto.getPassword());
 	    member.setPassword(password);
@@ -252,11 +253,12 @@ public class MemberController{
 	    return "redirect:/";
 	 }
 	
-	//회원탈퇴
+	//마이페이지 회원탈퇴
 	@DeleteMapping(value="/memDelete/{mid}")
-	public String memdelete(@PathVariable String mid) {
+	public String memdelete(@PathVariable String mid, HttpSession session) {
 	   Member member = memberService.findByMid(mid);
 	   memberService.deleteMem(member);
+	   session.invalidate();
 	   return "redirect:/";
 	}
 }

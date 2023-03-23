@@ -31,7 +31,10 @@ private JPAQueryFactory queryFactory;
 		
 		QueryResults<MemberFormDto> result = queryFactory
 				.select(new QMemberFormDto(mem.mid, mem.name, mem.email)).from(mem)
-				.where(mem.approval.eq("W")).fetchResults();
+				.where(mem.approval.eq("W"))
+				.offset(pageable.getOffset())
+				.limit(pageable.getPageSize())
+				.fetchResults();
 		
 		List<MemberFormDto> list = result.getResults();
 		Long total = result.getTotal();

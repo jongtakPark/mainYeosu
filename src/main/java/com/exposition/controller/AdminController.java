@@ -66,6 +66,7 @@ public class AdminController {
 		Pageable pageable = PageRequest.of(page.isPresent()? page.get() : 0 , 10);
 		Page<MemberFormDto> appMemList = memberService.findByAppVolunteer(memberFormDto, pageable);
 	    int nowPage = appMemList.getPageable().getPageNumber() + 1 ;
+	    
 	    int startPage =  Math.max(nowPage - 4, 1);
 	    int endPage = Math.min(nowPage+9, appMemList.getTotalPages());
 	    model.addAttribute("nowPage",nowPage);
@@ -108,14 +109,15 @@ public class AdminController {
 	
 	//기업관리 페이지 이동
 	@GetMapping(value="/comManagement")
-	public String comManagement(Model model, @PageableDefault(page=0, size=10, sort="id", direction=Sort.Direction.DESC) Pageable pageable) {
+	public String comManagement(Model model, Optional<Integer> page) {
+		Pageable pageable = PageRequest.of(page.isPresent()? page.get() : 0 , 10);
 		Page<CompanyFormDto> comList = companyService.findAllComapny(pageable);
+		Long count = companyService.findAllComCount();
+		int endPage = (int) (count/10);
 		model.addAttribute("comManage", comList);
-		System.out.println(comList.getContent());
 		int nowPage = comList.getPageable().getPageNumber() + 1;	        
         int startPage =  Math.max(nowPage - 4, 1);
-        int endPage = Math.min(nowPage+9, comList.getTotalPages());
-
+        endPage = Math.min(nowPage+9, endPage+1);
         model.addAttribute("nowPage",nowPage);
         model.addAttribute("startPage", startPage);
         model.addAttribute("endPage", endPage);

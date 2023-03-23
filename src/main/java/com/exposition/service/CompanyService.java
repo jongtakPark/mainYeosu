@@ -40,6 +40,11 @@ public class CompanyService implements UserDetailsService {
 		return companyRepository.findAllCom(pageable);
 	}
 	
+	//기업회원 갯수 조회
+	public Long findAllComCount() {
+		return companyRepository.findAllComCount();
+	}
+	
 	public Company findByCom(String com) {
 		return companyRepository.findByCom(com);
 	}

@@ -1,5 +1,7 @@
 package com.exposition.entity;
 
+import java.util.List;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -8,6 +10,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -34,10 +37,14 @@ public class Reservation {
 	private String endDay;
 	
 	
-	@OneToOne(fetch = FetchType.LAZY, cascade=CascadeType.ALL)
+	@OneToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "company_id")
 	@ToString.Exclude
 	private Company company;
+	
+	@OneToMany(mappedBy ="reservation", cascade=CascadeType.ALL)
+	@ToString.Exclude
+	private List<Files> files;
 	
 	
 }
