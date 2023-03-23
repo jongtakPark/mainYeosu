@@ -21,11 +21,9 @@ public class AttendList {
 	//참가업체목록 페이지로 이동
 	@GetMapping(value="/view")
 	public String attendView(ReservationDto reservationDto) {
-//		List<ReservationDto> listDto = reservationService.getAttendCom(reservationDto);
-//		System.out.println(listDto);
-//		List<ReservationDto> comReservationDto = reservationService.getReservationList(listDto);
-//		System.out.println(comReservationDto);
-		return "list/attendList";
+		List<ReservationDto> listDto = reservationService.getAttendCom(reservationDto);
+		List<ReservationDto> comReservationDto = reservationService.getReservationList(listDto);
+		return "attend/attendList";
 	}
 	
 	

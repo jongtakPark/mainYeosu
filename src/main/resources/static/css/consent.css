@@ -45,14 +45,13 @@ tr{
     font-size: 18px;
     margin-top: 10px;
     padding-bottom: 10px;
-    
     text-align: center;
 }
 thead > tr {
     border-bottom: 2px solid black;
 }
 thead tr td:nth-child(1){
-    text-align : left;
+
     padding-left : 40px;
 }
 
@@ -93,7 +92,6 @@ thead tr td:nth-child(1){
     flex: 7%;
 }
 tbody tr td:nth-child(1){
-    text-align : left;
     padding-left : 40px;
 }
 tbody > tr {
@@ -102,6 +100,7 @@ tbody > tr {
 .recognize{
 	width: 70px;
 	height: 25px;
+	border-radius : 5px;
 }
 .container2{
 	position: absolute;
@@ -134,8 +133,9 @@ tbody > tr {
 }
 .conAll{
 	position: absolute;
-	right:15px;
+	right: 90px;
 	bottom: 38px;
 	width : 70px;
 	height :38px;
+	border-radius : 10px;
 }

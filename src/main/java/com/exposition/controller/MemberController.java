@@ -1,5 +1,6 @@
 package com.exposition.controller;
 
+import java.security.Principal;
 import java.util.HashMap;
 import java.util.Optional;
 import java.util.concurrent.ExecutionException;
@@ -17,7 +18,6 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -26,6 +26,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.exposition.constant.Role;
 import com.exposition.dto.CompanyFormDto;
 import com.exposition.dto.MemberFormDto;
+import com.exposition.dto.MemberModifyFormDto;
 import com.exposition.entity.Company;
 import com.exposition.entity.Member;
 import com.exposition.service.CompanyService;
@@ -219,6 +220,7 @@ public class MemberController{
 		memberService.updateMember(member);
 		return "success";
 	}
+	
 	//기업 회원 비밀번호 찾기
 	@PostMapping(value="/findcompw")
 	@ResponseBody
@@ -231,7 +233,30 @@ public class MemberController{
 		return "success";
 	}
 	
+	//마이페이지로 이동
+	@GetMapping(value="/mypage")
+	public String mypage(Model model, Principal principal) {
+		Member member = memberService.findByMid(principal.getName());
+		MemberModifyFormDto memberModifyFormDto = MemberModifyFormDto.of(member);
+	    model.addAttribute("memberModifyFormDto", memberModifyFormDto);
+	    return "member/memberModify";
+	}
 	
+	//마이페이지 비밀번호 변경      
+	@PostMapping(value="/mypageupdate/{mid}")
+    public String modifyMember(@PathVariable String mid, Model model, MemberFormDto memberFormDto) {   
+	    Member member = memberService.findByMid(mid);
+	    String password= passwordEncoder.encode(memberFormDto.getPassword());
+	    member.setPassword(password);
+	    memberService.updateMember(member);                  
+	    return "redirect:/";
+	 }
 	
-	
+	//회원탈퇴
+	@DeleteMapping(value="/memDelete/{mid}")
+	public String memdelete(@PathVariable String mid) {
+	   Member member = memberService.findByMid(mid);
+	   memberService.deleteMem(member);
+	   return "redirect:/";
+	}
 }

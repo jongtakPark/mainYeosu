@@ -49,10 +49,9 @@ class1[i].addEventListener('mouseleave', () => {
                             <div class="keyword_back_pic">
                         <img th:src="${keyword.backSavePath}">
                             </div>
-                            
                         </div>
                         <div class="keyword_tit">
-                            <a th:href="@{/news/view/{tourBoardId}(tourBoardId=${keyword.id})}"><span th:text="${keyword.title}"></span></a> 
+                            <span th:text="${keyword.title}"></span> 
                          </div>
                         </div>
                         
@@ -65,9 +64,8 @@ class1[i].addEventListener('mouseleave', () => {
                   <strong th:if="${page==nowPage}" th:text ="${page}" style="color:red"></strong>
               </th:block>  
          </div>
-            <div class="regist">
-                <a href="/introduction/keywordWrite" class="b1">등록</a>
-            </div>
+          
+			<a href="/introduction/keywordWrite" class="regist">글쓰기</a>
      </div>
            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
 </div>

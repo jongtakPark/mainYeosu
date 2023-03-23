@@ -1,5 +1,6 @@
 package com.exposition.entity;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -53,7 +54,7 @@ public class Files extends BaseEntity {
 	@JoinColumn(name="keyword_id")
 	private Keyword keyword;
 	
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.LAZY, cascade=CascadeType.ALL)
 	@JoinColumn(name="reservation_id")
 	private Reservation reservation;
 	

@@ -17,18 +17,14 @@ layout:decorate="~{layouts/layout}">
             <div class="title_ent">
                 <span>일반회원 정보 수정</span>
             </div>
-             <form action="/signup/new" method="post" th:object="${memberFormDto}" onsubmit="return submitCheck();">
+             <form th:action="@{/signup/mypageupdate/{mid}(mid=${memberModifyFormDto.mid})}" method="post" th:object="${memberModifyFormDto}" onsubmit="return submitCheck();">
              <div class="per_a">
                  <div class="per_id"><span>아이디</span></div>
-                 <div><input  class="per_tex" name="mid" id="mid" th:field="*{mid}" type="text" placeholder="  아이디를 입력해주세요"></div>
-                 <div class="per_id_ck"><span><a href="#" class="mid_ck">중복검사</a></span></div>
+                 <div><input  class="per_tex" name="mid" id="mid" th:field="*{mid}" type="text" readOnly></div>                
              </div>
-           <p th:if="${#fields.hasErrors('mid')}"  th:errors="*{mid}" class="fieldError" id="fieldErrorMid">Incorrect data</p>  
-             <div class="error_div"><span class="error" id="midMsg" ></span></div>
-             <div class="succ_div"><span class="succ" id="midMsg2" ></span></div>
              <div class="per_b">
                  <div class="per_name"><span>이름</span></div>
-                 <div><input class="per_tex" type="text" name="name" id="name" th:field="*{name}" placeholder="  이름을 입력해주세요"></div>
+                 <div><input class="per_tex" type="text" name="name" id="name" th:field="*{name}" readOnly></div>
              </div>
       <p th:if="${#fields.hasErrors('name')}"  th:errors="*{name}" class="fieldError" id="fieldErrorName">Incorrect data</p> 
              <div class="error_div"><span class="error" id="nameMsg" ></span></div>
@@ -43,38 +39,16 @@ layout:decorate="~{layouts/layout}">
                  <div><input class="per_tex" type="password" name="password2" id="password2" th:field="*{confirmPassword}" placeholder="  비밀번호를 입력해주세요"></div>
              </div>
              <div class="error_div"><span class="error" id="passwordMsg1" ></span></div>
-             <div class="succ_div"><span class="succ" id="passwordMsg2" ></span></div>
-             <div class="per_e">
-                 <div class="per_mail"><span>이메일</span></div>
-                 <div><input class="per_tex" name="email" id="email" th:field="*{email}" placeholder="  이메일을 입력해주세요"></div>
-                 <div class="per_mail_send"><span><a href="#" id="emailsend">인증번호 발송</a></span></div>
-             </div>
-       <p th:if="${#fields.hasErrors('email')}"  th:errors="*{email}" class="fieldError" id="fieldErrorEmail">Incorrect data</p>  
-             <div class="error_div"><span class="error" id="emailMsg" ></span></div>
-             <div class="succ_div"><span class="succ" id="emailMsg2" ></span></div>
-            
-             <div class="per_f">
-                <div class="per_mail_a"><span></span></div>
-                 <div><input class="per_tex" type="text"  th:field="*{confirmEmail}" placeholder="인증번호를 입력해주세요" id="emailcode"></div>
-                 <div class="per_mail_ck"><span><a href="#" id="emailcheck">인증확인</a></span></div>
-             </div>
-             <div class="error_div"><span class="error" id="emailCheckMsg" ></span></div>
-             <div class="succ_div"><span class="succ" id="emailCheckMsg2" ></span></div>
+             <div class="succ_div"><span class="succ" id="passwordMsg2" ></span></div>                                        
              
-             <div class="per_g">
-                 <div class="per_tel"><span>전화번호(선택)</span></div>
-                 <div><input class="per_tex" type="tel" th:field="*{tel}" name="tel" id="tel" oninput="autoHyphen(this)" maxlength="13" placeholder="  전화번호를 입력해주세요"></div>
-             </div>
-
-             <div class="error_div"><span class="error" id="telMsg" ></span></div>
-             <input type="submit" class="modify" id="regist" value="수정완료">
-             <a href="/admin/memManagement"><input class="cancel-modify" value="취소"></a>
+             <input type="submit" class="modify" value="수정완료">
+             <a href="/"><input class="cancel-modify" value="취소"></a>
              <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
              <script type="text/javascript" src="/javascript/personal.js"></script>  
              </form>
-			<form th:action="@{/signup/memDelete/{mid}(mid=${memberFormDto.mid})}" th:method="delete">
-				<input type="submit" class="withdrawal" value="탈퇴">
-			</form>
+         <form th:action="@{/signup/memDelete/{mid}(mid=${memberModifyFormDto.mid})}" th:method="delete">
+            <input type="submit" class="withdrawal" value="탈퇴">
+         </form>
         </div>
         </div>
       

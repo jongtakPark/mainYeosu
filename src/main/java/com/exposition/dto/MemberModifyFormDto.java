@@ -24,6 +24,11 @@ public class MemberModifyFormDto {
 	
 	private String email;
 	
+	private String password;
+	    
+	private String confirmPassword;
+
+	
 	private static ModelMapper modelMapper = new ModelMapper();
 	
 	public static MemberModifyFormDto of(Member member) {

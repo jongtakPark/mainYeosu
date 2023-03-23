@@ -72,4 +72,7 @@ public class IntroductionController {
 		}
 		return "redirect:/introduction/keyword";
 	}
+	
+	//여수섬 키워드 글 삭제
+//	@DeleteMapping(value="delete/")
 }

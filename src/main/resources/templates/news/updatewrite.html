@@ -40,15 +40,16 @@ $(this).siblings(".custom-file-label").html(fileName); <!-- 라벨 태그 안의
            <li><a href="#">주변관광지</a></li>
            <li><a href="#">공지사항</a></li>
            <li><a href="#">보도자료</a></li>
+           <li><a href="#">이벤트게시판</a></li>
        </ul>
    </div>
    <div class="freeboard">
        <div class="free_title">
           <div class="title">
-               <span>주변관광지 상세보기</span>
+               <span>주변관광지 수정</span>
            </div>
        </div>
-	<form method="post" enctype="multipart/form-data">
+	<form th:method="put" enctype="multipart/form-data">
        <div class="info_content">
             <div class="info_title">
                 <div class="info_title_inner">

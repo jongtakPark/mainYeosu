@@ -158,23 +158,32 @@
     margin-top: 25px;
 }
 
-.wrap > .regist{
-    
-    margin-left: 80%;
-}
-
-a{
-    color: black;
+.regist{
+    position: absolute;
+    width: 120px;
+    height: 50px;
+    line-height: 50px;
+    text-align: center;
+    right: 13%;
+    bottom: 50px;
+    background: #99DDEE;
+    border-radius: 10px;
+    border: 2px solid #666;
+    color: #666;
+    font-size: 22px;
     text-decoration: none;
+    font-weight: bold;
+    transition: 0.2s
+}
+.regist:hover{
+    background-color: #39A3C0;
+    color: #fff;
 }
 
 .blo {
     float: left;
 }
 
-/* .container{
-    border: 1px solid black;
-} */
 
 .b1{
     position: absolute;

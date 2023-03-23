@@ -1,7 +1,6 @@
 package com.exposition.entity;
 
-import java.time.LocalDateTime;
-
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -12,10 +11,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-import org.hibernate.annotations.ColumnDefault;
-import org.hibernate.annotations.DynamicInsert;
-
 import lombok.Data;
+import lombok.ToString;
 
 @Entity
 @Table(name="reservation")
@@ -37,8 +34,9 @@ public class Reservation {
 	private String endDay;
 	
 	
-	@OneToOne(fetch = FetchType.LAZY)
+	@OneToOne(fetch = FetchType.LAZY, cascade=CascadeType.ALL)
 	@JoinColumn(name = "company_id")
+	@ToString.Exclude
 	private Company company;
 	
 	

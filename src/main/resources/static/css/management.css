@@ -104,6 +104,7 @@ tbody > tr {
 .recognize{
 	width: 70px;
 	height: 25px;
+	border-radius : 5px;
 }
 .container2{
 	position: absolute;

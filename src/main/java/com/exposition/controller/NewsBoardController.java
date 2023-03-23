@@ -5,8 +5,6 @@ import java.util.Optional;
 import java.util.Random;
 
 import javax.persistence.EntityNotFoundException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.data.domain.Page;
@@ -19,6 +17,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -30,7 +29,6 @@ import com.exposition.dto.EventMemberDto;
 import com.exposition.dto.TourBoardDto;
 import com.exposition.entity.EventBoard;
 import com.exposition.entity.Member;
-import com.exposition.entity.QMember;
 import com.exposition.service.EventBoardService;
 import com.exposition.service.FileService;
 import com.exposition.service.MailService;
@@ -122,7 +120,7 @@ public class NewsBoardController {
 	}
 	
 	//주변 관광지 글 수정 등록
-	@PostMapping(value="update/{id}")
+	@PutMapping(value="update/{id}")
 	public String updatesucc(TourBoardDto tourBoardDto, Model model, @RequestParam("files") List<MultipartFile> fileList) {
 		if(fileList.get(0).isEmpty()) {
 			model.addAttribute("errorMessage", "첫번째 이미지는 필수입니다.");

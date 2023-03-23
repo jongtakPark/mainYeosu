@@ -12,4 +12,7 @@ public interface CompanyRepositoryCustom {
 	
 	//업체등록 신청한 기업 승인
 	public void updateApp(String com);
+	
+	//기업회원 모두 조회
+	Page<CompanyFormDto> findAllCom(Pageable pageable);
 }

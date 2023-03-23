@@ -134,9 +134,10 @@
 .imgs {
 	width : 91%;
 	height : 300px;
+	overflow : auto;
 }
 .imgs img{
-	width : 300px;
+	width : 295px;
 	height : 300px;
 	float : left;
 }
@@ -155,21 +156,42 @@
   cursor: pointer;
 }
 .info_submit{
-    width: 100%;
+    width: 5%;
     height: 50px;
-    margin-top: 20px;
+    margin-top: 90px;
+    margin-left : 55%;
+    position : absolute;
 }
-.info_submit  > button{
+button{
     display: block;
     width: 130px;
     height: 50px;
-    border-radius: 20px;
+    border-radius: 10px;
     font-size: 18px;
+    position : absolute;
     margin-left: 85%;
+    background : #99DDEE;
 }
-.info_submit  > button:hover{
+button:hover{
     background: aqua;
 }
+.info_submit  > a{
+    display: block;
+    width: 130px;
+    height: 50px;
+    border-radius: 10px;
+    font-size: 18px;
+    margin-left: -130px;
+    border : 2px solid black;
+    text-align : center;
+    line-height : 46px;
+    position : absolute;
+    background : #99DDEE;
+}
+.info_submit  > a:hover{
+    background: aqua;
+}
+
 .info_cont_inner textarea{
     resize: none;
     outline: none;

@@ -54,7 +54,6 @@ layout:decorate="~{layouts/layout}">
        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
     </form>
     <form th:action="@{/board/idea/delete/{id}(id=${session.id})}" th:method="delete">
-    	
     	<div class="info_submit">
 			<a href="/board/ideamodify">수정</a>
 			<button type="submit" class="submit">삭제하기</button>

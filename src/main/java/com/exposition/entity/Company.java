@@ -1,7 +1,5 @@
 package com.exposition.entity;
 
-import java.time.LocalDateTime;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -9,6 +7,8 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
@@ -19,6 +19,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import com.exposition.constant.Role;
 import com.exposition.dto.CompanyFormDto;
 
+import lombok.ToString;
 import groovyjarjarantlr4.v4.runtime.misc.NotNull;
 import lombok.Data;
 
@@ -54,6 +55,11 @@ public class Company {
 	
 	@Enumerated(EnumType.STRING)
 	private Role role;
+	
+	@OneToOne(mappedBy="company")
+	@JoinColumn(name = "reservation_id")
+	@ToString.Exclude
+	private Reservation reservation;
 
 //	@OneToMany(mappedBy = "company", fetch = FetchType.LAZY)
 //	@ToString.Exclude

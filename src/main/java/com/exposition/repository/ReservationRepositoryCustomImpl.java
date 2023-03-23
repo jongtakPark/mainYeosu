@@ -31,7 +31,7 @@ public class ReservationRepositoryCustomImpl implements ReservationRepositoryCus
 		return results;
 	}
 	
-	//참가업체 목록에 예약완료 된 기업 보여주기
+	//참가업체 목록 페이지에 예약완료 된 기업 보여주기
 	@Override
 	public List<ReservationDto> getAttendCom(ReservationDto reservationDto){
 		QReservation reservation = QReservation.reservation;
@@ -40,7 +40,7 @@ public class ReservationRepositoryCustomImpl implements ReservationRepositoryCus
 		List<ReservationDto> results = queryFactory
 				.select(new QReservationDto(company.name, reservation.id ,reservation.startDay, reservation.endDay, reservation.location, reservation.content))
 				.from(reservation).join(reservation.company, company)
-				.where(company.approval.eq("예약완료")).fetch();
+				.where(company.approval.eq("예약완료")).orderBy(reservation.startDay.asc()).fetch();
 		
 		return results;
 	}

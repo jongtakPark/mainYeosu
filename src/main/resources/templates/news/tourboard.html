@@ -15,6 +15,7 @@ layout:decorate="~{layouts/layout}">
             <li><a href="#">주변관광지</a></li>
             <li><a href="#">공지사항</a></li>
             <li><a href="#">보도자료</a></li>
+            <li><a href="#">이벤트게시판</a></li>
         </ul>
     </div>
     <div class="container">
@@ -40,9 +41,7 @@ layout:decorate="~{layouts/layout}">
             		<strong th:if="${page==nowPage}" th:text ="${page}" style="color:red"></strong>
         		</th:block>  
 			</div>
-            <div class="regist">
-                <a href="/news/tourwrite">등록</a>
-            </div>
+                <a href="/news/tourwrite" class="regist">글쓰기</a>
      </div>
            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
 </div>

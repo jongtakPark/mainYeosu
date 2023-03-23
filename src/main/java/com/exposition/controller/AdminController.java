@@ -109,8 +109,9 @@ public class AdminController {
 	//기업관리 페이지 이동
 	@GetMapping(value="/comManagement")
 	public String comManagement(Model model, @PageableDefault(page=0, size=10, sort="id", direction=Sort.Direction.DESC) Pageable pageable) {
-		Page<Company> comList = companyService.findAllComapny(pageable);
+		Page<CompanyFormDto> comList = companyService.findAllComapny(pageable);
 		model.addAttribute("comManage", comList);
+		System.out.println(comList.getContent());
 		int nowPage = comList.getPageable().getPageNumber() + 1;	        
         int startPage =  Math.max(nowPage - 4, 1);
         int endPage = Math.min(nowPage+9, comList.getTotalPages());

@@ -9,9 +9,7 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 
 import com.exposition.dto.CompanyFormDto;
-import com.exposition.dto.MemberFormDto;
 import com.exposition.dto.QCompanyFormDto;
-import com.exposition.entity.Company;
 import com.exposition.entity.QCompany;
 import com.exposition.entity.QReservation;
 import com.querydsl.core.QueryResults;
@@ -50,5 +48,25 @@ private JPAQueryFactory queryFactory;
 		.set(company.approval, "예약완료")
 		.where(company.com.eq(com))
 		.execute();
+	}
+	
+	//기업 회원 모두 조회
+	@Override
+	public Page<CompanyFormDto> findAllCom(Pageable pageable){
+		QCompany company = QCompany.company;
+		QReservation reservation = QReservation.reservation;
+		
+		List<CompanyFormDto> results = queryFactory
+				.select(new QCompanyFormDto(company.com, company.name, company.email, reservation.location, reservation.startDay, reservation.endDay, company.approval))
+				.from(company)
+//				.join(company.reservation, reservation)
+				.offset(pageable.getOffset())
+				.limit(pageable.getPageSize())
+				.fetch();
+		
+		
+		System.out.println(results);
+		return new PageImpl<>(results, pageable, results.size());
+		
 	}
 }
