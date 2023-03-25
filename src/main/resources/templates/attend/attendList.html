@@ -6,11 +6,31 @@ layout:decorate="~{layouts/layout}">
     <meta charset="UTF-8">
     <title>Lease</title>
 <link rel="stylesheet" th:href="@{/css/attendList.css}">
+<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+<script th:inline="javascript">
+$(document).ready(function(){
+	if($(".listc")!=null){
+		$('html').click(function(e){
+			if($(e.target).parents('.listbox').length<1){
+				$(".listb").slideUp();
+			}
+		});	
+		$(".listc").each(function(i,e){
+			$(this).click(function(){
+				if($(this).next().is(":visible") != true){
+					$(this).siblings(".listb").slideUp();
+					$(this).next().slideDown();
+				}
+			});
+		});
+	}
+});
+</script>
 </head>
 <body>  
-<div layout:fragment="content">    
+<div layout:fragment="content" class="content">    
     <div class="attend">
-        <h1>업체등록목록</h1>
+        <h1>참가업체목록</h1>
         <div class="cont_image">
             <div class="a-1">
                 <p>Aa-101</p>
@@ -227,49 +247,35 @@ layout:decorate="~{layouts/layout}">
                         <span id="days">기간</span>
                     </div>
                 </div>
+                <th:block th:each="res, status:${reservationDto}">
                 <div class="listc">
-                    <div class="loc"></div>
-                    <div class="com_name"></div>
-                    <div class="days"></div>
+                    <div class="loc"><span th:text="${res.location}"></span></div>
+                    <div class="com_name"><span th:text="${res.name}"></span></div>
+                    <div class="days"><span>[[${res.startDay}]] ~ [[${res.endDay}]]</span></div>
                 </div>
                 <div class="listb">
                     <div class="listb_in">
-                        <div class="pic">사진</div>
-                        <div class="content">내용</div>
+                        <div class="pic">
+                        	<span th:each="file, status:${res.fileDtoList}">
+                        		<img th:src="${file.savePath}">
+                        	</span>
+                        </div>
+                        <div class="content" th:text="${res.content}"></div>
                     </div>
                 </div>
-            </div>
-            <div class="mainlist">
-                <div class="listc">
-                    <div class="loc"></div>
-                    <div class="com_name"></div>
-                    <div class="days"></div>
-                </div>
-                <div class="listb">
-                    <div class="listb_in">
-                        <div class="pic">사진</div>
-                        <div class="content">내용</div>
-                    </div>
-                </div>
-            </div>
-            <div class="mainlist">
-                <div class="listc">
-                    <div class="loc"></div>
-                    <div class="com_name"></div>
-                    <div class="days"></div>
-                </div>
-                <div class="listb">
-                    <div class="listb_in">
-                        <div class="pic">사진</div>
-                        <div class="content">내용</div>
-                    </div>
-                </div>
+                </th:block>
             </div>
         </div>
+        <div class="pagebtn">
+			<th:block th:each="page:${#numbers.sequence(startPage,endPage)}">
+            <a th:if="${page==0? page==1 : page != nowPage}" th:href="@{/attend/view(page=${page-1})}" th:text ="${page}"></a>
+            <strong th:if="${page==nowPage}" th:text ="${page}" style="color:red"></strong>
+       		 </th:block>
+		</div>
 
         
-        <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
-<script src="/javascript/attendList.js"></script>
+
+<!-- <script src="/javascript/attendList.js"></script> -->
 </div>
 
 </div>

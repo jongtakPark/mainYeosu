@@ -45,6 +45,11 @@ public class CompanyService implements UserDetailsService {
 		return companyRepository.findAllComCount();
 	}
 	
+	//예약완료된 기업 갯수 조회
+	public Long findSucReservationCom() {
+		return companyRepository.findSucReservationCom();
+	}
+	
 	public Company findByCom(String com) {
 		return companyRepository.findByCom(com);
 	}

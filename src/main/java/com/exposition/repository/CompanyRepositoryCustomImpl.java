@@ -53,7 +53,7 @@ private JPAQueryFactory queryFactory;
 		.execute();
 	}
 	
-	//기업 회원 모두 조회
+	//기업 회원 모두 조회(예약 테이블과 join)
 	@Override
 	public Page<CompanyFormDto> findAllCom(Pageable pageable){
 		QCompany company = QCompany.company;
@@ -68,6 +68,16 @@ private JPAQueryFactory queryFactory;
 				.fetch();
 		
 		return new PageImpl<>(results, pageable, results.size());
+	}
+	
+	//예약 완료된 기업 갯수 조회
+	@Override
+	public Long findSucReservationCom() {
+		QCompany company = QCompany.company;
+				
+			Long count = queryFactory.selectFrom(company).where(company.approval.eq("예약완료")).fetchCount();
+			
+			return count;
 	}
 	
 	//기업회원 갯수 조회

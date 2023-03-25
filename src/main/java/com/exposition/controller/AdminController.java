@@ -66,7 +66,6 @@ public class AdminController {
 		Pageable pageable = PageRequest.of(page.isPresent()? page.get() : 0 , 10);
 		Page<MemberFormDto> appMemList = memberService.findByAppVolunteer(memberFormDto, pageable);
 	    int nowPage = appMemList.getPageable().getPageNumber() + 1 ;
-	    
 	    int startPage =  Math.max(nowPage - 4, 1);
 	    int endPage = Math.min(nowPage+9, appMemList.getTotalPages());
 	    model.addAttribute("nowPage",nowPage);

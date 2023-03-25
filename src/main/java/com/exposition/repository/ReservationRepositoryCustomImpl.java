@@ -4,10 +4,13 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
+
 import com.exposition.dto.QReservationDto;
 import com.exposition.dto.ReservationDto;
 import com.exposition.entity.QCompany;
-import com.exposition.entity.QFiles;
 import com.exposition.entity.QReservation;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 
@@ -33,15 +36,16 @@ public class ReservationRepositoryCustomImpl implements ReservationRepositoryCus
 	
 	//참가업체 목록 페이지에 예약완료 된 기업 보여주기
 	@Override
-	public List<ReservationDto> getAttendCom(ReservationDto reservationDto){
+	public Page<ReservationDto> getAttendCom(ReservationDto reservationDto, Pageable pageable){
 		QReservation reservation = QReservation.reservation;
 		QCompany company = QCompany.company;
 		
 		List<ReservationDto> results = queryFactory
 				.select(new QReservationDto(company.name, reservation.id ,reservation.startDay, reservation.endDay, reservation.location, reservation.content))
 				.from(reservation).join(reservation.company, company)
+				.offset(pageable.getOffset()).limit(pageable.getPageSize())
 				.where(company.approval.eq("예약완료")).orderBy(reservation.startDay.asc()).fetch();
 		
-		return results;
+		return new PageImpl<>(results, pageable, results.size());
 	}
 }
