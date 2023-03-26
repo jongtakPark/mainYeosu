@@ -41,7 +41,7 @@ public class BoardController {
 	private final IdeaService ideaService;
 	private final MemberService memberService;
 	
-	//자유게시판
+	//관람후기
 	@GetMapping(value="/freeboard")
 		public String boardList(Model model, @PageableDefault(page=0, size=10, sort="id", direction=Sort.Direction.DESC) Pageable pageable){
 		
@@ -63,14 +63,14 @@ public class BoardController {
 	    }
 	
 			
-	// 글쓰기 페이지로 이동
+	//관람후기 글쓰기 페이지로 이동
 	@GetMapping(value="/boardwrite")
 	public String boardwrite(Model model) {
 		model.addAttribute("freeBoardDto", new FreeBoardDto());
 		return "board/write";
 	}	
 			
-	// 글쓰기
+	//관람후기 글저장
 	@PostMapping(value="/new")
 	public String write(FreeBoardDto freeBoardDto, Model model) {
 		FreeBoard freeBoard = FreeBoard.createfreeBoard(freeBoardDto);
@@ -78,7 +78,7 @@ public class BoardController {
 		return "redirect:/board/freeboard";
 		}	
 	
-	// 게시글 상세보기
+	//관람후기 상세보기
 	@GetMapping(value="/view/{id}")
 	public String boardView(@PathVariable("id") Long id, Model model, HttpServletRequest request) {
 		Optional<FreeBoard> view = boardService.findBoard(id);
@@ -94,14 +94,14 @@ public class BoardController {
 		return "board/view";
 	}
 	
-	//게시글 수정창으로 이동
+	//관람후기 수정창으로 이동
 	@GetMapping(value="/modify")
 	public String modifyView(Model model) {
 		model.addAttribute("freeBoardDto", new FreeBoardDto());
 		return "board/updatewrite";
 	}
 	
-	//게시글 수정등록
+	//관람후기 수정등록
 	@PutMapping(value="/modcomplete/{id}")
 	public String modComplete(@PathVariable("id") Long id, @RequestParam("title") String title, @RequestParam("content") String content, FreeBoardDto freeBoardDto, Model model) {
 		FreeBoard freeBoard = boardService.updateBoard(id);
@@ -114,7 +114,7 @@ public class BoardController {
 		return "redirect:/board/freeboard";
 	}
 	
-	//게시글 삭제(DeleteMapping을 사용하기 위해서 view.html에 form을 추가해서 사용해야 함)
+	//관람후기 삭제(DeleteMapping을 사용하기 위해서 view.html에 form을 추가해서 사용해야 함)
 	@DeleteMapping(value="/delete/{id}")
 	public String deleteBoard(@PathVariable Long id) {
 		boardService.deleteBoard(id);

@@ -10,6 +10,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -30,6 +31,7 @@ import lombok.RequiredArgsConstructor;
 @Controller
 @RequestMapping(value="/lease")
 @RequiredArgsConstructor
+@PreAuthorize("hasAnyRole('VOLUNTEER')")
 public class LeaseController {
 
 	private final CompanyService companyService;

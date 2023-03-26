@@ -2,11 +2,11 @@ package com.exposition.controller;
 
 import java.security.Principal;
 import java.util.HashMap;
-import java.util.Optional;
 import java.util.concurrent.ExecutionException;
 
 import javax.annotation.PostConstruct;
 import javax.mail.MessagingException;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.exposition.config.UserAuthorize;
 import com.exposition.constant.Role;
 import com.exposition.dto.CompanyFormDto;
 import com.exposition.dto.MemberFormDto;
@@ -103,7 +104,12 @@ public class MemberController{
 	
 	//로그인창으로 이동
 	@RequestMapping(value="/login", method= {RequestMethod.POST, RequestMethod.GET})
-	public String login(Model model) {
+	public String login(Model model, HttpServletRequest request) {
+		String uri = request.getHeader("Referer");
+		System.out.println(uri);
+		if(uri != null && !uri.contains("/signup/login")) {
+			request.getSession().setAttribute("prevPage", uri);
+		}
 		return "member/loginForm";
 	}
 	//로그인 오류시
@@ -189,18 +195,7 @@ public class MemberController{
 		return "member/findIdPw";
 	}
 	
-	//문제 없이 잘 작동하지만 member테이블의 id를 가져오려면 id가 바인딩 되어 있어야 함.
-	//설문게시판 페이지 넘어갈 때 session에 member id를 바인딩 해야함.
-	//권환 변경 USER -> VOLUNTEER
-	@GetMapping(value="/change/{id}")
-	public String changeRole(@PathVariable("id") Long id, Model model, Optional<Member> member) {
-		member = memberService.findById(id);
-		member.get().setRole(Role.VOLUNTEER);
-		memberService.updateMember(member.get());
-		return "redirect:/";
-	}
-	
-	//일반회원 아이디 찾기(input태그에 적은 이름과 이메일의 회원이 다른경우에 에러를 보내는건 안함 나중에..)
+	//일반회원 아이디 찾기
 	@PostMapping(value="/findid")
 	@ResponseBody
 	public HashMap<String, Object> findId(@RequestParam("name") String name, @RequestParam("email") String email) throws MessagingException {
@@ -236,6 +231,7 @@ public class MemberController{
 	
 	//마이페이지로 이동
 	@GetMapping(value="/mypage")
+	@UserAuthorize
 	public String mypage(Model model, Principal principal) {
 		Member member = memberService.findByMid(principal.getName());
 		MemberModifyFormDto memberModifyFormDto = MemberModifyFormDto.of(member);
@@ -245,8 +241,9 @@ public class MemberController{
 	
 	//마이페이지 비밀번호 변경      
 	@PostMapping(value="/mypageupdate/{mid}")
+	@UserAuthorize
     public String modifyMember(@PathVariable String mid, Model model, @Valid MemberFormDto memberFormDto, BindingResult bindinResult) {   
-	    Member member = memberService.findByMid(mid);
+		Member member = memberService.findByMid(mid);
 	    String password= passwordEncoder.encode(memberFormDto.getPassword());
 	    member.setPassword(password);
 	    memberService.updateMember(member);                  
@@ -255,6 +252,7 @@ public class MemberController{
 	
 	//마이페이지 회원탈퇴
 	@DeleteMapping(value="/memDelete/{mid}")
+	@UserAuthorize
 	public String memdelete(@PathVariable String mid, HttpSession session) {
 	   Member member = memberService.findByMid(mid);
 	   memberService.deleteMem(member);

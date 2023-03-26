@@ -10,6 +10,7 @@ import javax.validation.Valid;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -23,6 +24,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.exposition.config.UserAuthorize;
 import com.exposition.dto.BoardMainDto;
 import com.exposition.dto.EventBoardDto;
 import com.exposition.dto.EventMemberDto;
@@ -67,6 +69,7 @@ public class NewsBoardController {
 		
 	//주변관광지 글 작성 페이지 이동
 	@GetMapping(value="/tourwrite")
+	@UserAuthorize
 	public String tourWrite(Model model) {
 		model.addAttribute("tourBoardDto", new TourBoardDto());
 		return "news/tourboardwrite";
