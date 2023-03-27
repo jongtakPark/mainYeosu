@@ -1,10 +1,14 @@
 package com.exposition.dto;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.validation.constraints.NotEmpty;
 
 import org.modelmapper.ModelMapper;
 
 import com.exposition.entity.Announcement;
+import com.exposition.entity.Review;
 import com.exposition.entity.Survey;
 
 import lombok.Data;
@@ -21,6 +25,8 @@ public class FreeBoardDto {
 	private String createdBy;
 	
 	private String modifiedBy;
+	
+	private List<FileDto> fileDtoList = new ArrayList<>();
 
 	private static ModelMapper modelMapper = new ModelMapper();
 	
@@ -30,5 +36,9 @@ public class FreeBoardDto {
 	
 	public static FreeBoardDto of(Announcement announcement) {
 		return modelMapper.map(announcement, FreeBoardDto.class);
+	}
+	
+	public static FreeBoardDto of(Review review) {
+		return modelMapper.map(review, FreeBoardDto.class);
 	}
 }

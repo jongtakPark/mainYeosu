@@ -43,7 +43,7 @@ public class FileService {
 			return savedFileName; 
 		}
 	
-	//첨부파일 테이블에 등록,
+	//첨부파일 테이블에 등록
 	public void saveFile(Files file, MultipartFile files) throws Exception {
 		String oriImg = files.getOriginalFilename();
 		String img = "";
@@ -74,15 +74,6 @@ public class FileService {
 		fileRepository.save(file);
 	}
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	//게시글 수정시 첨부파일 변경
 	public void updateFile(Long FileId, MultipartFile files) throws Exception {
 		if(!files.isEmpty()) {
@@ -98,9 +89,14 @@ public class FileService {
 	}
 	
 	
-	//게시글 id로 첨부파일 찾기
+	//주변관광지 게시글 id로 첨부파일 찾기
 	public List<Files> findByTourBoardId(Long tourBoardId) {
 		return fileRepository.findByTourboardId(tourBoardId);
+	}
+	
+	//관람후기 게시글 id로 첨부파일 찾기
+	public List<Files> findByReviewId(Long reviewId){
+		return fileRepository.findByReviewId(reviewId);
 	}
 	
 	//첨부파일 삭제하기
