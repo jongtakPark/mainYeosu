@@ -293,8 +293,15 @@ public class NewsBoardController {
 		Announcement announcement = announcementService.findById(id);
 		if(!announcement.getMember().getMid().equals(principal.getName())) {
 			if(principal.getName().equals("admin")) {
-				announcementService.announcementDelete(id);
-				model.addAttribute("succMessage", "글이 삭제 되었습니다.");
+				try{
+					announcementService.announcementDelete(id);
+					model.addAttribute("succMessage", "글이 삭제 되었습니다.");
+				} catch(Exception e) {
+					model.addAttribute("errorMessage", "글 삭제 중 에러가 발생했습니다.");
+					FreeBoardDto freeBoardDto = FreeBoardDto.of(announcement);
+					model.addAttribute("freeBoardDto", freeBoardDto);
+					return "news/announcementView";
+				}
 			} else {
 				model.addAttribute("errorMessage", "글 작성자가 아니면 삭제 할 수 없습니다.");
 				FreeBoardDto freeBoardDto = FreeBoardDto.of(announcement);
@@ -302,8 +309,15 @@ public class NewsBoardController {
 				return "news/announcementView";
 			}
 		}
-		announcementService.announcementDelete(id);
-		model.addAttribute("succMessage", "글이 삭제 되었습니다.");
+		try{
+			announcementService.announcementDelete(id);
+			model.addAttribute("succMessage", "글이 삭제 되었습니다.");
+		} catch(Exception e) {
+			model.addAttribute("errorMessage", "글 삭제 중 에러가 발생했습니다.");
+			FreeBoardDto freeBoardDto = FreeBoardDto.of(announcement);
+			model.addAttribute("freeBoardDto", freeBoardDto);
+			return "news/announcementView";
+		}
 		return "redirect:/news/announcement";
 	}
 	
