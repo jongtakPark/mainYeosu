@@ -47,8 +47,8 @@ public class Member {
 	
 	@NotNull
 	private String name;
-	@Column(unique=true)
 	
+	@Column(unique=true)
 	private String email;
 	
 	private String tel;

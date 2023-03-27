@@ -2,11 +2,10 @@
 <html xmlns:th="http://www.thymeleaf.org"
 xmlns:layout=http://www.ultraq.net.nz/thymeleaf/layout
 layout:decorate="~{layouts/layout}">
-
 <head>
     <meta charset="UTF-8">
-    <title>주변관광지작성창</title>
-<link rel="stylesheet" th:href="@{/css/tourboardwrite.css}">
+    <title>announcementWrite</title>
+<link rel="stylesheet" th:href="@{/css/boarddetail.css}">
 </head>
 
 <body>
@@ -21,39 +20,32 @@ layout:decorate="~{layouts/layout}">
    <div class="freeboard">
        <div class="free_title">
           <div class="title">
-               <span>주변관광지 새 글</span>
+               <span>공지사항 글쓰기</span>
            </div>
        </div>
-       <form action="/news/toursave" th:method="post" th:object="${tourBoardDto}" enctype="multipart/form-data">
-       <input type="hidden" th:field="*{id}">
+       <form action="/news/announcementNew" method="post"  th:object="${freeBoardDto}">
        <div class="info_content">
             <div class="info_title">
                 <div class="info_title_inner">
                     <label for="">
                         제목
                     </label>
-                    <input type="text" name="title" th:field="*{title}">
+                    <input type="text"  th:field="*{title}">
                 </div>
             </div>
-            <p th:if="${#fields.hasErrors('title')}" th:errors="*{title}" class="fieldError">Incorrect data</p>
             <div class="info_cont">
                 <div class="info_cont_inner">
                     <label for="">
                         내용
                     </label>
-                    <textarea id="test" cols="83" rows="10" name="content" th:field="*{content}"></textarea>
+                    <textarea name="" id="test" cols="83" rows="10" th:field="*{content}"></textarea>
                 </div>
             </div>
-       		<div class="info_file">
-                <input type="file" multiple="multiple" id="file" name="files" class="file">
+            <div class="infosubmit">
+               <button type="submit">작성 글 등록</button>
             </div>
-            <div class="info_submit">
-               <button type="submit" class="submit">글 등록</button>
-            </div>
-        
        </div>
        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
-       <script type="text/javascript" src="/javascript/tourboardwrite.js"></script>
     </form>
    </div>
  </div>

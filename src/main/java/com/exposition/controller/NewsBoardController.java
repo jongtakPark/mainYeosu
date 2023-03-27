@@ -1,5 +1,6 @@
 package com.exposition.controller;
 
+import java.security.Principal;
 import java.util.List;
 import java.util.Optional;
 import java.util.Random;
@@ -10,7 +11,8 @@ import javax.validation.Valid;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -28,9 +30,12 @@ import com.exposition.config.UserAuthorize;
 import com.exposition.dto.BoardMainDto;
 import com.exposition.dto.EventBoardDto;
 import com.exposition.dto.EventMemberDto;
+import com.exposition.dto.FreeBoardDto;
 import com.exposition.dto.TourBoardDto;
+import com.exposition.entity.Announcement;
 import com.exposition.entity.EventBoard;
 import com.exposition.entity.Member;
+import com.exposition.service.AnnouncementService;
 import com.exposition.service.EventBoardService;
 import com.exposition.service.FileService;
 import com.exposition.service.MailService;
@@ -49,6 +54,7 @@ public class NewsBoardController {
 	private final EventBoardService eventBoardService;
 	private final MemberService memberService;
 	private final MailService mailService;
+	private final AnnouncementService announcementService;
 	
 	//주변관광지 페이지 이동
 	@RequestMapping(value="/tour", method= {RequestMethod.GET, RequestMethod.POST})
@@ -192,5 +198,113 @@ public class NewsBoardController {
 		return "/news/eventboardview";
 	}
 
+	//공지사항 게시판 페이지 이동
+	@GetMapping(value="/announcement")
+	public String announcement(Model model, @PageableDefault(page=0, size=10, sort="id", direction=Sort.Direction.DESC) Pageable pageable) {
+		Page<Announcement> list = announcementService.findAll(pageable);
+		
+		model.addAttribute("announcementList", announcementService.findAll(pageable));
+
+        //페이징	        
+        int nowPage = list.getPageable().getPageNumber() + 1;	        
+        int startPage =  Math.max(nowPage - 4, 1);
+        int endPage = Math.min(nowPage+9, list.getTotalPages());
+
+        model.addAttribute("nowPage",nowPage);
+        model.addAttribute("startPage", startPage);
+        model.addAttribute("endPage", endPage);
+
+        return "news/announcement";	
+	}
+	
+	//공지사항 글쓰기 페이지 이동
+	@GetMapping(value="/announcementWrite")
+	public String announcementWrite(Model model) {
+		model.addAttribute("freeBoardDto", new FreeBoardDto());
+		return "news/announcementWrite";
+	}
+	
+	//공지사항 글 저장
+	@PostMapping(value="/announcementNew")
+	public String announcementNew(@Valid FreeBoardDto freeBoardDto, BindingResult bindingResult, Principal principal) {
+		if(bindingResult.hasErrors()) {
+			return "news/announcementWrite";
+		}
+		try {
+			Member member = memberService.findByMid(principal.getName());
+			Announcement announcement = Announcement.createAnnouncement(freeBoardDto);
+			announcementService.announcementSave(announcement, member);
+		} catch(Exception e) {
+			e.printStackTrace();
+			return "news/announcementWrite";
+		}
+		return "redirect:/news/announcement";
+	}
+	
+	//공지사항 상세 페이지 이동
+	@GetMapping(value="/announcementView/{id}")
+	public String announcementView(@PathVariable("id") Long id, Model model) {
+		Announcement announcement = announcementService.findById(id);
+		FreeBoardDto freeBoardDto = FreeBoardDto.of(announcement);
+		model.addAttribute("freeBoardDto", freeBoardDto);
+		return "news/announcementView";
+	}
+	
+	//공지사항 수정 페이지 이동
+	@GetMapping(value="/announcementModify/{id}")
+	public String announcementModify(@PathVariable("id") Long id, Model model, Principal principal) {
+		Announcement announcement = announcementService.findById(id);
+		if(!announcement.getMember().getMid().equals(principal.getName())) {
+			if(principal.getName().equals("admin")) {
+				FreeBoardDto freeBoardDto = FreeBoardDto.of(announcement);
+				model.addAttribute("freeBoardDto", freeBoardDto);
+			} else {
+				model.addAttribute("errorMessage", "글 작성자가 아니면 수정 할 수 없습니다.");
+				FreeBoardDto freeBoardDto = FreeBoardDto.of(announcement);
+				model.addAttribute("freeBoardDto", freeBoardDto);
+				return "news/announcementView";
+			}
+		}
+		FreeBoardDto freeBoardDto = FreeBoardDto.of(announcement);
+		model.addAttribute("freeBoardDto", freeBoardDto);
+		return "news/announcementUpdate";
+	}
+	
+	//공지사항 수정 등록
+	@PutMapping(value="/announcementUpdate")
+	public String announcementUpdate(Model model,@Valid FreeBoardDto freeBoardDto, BindingResult bindingResult) {
+		if(bindingResult.hasErrors()) {
+			return "news/announcementUpdate";
+		}
+		try {
+			Announcement announcementUpdate = Announcement.createAnnouncement(freeBoardDto);
+			announcementService.announcementUpdate(announcementUpdate);
+		} catch(Exception e) {
+			e.printStackTrace();
+			model.addAttribute("errorMessage", "글 수정 중 에러가 발생했습니다");
+			return "news/announcementUpdate";
+		}
+		return "redirect:/news/announcement";
+	}
+	
+	//공지사항 삭제하기
+	@DeleteMapping(value="/announcementDelete/{id}")
+	public String announcementDelete(@PathVariable("id") Long id, Model model, Principal principal) {
+		Announcement announcement = announcementService.findById(id);
+		if(!announcement.getMember().getMid().equals(principal.getName())) {
+			if(principal.getName().equals("admin")) {
+				announcementService.announcementDelete(id);
+				model.addAttribute("succMessage", "글이 삭제 되었습니다.");
+			} else {
+				model.addAttribute("errorMessage", "글 작성자가 아니면 삭제 할 수 없습니다.");
+				FreeBoardDto freeBoardDto = FreeBoardDto.of(announcement);
+				model.addAttribute("freeBoardDto", freeBoardDto);
+				return "news/announcementView";
+			}
+		}
+		announcementService.announcementDelete(id);
+		model.addAttribute("succMessage", "글이 삭제 되었습니다.");
+		return "redirect:/news/announcement";
+	}
 	
 }

@@ -106,7 +106,6 @@ public class MemberController{
 	@RequestMapping(value="/login", method= {RequestMethod.POST, RequestMethod.GET})
 	public String login(Model model, HttpServletRequest request) {
 		String uri = request.getHeader("Referer");
-		System.out.println(uri);
 		if(uri != null && !uri.contains("/signup/login")) {
 			request.getSession().setAttribute("prevPage", uri);
 		}

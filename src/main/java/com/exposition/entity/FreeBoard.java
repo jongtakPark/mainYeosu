@@ -46,8 +46,6 @@ public class FreeBoard extends BaseEntity{
 	private Company company;
 
 
-
-	
 	public static FreeBoard createfreeBoard(FreeBoardDto freeBoardDto) {
 		FreeBoard freeBoard = new FreeBoard();
 		freeBoard.setTitle(freeBoardDto.getTitle());

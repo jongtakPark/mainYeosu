@@ -45,7 +45,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 		.invalidateHttpSession(true).deleteCookies("JSESSIONID");	
 		
 		http.authorizeRequests()
-		.mvcMatchers("/","/signup/**","/board/**","/introduction/keyword","/introduction/directions","/introduction/exhibition","/attend/**").permitAll() // 모든 사용자 인증없이 해당경로에 접근하도록 설정
+		.mvcMatchers("/","/signup/**","/board/**","/introduction/keyword","/introduction/directions","/introduction/exhibition","/attend/**","/news/**").permitAll() // 모든 사용자 인증없이 해당경로에 접근하도록 설정
 		.anyRequest().authenticated(); // 나머지 경로들은 모두 인증을 요구하도록 설정
 		
 		
@@ -75,7 +75,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 	
 	@Override
 	public void configure(WebSecurity web) throws Exception {
-		web.ignoring().antMatchers("/css/**", "/javascript/**", "/images/**","/video/**" , "/error", "/docs/**");
+		web.ignoring().antMatchers("/css/**", "/javascript/**", "/images/**","/video/**" , "/error", "/docs/**", "/image/**");
 	}
 	
 }
