@@ -22,7 +22,7 @@
 }
 
 
-/*    자유게시판*/
+/*    �옄�쑀寃뚯떆�뙋*/
 .freeboard{
     width: 70%;
     height: 870px;
@@ -281,4 +281,16 @@
 }
 .delete  > button:hover{
     background: aqua;
+}
+
+.a_hide{
+	display : display;
+    width: 130px;
+    text-align : center;
+    height: 50px;
+    line-height : 47px;
+    border-radius: 20px;
+    font-size: 18px;
+    margin-left: 70%;
+    float : left;
 }
