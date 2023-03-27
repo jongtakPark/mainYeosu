@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -238,16 +239,26 @@ public class MemberController{
 	    return "member/memberModify";
 	}
 	
-	//마이페이지 비밀번호 변경      
-	@PostMapping(value="/mypageupdate/{mid}")
-	@UserAuthorize
-    public String modifyMember(@PathVariable String mid, Model model, @Valid MemberFormDto memberFormDto, BindingResult bindinResult) {   
-		Member member = memberService.findByMid(mid);
-	    String password= passwordEncoder.encode(memberFormDto.getPassword());
-	    member.setPassword(password);
-	    memberService.updateMember(member);                  
+	//마이페이지 비밀번호 변경          
+	@PutMapping(value="/mypageupdate/{mid}")
+	@Validated
+	public String modifyMember(@Valid MemberModifyFormDto memberModifyFormDto, BindingResult bindingResult, @PathVariable String mid, Model model, MemberFormDto memberFormDto) {   
+		if(bindingResult.hasErrors()) {
+			return "member/memberModify";
+	    } 
+	    try {
+	        Member member = memberService.findByMid(mid);
+	        String password= passwordEncoder.encode(memberFormDto.getPassword());
+	        member.setPassword(password);
+	        memberService.updateMember(member);
+	        model.addAttribute("succMessage", "회원 정보가 수정 되었습니다.");
+	    }catch(IllegalStateException e) {
+	        model.addAttribute("errorMessage", "회원 수정 중 오류가 발생 했습니다.");
+	        return "member/memberModify";
+	    }
+	                     
 	    return "redirect:/";
-	 }
+	}
 	
 	//마이페이지 회원탈퇴
 	@DeleteMapping(value="/memDelete/{mid}")

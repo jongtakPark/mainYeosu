@@ -338,7 +338,7 @@ strong{
 .swiper-slide img {
     display: block;
     width: 100%;
-    height: 100%;
+    height: 80%;
     object-fit: cover;
 }
 .swiper_btn{
@@ -379,6 +379,7 @@ strong{
     display: block;
     position: relative;
     line-height: 10px;
+    transition: 0.3s;
 }
 
 .t1 .btn2{
@@ -387,6 +388,7 @@ strong{
     display: block;
     position: relative;
     line-height: 10px;
+    transition: 0.3s;
 }
 
 .btn1::before {
@@ -401,8 +403,16 @@ strong{
     transition: 0.3s;
 }
 
+.btn1:hover{
+    color: #333;
+}
+
 .btn1:hover::before {
     width: 47px;
+}
+
+.btn2:hover{
+    color: #333;
 }
 
 .btn2::before {
