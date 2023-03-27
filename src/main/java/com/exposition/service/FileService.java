@@ -51,7 +51,8 @@ public class FileService {
 		
 		if(!StringUtils.isEmpty(oriImg)) {
 			img = uploadFile(itemImgLocation, oriImg, files.getBytes());
-			savePath = "/image/images/" + img;
+			savePath = "/img/images/" + img;
+
 		}
 		
 		file.updateFile(img, oriImg, savePath);
@@ -67,20 +68,12 @@ public class FileService {
 			
 		if(!StringUtils.isEmpty(oriImg)) {
 			img = uploadFile(itemImgLocation, oriImg, files.getBytes());
-			backSavePath = "/image/images/" + img;
+			backSavePath = "/img/images/" + img;
 		}
 			
 		file.updateBackFile(img, oriImg, backSavePath);
 		fileRepository.save(file);
 	}
-	
-	
-	
-	
-	
-	
-	
-	
 	
 	
 	//게시글 수정시 첨부파일 변경

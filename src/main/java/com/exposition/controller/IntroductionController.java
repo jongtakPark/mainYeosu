@@ -56,7 +56,6 @@ public class IntroductionController {
 	    model.addAttribute("nowPage",nowPage);
 	    model.addAttribute("startPage", startPage);
 	    model.addAttribute("endPage", endPage);
-	    
 		return "introduction/yeosuKeyword";
 	}
 	

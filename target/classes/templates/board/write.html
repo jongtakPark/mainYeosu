@@ -50,6 +50,7 @@ layout:decorate="~{layouts/layout}">
             </div>
        </div>
        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+       <input type="hidden" th:value="${id}" name="mid"/>
     </form>
    </div>
  </div>

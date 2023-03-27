@@ -56,8 +56,8 @@ layout:decorate="~{layouts/layout}">
     <form th:action="@{/board/delete/{id}(id=${session.id})}" th:method="delete">
     	
     	<div class="info_submit">
-			<a href="/board/modify">수정</a>
-			<button type="submit" class="submit">삭제하기</button>
+			<a th:if = "${freeboard == mid}"  href="/board/modify">수정</a>
+			<button th:if ="${freeboard == mid || ad == '관리자'} " type="submit" class="submit">삭제하기</button>
          </div>
     </form>
    </div>

@@ -1,5 +1,6 @@
 package com.exposition.controller;
 
+import java.security.Principal;
 import java.util.Optional;
 
 import javax.servlet.http.HttpServletRequest;
@@ -9,8 +10,11 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -44,9 +48,7 @@ public class BoardController {
 	//관람후기
 	@GetMapping(value="/freeboard")
 		public String boardList(Model model, @PageableDefault(page=0, size=10, sort="id", direction=Sort.Direction.DESC) Pageable pageable){
-		
 	        Page<FreeBoard> list = boardService.boardList(pageable);
-
 	        model.addAttribute("freeboard",boardService.boardList(pageable));
 
 	        //페이징	        
@@ -69,19 +71,23 @@ public class BoardController {
 		model.addAttribute("freeBoardDto", new FreeBoardDto());
 		return "board/write";
 	}	
-			
+	
 	//관람후기 글저장
-	@PostMapping(value="/new")
-	public String write(FreeBoardDto freeBoardDto, Model model) {
-		FreeBoard freeBoard = FreeBoard.createfreeBoard(freeBoardDto);
-		boardService.saveBoard(freeBoard);
-		return "redirect:/board/freeboard";
-		}	
+		@PostMapping(value="/new")
+		public String write(FreeBoardDto freeBoardDto, Model model, Principal principal) {
+		  	String mid = principal.getName();
+			FreeBoard freeBoard = FreeBoard.createfreeBoard(freeBoardDto);
+			boardService.saveBoard(freeBoard,mid);
+			return "redirect:/board/freeboard";
+			}	
 	
 	//관람후기 상세보기
 	@GetMapping(value="/view/{id}")
-	public String boardView(@PathVariable("id") Long id, Model model, HttpServletRequest request) {
+	public String boardView(@PathVariable("id") Long id, Model model, HttpServletRequest request,Principal principal) {
 		Optional<FreeBoard> view = boardService.findBoard(id);
+		String mid = principal.getName();
+		Member member = memberService.findByMid(mid);
+		
 		HttpSession session = request.getSession();
 		session.setAttribute("title", view.get().getTitle());
 		session.setAttribute("content", view.get().getContent());
@@ -91,6 +97,10 @@ public class BoardController {
 		model.addAttribute("content", view.get().getContent());
 		model.addAttribute("created", view.get().getCreatedBy());
 		model.addAttribute("session",session);
+		
+		model.addAttribute("ad", member.getName());
+		model.addAttribute("freeboard", view.get().getMember().getMid());
+		model.addAttribute("mid", mid);
 		return "board/view";
 	}
 	
@@ -103,14 +113,17 @@ public class BoardController {
 	
 	//관람후기 수정등록
 	@PutMapping(value="/modcomplete/{id}")
-	public String modComplete(@PathVariable("id") Long id, @RequestParam("title") String title, @RequestParam("content") String content, FreeBoardDto freeBoardDto, Model model) {
+	public String modComplete(@PathVariable("id") Long id, @RequestParam("title") String title, @RequestParam("content") String content, FreeBoardDto freeBoardDto, Model model,Principal principal) {
+		String mid = principal.getName();
+		Member member = memberService.findByMid(mid);
 		FreeBoard freeBoard = boardService.updateBoard(id);
-		freeBoardDto.setTitle(title);
-		freeBoardDto.setContent(content);
-		freeBoardDto.setId(id);
-		freeBoard = FreeBoard.createfreeBoard(freeBoardDto);
-		boardService.saveBoard(freeBoard);
-		// model.addAttribute("freeboard",boardService.boardList()));
+		if(member.getId().equals(freeBoard.getMember().getId())) {
+			freeBoardDto.setTitle(title);
+			freeBoardDto.setContent(content);
+			freeBoardDto.setId(id);
+			freeBoard = FreeBoard.createfreeBoard(freeBoardDto);
+			boardService.saveBoard(freeBoard);
+		}
 		return "redirect:/board/freeboard";
 	}
 	

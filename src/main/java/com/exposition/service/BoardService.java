@@ -8,8 +8,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.exposition.entity.FreeBoard;
+import com.exposition.entity.Member;
 import com.exposition.entity.Survey;
 import com.exposition.repository.BoardRepository;
+import com.exposition.repository.MemberRepository;
 import com.exposition.repository.SurveyRepository;
 
 import lombok.RequiredArgsConstructor;
@@ -21,9 +23,18 @@ public class BoardService {
 
 	private final BoardRepository boardRepository;
 	private final SurveyRepository surveyRepository;
+	private final MemberRepository memberRepository;
 	
 	//자유 게시판 글 작성
 	public FreeBoard saveBoard(FreeBoard freeBoard) {
+		return boardRepository.save(freeBoard);
+	}
+	
+	// 자유 게시판 글 작성
+	public FreeBoard saveBoard(FreeBoard freeBoard,String mid) {
+		Member member = new Member();
+		member = memberRepository.findByMid(mid);
+		freeBoard.setMember(member);
 		return boardRepository.save(freeBoard);
 	}
 	
@@ -55,5 +66,6 @@ public class BoardService {
 	public Survey findSurveyBoard(Long id) {
 		return surveyRepository.findById(id).get();
 	}
-	
 }
+	
+
