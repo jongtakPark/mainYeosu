@@ -122,7 +122,7 @@ public class BoardController {
 			freeBoardDto.setContent(content);
 			freeBoardDto.setId(id);
 			freeBoard = FreeBoard.createfreeBoard(freeBoardDto);
-			boardService.saveBoard(freeBoard);
+			boardService.saveBoard(freeBoard,mid);
 		}
 		return "redirect:/board/freeboard";
 	}
