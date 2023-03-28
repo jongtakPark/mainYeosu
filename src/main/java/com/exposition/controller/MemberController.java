@@ -25,7 +25,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.exposition.config.UserAuthorize;
 import com.exposition.constant.Role;
 import com.exposition.dto.CompanyFormDto;
 import com.exposition.dto.CompanyModifyFormDto;
@@ -232,7 +231,6 @@ public class MemberController{
 	
 	//마이페이지로 이동
 	@GetMapping(value="/mypage")
-	@UserAuthorize
 	public String mypage(Model model, Principal principal) {
 		Member member = memberService.findByMid(principal.getName());
 		MemberModifyFormDto memberModifyFormDto = MemberModifyFormDto.of(member);
@@ -263,7 +261,6 @@ public class MemberController{
 	
 	//마이페이지 회원탈퇴
 	@DeleteMapping(value="/memDelete/{mid}")
-	@UserAuthorize
 	public String memdelete(@PathVariable String mid, HttpSession session) {
 	   Member member = memberService.findByMid(mid);
 	   memberService.deleteMem(member);

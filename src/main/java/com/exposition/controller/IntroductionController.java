@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.exposition.config.UserAuthorize;
 import com.exposition.dto.BoardMainDto;
 import com.exposition.dto.TourBoardDto;
 import com.exposition.service.KeywordService;
@@ -62,7 +61,6 @@ public class IntroductionController {
 	
 	//여수섬 키워드 글 쓰기 페이지 이동
 	@GetMapping(value="/keywordWrite")
-	@UserAuthorize
 	public String keywordWrite(Model model) {
 		model.addAttribute("keywordWrite", new TourBoardDto());
 		return "introduction/keywordWrite";
