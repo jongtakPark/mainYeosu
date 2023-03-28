@@ -102,7 +102,7 @@ h1 {
 
 
 .footer-wrap .footer {
-    height: 300px;
+    height: 200px;
     background-color: #333;
     color: #fff;
 }
@@ -124,16 +124,16 @@ h1 {
     height: 121px;
     position: absolute;
     left: 25%;
-    top: 27%;
+    top: 17%;
 }
 .footer_middle{
     flex: 60%;
     position: relative;
-    height: 300px;
+    height: 200px;
 }
 .footer_middle_content{
     position: absolute;
-    top: 35%;
+    top: 29%;
     left: 15%;
     text-align: left;
     font-size: 10px;
@@ -149,7 +149,9 @@ h1 {
     position: absolute;
     top: 45%;
     left: -10%;
-    height: 25px;
+    height: 40px;
+    width: 200px;
+    font-size: 22px;
 }
 .header {
     width: 100%;

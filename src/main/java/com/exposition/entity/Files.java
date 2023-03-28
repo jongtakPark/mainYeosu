@@ -62,6 +62,14 @@ public class Files extends BaseEntity {
 	@JoinColumn(name="review_id")
 	private Review review;
 	
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name="idea_id")
+	private Idea idea;
+	
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name="volunteer_id")
+	private Volunteer volunteer;
+	
 	public static Files createFile(FileDto fileDto) {
 		Files file = new Files();
 		file.setId(fileDto.getId());

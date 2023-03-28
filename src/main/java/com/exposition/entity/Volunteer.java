@@ -5,6 +5,7 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -15,24 +16,23 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
 
 import com.exposition.dto.FreeBoardDto;
-import com.exposition.dto.IdeaDto;
 
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import lombok.ToString;
 
-@Entity
 @Data
-@Table(name="idea")
+@Entity
+@Table(name="volunteer")
 @RequiredArgsConstructor
-public class Idea extends BaseEntity{
+public class Volunteer extends BaseEntity{
 
 	// 글번호
 	@Id
-	@Column(name="idea_id")
+	@Column(name="review_id")
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
-	
+			
 	// 제목
 	@NotEmpty(message = "제목을 적어주세요.")
 	private String title;
@@ -41,25 +41,19 @@ public class Idea extends BaseEntity{
 	@Column(length = 2000)
 	private String content; 
 	
-
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "member_id")
 	private Member member;
 	
-	@ManyToOne
-	@JoinColumn(name = "company_id")
-	private Company company;
-	
-	@OneToMany(mappedBy="idea", cascade=CascadeType.ALL)
+	@OneToMany(mappedBy="volunteer", cascade=CascadeType.ALL)
 	@ToString.Exclude
 	private List<Files> files;
-
-
-	public static Idea createIdea(FreeBoardDto freeBoardDto) {
-		Idea idea = new Idea();
-		idea.setTitle(freeBoardDto.getTitle());
-		idea.setContent(freeBoardDto.getContent());
-		idea.setId(freeBoardDto.getId());
-		return idea;
+	
+	public static Volunteer createVolunteer(FreeBoardDto freeBoardDto) {
+		Volunteer volunteer = new Volunteer();
+		volunteer.setTitle(freeBoardDto.getTitle());
+		volunteer.setContent(freeBoardDto.getContent());
+		volunteer.setId(freeBoardDto.getId());
+		return volunteer;
 	}
 }

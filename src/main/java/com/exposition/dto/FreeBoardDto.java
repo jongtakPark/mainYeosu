@@ -8,8 +8,10 @@ import javax.validation.constraints.NotEmpty;
 import org.modelmapper.ModelMapper;
 
 import com.exposition.entity.Announcement;
+import com.exposition.entity.Idea;
 import com.exposition.entity.Review;
 import com.exposition.entity.Survey;
+import com.exposition.entity.Volunteer;
 
 import lombok.Data;
 
@@ -40,5 +42,13 @@ public class FreeBoardDto {
 	
 	public static FreeBoardDto of(Review review) {
 		return modelMapper.map(review, FreeBoardDto.class);
+	}
+	
+	public static FreeBoardDto of(Idea idea) {
+		return modelMapper.map(idea, FreeBoardDto.class);
+	}
+	
+	public static FreeBoardDto of(Volunteer volunteer) {
+		return modelMapper.map(volunteer, FreeBoardDto.class);
 	}
 }

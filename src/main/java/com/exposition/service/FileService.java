@@ -99,6 +99,16 @@ public class FileService {
 		return fileRepository.findByReviewId(reviewId);
 	}
 	
+	//국민아이디어 게시글 id로 첨부파일 찾기
+	public List<Files> findByIdeaId(Long ideaId){
+		return fileRepository.findByIdeaId(ideaId);
+	}
+	
+	//자원봉사 게시글 id로 첨부파일 찾기
+	public List<Files> findByVolunteerId(Long volunteerId){
+		return fileRepository.findByVolunteerId(volunteerId);
+	}
+	
 	//첨부파일 삭제하기
 	public void deleteFile(Long id) {
 		fileRepository.deleteById(id);
