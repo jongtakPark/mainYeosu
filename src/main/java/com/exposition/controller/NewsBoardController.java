@@ -83,16 +83,20 @@ public class NewsBoardController {
 	@PostMapping(value="/toursave")
 	public String tourSave(@RequestParam(value = "files", required = false) List<MultipartFile> files, Model model, @Valid TourBoardDto tourBoardDto, BindingResult bindingResult) {
 		if(bindingResult.hasErrors()) {
+			model.addAttribute("errorMessage", "제목을 입력해주세요");
+			model.addAttribute("keywordWrite", tourBoardDto);
 			return "news/tourboardwrite";
 		}
 		if(files.get(0).isEmpty() && tourBoardDto.getId() == null) {
 			model.addAttribute("errorMessage", "이미지는 필수 입니다.");
+			model.addAttribute("keywordWrite", tourBoardDto);
 			return "news/tourboardwrite";
 		}
 		try {
 			tourBoardService.saveTour(files, tourBoardDto);
 		} catch (Exception e) {
 			model.addAttribute("errorMessage", "글 작성 중 에러가 발생했습니다.");
+			model.addAttribute("keywordWrite", tourBoardDto);
 			return "news/tourboardwrite";
 		}
 		return "redirect:/news/tour";
@@ -128,9 +132,15 @@ public class NewsBoardController {
 	
 	//주변 관광지 글 수정 등록
 	@PutMapping(value="update/{id}")
-	public String updatesucc(TourBoardDto tourBoardDto, Model model, @RequestParam("files") List<MultipartFile> fileList) {
+	public String updatesucc(@Valid TourBoardDto tourBoardDto, BindingResult bindingResult, Model model, @RequestParam("files") List<MultipartFile> fileList) {
+		if(bindingResult.hasErrors()) {
+			model.addAttribute("errorMessage", "제목을 입력해주세요.");
+			model.addAttribute("tourBoardDto", tourBoardDto);
+			return "news/updatewrite";
+		}
 		if(fileList.get(0).isEmpty()) {
 			model.addAttribute("errorMessage", "첫번째 이미지는 필수입니다.");
+			model.addAttribute("tourBoardDto", tourBoardDto);
 			return "news/updatewrite";
 		}
 		try {
@@ -164,7 +174,12 @@ public class NewsBoardController {
 	}
 	//이벤트 게시판 글 등록과 동시에 이벤트 당첨자 회원을 3명 뽑음
 	@PostMapping(value="/new")
-	public String eventBoardNew(EventBoardDto eventBoardDto, Model model) throws Exception {
+	public String eventBoardNew(@Valid EventBoardDto eventBoardDto, BindingResult bindingResult, Model model) throws Exception {
+		if(bindingResult.hasErrors()) {
+			model.addAttribute("errorMessage", "제목을 입력해주세요.");
+			model.addAttribute("eventBoardDto", eventBoardDto);
+			return "news/eventboardwrite";
+		}
 		Random rnd = new Random();
 		EventBoard eventBoard = eventBoardDto.createEventBoard();
 		for(int i=0; i<3; i++) {
@@ -224,8 +239,10 @@ public class NewsBoardController {
 	
 	//공지사항 글 저장
 	@PostMapping(value="/announcementNew")
-	public String announcementNew(@Valid FreeBoardDto freeBoardDto, BindingResult bindingResult, Principal principal) {
+	public String announcementNew(@Valid FreeBoardDto freeBoardDto, BindingResult bindingResult, Principal principal, Model model) {
 		if(bindingResult.hasErrors()) {
+			model.addAttribute("errorMessage", "제목과 내용을 입력해주세요.");
+			model.addAttribute("freeBoardDto", freeBoardDto);
 			return "news/announcementWrite";
 		}
 		try {
@@ -234,6 +251,8 @@ public class NewsBoardController {
 			announcementService.announcementSave(announcement, member);
 		} catch(Exception e) {
 			e.printStackTrace();
+			model.addAttribute("errorMessage", "글 작성중 에러가 발생했습니다.");
+			model.addAttribute("freeBoardDto", freeBoardDto);
 			return "news/announcementWrite";
 		}
 		return "redirect:/news/announcement";
@@ -272,6 +291,8 @@ public class NewsBoardController {
 	@PutMapping(value="/announcementUpdate")
 	public String announcementUpdate(Model model,@Valid FreeBoardDto freeBoardDto, BindingResult bindingResult) {
 		if(bindingResult.hasErrors()) {
+			model.addAttribute("errorMessage", "제목과 내용을 입력해주세요.");
+			model.addAttribute("freeBoardDto", freeBoardDto);
 			return "news/announcementUpdate";
 		}
 		try {

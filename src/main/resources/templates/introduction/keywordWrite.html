@@ -5,11 +5,29 @@ layout:decorate="~{layouts/layout}">
 
 <head>
     <meta charset="UTF-8">
-    <title>주변관광지작성창</title>
+    <title>여수섬키워드작성창</title>
 <link rel="stylesheet" th:href="@{/css/tourboardwrite.css}">
-
+<script th:inline="javascript">
+$(document).ready(function(){
+	var errorMessage = [[${errorMessage}]];
+	var succMessage = [[${succMessage}]];
+	if(errorMessage != null){
+		alert(errorMessage);
+	}
+	if(succMessage != null){
+		alert(succMessage);
+	}
+	var newList = new Array();
+	$(this).on("change", function(e){
+		newList = [];
+		$(e.target.files).each(function(i,a){
+			newList.push(a.name +"        ");
+			$(".upload-name").val(newList.join(''));
+		});
+	});
+});
+</script>
 </head>
-
 <body>
 <div layout:fragment="content">
  <div class="subMenu">
@@ -22,7 +40,7 @@ layout:decorate="~{layouts/layout}">
    <div class="freeboard">
        <div class="free_title">
           <div class="title">
-               <span>여수섬키워드 글 쓰기</span>
+               <span>여수섬키워드 글쓰기</span>
            </div>
        </div>
        <form action="/introduction/keywordSave" th:method="post" th:object="${keywordWrite}" enctype="multipart/form-data">
@@ -36,7 +54,6 @@ layout:decorate="~{layouts/layout}">
                     <input type="text" name="title" th:field="*{title}">
                 </div>
             </div>
-            <p th:if="${#fields.hasErrors('title')}" th:errors="*{title}" class="fieldError">Incorrect data</p>
             <div class="info_cont">
                 <div class="info_cont_inner">
                     <label for="">
@@ -46,10 +63,12 @@ layout:decorate="~{layouts/layout}">
                 </div>
             </div>
        		<div class="info_file">
-                <input type="file" multiple="multiple" id="file" name="files" class="file">
+                <input type="file" multiple="multiple" accept=".jpg,.png" id="files" name="files">
+                <label class="file_label" for="files"><div>업로드</div></label>
+                <input class="upload-name" value="" disabled="disabled">
             </div>
             <div class="info_submit">
-               <button type="submit" class="submit">글 등록</button>
+               <button type="submit" class="submit">작성 글 등록</button>
             </div>
         
        </div>

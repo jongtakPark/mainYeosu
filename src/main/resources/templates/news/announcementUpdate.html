@@ -6,6 +6,18 @@ layout:decorate="~{layouts/layout}">
     <meta charset="UTF-8">
     <title>주변관광지 상세보기</title>
 <link rel="stylesheet" th:href="@{/css/tourboardview.css}">
+<script th:inline="javascript">
+$(document).ready(function(){
+	var errorMessage = [[${errorMessage}]];
+	var succMessage = [[${succMessage}]];
+	if(errorMessage != null){
+		alert(errorMessage);
+	}
+	if(succMessage != null){
+		alert(succMessage);
+	}
+});
+</script>
 </head>
 <body>
 <div layout:fragment="content">

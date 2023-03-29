@@ -4,7 +4,7 @@ xmlns:layout=http://www.ultraq.net.nz/thymeleaf/layout
 layout:decorate="~{layouts/layout}">
 <head>
     <meta charset="UTF-8">
-    <title>boardmodify</title>
+    <title>이벤트게시판상세보기</title>
 <link rel="stylesheet" th:href="@{/css/boarddetail.css}">
 </head>
 
@@ -52,7 +52,7 @@ layout:decorate="~{layouts/layout}">
                     <label for="">
                         작성자
                     </label>
-                    <input type="text" th:value="${created}" readOnly >
+                    <input type="text" th:value="*{createdBy}" readOnly >
                 </div>
 			</div>
        </div>

@@ -73,6 +73,8 @@ public class BoardController {
 	@PostMapping(value="/reviewNew")
 	public String reviewNew(Principal principal, @RequestParam(value = "files", required = false) List<MultipartFile> files, @Valid FreeBoardDto freeBoardDto, BindingResult bindingResult, Model model) {
 		if(bindingResult.hasErrors()) {
+			model.addAttribute("errorMessage", "제목과 내용을 입력해주세요.");
+			model.addAttribute("freeBoardDto", freeBoardDto);
 			return "board/reviewWrite";
 		}
 		try {
@@ -162,8 +164,7 @@ public class BoardController {
 		FreeBoardDto freeBoardDto = boardService.reviewAndFileFindById(id);
 		try {
 			try {
-				Member member = memberService.findByMid(principal.getName());
-				if(!review.getMember().getMid().equals(member.getMid())) {
+				if(!review.getMember().getMid().equals(principal.getName())) {
 					if(String.valueOf(user.getAuthorities().iterator().next()).equals("ROLE_ADMIN")) {
 						boardService.deleteReview(id);
 					} else {
@@ -175,22 +176,21 @@ public class BoardController {
 					boardService.deleteReview(id);
 				} 
 			}catch(Exception e) {
-					Company company = companyService.findByCom(principal.getName());
-					if(!review.getCompany().getCom().equals(company.getCom())) {
-						if(String.valueOf(user.getAuthorities().iterator().next()).equals("ROLE_ADMIN")) {
-							boardService.deleteReview(id);
-							return "redirect:/board/review";
-						} else {
-							model.addAttribute("freeBoardDto", freeBoardDto);
-							model.addAttribute("errorMessage", "글 작성자가 아니면 삭제 할 수 없습니다.");
-							return "board/reviewView";
-						}
-						} else {
+				if(!review.getCompany().getCom().equals(principal.getName())) {
+					if(String.valueOf(user.getAuthorities().iterator().next()).equals("ROLE_ADMIN")) {
 						boardService.deleteReview(id);
 						return "redirect:/board/review";
+					} else {
+						model.addAttribute("freeBoardDto", freeBoardDto);
+						model.addAttribute("errorMessage", "글 작성자가 아니면 삭제 할 수 없습니다.");
+						return "board/reviewView";
 					}
+				} else {
+					boardService.deleteReview(id);
+					return "redirect:/board/review";
 				}
-			return "redirect:/board/review";
+			}
+		return "redirect:/board/review";
 		} catch(Exception e) {
 			model.addAttribute("freeBoardDto", freeBoardDto);
 			model.addAttribute("errorMessage", "작성자만 삭제 할 수 있습니다.");
@@ -228,6 +228,8 @@ public class BoardController {
   	@PostMapping(value="/ideaNew")
   	public String ideaNew(Principal principal, @RequestParam(value = "files", required = false) List<MultipartFile> files, @Valid FreeBoardDto freeBoardDto, BindingResult bindingResult, Model model) {
   		if(bindingResult.hasErrors()) {
+  			model.addAttribute("errorMessage", "제목과 내용을 입력해주세요.");
+			model.addAttribute("freeBoardDto", freeBoardDto);
   			return "board/ideaWrite";
   		}
   		try {
@@ -296,6 +298,7 @@ public class BoardController {
   	public String ideaUpdateNew(@RequestParam(value = "files", required = false) List<MultipartFile> files, Model model, @Valid FreeBoardDto freeBoardDto, BindingResult bindingResult, Principal principal) throws Exception{
   		if(bindingResult.hasErrors()) {
   			model.addAttribute("errorMessage", "제목과 내용은 필수 입니다.");
+  			model.addAttribute("freeBoardDto", freeBoardDto);
   			return "board/ideaUpdateWrite";
   		}
   		Idea idea = Idea.createIdea(freeBoardDto);
@@ -317,8 +320,7 @@ public class BoardController {
   		FreeBoardDto freeBoardDto = boardService.ideaAndFileFindById(id);
   		try {
   			try {
-  				Member member = memberService.findByMid(principal.getName());
-  				if(!idea.getMember().getMid().equals(member.getMid())) {
+  				if(!idea.getMember().getMid().equals(principal.getName())) {
   					if(String.valueOf(user.getAuthorities().iterator().next()).equals("ROLE_ADMIN")) {
   						boardService.deleteIdea(id);
   					} else {
@@ -330,22 +332,21 @@ public class BoardController {
   					boardService.deleteIdea(id);
   				} 
   			}catch(Exception e) {
-  					Company company = companyService.findByCom(principal.getName());
-  					if(!idea.getCompany().getCom().equals(company.getCom())) {
-  						if(String.valueOf(user.getAuthorities().iterator().next()).equals("ROLE_ADMIN")) {
-  							boardService.deleteIdea(id);
-  							return "redirect:/board/idea";
-  						} else {
-  							model.addAttribute("freeBoardDto", freeBoardDto);
-  							model.addAttribute("errorMessage", "글 작성자가 아니면 삭제 할 수 없습니다.");
-  							return "board/ideaView";
-  						}
-  						} else {
+  				if(!idea.getCompany().getCom().equals(principal.getName())) {
+  					if(String.valueOf(user.getAuthorities().iterator().next()).equals("ROLE_ADMIN")) {
   						boardService.deleteIdea(id);
   						return "redirect:/board/idea";
+  					} else {
+  						model.addAttribute("freeBoardDto", freeBoardDto);
+  						model.addAttribute("errorMessage", "글 작성자가 아니면 삭제 할 수 없습니다.");
+  						return "board/ideaView";
   					}
+  				} else {
+  					boardService.deleteIdea(id);
+  					return "redirect:/board/idea";
   				}
-  			return "redirect:/board/idea";
+  			}
+  		return "redirect:/board/idea";
   		} catch(Exception e) {
   			model.addAttribute("freeBoardDto", freeBoardDto);
   			model.addAttribute("errorMessage", "작성자만 삭제 할 수 있습니다.");
@@ -383,7 +384,12 @@ public class BoardController {
   			
   	//설문조사 작성 글 저장
   	@PostMapping(value="/survey/new")
-  	public String surveyNew(FreeBoardDto freeBoardDto) {
+  	public String surveyNew(@Valid FreeBoardDto freeBoardDto, BindingResult bindingResult, Model model) {
+  		if(bindingResult.hasErrors()) {
+			model.addAttribute("errorMessage", "제목과 내용을 입력해주세요.");
+			model.addAttribute("surveyboard", freeBoardDto);
+			return "board/surveywrite";
+		}
   		Survey survey = Survey.createSurvey(freeBoardDto);
   		boardService.surveyBoardSave(survey);
   		return "redirect:/board/survey";
@@ -437,6 +443,8 @@ public class BoardController {
   	@PostMapping(value="/volunteerNew")
   	public String volunteerNew(Principal principal, @RequestParam(value = "files", required = false) List<MultipartFile> files, @Valid FreeBoardDto freeBoardDto, BindingResult bindingResult, Model model) {
   		if(bindingResult.hasErrors()) {
+  			model.addAttribute("errorMessage", "제목과 내용을 입력해주세요.");
+			model.addAttribute("freeBoardDto", freeBoardDto);
   			return "board/volunteerWrite";
   		}
   		try {
@@ -446,6 +454,7 @@ public class BoardController {
   		} catch(Exception e) {
   			e.printStackTrace();
   			model.addAttribute("errorMessage", "글 작성중 에러가 발생했습니다.");
+  			model.addAttribute("surveyboard", freeBoardDto);
   			return "board/volunteerWrite";
   		}
   		return "redirect:/board/volunteer";
@@ -509,8 +518,7 @@ public class BoardController {
   		Volunteer volunteer = boardService.volunteerFindById(id);
   		FreeBoardDto freeBoardDto = boardService.volunteerAndFileFindById(id);
   			try {
-  				Member member = memberService.findByMid(principal.getName());
-  				if(!volunteer.getMember().getMid().equals(member.getMid())) {
+  				if(!volunteer.getMember().getMid().equals(principal.getName())) {
   					if(String.valueOf(user.getAuthorities().iterator().next()).equals("ROLE_ADMIN")) {
   						boardService.deleteVolunteer(id);
   					} else {

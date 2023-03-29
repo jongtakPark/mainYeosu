@@ -4,7 +4,7 @@ xmlns:layout=http://www.ultraq.net.nz/thymeleaf/layout
 layout:decorate="~{layouts/layout}">
 <head>
     <meta charset="UTF-8">
-    <title>boardwrite</title>
+    <title>자원봉사게시판작성창</title>
 <link rel="stylesheet" th:href="@{/css/boarddetail.css}">
 <script th:inline="javascript">
 $(document).ready(function(){
@@ -16,6 +16,14 @@ $(document).ready(function(){
 	if(succMessage != null){
 		alert(succMessage);
 	}
+	var newList = new Array();
+	$(this).on("change", function(e){
+		newList = [];
+		$(e.target.files).each(function(i,a){
+			newList.push(a.name +"        ");
+			$(".upload-name").val(newList.join(''));
+		});
+	});
 });
 </script>
 </head>
@@ -33,7 +41,7 @@ $(document).ready(function(){
    <div class="freeboard">
        <div class="free_title">
           <div class="title">
-               <span>자원봉사게시판 새 글</span>
+               <span>자원봉사게시판 글쓰기</span>
            </div>
        </div>
        <form action="/board/volunteerNew" method="post"  th:object="${freeBoardDto}" enctype="multipart/form-data">
@@ -55,7 +63,9 @@ $(document).ready(function(){
                 </div>
             </div>
            <div class="info_file">
-                <input type="file" multiple="multiple" accept=".jpg,.png" id="file" name="files">
+                <input type="file" multiple="multiple" accept=".jpg,.png" id="files" name="files">
+                <label class="file_label" for="files"><div>업로드</div></label>
+                <input class="upload-name" value="" disabled="disabled">
             </div>
             <div class="infosubmit">
                <button type="submit">작성 글 등록</button>

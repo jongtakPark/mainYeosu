@@ -15,12 +15,12 @@
                 <a href="/"><img class="yeosu_logo" th:src="@{/images/logo.png}"></a>
             </div>
             
-            <div class="menu_form1" sec:authorize="isAnonymous() || hasAnyAuthority('ROLE_USER') || hasAnyAuthority('ROLE_VOLUNTEER')">
+            <div class="menu_form1" sec:authorize="isAnonymous() || hasAnyAuthority('ROLE_USER','ROLE_VOLUNTEER')">
                 <ul class="menu_list1">
-                    <li><a href="#">박람회 소개</a></li>
-                    <li><a href="#">알림마당</a></li>
-                    <li><a href="#">자유게시판</a></li>
-                    <li><a href="#">참가업체목록</a></li>
+                    <li><a href="/introduction/exhibition">박람회 소개</a></li>
+                    <li><a href="/news/tour">알림마당</a></li>
+                    <li><a href="/attend/view">참가업체목록</a></li>
+                    <li><a href="/board/review">자유게시판</a></li>
                     <li sec:authorize="isAnonymous()"><a href="/signup/login">로그인</a></li>
                     <li sec:authorize="isAuthenticated()"><a href="/signup/logout">로그아웃</a></li>
                 </ul>
@@ -29,12 +29,12 @@
             <div class="menu_form2" sec:authorize="hasAnyAuthority('ROLE_ADMIN')">
 
                 <ul class="menu_list2">
-                    <li><a href="#">박람회 소개</a></li>
-                    <li><a href="#">알림마당</a></li>
-                    <li><a href="/board/freeboard">자유게시판</a></li>
-                    <li><a href="#">참가 업체 목록</a></li>
-                    <li><a href="#">임대문의</a></li>
-                    <li><a href="#">관리자게시판</a></li>
+                    <li><a href="/introduction/exhibition">박람회 소개</a></li>
+                    <li><a href="/news/tour">알림마당</a></li>
+                    <li><a href="/attend/view">참가업체목록</a></li>
+                    <li><a href="/board/review">자유게시판</a></li>
+                    <li><a href="/lease/">업체등록</a></li>
+                    <li><a href="/admin/comConsent">관리자게시판</a></li>
                     <li sec:authorize="isAnonymous()"><a href="/signup/login">로그인</a></li>
                     <li sec:authorize="isAuthenticated()"><a href="/signup/logout">로그아웃</a></li>
                 </ul>
@@ -44,11 +44,11 @@
              <div class="menu_form3" sec:authorize="hasAnyAuthority('ROLE_COMPANY')">
 
                 <ul class="menu_list3">
-                    <li><a href="#">박람회 소개</a></li>
-                    <li><a href="#">알림마당</a></li>
-                    <li><a href="#">자유게시판</a></li>
-                    <li><a href="#">참가 업체 목록</a></li>
-                    <li><a href="#">임대문의</a></li>
+                    <li><a href="/introduction/exhibition">박람회 소개</a></li>
+                    <li><a href="/news/tour">알림마당</a></li>
+                    <li><a href="/attend/view">참가업체목록</a></li>
+                    <li><a href="/board/review">자유게시판</a></li>
+                    <li><a href="/lease/">업체등록</a></li>
                     <li sec:authorize="isAnonymous()"><a href="/signup/login">로그인</a></li>
                     <li sec:authorize="isAuthenticated()"><a href="/signup/logout">로그아웃</a></li>
 

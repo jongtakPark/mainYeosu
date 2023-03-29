@@ -4,7 +4,7 @@ xmlns:layout=http://www.ultraq.net.nz/thymeleaf/layout
 layout:decorate="~{layouts/layout}">
 <head>
     <meta charset="UTF-8">
-    <title>boardwrite</title>
+    <title>국민아이디어수정창</title>
 <link rel="stylesheet" th:href="@{/css/boarddetail.css}">
 <script th:inline="javascript">
 $(document).ready(function(){
@@ -24,18 +24,12 @@ $(document).ready(function(){
 	});
 	$(".upload-name").val(list.join(''));
 	var newList = new Array();
-		$(this).on("change", function(e){
-			console.log($(e.target.files));
-			$(e.target.files).each(function(i,a){
-				if(!newList.isEmpty){
-					newList = [];
-					newList.push(a.name +"        ");
-					$(".upload-name").val(newList.join(''));
-				} else {
-				newList.push(a.name +"        ");
-				$(".upload-name").val(newList.join(''));
-				}
-		 });
+	$(this).on("change", function(e){
+		newList = [];
+		$(e.target.files).each(function(i,a){
+			newList.push(a.name +"        ");
+			$(".upload-name").val(newList.join(''));
+		});
 	});	
 });
 </script>
@@ -47,8 +41,8 @@ $(document).ready(function(){
        <ul>
            <li><a href="/board/review">관람후기</a></li>
            <li><a href="/board/idea">국민아이디어</a></li>
-           <li><a href="#">설문게시판</a></li>
-           <li><a href="#" sec:authorize="hasAnyAuthority('ROLE_VOLUNTEER')">자원봉사게시판</a></li>
+           <li><a href="/board/survey">설문게시판</a></li>
+           <li><a href="/board/volunteer" sec:authorize="hasAnyAuthority('ROLE_VOLUNTEER','ROLE_ADMIN')">자원봉사게시판</a></li>
        </ul>
    </div>
    <div class="freeboard">

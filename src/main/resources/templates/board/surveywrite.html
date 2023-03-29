@@ -4,24 +4,36 @@ xmlns:layout=http://www.ultraq.net.nz/thymeleaf/layout
 layout:decorate="~{layouts/layout}">
 <head>
     <meta charset="UTF-8">
-    <title>boardwrite</title>
+    <title>설문조사작성창</title>
 <link rel="stylesheet" th:href="@{/css/boarddetail.css}">
+<script th:inline="javascript">
+$(document).ready(function(){
+	var errorMessage = [[${errorMessage}]];
+	var succMessage = [[${succMessage}]];
+	if(errorMessage != null){
+		alert(errorMessage);
+	}
+	if(succMessage != null){
+		alert(succMessage);
+	}
+});
+</script>
 </head>
 
 <body>
 <div layout:fragment="content">
  <div class="subMenu">
        <ul>
-           <li><a href="#">전시관안내</a></li>
-           <li><a href="#">행사장오시는길</a></li>
-           <li><a href="#">포토갤러리</a></li>
-           <li><a href="#">여수섬키워드</a></li>
+           <li><a href="/board/review">관람후기</a></li>
+           <li><a href="/board/idea">국민아이디어</a></li>
+           <li><a href="/board/survey">설문게시판</a></li>
+           <li><a href="/board/volunteer" sec:authorize="hasAnyAuthority('ROLE_VOLUNTEER','ROLE_ADMIN')">자원봉사게시판</a></li>
        </ul>
    </div>
    <div class="freeboard">
        <div class="free_title">
           <div class="title">
-               <span>설문조사 글 작성</span>
+               <span>설문조사 글쓰기</span>
            </div>
        </div>
        <form action="/board/survey/new" method="post"  th:object="${surveyboard}">

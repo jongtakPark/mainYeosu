@@ -1,5 +1,7 @@
 package com.exposition.dto;
 
+import javax.validation.constraints.NotEmpty;
+
 import org.modelmapper.ModelMapper;
 
 import com.exposition.entity.EventBoard;
@@ -11,8 +13,13 @@ import lombok.Data;
 public class EventBoardDto {
 
 	private Long id;
+	@NotEmpty(message = "제목을 적어주세요.")
 	private String title;
 	private String content;
+	
+	private String createdBy;
+	
+	private String modifiedBy;
 	
 	private static ModelMapper modelMapper = new ModelMapper();
 	

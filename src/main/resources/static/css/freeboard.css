@@ -104,7 +104,7 @@ tbody > tr {
     font-size: 22px;
     text-decoration: none;
     font-weight: bold;
-    transition: 0.2s
+    transition: 0.2s;
 }
 .write:hover{
     background-color: #39A3C0;
@@ -116,4 +116,8 @@ tbody > tr {
 		bottom: 60px;
 		position: absolute;
 		width: 1250px;
+}
+textarea{
+    resize: none;
+    outline: none;
 }

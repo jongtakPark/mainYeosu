@@ -119,7 +119,7 @@
 		<div class="mypage" sec:authorize="hasAnyAuthority('ROLE_COMPANY')">
             <span><a href="/signup/commypage">마이페이지</a></span>
         </div>
-        <div class="mypage" sec:authorize="hasAnyAuthority('ROLE_USER') || hasAnyAuthority('ROLE_VOLUNTEER')">
+        <div class="mypage" sec:authorize="hasAnyAuthority('ROLE_USER','ROLE_VOLUNTEER')">
             <span><a href="/signup/mypage">마이페이지</a></span>
         </div>
         <div class="login" sec:authorize="isAnonymous()">
@@ -133,9 +133,9 @@
             <img src="/images/logo.png">
         </div>
 
-        <div class="memberMenu" sec:authorize="isAnonymous() || hasAnyAuthority('ROLE_USER') || hasAnyAuthority('ROLE_VOLUNTEER')">
+        <div class="memberMenu" sec:authorize="isAnonymous() || hasAnyAuthority('ROLE_USER','ROLE_VOLUNTEER')">
             <div><a class="memberSubMenu" href="#">박람회소개
-                <div><a href="/introduction/exhibition">전시관안내</a></div>
+                <div><a href="/introduction/exhibition">전시장안내</a></div>
                 <div><a href="/introduction/directions">행사장오시는길</a></div>
                 <div><a href="/introduction/keyword">여수섬키워드</a></div>
                 </a></div>
@@ -145,7 +145,7 @@
                 <div><a href="/news/event">이벤트게시판</a></div>
                 </a></div>
                 <div><a href="/attend/view">참가업체목록</a></div>
-            <div><a class="memberSubMenu" href="/board/freeboard">자유게시판
+            <div><a class="memberSubMenu" href="#">자유게시판
                 <div><a href="/board/review">관람후기</a></div>
                 <div><a href="/board/idea">국민아이디어</a></div>
                 <div><a href="/board/survey">설문게시판</a></div>
@@ -156,7 +156,7 @@
 
         <div class="adminMenu" sec:authorize="hasAnyAuthority('ROLE_ADMIN')">
            <div><a class="adminSubMenu" href="#">박람회소개
-               <div><a href="/introduction/exhibition">전시관안내</a></div>
+               <div><a href="/introduction/exhibition">전시장안내</a></div>
                <div><a href="/introduction/directions">행사장오시는길</a></div>
                <div><a href="/introduction/keyword">여수섬키워드</a></div>
            </a></div>
@@ -166,7 +166,7 @@
                <div><a href="/news/event">이벤트게시판</a></div>
            </a></div>
            <div><a href="/attend/view">참가업체목록</a></div>
-           <div><a class="adminSubMenu" href="/board/freeboard">자유게시판
+           <div><a class="adminSubMenu" href="#">자유게시판
                <div><a href="/board/review">관람후기</a></div>
                <div><a href="/board/idea">국민아이디어</a></div>
                <div><a href="/board/survey">설문게시판</a></div>
@@ -181,7 +181,7 @@
 
          <div class="companyMenu" sec:authorize="hasAnyAuthority('ROLE_COMPANY')">
            <div><a class="companySubMenu" href="#">박람회소개
-               <div><a href="/introduction/exhibition">전시관안내</a></div>
+               <div><a href="/introduction/exhibition">전시장안내</a></div>
                <div><a href="/introduction/directions">행사장오시는길</a></div>
                <div><a href="/introduction/keyword">여수섬키워드</a></div>
            </a></div>

@@ -203,7 +203,7 @@
 }
 .info_file {
   margin-top: 20px;
-    width: 100%;
+  width: 100%;
   height: 30px;
     }
   .info_file input[type=file]::file-selector-button {
@@ -220,10 +220,12 @@
 
 .info_file > .upload-name{
    width: 500px;
+   height : 30px;
    border: none;
    overflow: auto;
    white-space: nowrap;
    margin-left : 20px; 
+   font-size : 16px;
 }
 
 .info_file > .file_label > div{
@@ -239,19 +241,23 @@
 }
 .info_submit > a{
 	display : display;
-    border : 2px solid black;
+    border : 2px solid #666;
     width: 130px;
     text-align : center;
     height: 50px;
     line-height : 47px;
-    border-radius: 20px;
+    border-radius: 10px;
     font-size: 18px;
     margin-left: 70%;
     float : left;
-    background : #F0F0F0;
+    font-weight: bold;
+    transition: 0.2s;
+    background: #99DDEE;
+    color: #666;
 }
 .info_submit > a:hover{
-    background: aqua;
+    background-color: #39A3C0;
+    color: #fff;
 }
 .info_submit{
     width: 100%;
@@ -263,14 +269,19 @@
     display : inline;
     width: 130px;
     height: 50px;
-    border-radius: 20px;
+    border-radius: 10px;
     font-size: 18px;
     margin-left: 5%;
-    border : 2px solid black;
-    cursor:pointer
+    border : 2px solid #666;
+    cursor:pointer;
+    font-weight: bold;
+    transition: 0.2s;
+    background: #99DDEE;
+    color: #666;
 }
 .info_submit  > button:hover{
-    background: aqua;
+    background-color: #39A3C0;
+    color: #fff;
 }
 
 .infosubmit{
@@ -281,31 +292,41 @@
 .infosubmit > button{
     width: 130px;
     height: 50px;
-    border-radius: 20px;
+    border-radius: 10px;
     font-size: 18px;
     margin-left: 85%;
-    border : 2px solid black;
-    cursor:pointer
+    color: #666;
+    border : 2px solid #666;
+    cursor:pointer;
+    font-weight: bold;
+    transition: 0.2s;
+    background: #99DDEE;
 }
 .infosubmit  > button:hover{
-    background: aqua;
+    background-color: #39A3C0;
+    color: #fff;
 }
 .infosubmit1{
     width: 100%;
     height: 50px;
-    margin-top : 20px;
+    margin-top : 10px;
 }
 .infosubmit1 > button{
     width: 130px;
     height: 50px;
-    border-radius: 20px;
+    border-radius: 10px;
+    color: #666;
     font-size: 18px;
     margin-left: 85%;
-    border : 2px solid black;
-    cursor:pointer
+    border : 2px solid #666;
+    cursor:pointer;
+    font-weight: bold;
+    transition: 0.2s;
+    background: #99DDEE;
 }
 .infosubmit1  > button:hover{
-    background: aqua;
+    background-color: #39A3C0;
+    color: #fff;
 }
 .complete{
     width: 1%;
@@ -318,7 +339,7 @@
     height: 50px;
     border-radius: 20px;
     font-size: 18px;
-    border : 2px solid black;
+    border : 2px solid #666;
     cursor:pointer
 }
 .complete > button:hover{
@@ -341,4 +362,8 @@
 }
 .delete  > button:hover{
     background: aqua;
+}
+textarea{
+    resize: none;
+    outline: none;
 }

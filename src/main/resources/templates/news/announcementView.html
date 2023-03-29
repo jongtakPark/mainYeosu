@@ -4,7 +4,7 @@ xmlns:layout=http://www.ultraq.net.nz/thymeleaf/layout
 layout:decorate="~{layouts/layout}">
 <head>
     <meta charset="UTF-8">
-    <title>boardmodify</title>
+    <title>공지사항상세보기</title>
 <link rel="stylesheet" th:href="@{/css/boarddetail.css}">
 <script th:inline="javascript">
 $(document).ready(function(){
@@ -50,9 +50,8 @@ $(document).ready(function(){
                     <label for="" >
                         내용
                     </label>
-                    <div name="" id="test" class="eventContent" cols="83" rows="10">
-                    	<span th:text="*{content}"></span>
-                    </div>
+                    <textarea name="" id="test" cols="83" rows="10"  th:field="*{content}">
+                    </textarea>
                 </div>
             </div>
             <div class="info_create">

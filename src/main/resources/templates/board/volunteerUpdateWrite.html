@@ -4,7 +4,7 @@ xmlns:layout=http://www.ultraq.net.nz/thymeleaf/layout
 layout:decorate="~{layouts/layout}">
 <head>
     <meta charset="UTF-8">
-    <title>boardwrite</title>
+    <title>자원봉사게시판수정창</title>
 <link rel="stylesheet" th:href="@{/css/boarddetail.css}">
 <script th:inline="javascript">
 $(document).ready(function(){
@@ -16,6 +16,21 @@ $(document).ready(function(){
 	if(succMessage != null){
 		alert(succMessage);
 	}
+	var fileList = [[${freeBoardDto}]];
+	var list = new Array();
+	$.each(fileList.fileDtoList, function(i,e){
+		list.push(e.oriImg+"          ");
+		
+	});
+	$(".upload-name").val(list.join(''));
+	var newList = new Array();
+	$(this).on("change", function(e){
+		newList = [];
+		$(e.target.files).each(function(i,a){
+			newList.push(a.name +"        ");
+			$(".upload-name").val(newList.join(''));
+		});
+	});
 });
 </script>
 </head>
@@ -26,8 +41,8 @@ $(document).ready(function(){
        <ul>
            <li><a href="/board/review">관람후기</a></li>
            <li><a href="/board/idea">국민아이디어</a></li>
-           <li><a href="#">설문게시판</a></li>
-           <li><a href="#" sec:authorize="hasAnyAuthority('ROLE_VOLUNTEER')">자원봉사게시판</a></li>
+           <li><a href="/board/survey">설문게시판</a></li>
+           <li><a href="/board/volunteer" sec:authorize="hasAnyAuthority('ROLE_VOLUNTEER','ROLE_ADMIN')">자원봉사게시판</a></li>
        </ul>
    </div>
    <div class="freeboard">
@@ -74,7 +89,9 @@ $(document).ready(function(){
             	</div>
             </div>
             <div class="info_file">
-                <input type="file" multiple="multiple" accept=".jpg,.png" id="file" name="files">
+                <input type="file" multiple="multiple" accept=".jpg,.png" id="files" name="files">
+                <label class="file_label" for="files"><div>업로드</div></label>
+                <input class="upload-name" value="" disabled="disabled">
             </div>
             <div class="infosubmit1">
                <button type="submit">수정등록</button>

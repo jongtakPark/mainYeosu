@@ -70,16 +70,20 @@ public class IntroductionController {
 	@PostMapping(value="/keywordSave")
 	public String keywordSave(@RequestParam(value = "files", required = false) List<MultipartFile> files, Model model, @Valid TourBoardDto tourBoardDto, BindingResult bindingResult) {
 		if(bindingResult.hasErrors()) {
+			model.addAttribute("errorMessage", "제목을 입력해주세요.");
+			model.addAttribute("keywordWrite", tourBoardDto);
 			return "introduction/keywordWrite";
 		}
 		if(files.get(0).isEmpty() && tourBoardDto.getId() == null) {
 			model.addAttribute("errorMessage", "이미지는 필수 입니다.");
+			model.addAttribute("keywordWrite", tourBoardDto);
 			return "introduction/keywordWrite";
 		}
 		try {
 			keywordService.saveTour(files, tourBoardDto);
 		} catch (Exception e) {
 			model.addAttribute("errorMessage", "글 작성 중 에러가 발생했습니다.");
+			model.addAttribute("keywordWrite", tourBoardDto);
 			return "introduction/keywordWrite";
 		}
 		return "redirect:/introduction/keyword";
