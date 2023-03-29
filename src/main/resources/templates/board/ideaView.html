@@ -61,7 +61,7 @@ $(document).ready(function(){
                     <input type="text" th:field="${freeBoardDto.createdBy}" readOnly >
                 </div>
 			</div>
-			<div class="info_imgs">
+			<div th:if="${not #lists.isEmpty(freeBoardDto.fileDtoList)}" class="info_imgs">
             	<label for="">
             		사진
             	</label>

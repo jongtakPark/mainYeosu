@@ -296,4 +296,13 @@ public class MemberController{
 	            
 	   return "redirect:/";
 	}
+	
+	//기업 회원탈퇴
+    @DeleteMapping(value="/comDelete/{com}")
+    public String comdelete(@PathVariable String com, HttpSession session) {
+       Company company = companyService.findByCom(com); 
+       companyService.deleteCom(company);
+       session.invalidate();
+       return "redirect:/";
+    }
 }

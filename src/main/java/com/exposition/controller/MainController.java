@@ -17,6 +17,6 @@ public class MainController {
 	//권한이 없는 사람이 접근했을경우
 	@RequestMapping(value="/error_user")
     public String error() {
-       return "redirect:/";
+       return "member/error";
     }
 }

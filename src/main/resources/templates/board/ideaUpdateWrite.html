@@ -16,6 +16,27 @@ $(document).ready(function(){
 	if(succMessage != null){
 		alert(succMessage);
 	}
+	var fileList = [[${freeBoardDto}]];
+	var list = new Array();
+	$.each(fileList.fileDtoList, function(i,e){
+		list.push(e.oriImg+"          ");
+		
+	});
+	$(".upload-name").val(list.join(''));
+	var newList = new Array();
+		$(this).on("change", function(e){
+			console.log($(e.target.files));
+			$(e.target.files).each(function(i,a){
+				if(!newList.isEmpty){
+					newList = [];
+					newList.push(a.name +"        ");
+					$(".upload-name").val(newList.join(''));
+				} else {
+				newList.push(a.name +"        ");
+				$(".upload-name").val(newList.join(''));
+				}
+		 });
+	});	
 });
 </script>
 </head>
@@ -63,7 +84,7 @@ $(document).ready(function(){
                     <input type="text" th:field="${freeBoardDto.createdBy}" readOnly >
                 </div>
             </div>
-            <div class="info_imgs">
+            <div th:if="${not #lists.isEmpty(freeBoardDto.fileDtoList)}" class="info_imgs">
             	<label for="">
             		사진
             	</label>
@@ -74,7 +95,9 @@ $(document).ready(function(){
             	</div>
             </div>
             <div class="info_file">
-                <input type="file" multiple="multiple" accept=".jpg,.png" id="file" name="files">
+                <input type="file" multiple="multiple" accept=".jpg,.png" id="files" name="files">
+                <label class="file_label" for="files"><div>업로드</div></label>
+                <input class="upload-name" value="" disabled="disabled">
             </div>
             <div class="infosubmit1">
                <button type="submit">수정등록</button>

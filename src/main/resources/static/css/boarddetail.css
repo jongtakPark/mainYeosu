@@ -25,7 +25,7 @@
 /*    자유게시판*/
 .freeboard{
     width: 70%;
-    height: 960px;
+    height: 960px; 
     margin: auto;
 }
 
@@ -48,7 +48,7 @@
 .free_content{
     background-color: rgba(196, 196, 196, 0.3);
     width: 95%;
-    height: 700px;
+    /* height: 700px; */
     margin: auto;
     margin-top: 10px;
     border-radius: 10px;
@@ -94,6 +94,7 @@
     margin-top: 20px;
     border-bottom: 2px solid black;
 }
+
 .info_cont_inner{
     width: 100%;
     height: 300px;
@@ -143,13 +144,10 @@
 .survey .survey_box{
 	height : 100%;
 }
-.survey_ck {
-	margin : 25px 0 25px 0;	
-}
 .survey_ck p {
 	font-weight : bold;
 	font-size : 20px;
-	margin-bottom : 15px;
+	margin-bottom : -5px;
 }
 .survey_ck span {
 	margin : 0 20px 0 10px;
@@ -205,7 +203,7 @@
 }
 .info_file {
   margin-top: 20px;
-    width: 450px;
+    width: 100%;
   height: 30px;
     }
   .info_file input[type=file]::file-selector-button {
@@ -215,6 +213,29 @@
   border: 1px solid rgb(77,77,77);
   border-radius: 10px;
   cursor: pointer;
+}
+.info_file > #files{
+   display: none;
+}
+
+.info_file > .upload-name{
+   width: 500px;
+   border: none;
+   overflow: auto;
+   white-space: nowrap;
+   margin-left : 20px; 
+}
+
+.info_file > .file_label > div{
+ width: 150px;
+  height: 30px;
+  background: #fff;
+  border: 1px solid rgb(77,77,77);
+  border-radius: 10px;
+  cursor: pointer;
+  text-align: center;
+  line-height: 30px;
+  float: left;
 }
 .info_submit > a{
 	display : display;
@@ -235,7 +256,8 @@
 .info_submit{
     width: 100%;
     height: 50px;
-    margin-top : 40px;
+    /* margin-top : 40px; */
+    margin : 40px 0 20px 0;
 }
 .info_submit  > button{
     display : inline;
