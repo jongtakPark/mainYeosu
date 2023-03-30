@@ -47,7 +47,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 		http.authorizeRequests()
 		.mvcMatchers("/board/volunteer**","/board/volunteer**/**").hasAnyRole("VOLUNTEER","ADMIN")
 		.mvcMatchers("/introduction/keywordWrite","/introduction/keywordSave","/admin/**","/news/tourwrite","/news/modify/**","/news/delete/**").hasRole("ADMIN")
-		.mvcMatchers("signup/mypage").hasRole("USER")
+		.mvcMatchers("signup/mypage").hasAnyRole("USER","VOLUNTEER")
 		.mvcMatchers("signup/commypage").hasRole("COMPANY")
 		.mvcMatchers("/lease/**").hasAnyRole("ADMIN","COMPANY")
 		.mvcMatchers("/","/signup/**","/board/**","/introduction/**","/attend/**","/news/**","/board/review","/board/reviewView/**","/board/idea","/board/ideaView/**").permitAll() // 모든 사용자 인증없이 해당경로에 접근하도록 설정

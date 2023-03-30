@@ -168,6 +168,17 @@
         margin-left: 20%;
         margin-top: 10px;
     }
+    .per_reservation{
+        position: relative;
+        background-color: #E6E6E6;
+        float: left;
+        text-align: center;
+        line-height: 30px;
+        width: 154px;
+        height: 30px;
+        margin-left: 20%;
+        margin-top: 10px;
+    }
     
     .per_mail_send{
         position: absolute;
@@ -185,6 +196,17 @@
     .per_mail_a{
         position: relative;
         background-color: white;
+        float: left;
+        text-align: center;
+        line-height: 30px;
+        width: 154px;
+        height: 30px;
+        margin-left: 20%;
+        margin-top: 10px;
+    }
+    .per_location{
+        position: relative;
+        background-color: #E6E6E6;
         float: left;
         text-align: center;
         line-height: 30px;
@@ -217,6 +239,36 @@
         height: 30px;
         margin-left: 20%;
         margin-top: 10px;
+    }
+    .per_day{
+        position: relative;
+        background-color: #E6E6E6;
+        float: left;
+        text-align: center;
+        line-height: 30px;
+        width: 154px;
+        height: 30px;
+        margin-left: 20%;
+        margin-top: 10px;
+    }
+    .per_day1{
+        width: 30%;
+        height: 30px;
+        margin-top: 10px;
+        margin-left: 2%;
+        border-radius: 5px;
+        float: left;
+        border : 2px solid grey;
+    }
+    .cancleSubmit{
+        width: 7%;
+        height: 30px;
+        margin-top: -40px;
+        margin-left: 40%;
+        border-radius: 5px;
+        float: left;
+        border : 2px solid grey;
+        position : absolute;
     }
     
     .regist{

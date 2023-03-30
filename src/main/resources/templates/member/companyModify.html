@@ -6,7 +6,18 @@ layout:decorate="~{layouts/layout}">
     <meta charset="UTF-8">
     <title>Personal</title>
 <link rel="stylesheet" th:href="@{/css/personalSignUp.css}">
-
+<script th:inline="javascript">
+$(document).ready(function(){
+	var errorMessage = [[${errorMessage}]];
+	var succMessage = [[${succMessage}]];
+	if(errorMessage != null){
+		alert(errorMessage);
+	}
+	if(succMessage != null){
+		alert(succMessage);
+	}
+});
+</script>
 </head> 
 <body>
     <div layout:fragment="content">     
@@ -17,7 +28,7 @@ layout:decorate="~{layouts/layout}">
             <div class="title_ent">
                 <span>기업회원 정보 수정</span>
             </div>
-             <form th:action="@{/signup/commypageupdate/{com}(com=${companyModifyFormDto.com})}" method="post" th:object="${companyModifyFormDto}" onsubmit="return submitCheck();">
+             <form th:action="@{/signup/comMypageUpdate/{com}(com=${companyModifyFormDto.com})}" th:method="put" th:object="${companyModifyFormDto}" onsubmit="return submitCheck();">
              <div class="per_a">
                  <div class="per_id"><span>아이디</span></div>
                  <div><input  class="per_tex" name="com" id="com" th:field="*{com}" type="text" readOnly></div>                
@@ -41,14 +52,28 @@ layout:decorate="~{layouts/layout}">
              </div>
              <div class="error_div"><span class="error" id="passwordMsg1" ></span></div>
              <div class="succ_div"><span class="succ" id="passwordMsg2" ></span></div>                                        
-             
+             <div class="per_e">
+                 <div class="per_reservation"><span>예약현황</span></div>
+                 <div><input class="per_tex" th:field="*{approval}" readOnly></div>
+             </div>
+              <div class="per_f">
+                <div class="per_location"><span>예약장소</span></div>
+                 <div><input class="per_tex" type="text" placeholder="예약된 장소가 없습니다." th:field="*{location}" id="emailcode" readOnly></div>
+             </div>
+             <div class="per_g">
+                 <div class="per_day"><span>예약날짜</span></div>
+                 <div><span class="per_day1">[[*{startDay}]] ~ [[*{endDay}]]</span></div>
+             </div>
              <input type="submit" class="modify" id="modify" value="수정완료">
              <a href="/"><input class="cancel-modify" value="취소"></a>
              <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
              <script type="text/javascript" src="/javascript/companyModify.js"></script>  
              </form>
-			<form th:action="@{/signup/memDelete/{com}(com=${companyModifyFormDto.com})}" th:method="delete">
+			<form th:action="@{/signup/comDelete/{com}(com=${companyModifyFormDto.com})}" th:method="delete">
 				<input type="submit" class="withdrawal" value="탈퇴">
+			</form>
+			<form th:action="@{/signup/cancle/{com}(com=${companyModifyFormDto.com})}" th:method="put">
+				<input type="submit" class="cancleSubmit" value="예약취소">
 			</form>
         </div>
         </div>

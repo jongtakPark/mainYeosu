@@ -58,6 +58,7 @@ $(document).ready(function(){
             </div>
            
        </div>
+       <input type="hidden" th:field="*{id}">
        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
 	</form>
 </div>

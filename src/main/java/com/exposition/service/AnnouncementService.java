@@ -35,7 +35,8 @@ public class AnnouncementService {
 	}
 	
 	//공지사항 글 수정 저장
-	public void announcementUpdate(Announcement announcement) {
+	public void announcementUpdate(Announcement announcement, Member member) {
+		announcement.setMember(member);
 		announcementRepository.save(announcement);
 	}
 	

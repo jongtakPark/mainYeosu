@@ -269,19 +269,19 @@ public class MemberController{
 	}
 	
 	//기업 마이페이지로 이동
-	@GetMapping(value="/commypage")
+	@GetMapping(value="/comMypage")
 	public String commypage(Model model, Principal principal) {
-	   Company company = companyService.findByCom(principal.getName());
-	   CompanyModifyFormDto companyModifyFormDto = CompanyModifyFormDto.of(company);
-	   model.addAttribute("companyModifyFormDto", companyModifyFormDto);
+		CompanyModifyFormDto companyModifyFormDto = companyService.findReservationByCom(principal.getName());
+	    model.addAttribute("companyModifyFormDto", companyModifyFormDto);
 	   return "member/companyModify";
 	}
 	   
 	//기업 마이페이지 비밀번호 변경
-	@PostMapping(value="/commypageupdate/{com}")
+	@PutMapping(value="/comMypageUpdate/{com}")
 	@Validated
 	public String modifyCompany(@Valid CompanyModifyFormDto companyModifyFormDto, BindingResult bindingResult, @PathVariable String com, Model model, CompanyFormDto companyFormDto) {
 	   if(bindingResult.hasErrors()) {
+		  model.addAttribute("errorMessage", "비밀번호는 8~16자 영문 대 소문자, 숫자를 사용하세요.");
 	      return "member/companyModify";
 	   }
 	   try {
@@ -295,6 +295,18 @@ public class MemberController{
 	   }
 	            
 	   return "redirect:/";
+	}
+	
+	//기업 예약 신청 취소
+	@PutMapping(value="/cancle/{com}")
+	public String cancle(@PathVariable String com, CompanyModifyFormDto companyModifyFormDto, Model model) {
+		try {
+			companyModifyFormDto = companyService.reservationCancle(com);
+			model.addAttribute("companyModifyFormDto", companyModifyFormDto);
+		} catch(Exception e) {
+			model.addAttribute("errorMessage", "예약삭제중 에러가 발생했습니다");
+		}
+		return "redirect:/";
 	}
 	
 	//기업 회원탈퇴

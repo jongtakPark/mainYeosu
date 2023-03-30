@@ -99,12 +99,10 @@ public class BoardController {
 	
 	//관람후기 수정창으로 이동
 	@GetMapping(value="/reviewModify/{id}")
-	public String reviewModify(@AuthenticationPrincipal User user, @PathVariable("id") Long id, Model model, Principal principal) {
-		Review review = boardService.reviewFindById(id);
+	public String reviewModify(@AuthenticationPrincipal User user, @PathVariable("id") Long id, Model model) {
 		FreeBoardDto freeBoardDto = boardService.reviewAndFileFindById(id);
-		try {
 			try {
-				if(!review.getMember().getMid().equals(principal.getName())){
+				if(!freeBoardDto.getCreatedBy().equals(user.getUsername())){
 					if(String.valueOf(user.getAuthorities().iterator().next()).equals("ROLE_ADMIN")) {
 						model.addAttribute("freeBoardDto", freeBoardDto);
 					} else {
@@ -116,26 +114,9 @@ public class BoardController {
 					model.addAttribute("freeBoardDto", freeBoardDto);
 				}
 			} catch(Exception e) {
-				if(!review.getCompany().getCom().equals(principal.getName())){
-					if(String.valueOf(user.getAuthorities().iterator().next()).equals("ROLE_ADMIN")) {
-						model.addAttribute("freeBoardDto", freeBoardDto);
-						return "board/reviewUpdateWrite";
-					} else {
-						model.addAttribute("errorMessage", "글 작성자가 아니면 수정 할 수 없습니다.");
-						model.addAttribute("freeBoardDto", freeBoardDto);
-						return "board/reviewView";
-					}
-				} else {
-					model.addAttribute("freeBoardDto", freeBoardDto);
-					return "board/reviewUpdateWrite";
-				}
+				model.addAttribute("errorMessage", "에러가 발생했습니다.");
 			}
 			return "board/reviewUpdateWrite";
-		} catch(Exception e) {
-			model.addAttribute("errorMessage", "글 작성자가 아니면 수정 할 수 없습니다.");
-			model.addAttribute("freeBoardDto", freeBoardDto);
-			return "board/reviewView";
-		}
 	}
 		
 	//관람후기 글 수정 등록
@@ -159,12 +140,10 @@ public class BoardController {
 		
 	//관람후기 글 삭제
 	@DeleteMapping(value="/reviewDelete/{id}")
-	public String deleteBoard(@AuthenticationPrincipal User user, @PathVariable Long id, Principal principal, Model model) {
-		Review review = boardService.reviewFindById(id);
+	public String deleteBoard(@AuthenticationPrincipal User user, @PathVariable Long id, Model model) {
 		FreeBoardDto freeBoardDto = boardService.reviewAndFileFindById(id);
-		try {
 			try {
-				if(!review.getMember().getMid().equals(principal.getName())) {
+				if(!freeBoardDto.getCreatedBy().equals(user.getUsername())) {
 					if(String.valueOf(user.getAuthorities().iterator().next()).equals("ROLE_ADMIN")) {
 						boardService.deleteReview(id);
 					} else {
@@ -176,26 +155,11 @@ public class BoardController {
 					boardService.deleteReview(id);
 				} 
 			}catch(Exception e) {
-				if(!review.getCompany().getCom().equals(principal.getName())) {
-					if(String.valueOf(user.getAuthorities().iterator().next()).equals("ROLE_ADMIN")) {
-						boardService.deleteReview(id);
-						return "redirect:/board/review";
-					} else {
-						model.addAttribute("freeBoardDto", freeBoardDto);
-						model.addAttribute("errorMessage", "글 작성자가 아니면 삭제 할 수 없습니다.");
-						return "board/reviewView";
-					}
-				} else {
-					boardService.deleteReview(id);
-					return "redirect:/board/review";
-				}
+				e.printStackTrace();
+				model.addAttribute("errorMessage", "글 삭제중 에러가 발생했습니다.");
+				return "board/reviewView";
 			}
-		return "redirect:/board/review";
-		} catch(Exception e) {
-			model.addAttribute("freeBoardDto", freeBoardDto);
-			model.addAttribute("errorMessage", "작성자만 삭제 할 수 있습니다.");
-			return "board/reviewView";
-		}
+		return "redirect:/board/review";	
 	}
 		
 	
@@ -237,7 +201,6 @@ public class BoardController {
   			boardService.ideaSave(idea, principal.getName(), files);
   			model.addAttribute("succMessage", "새 글 작성이 되었습니다.");
   		} catch(Exception e) {
-  			e.printStackTrace();
   			model.addAttribute("errorMessage", "글 작성중 에러가 발생했습니다.");
   			return "board/ideaWrite";
   		}
@@ -254,12 +217,10 @@ public class BoardController {
   	
   	//국민아이디어 수정창으로 이동
   	@GetMapping(value="/ideaModify/{id}")
-  	public String ideaModify(@AuthenticationPrincipal User user, @PathVariable("id") Long id, Model model, Principal principal) {
-  		Idea idea = boardService.ideaFindById(id);
+  	public String ideaModify(@AuthenticationPrincipal User user, @PathVariable("id") Long id, Model model) {
   		FreeBoardDto freeBoardDto = boardService.ideaAndFileFindById(id);
-  		try {
   			try {
-  				if(!idea.getMember().getMid().equals(principal.getName())){
+  				if(!freeBoardDto.getCreatedBy().equals(user.getUsername())){
   					if(String.valueOf(user.getAuthorities().iterator().next()).equals("ROLE_ADMIN")) {
   						model.addAttribute("freeBoardDto", freeBoardDto);
   					} else {
@@ -271,26 +232,10 @@ public class BoardController {
   					model.addAttribute("freeBoardDto", freeBoardDto);
   				}
   			} catch(Exception e) {
-  				if(!idea.getCompany().getCom().equals(principal.getName())){
-  					if(String.valueOf(user.getAuthorities().iterator().next()).equals("ROLE_ADMIN")) {
-  						model.addAttribute("freeBoardDto", freeBoardDto);
-  						return "board/ideaUpdateWrite";
-  					} else {
-  						model.addAttribute("errorMessage", "글 작성자가 아니면 수정 할 수 없습니다.");
-  						model.addAttribute("freeBoardDto", freeBoardDto);
-  						return "board/ideaView";
-  					}
-  				} else {
-  					model.addAttribute("freeBoardDto", freeBoardDto);
-  					return "board/ideaUpdateWrite";
-  				}
+  				model.addAttribute("errorMessage", "에러가 발생했습니다.");
   			}
   			return "board/ideaUpdateWrite";
-  		} catch(Exception e) {
-  			model.addAttribute("errorMessage", "글 작성자가 아니면 수정 할 수 없습니다.");
-  			model.addAttribute("freeBoardDto", freeBoardDto);
-  			return "board/ideaView";
-  		}
+  		
   	}
   	
   	//국민아이디어 글 수정 등록
@@ -315,12 +260,10 @@ public class BoardController {
   	
   	//국민아이디어 글 삭제
   	@DeleteMapping(value="/ideaDelete/{id}")
-  	public String ideaDeleteBoard(@AuthenticationPrincipal User user, @PathVariable Long id, Principal principal, Model model) {
-  		Idea idea = boardService.ideaFindById(id);
+  	public String ideaDeleteBoard(@AuthenticationPrincipal User user, @PathVariable Long id, Model model) {
   		FreeBoardDto freeBoardDto = boardService.ideaAndFileFindById(id);
-  		try {
   			try {
-  				if(!idea.getMember().getMid().equals(principal.getName())) {
+  				if(!freeBoardDto.getCreatedBy().equals(user.getUsername())) {
   					if(String.valueOf(user.getAuthorities().iterator().next()).equals("ROLE_ADMIN")) {
   						boardService.deleteIdea(id);
   					} else {
@@ -332,26 +275,10 @@ public class BoardController {
   					boardService.deleteIdea(id);
   				} 
   			}catch(Exception e) {
-  				if(!idea.getCompany().getCom().equals(principal.getName())) {
-  					if(String.valueOf(user.getAuthorities().iterator().next()).equals("ROLE_ADMIN")) {
-  						boardService.deleteIdea(id);
-  						return "redirect:/board/idea";
-  					} else {
-  						model.addAttribute("freeBoardDto", freeBoardDto);
-  						model.addAttribute("errorMessage", "글 작성자가 아니면 삭제 할 수 없습니다.");
-  						return "board/ideaView";
-  					}
-  				} else {
-  					boardService.deleteIdea(id);
-  					return "redirect:/board/idea";
-  				}
+  				model.addAttribute("errorMessage", "글 삭제중 에러가 발생했습니다.");
   			}
   		return "redirect:/board/idea";
-  		} catch(Exception e) {
-  			model.addAttribute("freeBoardDto", freeBoardDto);
-  			model.addAttribute("errorMessage", "작성자만 삭제 할 수 있습니다.");
-  			return "board/ideaView";
-  		}
+  		
   	}
   	
     //설문조사게시판
@@ -470,11 +397,10 @@ public class BoardController {
   	
   	//자원봉사게시판 수정창으로 이동
   	@GetMapping(value="/volunteerModify/{id}")
-  	public String volunteerModify(@AuthenticationPrincipal User user, @PathVariable("id") Long id, Model model, Principal principal) {
-  		Volunteer volunteer = boardService.volunteerFindById(id);
+  	public String volunteerModify(@AuthenticationPrincipal User user, @PathVariable("id") Long id, Model model) {
   		FreeBoardDto freeBoardDto = boardService.volunteerAndFileFindById(id);
   		try {
-  			if(!volunteer.getMember().getMid().equals(principal.getName())){
+  			if(!freeBoardDto.getCreatedBy().equals(user.getUsername())){
   				if(String.valueOf(user.getAuthorities().iterator().next()).equals("ROLE_ADMIN")) {
   					model.addAttribute("freeBoardDto", freeBoardDto);
   				} else {
@@ -487,7 +413,6 @@ public class BoardController {
   			}
   		} catch(Exception e) {
   			model.addAttribute("errorMessage", "글 작성자가 아니면 수정 할 수 없습니다.");
-  			model.addAttribute("freeBoardDto", freeBoardDto);
   			return "board/volunteerView";
   		}
   		return "board/volunteerUpdateWrite";
@@ -514,11 +439,10 @@ public class BoardController {
   	
   	//자원봉사게시판 글 삭제
   	@DeleteMapping(value="/volunteerDelete/{id}")
-  	public String volunteerDeleteBoard(@AuthenticationPrincipal User user, @PathVariable Long id, Principal principal, Model model) {
-  		Volunteer volunteer = boardService.volunteerFindById(id);
+  	public String volunteerDeleteBoard(@AuthenticationPrincipal User user, @PathVariable Long id, Model model) {
   		FreeBoardDto freeBoardDto = boardService.volunteerAndFileFindById(id);
   			try {
-  				if(!volunteer.getMember().getMid().equals(principal.getName())) {
+  				if(!freeBoardDto.getCreatedBy().equals(user.getUsername())) {
   					if(String.valueOf(user.getAuthorities().iterator().next()).equals("ROLE_ADMIN")) {
   						boardService.deleteVolunteer(id);
   					} else {
@@ -529,9 +453,7 @@ public class BoardController {
   				} else {
   					boardService.deleteVolunteer(id);
   				} 
-  			
   		} catch(Exception e) {
-  			model.addAttribute("freeBoardDto", freeBoardDto);
   			model.addAttribute("errorMessage", "작성자만 삭제 할 수 있습니다.");
   			return "board/volunteerView";
   		}
