@@ -5,6 +5,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.exposition.dto.FreeBoardDto;
 import com.exposition.entity.Announcement;
 import com.exposition.entity.Member;
 import com.exposition.repository.AnnouncementRepository;
@@ -35,9 +36,15 @@ public class AnnouncementService {
 	}
 	
 	//공지사항 글 수정 저장
-	public void announcementUpdate(Announcement announcement) {
-		announcementRepository.save(announcement);
+//	public void announcementUpdate(Announcement announcement) {
+//		announcementRepository.save(announcement);
+//	}
+	
+	public void announcementUpdate(FreeBoardDto freeBoardDto) {
+		Announcement announcementUpdate = Announcement.createAnnouncement(freeBoardDto);
+		announcementRepository.save(announcementUpdate);
 	}
+	
 	
 	//공지사항 글 삭제
 	public void announcementDelete(Long id) {

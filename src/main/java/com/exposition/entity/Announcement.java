@@ -40,6 +40,7 @@ public class Announcement extends BaseEntity{
 		announcement.setTitle(freeBoardDto.getTitle());
 		announcement.setContent(freeBoardDto.getContent());
 		announcement.setId(freeBoardDto.getId());
+		announcement.setMember(freeBoardDto.getMember());
 		return announcement;
 	}
 }

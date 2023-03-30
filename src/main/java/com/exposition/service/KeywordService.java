@@ -1,5 +1,6 @@
 package com.exposition.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.data.domain.Page;
@@ -43,5 +44,18 @@ public class KeywordService {
 			
 		}
 		return keyword;
+	}
+	
+	public void delete(List<Long> id) {
+		List<Files> files = new ArrayList<>();
+		for(int i =0; i<id.size();i++) {
+			files.addAll(fileService.findByKeyworBoardId(id.get(i)));
+		}
+		for(int i =0; i<files.size(); i++) {
+			keywordRepository.deleteById(id.get(i));
+			fileService.deleteComFile("C:/images/"+files.get(i).getBackSavePath().substring(13));
+			fileService.deleteComFile("C:/images/"+files.get(i).getSavePath().substring(13));
+		}
+		
 	}
 }

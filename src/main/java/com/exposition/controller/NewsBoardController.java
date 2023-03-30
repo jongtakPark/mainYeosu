@@ -232,8 +232,14 @@ public class NewsBoardController {
 	
 	//공지사항 글쓰기 페이지 이동
 	@GetMapping(value="/announcementWrite")
-	public String announcementWrite(Model model) {
-		model.addAttribute("freeBoardDto", new FreeBoardDto());
+	public String announcementWrite(Model model, Principal principal) {
+		if(principal.getName().equals("admin")) {
+			model.addAttribute("freeBoardDto", new FreeBoardDto());
+		}else {
+			model.addAttribute("errorMessage", "꺼지세요.");
+			return "redirect:/news/announcement";
+		}
+		
 		return "news/announcementWrite";
 	}
 	
@@ -274,6 +280,7 @@ public class NewsBoardController {
 		if(!announcement.getMember().getMid().equals(principal.getName())) {
 			if(principal.getName().equals("admin")) {
 				FreeBoardDto freeBoardDto = FreeBoardDto.of(announcement);
+				System.out.println(freeBoardDto);
 				model.addAttribute("freeBoardDto", freeBoardDto);
 			} else {
 				model.addAttribute("errorMessage", "글 작성자가 아니면 수정 할 수 없습니다.");
@@ -296,8 +303,7 @@ public class NewsBoardController {
 			return "news/announcementUpdate";
 		}
 		try {
-			Announcement announcementUpdate = Announcement.createAnnouncement(freeBoardDto);
-			announcementService.announcementUpdate(announcementUpdate);
+			announcementService.announcementUpdate(freeBoardDto);
 		} catch(Exception e) {
 			e.printStackTrace();
 			model.addAttribute("errorMessage", "글 수정 중 에러가 발생했습니다");

@@ -6,7 +6,20 @@ layout:decorate="~{layouts/layout}">
     <meta charset="UTF-8">
     <title>공지사항</title>
 <link rel="stylesheet" th:href="@{/css/freeboard.css}">
+<script th:inline="javascript">
+$(document).ready(function(){
+	var errorMessage = [[${errorMessage}]];
+	var succMessage = [[${succMessage}]];
+	if(errorMessage != null){
+		alert(errorMessage);
+	}
+	if(succMessage != null){
+		alert(succMessage);
+	}
+});
+</script>
 </head>
+
 <body>
 <div layout:fragment="content">
  <div class="subMenu">

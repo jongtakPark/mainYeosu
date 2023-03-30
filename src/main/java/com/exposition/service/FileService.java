@@ -109,6 +109,11 @@ public class FileService {
 		return fileRepository.findByVolunteerId(volunteerId);
 	}
 	
+	// 키워드게시판 id로 첨부파일 찾기
+	public List<Files> findByKeyworBoardId(Long KeywordBoardId) {
+		return fileRepository.findByKeywordId(KeywordBoardId);
+	}
+	
 	//첨부파일 삭제하기
 	public void deleteFile(Long id) {
 		fileRepository.deleteById(id);
