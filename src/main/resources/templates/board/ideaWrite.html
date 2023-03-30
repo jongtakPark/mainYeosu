@@ -4,27 +4,47 @@ xmlns:layout=http://www.ultraq.net.nz/thymeleaf/layout
 layout:decorate="~{layouts/layout}">
 <head>
     <meta charset="UTF-8">
-    <title>boardwrite</title>
+    <title>국민아이디어작성창</title>
 <link rel="stylesheet" th:href="@{/css/boarddetail.css}">
+<script th:inline="javascript">
+$(document).ready(function(){
+	var errorMessage = [[${errorMessage}]];
+	var succMessage = [[${succMessage}]];
+	if(errorMessage != null){
+		alert(errorMessage);
+	}
+	if(succMessage != null){
+		alert(succMessage);
+	}
+	var newList = new Array();
+	$(this).on("change", function(e){
+		newList = [];
+		$(e.target.files).each(function(i,a){
+			newList.push(a.name +"        ");
+			$(".upload-name").val(newList.join(''));
+		});
+	});
+});
+</script>
 </head>
 
 <body>
 <div layout:fragment="content">
  <div class="subMenu">
        <ul>
-           <li><a href="#">전시관안내</a></li>
-           <li><a href="#">행사장오시는길</a></li>
-           <li><a href="#">포토갤러리</a></li>
-           <li><a href="#">여수섬키워드</a></li>
+           <li><a href="/board/review">관람후기</a></li>
+           <li><a href="/board/idea">국민아이디어</a></li>
+           <li><a href="/board/survey">설문게시판</a></li>
+           <li><a href="/board/volunteer" sec:authorize="hasAnyAuthority('ROLE_VOLUNTEER','ROLE_ADMIN')">자원봉사게시판</a></li>
        </ul>
    </div>
    <div class="freeboard">
        <div class="free_title">
           <div class="title">
-               <span>자유게시판</span>
+               <span>국민아이디어 글쓰기</span>
            </div>
        </div>
-       <form action="/board/new" method="post"  th:object="${freeBoardDto}">
+       <form action="/board/ideaNew" method="post"  th:object="${freeBoardDto}" enctype="multipart/form-data">
        <div class="info_content">
             <div class="info_title">
                 <div class="info_title_inner">
@@ -43,14 +63,15 @@ layout:decorate="~{layouts/layout}">
                 </div>
             </div>
            <div class="info_file">
-                <input type="file" multiple="multiple" accept=".jpg,.png" id="file" name="file">
+                <input type="file" multiple="multiple" accept=".jpg,.png" id="files" name="files">
+                <label class="file_label" for="files"><div>업로드</div></label>
+                <input class="upload-name" value="" disabled="disabled">
             </div>
             <div class="infosubmit">
                <button type="submit">작성 글 등록</button>
             </div>
        </div>
        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
-       <input type="hidden" th:value="${id}" name="mid"/>
     </form>
    </div>
  </div>

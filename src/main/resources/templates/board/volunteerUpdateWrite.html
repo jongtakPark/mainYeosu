@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+xmlns:layout=http://www.ultraq.net.nz/thymeleaf/layout
+layout:decorate="~{layouts/layout}">
+<head>
+    <meta charset="UTF-8">
+    <title>자원봉사게시판수정창</title>
+<link rel="stylesheet" th:href="@{/css/boarddetail.css}">
+<script th:inline="javascript">
+$(document).ready(function(){
+	var errorMessage = [[${errorMessage}]];
+	var succMessage = [[${succMessage}]];
+	if(errorMessage != null){
+		alert(errorMessage);
+	}
+	if(succMessage != null){
+		alert(succMessage);
+	}
+	var fileList = [[${freeBoardDto}]];
+	var list = new Array();
+	$.each(fileList.fileDtoList, function(i,e){
+		list.push(e.oriImg+"          ");
+		
+	});
+	$(".upload-name").val(list.join(''));
+	var newList = new Array();
+	$(this).on("change", function(e){
+		newList = [];
+		$(e.target.files).each(function(i,a){
+			newList.push(a.name +"        ");
+			$(".upload-name").val(newList.join(''));
+		});
+	});
+});
+</script>
+</head>
+
+<body>
+<div layout:fragment="content">
+ <div class="subMenu">
+       <ul>
+           <li><a href="/board/review">관람후기</a></li>
+           <li><a href="/board/idea">국민아이디어</a></li>
+           <li><a href="/board/survey">설문게시판</a></li>
+           <li><a href="/board/volunteer" sec:authorize="hasAnyAuthority('ROLE_VOLUNTEER','ROLE_ADMIN')">자원봉사게시판</a></li>
+       </ul>
+   </div>
+   <div class="freeboard">
+       <div class="free_title">
+          <div class="title">
+               <span>자원봉사게시판 수정</span>
+           </div>
+       </div>
+       <div class="info_content">
+       <form th:method="put" enctype="multipart/form-data" action="/board/volunteerUpdateNew">
+       <input type="hidden" th:field="${freeBoardDto.id}">
+            <div class="info_title">
+                <div class="info_title_inner">
+                    <label for="">
+                        제목
+                    </label>
+                    <input type="text"  th:field="${freeBoardDto.title}" name="title">
+                </div>
+            </div>
+            <div class="info_cont">
+                <div class="info_cont_inner">
+                    <label for="">
+                        내용
+                    </label>
+                    <textarea id="test" cols="83" rows="10" th:field="${freeBoardDto.content}" name="content"></textarea>
+                </div>
+            </div>
+            <div class="info_create">
+                <div class="info_create_inner">
+                    <label for="">
+                        작성자
+                    </label>
+                    <input type="text" th:field="${freeBoardDto.createdBy}" readOnly >
+                </div>
+            </div>
+            <div class="info_imgs">
+            	<label for="">
+            		사진
+            	</label>
+            	<div class="imgs">
+            		<span th:each="list : ${freeBoardDto.fileDtoList}">
+            			<img th:src="${list.savePath}">
+            		</span>
+            	</div>
+            </div>
+            <div class="info_file">
+                <input type="file" multiple="multiple" accept=".jpg,.png" id="files" name="files">
+                <label class="file_label" for="files"><div>업로드</div></label>
+                <input class="upload-name" value="" disabled="disabled">
+            </div>
+            <div class="infosubmit1">
+               <button type="submit">수정등록</button>
+            </div>
+             <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+            </form>
+       </div>
+   </div>
+ </div>
+    
+</body>
+</html>

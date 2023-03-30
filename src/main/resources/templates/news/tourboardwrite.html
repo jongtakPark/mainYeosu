@@ -7,22 +7,41 @@ layout:decorate="~{layouts/layout}">
     <meta charset="UTF-8">
     <title>주변관광지작성창</title>
 <link rel="stylesheet" th:href="@{/css/tourboardwrite.css}">
+<script th:inline="javascript">
+$(document).ready(function(){
+	var errorMessage = [[${errorMessage}]];
+	var succMessage = [[${succMessage}]];
+	if(errorMessage != null){
+		alert(errorMessage);
+	}
+	if(succMessage != null){
+		alert(succMessage);
+	}
+	var newList = new Array();
+	$(this).on("change", function(e){
+		newList = [];
+		$(e.target.files).each(function(i,a){
+			newList.push(a.name +"        ");
+			$(".upload-name").val(newList.join(''));
+		});
+	});
+});
+</script>
 </head>
 
 <body>
 <div layout:fragment="content">
  <div class="subMenu">
        <ul>
-           <li><a href="#">주변관광지</a></li>
-           <li><a href="#">공지사항</a></li>
-           <li><a href="#">보도자료</a></li>
-           <li><a href="#">이벤트게시판</a></li>
+           <li><a href="/news/tour">주변관광지</a></li>
+           <li><a href="/news/announcement">공지사항</a></li>
+           <li><a href="/news/event">이벤트게시판</a></li>
        </ul>
    </div>
    <div class="freeboard">
        <div class="free_title">
           <div class="title">
-               <span>주변관광지 새 글</span>
+               <span>주변관광지 글쓰기</span>
            </div>
        </div>
        <form action="/news/toursave" th:method="post" th:object="${tourBoardDto}" enctype="multipart/form-data">
@@ -36,7 +55,6 @@ layout:decorate="~{layouts/layout}">
                     <input type="text" name="title" th:field="*{title}">
                 </div>
             </div>
-            <p th:if="${#fields.hasErrors('title')}" th:errors="*{title}" class="fieldError">Incorrect data</p>
             <div class="info_cont">
                 <div class="info_cont_inner">
                     <label for="">
@@ -46,10 +64,12 @@ layout:decorate="~{layouts/layout}">
                 </div>
             </div>
        		<div class="info_file">
-                <input type="file" multiple="multiple" id="file" name="files" class="file">
+                <input type="file" multiple="multiple" accept=".jpg,.png" id="files" name="files">
+                <label class="file_label" for="files"><div>업로드</div></label>
+                <input class="upload-name" value="" disabled="disabled">
             </div>
             <div class="info_submit">
-               <button type="submit" class="submit">글 등록</button>
+               <button type="submit" class="submit">작성 글 등록</button>
             </div>
         
        </div>

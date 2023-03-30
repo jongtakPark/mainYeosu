@@ -1,5 +1,6 @@
 package com.exposition.controller;
 
+import java.security.Principal;
 import java.util.List;
 import java.util.Optional;
 import java.util.Random;
@@ -10,7 +11,8 @@ import javax.validation.Valid;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -24,13 +26,15 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.exposition.config.UserAuthorize;
 import com.exposition.dto.BoardMainDto;
 import com.exposition.dto.EventBoardDto;
 import com.exposition.dto.EventMemberDto;
+import com.exposition.dto.FreeBoardDto;
 import com.exposition.dto.TourBoardDto;
+import com.exposition.entity.Announcement;
 import com.exposition.entity.EventBoard;
 import com.exposition.entity.Member;
+import com.exposition.service.AnnouncementService;
 import com.exposition.service.EventBoardService;
 import com.exposition.service.FileService;
 import com.exposition.service.MailService;
@@ -49,6 +53,7 @@ public class NewsBoardController {
 	private final EventBoardService eventBoardService;
 	private final MemberService memberService;
 	private final MailService mailService;
+	private final AnnouncementService announcementService;
 	
 	//주변관광지 페이지 이동
 	@RequestMapping(value="/tour", method= {RequestMethod.GET, RequestMethod.POST})
@@ -69,7 +74,6 @@ public class NewsBoardController {
 		
 	//주변관광지 글 작성 페이지 이동
 	@GetMapping(value="/tourwrite")
-	@UserAuthorize
 	public String tourWrite(Model model) {
 		model.addAttribute("tourBoardDto", new TourBoardDto());
 		return "news/tourboardwrite";
@@ -79,16 +83,20 @@ public class NewsBoardController {
 	@PostMapping(value="/toursave")
 	public String tourSave(@RequestParam(value = "files", required = false) List<MultipartFile> files, Model model, @Valid TourBoardDto tourBoardDto, BindingResult bindingResult) {
 		if(bindingResult.hasErrors()) {
+			model.addAttribute("errorMessage", "제목을 입력해주세요");
+			model.addAttribute("keywordWrite", tourBoardDto);
 			return "news/tourboardwrite";
 		}
 		if(files.get(0).isEmpty() && tourBoardDto.getId() == null) {
 			model.addAttribute("errorMessage", "이미지는 필수 입니다.");
+			model.addAttribute("keywordWrite", tourBoardDto);
 			return "news/tourboardwrite";
 		}
 		try {
 			tourBoardService.saveTour(files, tourBoardDto);
 		} catch (Exception e) {
 			model.addAttribute("errorMessage", "글 작성 중 에러가 발생했습니다.");
+			model.addAttribute("keywordWrite", tourBoardDto);
 			return "news/tourboardwrite";
 		}
 		return "redirect:/news/tour";
@@ -124,9 +132,15 @@ public class NewsBoardController {
 	
 	//주변 관광지 글 수정 등록
 	@PutMapping(value="update/{id}")
-	public String updatesucc(TourBoardDto tourBoardDto, Model model, @RequestParam("files") List<MultipartFile> fileList) {
+	public String updatesucc(@Valid TourBoardDto tourBoardDto, BindingResult bindingResult, Model model, @RequestParam("files") List<MultipartFile> fileList) {
+		if(bindingResult.hasErrors()) {
+			model.addAttribute("errorMessage", "제목을 입력해주세요.");
+			model.addAttribute("tourBoardDto", tourBoardDto);
+			return "news/updatewrite";
+		}
 		if(fileList.get(0).isEmpty()) {
 			model.addAttribute("errorMessage", "첫번째 이미지는 필수입니다.");
+			model.addAttribute("tourBoardDto", tourBoardDto);
 			return "news/updatewrite";
 		}
 		try {
@@ -160,7 +174,12 @@ public class NewsBoardController {
 	}
 	//이벤트 게시판 글 등록과 동시에 이벤트 당첨자 회원을 3명 뽑음
 	@PostMapping(value="/new")
-	public String eventBoardNew(EventBoardDto eventBoardDto, Model model) throws Exception {
+	public String eventBoardNew(@Valid EventBoardDto eventBoardDto, BindingResult bindingResult, Model model) throws Exception {
+		if(bindingResult.hasErrors()) {
+			model.addAttribute("errorMessage", "제목을 입력해주세요.");
+			model.addAttribute("eventBoardDto", eventBoardDto);
+			return "news/eventboardwrite";
+		}
 		Random rnd = new Random();
 		EventBoard eventBoard = eventBoardDto.createEventBoard();
 		for(int i=0; i<3; i++) {
@@ -192,5 +211,139 @@ public class NewsBoardController {
 		return "/news/eventboardview";
 	}
 
+	//공지사항 게시판 페이지 이동
+	@GetMapping(value="/announcement")
+	public String announcement(Model model, @PageableDefault(page=0, size=10, sort="id", direction=Sort.Direction.DESC) Pageable pageable) {
+		Page<Announcement> list = announcementService.findAll(pageable);
+		
+		model.addAttribute("announcementList", announcementService.findAll(pageable));
+
+        //페이징	        
+        int nowPage = list.getPageable().getPageNumber() + 1;	        
+        int startPage =  Math.max(nowPage - 4, 1);
+        int endPage = Math.min(nowPage+9, list.getTotalPages());
+
+        model.addAttribute("nowPage",nowPage);
+        model.addAttribute("startPage", startPage);
+        model.addAttribute("endPage", endPage);
+
+        return "news/announcement";	
+	}
+	
+	//공지사항 글쓰기 페이지 이동
+	@GetMapping(value="/announcementWrite")
+	public String announcementWrite(Model model, Principal principal) {
+		if(principal.getName().equals("admin")) {
+			model.addAttribute("freeBoardDto", new FreeBoardDto());
+		}else {
+			model.addAttribute("errorMessage", "꺼지세요.");
+			return "redirect:/news/announcement";
+		}
+		
+		return "news/announcementWrite";
+	}
+	
+	//공지사항 글 저장
+	@PostMapping(value="/announcementNew")
+	public String announcementNew(@Valid FreeBoardDto freeBoardDto, BindingResult bindingResult, Principal principal, Model model) {
+		if(bindingResult.hasErrors()) {
+			model.addAttribute("errorMessage", "제목과 내용을 입력해주세요.");
+			model.addAttribute("freeBoardDto", freeBoardDto);
+			return "news/announcementWrite";
+		}
+		try {
+			Member member = memberService.findByMid(principal.getName());
+			Announcement announcement = Announcement.createAnnouncement(freeBoardDto);
+			announcementService.announcementSave(announcement, member);
+		} catch(Exception e) {
+			e.printStackTrace();
+			model.addAttribute("errorMessage", "글 작성중 에러가 발생했습니다.");
+			model.addAttribute("freeBoardDto", freeBoardDto);
+			return "news/announcementWrite";
+		}
+		return "redirect:/news/announcement";
+	}
+	
+	//공지사항 상세 페이지 이동
+	@GetMapping(value="/announcementView/{id}")
+	public String announcementView(@PathVariable("id") Long id, Model model) {
+		Announcement announcement = announcementService.findById(id);
+		FreeBoardDto freeBoardDto = FreeBoardDto.of(announcement);
+		model.addAttribute("freeBoardDto", freeBoardDto);
+		return "news/announcementView";
+	}
+	
+	//공지사항 수정 페이지 이동
+	@GetMapping(value="/announcementModify/{id}")
+	public String announcementModify(@PathVariable("id") Long id, Model model, Principal principal) {
+		Announcement announcement = announcementService.findById(id);
+		if(!announcement.getMember().getMid().equals(principal.getName())) {
+			if(principal.getName().equals("admin")) {
+				FreeBoardDto freeBoardDto = FreeBoardDto.of(announcement);
+				System.out.println(freeBoardDto);
+				model.addAttribute("freeBoardDto", freeBoardDto);
+			} else {
+				model.addAttribute("errorMessage", "글 작성자가 아니면 수정 할 수 없습니다.");
+				FreeBoardDto freeBoardDto = FreeBoardDto.of(announcement);
+				model.addAttribute("freeBoardDto", freeBoardDto);
+				return "news/announcementView";
+			}
+		}
+		FreeBoardDto freeBoardDto = FreeBoardDto.of(announcement);
+		model.addAttribute("freeBoardDto", freeBoardDto);
+		return "news/announcementUpdate";
+	}
+	
+	//공지사항 수정 등록
+	@PutMapping(value="/announcementUpdate")
+	public String announcementUpdate(Model model,@Valid FreeBoardDto freeBoardDto, BindingResult bindingResult) {
+		if(bindingResult.hasErrors()) {
+			model.addAttribute("errorMessage", "제목과 내용을 입력해주세요.");
+			model.addAttribute("freeBoardDto", freeBoardDto);
+			return "news/announcementUpdate";
+		}
+		try {
+			announcementService.announcementUpdate(freeBoardDto);
+		} catch(Exception e) {
+			e.printStackTrace();
+			model.addAttribute("errorMessage", "글 수정 중 에러가 발생했습니다");
+			return "news/announcementUpdate";
+		}
+		return "redirect:/news/announcement";
+	}
+	
+	//공지사항 삭제하기
+	@DeleteMapping(value="/announcementDelete/{id}")
+	public String announcementDelete(@PathVariable("id") Long id, Model model, Principal principal) {
+		Announcement announcement = announcementService.findById(id);
+		if(!announcement.getMember().getMid().equals(principal.getName())) {
+			if(principal.getName().equals("admin")) {
+				try{
+					announcementService.announcementDelete(id);
+					model.addAttribute("succMessage", "글이 삭제 되었습니다.");
+				} catch(Exception e) {
+					model.addAttribute("errorMessage", "글 삭제 중 에러가 발생했습니다.");
+					FreeBoardDto freeBoardDto = FreeBoardDto.of(announcement);
+					model.addAttribute("freeBoardDto", freeBoardDto);
+					return "news/announcementView";
+				}
+			} else {
+				model.addAttribute("errorMessage", "글 작성자가 아니면 삭제 할 수 없습니다.");
+				FreeBoardDto freeBoardDto = FreeBoardDto.of(announcement);
+				model.addAttribute("freeBoardDto", freeBoardDto);
+				return "news/announcementView";
+			}
+		}
+		try{
+			announcementService.announcementDelete(id);
+			model.addAttribute("succMessage", "글이 삭제 되었습니다.");
+		} catch(Exception e) {
+			model.addAttribute("errorMessage", "글 삭제 중 에러가 발생했습니다.");
+			FreeBoardDto freeBoardDto = FreeBoardDto.of(announcement);
+			model.addAttribute("freeBoardDto", freeBoardDto);
+			return "news/announcementView";
+		}
+		return "redirect:/news/announcement";
+	}
 	
 }

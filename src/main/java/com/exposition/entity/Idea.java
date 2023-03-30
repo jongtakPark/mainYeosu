@@ -1,5 +1,8 @@
 package com.exposition.entity;
 
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -7,13 +10,16 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
 
+import com.exposition.dto.FreeBoardDto;
 import com.exposition.dto.IdeaDto;
 
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
+import lombok.ToString;
 
 @Entity
 @Data
@@ -43,15 +49,17 @@ public class Idea extends BaseEntity{
 	@ManyToOne
 	@JoinColumn(name = "company_id")
 	private Company company;
-
-
-
 	
-	public static Idea createIdea(IdeaDto ideaDto) {
+	@OneToMany(mappedBy="idea", cascade=CascadeType.ALL)
+	@ToString.Exclude
+	private List<Files> files;
+
+
+	public static Idea createIdea(FreeBoardDto freeBoardDto) {
 		Idea idea = new Idea();
-		idea.setTitle(ideaDto.getTitle());
-		idea.setContent(ideaDto.getContent());
-		idea.setId(ideaDto.getId());
+		idea.setTitle(freeBoardDto.getTitle());
+		idea.setContent(freeBoardDto.getContent());
+		idea.setId(freeBoardDto.getId());
 		return idea;
 	}
 }

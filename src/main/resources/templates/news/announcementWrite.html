@@ -4,34 +4,45 @@ xmlns:layout=http://www.ultraq.net.nz/thymeleaf/layout
 layout:decorate="~{layouts/layout}">
 <head>
     <meta charset="UTF-8">
-    <title>ideaupdatewrite</title>
+    <title>공지사항작성창</title>
 <link rel="stylesheet" th:href="@{/css/boarddetail.css}">
+<script th:inline="javascript">
+$(document).ready(function(){
+	var errorMessage = [[${errorMessage}]];
+	var succMessage = [[${succMessage}]];
+	if(errorMessage != null){
+		alert(errorMessage);
+	}
+	if(succMessage != null){
+		alert(succMessage);
+	}
+});
+</script>
 </head>
 
 <body>
 <div layout:fragment="content">
  <div class="subMenu">
        <ul>
-           <li><a href="#">전시관안내</a></li>
-           <li><a href="#">행사장오시는길</a></li>
-           <li><a href="#">포토갤러리</a></li>
-           <li><a href="#">여수섬키워드</a></li>
+           <li><a href="/news/tour">주변관광지</a></li>
+           <li><a href="/news/announcement">공지사항</a></li>
+           <li><a href="/news/event">이벤트게시판</a></li>
        </ul>
    </div>
    <div class="freeboard">
        <div class="free_title">
           <div class="title">
-               <span>국민아이디어 수정</span>
+               <span>공지사항 글쓰기</span>
            </div>
        </div>
-       <form th:action="@{'/board/ideamodcomplete/'+${session.id}}" th:method="put"  th:object="${ideaDto}">
+       <form action="/news/announcementNew" method="post"  th:object="${freeBoardDto}">
        <div class="info_content">
             <div class="info_title">
                 <div class="info_title_inner">
                     <label for="">
                         제목
                     </label>
-                    <input type="text"  th:value="${session.title}" name="title">
+                    <input type="text"  th:field="*{title}">
                 </div>
             </div>
             <div class="info_cont">
@@ -39,22 +50,15 @@ layout:decorate="~{layouts/layout}">
                     <label for="">
                         내용
                     </label>
-                    <textarea id="test" cols="83" rows="10" th:text="${session.content}" name="content"></textarea>
-                </div>
-            </div>
-            <div class="info_create">
-                <div class="info_create_inner">
-                    <label for="">
-                        작성자
-                    </label>
-                    <input type="text" th:value="${session.created}" readOnly >
+                    <textarea name="" id="test" cols="83" rows="10" th:field="*{content}"></textarea>
                 </div>
             </div>
             <div class="infosubmit">
-               <button type="submit">등록</button>
+               <button type="submit">작성 글 등록</button>
             </div>
        </div>
        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+       <input type="hidden" th:value="${id}" name="mid"/>
     </form>
    </div>
  </div>

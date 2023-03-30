@@ -90,20 +90,20 @@
 }
 .info_cont{
     width: 100%;
-    height: 500px;
+    height: 300px;
     margin-top: 20px;
     border-bottom: 2px solid black;
 }
 .info_cont_inner{
     width: 100%;
-    height: 500px;
+    height: 300px;
     text-align: center;
     display: flex;
     justify-content: center;
 }
 .info_cont_inner label{
     width: 150px;
-    line-height: 500px;
+    line-height: 300px;
     font-size: 18px;
 }
 .info_cont_inner textarea{
@@ -126,9 +126,13 @@
     display: block;
     margin: 0 auto;
 }
+.info_submit  > button:hover{
+    background-color: #39A3C0;
+    color: #fff;
+}
 .info_file {
   margin-top: 20px;
-    width: 450px;
+  width: 100%;
   height: 30px;
     }
   .info_file input[type=file]::file-selector-button {
@@ -139,6 +143,31 @@
   border-radius: 10px;
   cursor: pointer;
 }
+.info_file > #files{
+   display: none;
+}
+
+.info_file > .upload-name{
+   width: 500px;
+   height : 30px;
+   border: none;
+   overflow: auto;
+   white-space: nowrap;
+   margin-left : 20px; 
+   font-size : 16px;
+}
+
+.info_file > .file_label > div{
+ width: 150px;
+  height: 30px;
+  background: #fff;
+  border: 1px solid rgb(77,77,77);
+  border-radius: 10px;
+  cursor: pointer;
+  text-align: center;
+  line-height: 30px;
+  float: left;
+}
 .info_submit{
     width: 100%;
     height: 50px;
@@ -148,10 +177,16 @@
     display: block;
     width: 130px;
     height: 50px;
-    border-radius: 20px;
+    border-radius: 10px;
     font-size: 18px;
     margin-left: 85%;
+    font-weight: bold;
+    transition: 0.2s;
+    background: #99DDEE;
+    border: 2px solid #666;
+    color: #666;
 }
 .info_submit  > button:hover{
-    background: aqua;
+    background-color: #39A3C0;
+    color: #fff;
 }

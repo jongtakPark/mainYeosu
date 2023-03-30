@@ -19,14 +19,15 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.exposition.config.UserAuthorize;
 import com.exposition.constant.Role;
 import com.exposition.dto.CompanyFormDto;
+import com.exposition.dto.CompanyModifyFormDto;
 import com.exposition.dto.MemberFormDto;
 import com.exposition.dto.MemberModifyFormDto;
 import com.exposition.entity.Company;
@@ -106,7 +107,6 @@ public class MemberController{
 	@RequestMapping(value="/login", method= {RequestMethod.POST, RequestMethod.GET})
 	public String login(Model model, HttpServletRequest request) {
 		String uri = request.getHeader("Referer");
-		System.out.println(uri);
 		if(uri != null && !uri.contains("/signup/login")) {
 			request.getSession().setAttribute("prevPage", uri);
 		}
@@ -231,7 +231,6 @@ public class MemberController{
 	
 	//마이페이지로 이동
 	@GetMapping(value="/mypage")
-	@UserAuthorize
 	public String mypage(Model model, Principal principal) {
 		Member member = memberService.findByMid(principal.getName());
 		MemberModifyFormDto memberModifyFormDto = MemberModifyFormDto.of(member);
@@ -239,24 +238,71 @@ public class MemberController{
 	    return "member/memberModify";
 	}
 	
-	//마이페이지 비밀번호 변경      
-	@PostMapping(value="/mypageupdate/{mid}")
-	@UserAuthorize
-    public String modifyMember(@PathVariable String mid, Model model, @Valid MemberFormDto memberFormDto, BindingResult bindinResult) {   
-		Member member = memberService.findByMid(mid);
-	    String password= passwordEncoder.encode(memberFormDto.getPassword());
-	    member.setPassword(password);
-	    memberService.updateMember(member);                  
+	//마이페이지 비밀번호 변경          
+	@PutMapping(value="/mypageupdate/{mid}")
+	@Validated
+	public String modifyMember(@Valid MemberModifyFormDto memberModifyFormDto, BindingResult bindingResult, @PathVariable String mid, Model model, MemberFormDto memberFormDto) {   
+		if(bindingResult.hasErrors()) {
+			return "member/memberModify";
+	    } 
+	    try {
+	        Member member = memberService.findByMid(mid);
+	        String password= passwordEncoder.encode(memberFormDto.getPassword());
+	        member.setPassword(password);
+	        memberService.updateMember(member);
+	        model.addAttribute("succMessage", "회원 정보가 수정 되었습니다.");
+	    }catch(IllegalStateException e) {
+	        model.addAttribute("errorMessage", "회원 수정 중 오류가 발생 했습니다.");
+	        return "member/memberModify";
+	    }
+	                     
 	    return "redirect:/";
-	 }
+	}
 	
 	//마이페이지 회원탈퇴
 	@DeleteMapping(value="/memDelete/{mid}")
-	@UserAuthorize
 	public String memdelete(@PathVariable String mid, HttpSession session) {
 	   Member member = memberService.findByMid(mid);
 	   memberService.deleteMem(member);
 	   session.invalidate();
 	   return "redirect:/";
 	}
+	
+	//기업 마이페이지로 이동
+	@GetMapping(value="/commypage")
+	public String commypage(Model model, Principal principal) {
+	   Company company = companyService.findByCom(principal.getName());
+	   CompanyModifyFormDto companyModifyFormDto = CompanyModifyFormDto.of(company);
+	   model.addAttribute("companyModifyFormDto", companyModifyFormDto);
+	   return "member/companyModify";
+	}
+	   
+	//기업 마이페이지 비밀번호 변경
+	@PostMapping(value="/commypageupdate/{com}")
+	@Validated
+	public String modifyCompany(@Valid CompanyModifyFormDto companyModifyFormDto, BindingResult bindingResult, @PathVariable String com, Model model, CompanyFormDto companyFormDto) {
+	   if(bindingResult.hasErrors()) {
+	      return "member/companyModify";
+	   }
+	   try {
+	      Company company = companyService.findByCom(com);
+	      String password = passwordEncoder.encode(companyFormDto.getPassword());
+	      company.setPassword(password);
+	      companyService.updateCompany(company);
+	   }catch(IllegalStateException e) {
+	      model.addAttribute("errorMessage", e.getMessage());
+	      return "member/companyModify";
+	   }
+	            
+	   return "redirect:/";
+	}
+	
+	//기업 회원탈퇴
+    @DeleteMapping(value="/comDelete/{com}")
+    public String comdelete(@PathVariable String com, HttpSession session) {
+       Company company = companyService.findByCom(com); 
+       companyService.deleteCom(company);
+       session.invalidate();
+       return "redirect:/";
+    }
 }

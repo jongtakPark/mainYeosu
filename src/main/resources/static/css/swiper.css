@@ -281,11 +281,7 @@ swiper-container:not(.swiper-watch-progress) .swiper-lazy-preloader {
     display: flex;
     align-items: center;
     justify-content: center;
-<<<<<<< HEAD
-    color: var(--swiper-navigation-color, var(--swiper-theme-color))
-=======
-    color: black;
->>>>>>> origin/main
+    color: darkgray;
 }
 
 .swiper-button-next.swiper-button-disabled,
@@ -315,6 +311,16 @@ swiper-container:not(.swiper-watch-progress) .swiper-lazy-preloader {
     letter-spacing: 0;
     font-variant: initial;
     line-height: 1
+}
+
+.swiper-button-next,
+.swiper-button-prev{
+    transition: 0.5s;
+}
+
+.swiper-button-next:hover,
+.swiper-button-prev:hover{
+    color: black;
 }
 
 .swiper-button-prev,

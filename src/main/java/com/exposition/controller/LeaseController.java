@@ -31,7 +31,6 @@ import lombok.RequiredArgsConstructor;
 @Controller
 @RequestMapping(value="/lease")
 @RequiredArgsConstructor
-@PreAuthorize("hasAnyRole('VOLUNTEER')")
 public class LeaseController {
 
 	private final CompanyService companyService;

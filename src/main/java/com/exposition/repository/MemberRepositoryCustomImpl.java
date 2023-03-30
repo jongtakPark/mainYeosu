@@ -11,7 +11,6 @@ import org.springframework.data.domain.Pageable;
 import com.exposition.constant.Role;
 import com.exposition.dto.MemberFormDto;
 import com.exposition.dto.QMemberFormDto;
-import com.exposition.entity.Member;
 import com.exposition.entity.QMember;
 import com.querydsl.core.QueryResults;
 import com.querydsl.jpa.impl.JPAQueryFactory;

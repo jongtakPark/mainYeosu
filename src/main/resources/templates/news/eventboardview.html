@@ -4,7 +4,7 @@ xmlns:layout=http://www.ultraq.net.nz/thymeleaf/layout
 layout:decorate="~{layouts/layout}">
 <head>
     <meta charset="UTF-8">
-    <title>boardmodify</title>
+    <title>이벤트게시판상세보기</title>
 <link rel="stylesheet" th:href="@{/css/boarddetail.css}">
 </head>
 
@@ -12,10 +12,9 @@ layout:decorate="~{layouts/layout}">
 <div layout:fragment="content">
  <div class="subMenu">
        <ul>
-           <li><a href="#">주변관광지</a></li>
-           <li><a href="#">공지사항</a></li>
-           <li><a href="#">보도자료</a></li>
-           <li><a href="#">이벤트게시판</a></li>
+           <li><a href="/news/tour">주변관광지</a></li>
+           <li><a href="/news/announcement">공지사항</a></li>
+           <li><a href="/news/event">이벤트게시판</a></li>
        </ul>
    </div>
    <div class="freeboard">
@@ -53,7 +52,7 @@ layout:decorate="~{layouts/layout}">
                     <label for="">
                         작성자
                     </label>
-                    <input type="text" th:value="${created}" readOnly >
+                    <input type="text" th:value="*{createdBy}" readOnly >
                 </div>
 			</div>
        </div>

@@ -4,26 +4,26 @@ xmlns:layout=http://www.ultraq.net.nz/thymeleaf/layout
 layout:decorate="~{layouts/layout}">
 <head>
     <meta charset="UTF-8">
-    <title>idea</title>
-<link rel="stylesheet" th:href="@{/css/idea.css}">
+    <title>국민아이디어</title>
+<link rel="stylesheet" th:href="@{/css/freeboard.css}">
 </head>
 <body>
  	<div layout:fragment="content">    
        <div class="subMenu">
        <ul>
-           <li><a href="#">관람후기</a></li>
-           <li><a href="#">국민아이디어</a></li>
-           <li><a href="#">설문게시판</a></li>
-           <li><a href="#" sec:authorize="hasAnyAuthority('ROLE_VOLUNTEER')">자원봉사게시판</a></li>
+           <li><a href="/board/review">관람후기</a></li>
+           <li><a href="/board/idea">국민아이디어</a></li>
+           <li><a href="/board/survey">설문게시판</a></li>
+           <li><a href="/board/volunteer" sec:authorize="hasAnyAuthority('ROLE_VOLUNTEER','ROLE_ADMIN')">자원봉사게시판</a></li>
        </ul>
    </div>
-  <div class="idea">
-       <div class="idea_title">
+  <div class="freeboard">
+       <div class="free_title">
           <div class="title">
                <h1>국민아이디어</h1>
            </div>
        </div>
-         <div class="idea_content">
+         <div class="free_content">
             <table>
                 <thead>
                     <tr>
@@ -38,7 +38,7 @@ layout:decorate="~{layouts/layout}">
                        
                       <td th:text="${list.id}"></td>
                     <td>
-                       <a th:href="@{/board/ideaview/{id}(id=${list.id})}"><span th:text="${list.title}"></span></a>
+                       <a th:href="@{/board/ideaView/{id}(id=${list.id})}"><span th:text="${list.title}"></span></a>
                     </td>
                     <td>
                         <span th:text="${list.createdBy}"></span>
@@ -52,16 +52,16 @@ layout:decorate="~{layouts/layout}">
                 </tbody>
             </table> 
               
-		 <div class="pagebtn">
+			<div class="pagebtn">
 			<th:block th:each="page:${#numbers.sequence(startPage,endPage)}">
             <a th:if="${page==0? page==1 : page != nowPage}" th:href="@{/board/idea(page=${page-1})}" th:text ="${page}"></a>
             <strong th:if="${page==nowPage}" th:text ="${page}" style="color:red"></strong>
-        </th:block>
-			</div>           
+       		 </th:block>
+			</div>    
         </div>
-   </div>  
+   </div>   
 	
-	 <a href="/board/ideawrite" class="write">글쓰기</a>
+	 <a href="/board/ideaWrite" class="write">글쓰기</a>
    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
    </div>
 </body>

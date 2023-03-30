@@ -1,8 +1,10 @@
 package com.exposition.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.springframework.data.domain.Page;
@@ -12,13 +14,14 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.exposition.config.UserAuthorize;
 import com.exposition.dto.BoardMainDto;
 import com.exposition.dto.TourBoardDto;
 import com.exposition.service.KeywordService;
@@ -61,7 +64,6 @@ public class IntroductionController {
 	
 	//여수섬 키워드 글 쓰기 페이지 이동
 	@GetMapping(value="/keywordWrite")
-	@UserAuthorize
 	public String keywordWrite(Model model) {
 		model.addAttribute("keywordWrite", new TourBoardDto());
 		return "introduction/keywordWrite";
@@ -71,21 +73,32 @@ public class IntroductionController {
 	@PostMapping(value="/keywordSave")
 	public String keywordSave(@RequestParam(value = "files", required = false) List<MultipartFile> files, Model model, @Valid TourBoardDto tourBoardDto, BindingResult bindingResult) {
 		if(bindingResult.hasErrors()) {
+			model.addAttribute("errorMessage", "제목을 입력해주세요.");
+			model.addAttribute("keywordWrite", tourBoardDto);
 			return "introduction/keywordWrite";
 		}
 		if(files.get(0).isEmpty() && tourBoardDto.getId() == null) {
 			model.addAttribute("errorMessage", "이미지는 필수 입니다.");
+			model.addAttribute("keywordWrite", tourBoardDto);
 			return "introduction/keywordWrite";
 		}
 		try {
 			keywordService.saveTour(files, tourBoardDto);
 		} catch (Exception e) {
 			model.addAttribute("errorMessage", "글 작성 중 에러가 발생했습니다.");
+			model.addAttribute("keywordWrite", tourBoardDto);
 			return "introduction/keywordWrite";
 		}
 		return "redirect:/introduction/keyword";
 	}
 	
+
 	//여수섬 키워드 글 삭제
-//	@DeleteMapping(value="delete/")
+	   @PostMapping(value="/delete")
+	   public String Keyworddelete(@RequestParam(value="valueArr[]") List<Long> id) {
+		   keywordService.delete(id);
+		   
+		   return "redirect:/introduction/keyword";
+	   }
+	   
 }

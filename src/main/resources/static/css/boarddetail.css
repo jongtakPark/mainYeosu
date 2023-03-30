@@ -25,7 +25,7 @@
 /*    �옄�쑀寃뚯떆�뙋*/
 .freeboard{
     width: 70%;
-    height: 870px;
+    height: 960px; 
     margin: auto;
 }
 
@@ -48,7 +48,7 @@
 .free_content{
     background-color: rgba(196, 196, 196, 0.3);
     width: 95%;
-    height: 700px;
+    /* height: 700px; */
     margin: auto;
     margin-top: 10px;
     border-radius: 10px;
@@ -90,20 +90,21 @@
 }
 .info_cont{
     width: 100%;
-    height: 500px;
+    height: 300px;
     margin-top: 20px;
     border-bottom: 2px solid black;
 }
+
 .info_cont_inner{
     width: 100%;
-    height: 500px;
+    height: 300px;
     text-align: center;
     display: flex;
     justify-content: center;
 }
 .info_cont_inner label{
     width: 150px;
-    line-height: 500px;
+    line-height: 300px;
     font-size: 18px;
 }
 .info_cont_inner textarea{
@@ -143,13 +144,10 @@
 .survey .survey_box{
 	height : 100%;
 }
-.survey_ck {
-	margin : 25px 0 25px 0;	
-}
 .survey_ck p {
 	font-weight : bold;
 	font-size : 20px;
-	margin-bottom : 15px;
+	margin-bottom : -5px;
 }
 .survey_ck span {
 	margin : 0 20px 0 10px;
@@ -181,10 +179,31 @@
     border: none;
     background: #98D1CF;
 }
-
+.info_imgs {
+	width: 100%;
+	height: 300px;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+}
+.info_imgs label{
+	width: 150px;
+	line-height : 300px;
+	font-size : 18px;
+}
+.imgs {
+	width : 91%;
+	height : 300px;
+	overflow : auto;
+}
+.imgs img{
+	width : 295px;
+	height : 300px;
+	float : left;
+}
 .info_file {
   margin-top: 20px;
-    width: 450px;
+  width: 100%;
   height: 30px;
     }
   .info_file input[type=file]::file-selector-button {
@@ -195,57 +214,119 @@
   border-radius: 10px;
   cursor: pointer;
 }
+.info_file > #files{
+   display: none;
+}
+
+.info_file > .upload-name{
+   width: 500px;
+   height : 30px;
+   border: none;
+   overflow: auto;
+   white-space: nowrap;
+   margin-left : 20px; 
+   font-size : 16px;
+}
+
+.info_file > .file_label > div{
+ width: 150px;
+  height: 30px;
+  background: #fff;
+  border: 1px solid rgb(77,77,77);
+  border-radius: 10px;
+  cursor: pointer;
+  text-align: center;
+  line-height: 30px;
+  float: left;
+}
 .info_submit > a{
 	display : display;
-    border : 2px solid black;
+    border : 2px solid #666;
     width: 130px;
     text-align : center;
     height: 50px;
     line-height : 47px;
-    border-radius: 20px;
+    border-radius: 10px;
     font-size: 18px;
     margin-left: 70%;
     float : left;
-    background : #F0F0F0;
+    font-weight: bold;
+    transition: 0.2s;
+    background: #99DDEE;
+    color: #666;
 }
 .info_submit > a:hover{
-    background: aqua;
+    background-color: #39A3C0;
+    color: #fff;
 }
 .info_submit{
     width: 100%;
     height: 50px;
-    margin-bottom : 10px;
+    /* margin-top : 40px; */
+    margin : 40px 0 20px 0;
 }
 .info_submit  > button{
     display : inline;
     width: 130px;
     height: 50px;
-    border-radius: 20px;
+    border-radius: 10px;
     font-size: 18px;
     margin-left: 5%;
-    border : 2px solid black;
-    cursor:pointer
+    border : 2px solid #666;
+    cursor:pointer;
+    font-weight: bold;
+    transition: 0.2s;
+    background: #99DDEE;
+    color: #666;
 }
 .info_submit  > button:hover{
-    background: aqua;
+    background-color: #39A3C0;
+    color: #fff;
 }
 
 .infosubmit{
     width: 100%;
     height: 50px;
-    margin-top : 50px;
+    margin-top : 80px;
 }
 .infosubmit > button{
     width: 130px;
     height: 50px;
-    border-radius: 20px;
+    border-radius: 10px;
     font-size: 18px;
     margin-left: 85%;
-    border : 2px solid black;
-    cursor:pointer
+    color: #666;
+    border : 2px solid #666;
+    cursor:pointer;
+    font-weight: bold;
+    transition: 0.2s;
+    background: #99DDEE;
 }
 .infosubmit  > button:hover{
-    background: aqua;
+    background-color: #39A3C0;
+    color: #fff;
+}
+.infosubmit1{
+    width: 100%;
+    height: 50px;
+    margin-top : 10px;
+}
+.infosubmit1 > button{
+    width: 130px;
+    height: 50px;
+    border-radius: 10px;
+    color: #666;
+    font-size: 18px;
+    margin-left: 85%;
+    border : 2px solid #666;
+    cursor:pointer;
+    font-weight: bold;
+    transition: 0.2s;
+    background: #99DDEE;
+}
+.infosubmit1  > button:hover{
+    background-color: #39A3C0;
+    color: #fff;
 }
 .complete{
     width: 1%;
@@ -258,7 +339,7 @@
     height: 50px;
     border-radius: 20px;
     font-size: 18px;
-    border : 2px solid black;
+    border : 2px solid #666;
     cursor:pointer
 }
 .complete > button:hover{
@@ -282,6 +363,7 @@
 .delete  > button:hover{
     background: aqua;
 }
+<<<<<<< HEAD
 
 .a_hide{
 	display : display;
@@ -293,4 +375,9 @@
     font-size: 18px;
     margin-left: 70%;
     float : left;
+=======
+textarea{
+    resize: none;
+    outline: none;
+>>>>>>> main
 }
