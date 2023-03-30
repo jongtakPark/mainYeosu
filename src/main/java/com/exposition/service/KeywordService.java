@@ -46,6 +46,7 @@ public class KeywordService {
 		return keyword;
 	}
 	
+	// 여수섬 키워드 삭제
 	public void delete(List<Long> id) {
 		List<Files> files = new ArrayList<>();
 		for(int i =0; i<id.size();i++) {
@@ -53,9 +54,8 @@ public class KeywordService {
 		}
 		for(int i =0; i<files.size(); i++) {
 			keywordRepository.deleteById(id.get(i));
-			fileService.deleteComFile("C:/images/"+files.get(i).getBackSavePath().substring(13));
-			fileService.deleteComFile("C:/images/"+files.get(i).getSavePath().substring(13));
-		}
-		
+			fileService.deleteComFile("C:/images/"+files.get(i).getBackSavePath().substring(12));
+			fileService.deleteComFile("C:/images/"+files.get(i).getSavePath().substring(12));
+		}		
 	}
 }

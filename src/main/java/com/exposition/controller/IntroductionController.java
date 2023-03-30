@@ -97,7 +97,6 @@ public class IntroductionController {
 	   @PostMapping(value="/delete")
 	   public String Keyworddelete(@RequestParam(value="valueArr[]") List<Long> id) {
 		   keywordService.delete(id);
-		   
 		   return "redirect:/introduction/keyword";
 	   }
 	   
