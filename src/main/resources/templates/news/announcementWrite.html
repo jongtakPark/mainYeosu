@@ -35,7 +35,7 @@ $(document).ready(function(){
                <span>공지사항 글쓰기</span>
            </div>
        </div>
-       <form action="/news/announcementNew" method="post"  th:object="${freeBoardDto}">
+       <form action="/news/announcementNew" method="post"  th:object="${freeBoardDto}" onsubmit="return confirm('글 작성을 하시겠습니까?');">
        <div class="info_content">
             <div class="info_title">
                 <div class="info_title_inner">

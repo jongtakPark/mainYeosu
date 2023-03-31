@@ -91,7 +91,7 @@ layout:decorate="~{layouts/layout}">
     </form>
     <form th:action="@{/board/survey/delete/{id}(id=${session.id})}" th:method="delete">
     	<div class="delete">
-			<button type="submit" class="submit">삭제하기</button>
+			<button type="submit" class="submit" sec:authorize="hasAnyAuthority('ROLE_ADMIN')">삭제하기</button>
          </div>
     </form>
    </div>

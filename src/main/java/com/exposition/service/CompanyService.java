@@ -125,10 +125,11 @@ public class CompanyService implements UserDetailsService {
 	}
 	
 	//기업회원 예약신청 취소
+	@Transactional
 	public CompanyModifyFormDto reservationCancle(String com) {
 		Company company = findByCom(com);
 		Reservation reservation = reservationRepository.findByCompany(company);
-		reservationRepository.delete(reservation);
+		reservationRepository.deleteById(reservation.getId());
 		company.setApproval("예약없음");
 		System.out.println(reservation);
 		CompanyModifyFormDto companyModifyFormDto = CompanyModifyFormDto.of(company);

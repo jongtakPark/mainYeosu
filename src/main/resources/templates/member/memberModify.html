@@ -57,7 +57,7 @@ $(document).ready(function(){
              <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
              <script type="text/javascript" src="/javascript/memberModify.js"></script> 
              </form>
-         <form th:action="@{/signup/memDelete/{mid}(mid=${memberModifyFormDto.mid})}" th:method="delete">
+         <form th:action="@{/signup/memDelete/{mid}(mid=${memberModifyFormDto.mid})}" th:method="delete" onsubmit="return confirm('탈퇴 하시겠습니까?');">
             <input type="submit" class="withdrawal" value="탈퇴">
          </form>
         </div>

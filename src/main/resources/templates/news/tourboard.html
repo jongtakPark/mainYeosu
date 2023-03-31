@@ -40,7 +40,7 @@ layout:decorate="~{layouts/layout}">
             		<strong th:if="${page==nowPage}" th:text ="${page}" style="color:red"></strong>
         		</th:block>  
 			</div>
-                <a href="/news/tourwrite" class="regist">글쓰기</a>
+                <a href="/news/tourwrite" class="regist" sec:authorize="hasAnyAuthority('ROLE_ADMIN')">글쓰기</a>
      </div>
            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
 </div>

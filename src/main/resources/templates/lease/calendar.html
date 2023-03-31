@@ -92,7 +92,7 @@ calendar.render();
 <div id='calendar-container'>
     <div id='calendar'></div>
   </div>
-  <form action="/lease/new" th:method="post" enctype="multipart/form-data"> 
+  <form action="/lease/new" th:method="post" enctype="multipart/form-data" onsubmit="return confirm('예약 신청을 하시겠습니까?');"> 
   <h1>예약하기([[${reservationDto.location}]])</h1>
    <div class="main_reservation">
             

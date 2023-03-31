@@ -128,6 +128,7 @@
     background: #98D1CF;
     font-size: 18px;
     border-bottom: 2px solid black;
+    text-align : left;
 }
 .info_cont_inner .survey{
     width: 91%;
@@ -282,6 +283,9 @@
 .info_submit  > button:hover{
     background-color: #39A3C0;
     color: #fff;
+}
+.info_submit > .submit2{
+	margin-left : 85%;
 }
 
 .infosubmit{
