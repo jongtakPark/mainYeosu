@@ -9,6 +9,7 @@ import org.modelmapper.ModelMapper;
 
 import com.exposition.entity.Announcement;
 import com.exposition.entity.Idea;
+import com.exposition.entity.Member;
 import com.exposition.entity.Review;
 import com.exposition.entity.Survey;
 import com.exposition.entity.Volunteer;
@@ -27,6 +28,8 @@ public class FreeBoardDto {
 	private String createdBy;
 	
 	private String modifiedBy;
+	
+	private Member member;
 	
 	private List<FileDto> fileDtoList = new ArrayList<>();
 

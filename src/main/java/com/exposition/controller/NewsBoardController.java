@@ -286,6 +286,7 @@ public class NewsBoardController {
 		Announcement announcement = announcementService.findById(id);
 		if(String.valueOf(user.getAuthorities().iterator().next()).equals("ROLE_ADMIN")) {
 				FreeBoardDto freeBoardDto = FreeBoardDto.of(announcement);
+				System.out.println(freeBoardDto);
 				model.addAttribute("freeBoardDto", freeBoardDto);
 			} else {
 				model.addAttribute("errorMessage", "관리자가 아니면 수정할 수 없습니다.");

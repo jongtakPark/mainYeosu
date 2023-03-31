@@ -5,6 +5,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.exposition.dto.FreeBoardDto;
 import com.exposition.entity.Announcement;
 import com.exposition.entity.Member;
 import com.exposition.repository.AnnouncementRepository;
@@ -39,6 +40,7 @@ public class AnnouncementService {
 		announcement.setMember(member);
 		announcementRepository.save(announcement);
 	}
+	
 	
 	//공지사항 글 삭제
 	public void announcementDelete(Long id) {

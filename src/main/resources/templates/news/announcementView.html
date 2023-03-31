@@ -54,14 +54,6 @@ $(document).ready(function(){
                     </textarea>
                 </div>
             </div>
-            <div class="info_create">
-                <div class="info_create_inner">
-                    <label for="">
-                        작성자
-                    </label>
-                    <input type="text" th:field="*{createdBy}" readOnly >
-                </div>
-			</div>
        </div>
        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
     </form>

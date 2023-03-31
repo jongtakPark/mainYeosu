@@ -4,6 +4,8 @@ xmlns:layout=http://www.ultraq.net.nz/thymeleaf/layout
 layout:decorate="~{layouts/layout}">
 <head>
     <meta charset="UTF-8">
+    <meta name="_csrf_header" th:content="${_csrf.headerName}">
+<meta name="_csrf" th:content="${_csrf.token}">
     <title>여수섬키워드</title>
 <link rel="stylesheet" th:href="@{/css/tourboard.css}">
 <script src="https://code.jquery.com/jquery-3.1.0.js"></script>
@@ -24,6 +26,65 @@ class1[i].addEventListener('mouseleave', () => {
    });
 }
 });
+$(function(){
+         var chkObj = document.getElementsByName("RowCheck");
+         var rowCnt = chkObj.length;
+         
+         $("input[name='allCheck']").click(function(){
+            var chk_listArr = $("input[name='RowCheck']");
+            for (var i=0; i<chk_listArr.length; i++){
+               chk_listArr[i].checked = this.checked;
+            }
+         });
+         $("input[name='RowCheck']").click(function(){
+            if($("input[name='RowCheck']:checked").length == rowCnt){
+               $("input[name='allCheck']")[0].checked = true;
+            }
+            else{
+               $("input[name='allCheck']")[0].checked = false;
+            }
+         });
+      });
+      function deleteValue(){
+         var url = "/introduction/delete";    // Controller로 보내고자 하는 URL
+         var valueArr = new Array();
+          var list = $("input[name='RowCheck']");
+          for(var i = 0; i < list.length; i++){
+              if(list[i].checked){ //선택되어 있으면 배열에 값을 저장함
+                  valueArr.push(list[i].value);
+              }
+          }
+          console.log(valueArr)
+          if (valueArr.length == 0){
+             alert("선택된 글이 없습니다.");
+          }
+          else{
+            if(confirm("정말 삭제하시겠습니까?")){          
+            	var header = $("meta[name='_csrf_header']").attr('content');
+    			var token = $("meta[name='_csrf']").attr('content');
+            	$.ajax({
+               	 	url : url,                    // 전송 URL
+                	type : 'POST',                // POST 방식
+                	async:false,
+                	data : {
+                   	valueArr :   valueArr     // 보내고자 하는 data 변수 설정
+                	},
+                	beforeSend: function(xhr){
+                    	xhr.setRequestHeader(header, token);
+                		},
+                   	success: function(jdata){
+                       	if(jdata = 1) {
+                          	 alert("삭제 성공");
+                           	location.replace("/introduction/keyword")
+                      	 }
+                       	else{
+                          	 alert("삭제 실패");
+                      	 }
+                   	}
+            	});
+            }
+         }
+      }
 </script>
 </head>
 
@@ -39,19 +100,22 @@ class1[i].addEventListener('mouseleave', () => {
     <div class="container">
         <div class="title">
             <h1>여수섬 키워드</h1>
+            <input id="allCheck" type="checkbox" name="allCheck">
         </div>
+        
                <th:block th:each="keyword, status:${keyword.getContent()}" class="blo">
                         <div class="flip">
-                        <div class="keyword">
-                            <div class="keyword_pic">
-                        <img class="keywordImg" th:src="${keyword.savePath}">
+                        <div class="keyword">                        
+                            <div class="keyword_pic">                            
+                        <img class="keywordImg" th:src="${keyword.savePath}">                        
                             </div>
                             <div class="keyword_back_pic">
-                        <img th:src="${keyword.backSavePath}">
+                        <img th:src="${keyword.backSavePath}">                       
                             </div>
                         </div>
                         <div class="keyword_tit">
-                            <span th:text="${keyword.title}"></span> 
+                            <span th:text="${keyword.title}"></span>
+                            <input name="RowCheck" type="checkBox" th:value="${keyword.id}"> 
                          </div>
                         </div>
                         
@@ -60,12 +124,16 @@ class1[i].addEventListener('mouseleave', () => {
      <div class="wrap">
            <div class="pagebtn">
            <th:block th:each="page:${#numbers.sequence(startPage,endPage)}">
-                  <a th:if="${endPage==0? endPage==1 : page != nowPage}" th:href="@{/news/tour(page=${page-1})}" th:text ="${page}"></a>
+                  <a th:if="${endPage==0? endPage==1 : page != nowPage}" th:href="@{/introduction/keyword(page=${page-1})}" th:text ="${page}"></a>
                   <strong th:if="${page==nowPage}" th:text ="${page}" style="color:red"></strong>
               </th:block>  
          </div>
-          
-			<a href="/introduction/keywordWrite" class="regist">글쓰기</a>
+
+         <a href="/introduction/keywordWrite" class="regist">글쓰기</a>
+         
+         
+            <input type="button" name="keyword.id" value="선택삭제" onclick="deleteValue();">
+         
      </div>     
 </div>
 <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
