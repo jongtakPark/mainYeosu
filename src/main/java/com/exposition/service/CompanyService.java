@@ -1,5 +1,7 @@
 package com.exposition.service;
 
+import java.util.List;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.userdetails.User;
@@ -10,8 +12,13 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.exposition.dto.CompanyFormDto;
+import com.exposition.dto.CompanyModifyFormDto;
 import com.exposition.entity.Company;
+import com.exposition.entity.Files;
+import com.exposition.entity.Reservation;
 import com.exposition.repository.CompanyRepository;
+import com.exposition.repository.FileRepository;
+import com.exposition.repository.ReservationRepository;
 
 import lombok.RequiredArgsConstructor;
 
@@ -22,6 +29,8 @@ import lombok.RequiredArgsConstructor;
 public class CompanyService implements UserDetailsService {
 	
 	private final CompanyRepository companyRepository;
+	private final ReservationRepository reservationRepository;
+	private final FileRepository fileRepository;
 	//회원가입
 	public Company saveCompany(Company company) {
 		validateDuplicateCompany(company);
@@ -100,4 +109,30 @@ public class CompanyService implements UserDetailsService {
 		companyRepository.delete(company);
 	}
 
+	//기업회원 마이페이지 조회
+	public CompanyModifyFormDto findReservationByCom(String com) {
+		Company company = findByCom(com);
+		CompanyModifyFormDto companyModifyFormDto = CompanyModifyFormDto.of(company);
+		try {
+			Reservation reservation = reservationRepository.findByCompany(company);
+			companyModifyFormDto.setLocation(reservation.getLocation());
+			companyModifyFormDto.setStartDay(reservation.getStartDay());
+			companyModifyFormDto.setEndDay(reservation.getEndDay());
+		} catch (Exception e) {
+			return companyModifyFormDto;
+		}
+		return companyModifyFormDto;
+	}
+	
+	//기업회원 예약신청 취소
+	@Transactional
+	public CompanyModifyFormDto reservationCancle(String com) {
+		Company company = findByCom(com);
+		Reservation reservation = reservationRepository.findByCompany(company);
+		reservationRepository.deleteById(reservation.getId());
+		company.setApproval("예약없음");
+		System.out.println(reservation);
+		CompanyModifyFormDto companyModifyFormDto = CompanyModifyFormDto.of(company);
+		return companyModifyFormDto;
+	}
 }

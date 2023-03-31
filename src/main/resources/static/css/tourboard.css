@@ -181,3 +181,43 @@
     position: absolute;
     right: 450px;
 }
+
+.t1{
+    display: inline-block;
+}
+
+#allCheck{
+    float: right;
+    margin-top: 19px;
+    cursor: pointer;
+}
+.title>span{
+    float: right;
+    line-height: 50px;
+    margin-right: 10px;
+}
+#del{
+    position: absolute;
+    width: 120px;
+    height: 50px;
+    line-height: 50px;
+    text-align: center;
+    bottom: 50px;
+    right: 21%;
+    background: #99DDEE;
+    border-radius: 10px;
+    border: 2px solid #666;
+    color: #666;
+    font-size: 22px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: 0.2s;
+    cursor: pointer;
+}
+#del:hover{
+    background-color: #39A3C0;
+    color: #fff;
+}
+#tit_check{
+    cursor: pointer;
+}

@@ -79,7 +79,7 @@ public class IntroductionController {
 			return "introduction/keywordWrite";
 		}
 		if(files.get(0).isEmpty() && tourBoardDto.getId() == null) {
-			model.addAttribute("errorMessage", "이미지는 필수 입니다.");
+			model.addAttribute("errorMessage", "이미지는 2개를 첨부해야 합니다.");
 			model.addAttribute("keywordWrite", tourBoardDto);
 			return "introduction/keywordWrite";
 		}

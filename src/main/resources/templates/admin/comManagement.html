@@ -47,7 +47,7 @@
                    <td th:text="${list.location}"></td>
                    <td th:if="${list.startDay!=null}">[[${list.startDay}]] ~ [[${list.endDay}]]</td>
                    <td th:if="${list.startDay==null}"></td>
-                   <td><form th:action="@{/admin/comDelete/{com}(com=${list.com})}" th:method="delete">
+                   <td><form th:action="@{/admin/comDelete/{com}(com=${list.com})}" th:method="delete" onsubmit="return confirm('탈퇴 하시겠습니까?');">
                    <input type="submit" class="recognize" value="탈퇴" style="cursor:pointer;">
                    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
                    </form></td>

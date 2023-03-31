@@ -59,9 +59,9 @@ $(document).ready(function(){
     </form>
     <form th:action="@{/news/announcementDelete/{id}(id=${freeBoardDto.id})}" th:method="delete">	
     	<div class="info_submit">
-			<a th:href="@{/news/announcementModify/{id}(id=${freeBoardDto.id})}">수정</a>
+			<a th:href="@{/news/announcementModify/{id}(id=${freeBoardDto.id})}" sec:authorize="hasAnyAuthority('ROLE_ADMIN')">수정</a>
 			<button
-			 type="submit" class="submit">삭제하기</button>
+			 type="submit" class="submit" sec:authorize="hasAnyAuthority('ROLE_ADMIN')">삭제하기</button>
          </div>
     </form>
    </div>

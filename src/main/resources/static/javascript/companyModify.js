@@ -72,6 +72,7 @@ $("#password").focus(function(){
 $("#modify").click(function submitCheck(){
 	var eMsg = $("#passwordMsg");
 	if(submitPw == false){
+		showErrorMsg(eMsg,"필수 정보입니다.");
 	return false;
 	}
 	return true;

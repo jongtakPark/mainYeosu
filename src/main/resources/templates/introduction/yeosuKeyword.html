@@ -59,30 +59,30 @@ $(function(){
              alert("선택된 글이 없습니다.");
           }
           else{
-            if(confirm("정말 삭제하시겠습니까?")){
+            if(confirm("정말 삭제하시겠습니까?")){          
             	var header = $("meta[name='_csrf_header']").attr('content');
-        		var token = $("meta[name='_csrf']").attr('content');
-                $.ajax({
-                    url : url,                    // 전송 URL
-                    type : 'POST',                // POST 방식
-                    async:false,
-                    data : {
-                       valueArr :   valueArr     // 보내고자 하는 data 변수 설정
-                    },
-                    beforeSend: function(xhr){
-                        xhr.setRequestHeader(header, token);
-                    	},
-                       success: function(jdata){
-                           if(jdata = 1) {
-                               alert("삭제 성공");
-                               location.replace("/introduction/keyword")
-                           }
-                           else{
-                               alert("삭제 실패");
-                           }
-                       }
-                });
-            }          
+    			var token = $("meta[name='_csrf']").attr('content');
+            	$.ajax({
+               	 	url : url,                    // 전송 URL
+                	type : 'POST',                // POST 방식
+                	async:false,
+                	data : {
+                   	valueArr :   valueArr     // 보내고자 하는 data 변수 설정
+                	},
+                	beforeSend: function(xhr){
+                    	xhr.setRequestHeader(header, token);
+                		},
+                   	success: function(jdata){
+                       	if(jdata = 1) {
+                          	 alert("삭제 성공");
+                           	location.replace("/introduction/keyword")
+                      	 }
+                       	else{
+                          	 alert("삭제 실패");
+                      	 }
+                   	}
+            	});
+            }
          }
       }
 </script>
@@ -99,8 +99,9 @@ $(function(){
     </div>
     <div class="container">
         <div class="title">
-            <h1>여수섬 키워드</h1>
-            <input id="allCheck" type="checkbox" name="allCheck">
+            <h1 class="t1">여수섬 키워드</h1>
+            <input id="allCheck" type="checkbox" name="allCheck" sec:authorize="hasAnyAuthority('ROLE_ADMIN')">
+            <span sec:authorize="hasAnyAuthority('ROLE_ADMIN')">전체 선택</span>
         </div>
         
                <th:block th:each="keyword, status:${keyword.getContent()}" class="blo">
@@ -114,8 +115,8 @@ $(function(){
                             </div>
                         </div>
                         <div class="keyword_tit">
+                            <input name="RowCheck" type="checkBox" th:value="${keyword.id}" id="tit_check" sec:authorize="hasAnyAuthority('ROLE_ADMIN')"> 
                             <span th:text="${keyword.title}"></span>
-                            <input name="RowCheck" type="checkBox" th:value="${keyword.id}"> 
                          </div>
                         </div>
                         
@@ -129,10 +130,11 @@ $(function(){
               </th:block>  
          </div>
 
-         <a href="/introduction/keywordWrite" class="regist">글쓰기</a>
+         <a href="/introduction/keywordWrite" class="regist" sec:authorize="hasAnyAuthority('ROLE_ADMIN')">글쓰기</a>
          
          
-            <input type="button" name="keyword.id" value="선택삭제" onclick="deleteValue();">
+           <input id="del" type="button" name="keyword.id" value="선택삭제" onclick="deleteValue();" sec:authorize="hasAnyAuthority('ROLE_ADMIN')">
+
          
      </div>     
 </div>

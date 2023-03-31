@@ -54,9 +54,9 @@ layout:decorate="~{layouts/layout}">
             </div>
             <div class="info_submit">
 
-               <a th:href="@{/news/modify/{id}(id=${tourBoardDto.id})}">수정</a>
+               <a th:href="@{/news/modify/{id}(id=${tourBoardDto.id})}" sec:authorize="hasAnyAuthority('ROLE_ADMIN')">수정</a>
                <input type="hidden" name="_method" value="delete"/>
-        <form th:action="@{/news/delete/{id}(id=${tourBoardDto.id})}" th:method="delete">
+        <form th:action="@{/news/delete/{id}(id=${tourBoardDto.id})}" th:method="delete" sec:authorize="hasAnyAuthority('ROLE_ADMIN')">
                <button type="submit" class="submit">삭제하기</button>
    		 </form>
             </div>

@@ -48,7 +48,7 @@ $(document).ready(function(){
                <span>주변관광지 수정</span>
            </div>
        </div>
-	<form th:method="put" enctype="multipart/form-data">
+	<form th:method="put" enctype="multipart/form-data" onsubmit="return confirm('글 수정을 하시겠습니까?');">
        <div class="info_content">
             <div class="info_title">
                 <div class="info_title_inner">
