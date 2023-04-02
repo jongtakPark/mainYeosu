@@ -26,6 +26,7 @@ public class CompanyModifyFormDto {
 	private String confirmPassword;
 	
 	private String approval;
+	private Long reservationId;
 	private String location;
 	private String startDay;
 	private String endDay;

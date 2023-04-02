@@ -16,6 +16,13 @@ $(document).ready(function(){
 	if(succMessage != null){
 		alert(succMessage);
 	}
+	$("#succSubmit").on("click", function(){
+		if(confirm('글을 삭제하시겠습니까?')){
+			alert("글을 삭제하였습니다.");	
+		} else {
+			return false;
+		}
+	});
 });
 </script>
 </head>
@@ -76,7 +83,7 @@ $(document).ready(function(){
     <form th:action="@{/board/ideaDelete/{id}(id=${freeBoardDto.id})}" th:method="delete">	
     	<div class="info_submit" th:if="${session.userAuth == 'ROLE_ADMIN' ? session.userId != freeBoardDto.createdBy : session.userId == freeBoardDto.createdBy}">
 			<a th:href="@{/board/ideaModify/{id}(id=${freeBoardDto.id})}">수정</a>
-			<button type="submit" class="submit">삭제하기</button>
+			<button type="submit" class="submit" id="succSubmit">삭제하기</button>
          </div>
     </form>
    </div>

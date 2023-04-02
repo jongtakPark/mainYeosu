@@ -6,6 +6,25 @@ layout:decorate="~{layouts/layout}">
     <meta charset="UTF-8">
     <title>주변관광지상세보기</title>
 <link rel="stylesheet" th:href="@{/css/tourboardview.css}">
+<script th:inline="javascript">
+$(document).ready(function(){
+	var errorMessage = [[${errorMessage}]];
+	var succMessage = [[${succMessage}]];
+	if(errorMessage != null){
+		alert(errorMessage);
+	}
+	if(succMessage != null){
+		alert(succMessage);
+	}
+	$("#succSubmit").on("click", function(){
+		if(confirm('글을 삭제하시겠습니까?')){
+			alert("글을 삭제하였습니다.");	
+		} else {
+			return false;
+		}
+	});
+});
+</script>
 </head>
 
 <body>
@@ -57,7 +76,7 @@ layout:decorate="~{layouts/layout}">
                <a th:href="@{/news/modify/{id}(id=${tourBoardDto.id})}" sec:authorize="hasAnyAuthority('ROLE_ADMIN')">수정</a>
                <input type="hidden" name="_method" value="delete"/>
         <form th:action="@{/news/delete/{id}(id=${tourBoardDto.id})}" th:method="delete" sec:authorize="hasAnyAuthority('ROLE_ADMIN')">
-               <button type="submit" class="submit">삭제하기</button>
+               <button type="submit" class="submit" id="succSubmit">삭제하기</button>
    		 </form>
             </div>
             

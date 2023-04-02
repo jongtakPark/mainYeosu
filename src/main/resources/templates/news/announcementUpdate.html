@@ -16,6 +16,13 @@ $(document).ready(function(){
 	if(succMessage != null){
 		alert(succMessage);
 	}
+	$("#succSubmit").on("click", function(){
+		if(confirm('글을 수정하시겠습니까?')){
+			alert("글을 수정하였습니다.");	
+		} else {
+			return false;
+		}
+	});
 });
 </script>
 </head>
@@ -55,7 +62,7 @@ $(document).ready(function(){
             </div>
             
             <div class="info_submit">
-               <button th:formaction="@{/news/announcementUpdate}" type="submit" class="submit">수정 완료</button>
+               <button th:formaction="@{/news/announcementUpdate}" type="submit" class="submit" id="succSubmit">수정 글 등록</button>
             </div>
            
        </div>

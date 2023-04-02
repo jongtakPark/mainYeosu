@@ -16,6 +16,13 @@ $(document).ready(function(){
 	if(succMessage != null){
 		alert(succMessage);
 	}
+	$("#succSubmit").on("click", function(){
+		if(confirm('글을 작성하시겠습니까?')){
+			alert("글을 작성하였습니다.");	
+		} else {
+			return false;
+		}
+	});
 });
 </script>
 </head>
@@ -54,7 +61,7 @@ $(document).ready(function(){
                 </div>
             </div>
             <div class="infosubmit">
-               <button type="submit">작성 글 등록</button>
+               <button type="submit" id="succSubmit">작성 글 등록</button>
             </div>
        </div>
        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">

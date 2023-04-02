@@ -29,6 +29,13 @@ $(document).ready(function(){
 			$(".upload-name").val(newList.join(''));
 		});
 	});
+	$("#succSubmit").on("click", function(){
+		if(confirm('예약 신청 하시겠습니까?')){
+			alert("예약 신청 되었었습니다.");	
+		} else {
+			return false;
+		}
+	});
 	
 var calendarEl = document.getElementById('calendar');
 
@@ -92,7 +99,7 @@ calendar.render();
 <div id='calendar-container'>
     <div id='calendar'></div>
   </div>
-  <form action="/lease/new" th:method="post" enctype="multipart/form-data" onsubmit="return confirm('예약 신청을 하시겠습니까?');"> 
+  <form action="/lease/new" th:method="post" enctype="multipart/form-data"> 
   <h1>예약하기([[${reservationDto.location}]])</h1>
    <div class="main_reservation">
             
@@ -110,7 +117,7 @@ calendar.render();
                 <input class="upload-name" value="" disabled="disabled">
                 </div>
             </div>
-            <input class="regist" type="submit" value="예약">                      
+            <input class="regist" type="submit" value="예약" id="succSubmit">                      
         </div>
 
         <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">

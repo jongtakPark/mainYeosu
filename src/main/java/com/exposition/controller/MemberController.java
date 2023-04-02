@@ -32,6 +32,7 @@ import com.exposition.dto.MemberFormDto;
 import com.exposition.dto.MemberModifyFormDto;
 import com.exposition.entity.Company;
 import com.exposition.entity.Member;
+import com.exposition.repository.CompanyRepository;
 import com.exposition.service.CompanyService;
 import com.exposition.service.MailService;
 import com.exposition.service.MemberService;
@@ -272,6 +273,7 @@ public class MemberController{
 	@GetMapping(value="/comMypage")
 	public String commypage(Model model, Principal principal) {
 		CompanyModifyFormDto companyModifyFormDto = companyService.findReservationByCom(principal.getName());
+		System.out.println(companyModifyFormDto);
 	    model.addAttribute("companyModifyFormDto", companyModifyFormDto);
 	   return "member/companyModify";
 	}
@@ -298,13 +300,15 @@ public class MemberController{
 	}
 	
 	//기업 예약 신청 취소
-	@PutMapping(value="/cancle/{com}")
-	public String cancle(@PathVariable String com, CompanyModifyFormDto companyModifyFormDto, Model model) {
+	@PutMapping(value="/cancle/{id}")
+	public String cancle(@PathVariable Long id, Model model, Principal principal) {
 		try {
-			companyModifyFormDto = companyService.reservationCancle(com);
-			model.addAttribute("companyModifyFormDto", companyModifyFormDto);
+			Company company = companyService.findByCom(principal.getName());
+			company.setApproval("예약없음");
+			companyService.reservationCancle(id);
 		} catch(Exception e) {
 			model.addAttribute("errorMessage", "예약삭제중 에러가 발생했습니다");
+			return "redirect:/";
 		}
 		return "redirect:/";
 	}

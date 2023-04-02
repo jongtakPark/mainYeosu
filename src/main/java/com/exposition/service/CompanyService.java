@@ -115,6 +115,7 @@ public class CompanyService implements UserDetailsService {
 		CompanyModifyFormDto companyModifyFormDto = CompanyModifyFormDto.of(company);
 		try {
 			Reservation reservation = reservationRepository.findByCompany(company);
+			companyModifyFormDto.setReservationId(reservation.getId());
 			companyModifyFormDto.setLocation(reservation.getLocation());
 			companyModifyFormDto.setStartDay(reservation.getStartDay());
 			companyModifyFormDto.setEndDay(reservation.getEndDay());
@@ -125,14 +126,14 @@ public class CompanyService implements UserDetailsService {
 	}
 	
 	//기업회원 예약신청 취소
-	@Transactional
-	public CompanyModifyFormDto reservationCancle(String com) {
-		Company company = findByCom(com);
-		Reservation reservation = reservationRepository.findByCompany(company);
-		reservationRepository.deleteById(reservation.getId());
-		company.setApproval("예약없음");
-		System.out.println(reservation);
-		CompanyModifyFormDto companyModifyFormDto = CompanyModifyFormDto.of(company);
-		return companyModifyFormDto;
+	public void reservationCancle(Long id) {
+		System.out.println("~~");
+		List<Files> files = fileRepository.findByReservationId(id);
+		System.out.println(files);
+		for(int i=0; i<files.size(); i++) {
+			fileRepository.deleteById(files.get(i).getId());
+		}
+		reservationRepository.deleteById(id);
+		System.out.println("~~");
 	}
 }
