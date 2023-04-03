@@ -40,6 +40,7 @@ public class AttendList {
         model.addAttribute("startPage", startPage);
         model.addAttribute("endPage", endPage);
 		model.addAttribute("reservationDto", comReservationDto);
+		System.out.println(comReservationDto);
 		return "attend/attendList";
 	}
 	

@@ -273,7 +273,6 @@ public class MemberController{
 	@GetMapping(value="/comMypage")
 	public String commypage(Model model, Principal principal) {
 		CompanyModifyFormDto companyModifyFormDto = companyService.findReservationByCom(principal.getName());
-		System.out.println(companyModifyFormDto);
 	    model.addAttribute("companyModifyFormDto", companyModifyFormDto);
 	   return "member/companyModify";
 	}

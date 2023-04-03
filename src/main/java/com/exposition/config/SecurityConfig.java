@@ -46,7 +46,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 		
 		http.authorizeRequests()
 		.mvcMatchers("/board/volunteer**","/board/volunteer**/**").hasAnyRole("VOLUNTEER","ADMIN")
-		.mvcMatchers("/introduction/keywordWrite","/introduction/keywordSave","/admin/**","/news/tourwrite","/news/modify/**","/news/delete/**","/news/eventboardwrite").hasRole("ADMIN")
+		.mvcMatchers("/introduction/keywordWrite","/introduction/keywordSave","/admin/**","/news/tourwrite","/news/modify/**","/news/delete/**","/news/eventboardwrite","/news/surveyResult").hasRole("ADMIN")
 		.mvcMatchers("/board/reviewWrite","/board/ideaWrite").hasAnyRole("USER","VOLUNTEER","COMPANY","ADMIN")
 		.mvcMatchers("signup/mypage").hasAnyRole("USER","VOLUNTEER")
 		.mvcMatchers("signup/commypage").hasRole("COMPANY")

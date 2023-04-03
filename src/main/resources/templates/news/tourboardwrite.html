@@ -51,7 +51,7 @@ $(document).ready(function(){
                <span>주변관광지 글쓰기</span>
            </div>
        </div>
-       <form action="/news/toursave" th:method="post" th:object="${tourBoardDto}" enctype="multipart/form-data" onsubmit="return confirm('글 작성을 하시겠습니까?');">
+       <form action="/news/toursave" th:method="post" th:object="${tourBoardDto}" enctype="multipart/form-data">
        <input type="hidden" th:field="*{id}">
        <div class="info_content">
             <div class="info_title">

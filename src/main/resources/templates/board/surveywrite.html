@@ -4,26 +4,68 @@ xmlns:layout=http://www.ultraq.net.nz/thymeleaf/layout
 layout:decorate="~{layouts/layout}">
 <head>
     <meta charset="UTF-8">
+        <meta name="_csrf_header" th:content="${_csrf.headerName}">
+<meta name="_csrf" th:content="${_csrf.token}">
     <title>설문조사작성창</title>
 <link rel="stylesheet" th:href="@{/css/boarddetail.css}">
 <script th:inline="javascript">
 $(document).ready(function(){
-	var errorMessage = [[${errorMessage}]];
-	var succMessage = [[${succMessage}]];
-	if(errorMessage != null){
-		alert(errorMessage);
-	}
-	if(succMessage != null){
-		alert(succMessage);
-	}
-	$("#succSubmit").on("click", function(){
-		if(confirm('글을 작성하시겠습니까?')){
-			alert("글을 작성하였습니다.");	
-		} else {
-			return false;
-		}
-	});
+   var errorMessage = [[${errorMessage}]];
+   var succMessage = [[${succMessage}]];
+   if(errorMessage != null){
+      alert(errorMessage);
+   }
+   if(succMessage != null){
+      alert(succMessage);
+   }
+   $("#succSubmit").on("click", function(){
+      if(confirm('글을 작성하시겠습니까?')){
+         alert("글을 작성하였습니다.");   
+      } else {
+         return false;
+      }
+   });
+   
+
+      var result=[];
+      $("input[type=radio]").click(function(e){
+			result.push([e.target.name, e.target.value])
+		
+    	  console.log(result);
+			
+		result.sort();
+ 
+      });
+      
+      $('#suRe').on('click',function(){
+    	  var aList = new Array();
+          for(var i=0; i<result.length; i++){
+        	  aList.push(result[i][1])
+
+          }
+          console.log(typeof aList);
+    		  var header = $("meta[name='_csrf_header']").attr('content');
+  			var token = $("meta[name='_csrf']").attr('content');
+            $.ajax({
+            	type : "POST",
+            	url : "/news/surveyResult",
+            	async:false,
+  			data : {result : aList},   
+            	beforeSend: function(xhr){
+                	xhr.setRequestHeader(header, token);
+            		},
+            		success: function(result){
+            			console.log(result);
+            		}
+            })
+
+      	
+       });
+   
+   
+   
 });
+
 </script>
 </head>
 
@@ -58,44 +100,45 @@ $(document).ready(function(){
                     <label for="">
                         설문조사
                     </label>
-                    <div class="survey" name="" id="test" cols="83" rows="10" th:field="*{content}">
-                    	 <div class="survey_box">
-                			<div class="survey_ck">
-                    			<p>1.원하는 정보에 관한 만족도 조사</p>
-                    			<input type="radio" name="ck1"   /><span>매우만족</span>
-                    			<input type="radio" name="ck1"   /><span>만족</span>
-                    			<input type="radio" name="ck1" checked  /><span>보통</span>
-                    			<input type="radio" name="ck1"   /><span>불만족</span>
-                    			<input type="radio" name="ck1"   /><span>매우불만족</span>
-               				 </div>
-                			<div class="survey_ck">
-                    			<p>2.추후 수정</p>
-                    			<input type="radio" name="ck2"   /><span>매우만족</span>
-                    			<input type="radio" name="ck2"   /><span>만족</span>
-                    			<input type="radio" name="ck2" checked /><span>보통</span>
-                    			<input type="radio" name="ck2"   /><span>불만족</span>
-                    			<input type="radio" name="ck2"   /><span>매우불만족</span>
-                			</div>
-                			<div class="survey_ck">
-                    			<p>3.추후 수정</p>
-                    			<input type="radio" name="ck3"   /><span>매우만족</span>
-                    			<input type="radio" name="ck3"   /><span>만족</span>
-                    			<input type="radio" name="ck3" checked  /><span>보통</span>
-                    			<input type="radio" name="ck3"   /><span>불만족</span>
-                    			<input type="radio" name="ck3"   /><span>매우불만족</span>
-                			</div>
-                			<div class="survey_ck">
-                    			<p>4.추후 수정</p>
-                    			<input type="radio" name="ck4"   /><span>매우만족</span>
-                    			<input type="radio" name="ck4"   /><span>만족</span>
-                    			<input type="radio" name="ck4" checked  /><span>보통</span>
-                    			<input type="radio" name="ck4"   /><span>불만족</span>
-                    			<input type="radio" name="ck4"   /><span>매우불만족</span>
-                			</div>
-                		</div>
-                    </div>
+                    
+                        <div class="survey_box">
+                         <div class="survey_ck">
+                             <p>1.원하는 정보에 관한 만족도 조사</p>
+                             <input type="radio" name="1"  value="5" /><span>매우만족</span>
+                             <input type="radio" name="1"  value="4"  /><span>만족</span>
+                             <input type="radio" name="1"   value="3" /><span>보통</span>
+                             <input type="radio" name="1"   value="2" /><span>불만족</span>
+                             <input type="radio" name="1"   value="1" /><span>매우불만족</span>
+                            </div>
+                         <div class="survey_ck">
+                             <p>2.추후 수정</p>
+                             <input type="radio" name="2"   value="5" /><span>매우만족</span>
+                             <input type="radio" name="2"   value="4" /><span>만족</span>
+                             <input type="radio" name="2"   value="3" /><span>보통</span>
+                             <input type="radio" name="2"   value="2" /><span>불만족</span>
+                             <input type="radio" name="2"   value="1" /><span>매우불만족</span>
+                         </div>
+                         <div class="survey_ck">
+                             <p>3.추후 수정</p>
+                             <input type="radio" name="3"   value="5" /><span>매우만족</span>
+                             <input type="radio" name="3"  value="4"  /><span>만족</span>
+                             <input type="radio" name="3"  value="3" /><span>보통</span>
+                             <input type="radio" name="3"   value="2" /><span>불만족</span>
+                             <input type="radio" name="3"   value="1" /><span>매우불만족</span>
+                         </div>
+                         <div class="survey_ck">
+                             <p>4.추후 수정</p>
+                             <input type="radio" name="4"  value="5"  /><span>매우만족</span>
+                             <input type="radio" name="4"  value="4"  /><span>만족</span>
+                             <input type="radio" name="4"   value="3" /><span>보통</span>
+                             <input type="radio" name="4"   value="2" /><span>불만족</span>
+                             <input type="radio" name="4"   value="1" /><span>매우불만족</span>
+                         </div>
+                      </div>
+                   <input th:field="*{content}" >
                 </div>
             </div>
+            <button type="button" id="suRe">가라</button>
             <div class="infosubmit">
                <button type="submit" id="succSubmit">작성 글 등록</button>
             </div>

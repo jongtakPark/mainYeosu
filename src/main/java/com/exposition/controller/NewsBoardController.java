@@ -2,6 +2,7 @@ package com.exposition.controller;
 
 import java.security.Principal;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.Random;
 
@@ -345,6 +346,12 @@ public class NewsBoardController {
 			return "news/announcementView";
 		}
 		return "redirect:/news/announcement";
+	}
+	
+	//설문조사 결과
+	@PostMapping(value="/surveyResult")
+	public void surveyResult(@RequestParam(value="result[]") List<Long> result) {
+		System.out.println(result);
 	}
 	
 }

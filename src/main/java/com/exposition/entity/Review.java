@@ -42,11 +42,11 @@ public class Review extends BaseEntity{
 	private String content; 
 		
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne
 	@JoinColumn(name = "member_id")
 	private Member member;
 		
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne
 	@JoinColumn(name = "company_id")
 	private Company company;
 	
