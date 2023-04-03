@@ -54,7 +54,6 @@ $(function(){
                   valueArr.push(list[i].value);
               }
           }
-          console.log(valueArr)
           if (valueArr.length == 0){
              alert("선택된 글이 없습니다.");
           }
@@ -63,11 +62,10 @@ $(function(){
             var header = $("meta[name='_csrf_header']").attr('content');
     		var token = $("meta[name='_csrf']").attr('content');
             $.ajax({
-                url : url,                    // 전송 URL
-                type : 'POST',                // POST 방식
-                async:false,
+                url : url,                    
+                type : 'POST',               
                 data : {
-                   valueArr :   valueArr     // 보내고자 하는 data 변수 설정
+                   valueArr :   valueArr  
                 },
                 beforeSend: function(xhr){
                     xhr.setRequestHeader(header, token);
