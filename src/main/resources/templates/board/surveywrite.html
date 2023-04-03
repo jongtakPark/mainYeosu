@@ -25,25 +25,19 @@ $(document).ready(function(){
          return false;
       }
    });
-   
-
       var result=[];
       $("input[type=radio]").click(function(e){
 			result.push([e.target.name, e.target.value])
-		
-    	  console.log(result);
-			
-		result.sort();
- 
       });
-      
       $('#suRe').on('click',function(){
-    	  var aList = new Array();
-          for(var i=0; i<result.length; i++){
-        	  aList.push(result[i][1])
-
-          }
-          console.log(typeof aList);
+    	  var obj = Object.fromEntries(result);
+    	  if(Object.keys(obj).length == 4){
+			var objList = Object.entries(obj);
+			var aList = new Array();
+     	  for(var i=0; i<objList.length; i++){
+        		  aList.push(objList[i][1]);
+			} 
+     	  console.log(aList);
     		  var header = $("meta[name='_csrf_header']").attr('content');
   			var token = $("meta[name='_csrf']").attr('content');
             $.ajax({
@@ -58,12 +52,10 @@ $(document).ready(function(){
             			console.log(result);
             		}
             })
-
-      	
+    	  } else {
+    		  alert("설문조사를 모두 완료해주세요.");
+    	  }
        });
-   
-   
-   
 });
 
 </script>
