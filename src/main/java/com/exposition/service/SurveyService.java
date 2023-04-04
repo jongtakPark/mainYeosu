@@ -20,6 +20,7 @@ public class SurveyService {
 	private final MemberRepository memberRepository;
 	private final SurveyRepository surveyRepository;
 	
+	//설문조사 저장
 	public void surveySave(List<Long> result, String mid) {
 		Survey survey = new Survey();
 		survey.setFirst(result.get(0));
@@ -31,5 +32,12 @@ public class SurveyService {
 		member.setSurvey("Y");
 		surveyRepository.save(survey);
 		memberRepository.save(member);
+	}
+	
+	//설문조사 했는지 확인
+	public Survey checkSurvey(String mid) {
+		Member member = memberRepository.findByMid(mid);
+		Survey survey = surveyRepository.findByMember(member);
+		return survey;
 	}
 }

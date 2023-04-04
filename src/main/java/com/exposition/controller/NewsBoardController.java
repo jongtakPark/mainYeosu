@@ -37,6 +37,7 @@ import com.exposition.dto.TourBoardDto;
 import com.exposition.entity.Announcement;
 import com.exposition.entity.EventBoard;
 import com.exposition.entity.Member;
+import com.exposition.entity.Survey;
 import com.exposition.service.AnnouncementService;
 import com.exposition.service.EventBoardService;
 import com.exposition.service.FileService;
@@ -289,7 +290,6 @@ public class NewsBoardController {
 		Announcement announcement = announcementService.findById(id);
 		if(String.valueOf(user.getAuthorities().iterator().next()).equals("ROLE_ADMIN")) {
 				FreeBoardDto freeBoardDto = FreeBoardDto.of(announcement);
-				System.out.println(freeBoardDto);
 				model.addAttribute("freeBoardDto", freeBoardDto);
 			} else {
 				model.addAttribute("errorMessage", "관리자가 아니면 수정할 수 없습니다.");
@@ -352,7 +352,15 @@ public class NewsBoardController {
 	
 	//설문조사 페이지로 이동
 	@GetMapping(value="/survey")
-	public String survey() {
+	public String survey(Principal principal, Model model) {
+		try {
+			Survey survey = surveyService.checkSurvey(principal.getName());
+			if(survey!=null) {
+				model.addAttribute("errorMessage", "이미 설문조사를 완료하였습니다.");
+			}
+		} catch(Exception e){
+			model.addAttribute("errorMessage", "페이지 이동중 오류가 발생했습니다.");
+		}
 		return "news/survey";
 	}
 	
@@ -360,7 +368,6 @@ public class NewsBoardController {
 	@PostMapping(value="/surveyResult")
 	@ResponseBody
 	public String surveyResult(@RequestParam(value="result[]") List<Long> result, Principal principal) {
-		System.out.println(result);
 		surveyService.surveySave(result, principal.getName());
 		return "succcess";
 	}

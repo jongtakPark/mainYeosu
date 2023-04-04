@@ -14,6 +14,7 @@ $(document).ready(function(){
    var succMessage = [[${succMessage}]];
    if(errorMessage != null){
       alert(errorMessage);
+      location.href="/news/announcement"
    }
    if(succMessage != null){
       alert(succMessage);
@@ -43,6 +44,7 @@ $(document).ready(function(){
                       },
                       success: function(result){
                     	  alert("설문조사가 완료 되었습니다.");
+                    	  location.href="/news/announcement"
                       }
                 })
              } else {
