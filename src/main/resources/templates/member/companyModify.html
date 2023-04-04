@@ -74,7 +74,7 @@ $(document).ready(function(){
 			<form th:action="@{/signup/comDelete/{com}(com=${companyModifyFormDto.com})}" th:method="delete">
 				<input type="submit" class="withdrawal" value="탈퇴">
 			</form>
-			<form th:action="@{/signup/cancle/{id}(id=${companyModifyFormDto.reservationId})}" th:method="put">
+			<form th:action="@{/signup/cancel/{id}(id=${companyModifyFormDto.reservationId})}" th:method="put">
 				<input type="submit" class="cancleSubmit" value="예약취소">
 			</form>
         </div>

@@ -23,6 +23,12 @@ $(document).ready(function(){
 			return false;
 		}
 	});
+	var content = [[${freeBoardDto.content}]]
+	if(content.includes('설문')){
+		$(".survey1").show();
+		$(".survey2").hide();
+		$(".survey3").show();
+	}
 });
 </script>
 </head>
@@ -57,7 +63,10 @@ $(document).ready(function(){
                     <label for="" >
                         내용
                     </label>
-                    <textarea name="" id="test" cols="83" rows="10"  th:field="*{content}">
+                    <div class="survey1" name="" id="test" cols="83" rows="10" readOnly>
+                    <a href="/news/survey" class="survey3">[[*{content}]]</a>
+                    </div>
+                    <textarea class="survey2" name="" id="test" cols="83" rows="10"  th:field="*{content}" readOnly>
                     </textarea>
                 </div>
             </div>

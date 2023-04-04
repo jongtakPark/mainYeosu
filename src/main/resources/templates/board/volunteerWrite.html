@@ -41,8 +41,7 @@ $(document).ready(function(){
        <ul>
            <li><a href="/board/review">관람후기</a></li>
            <li><a href="/board/idea">국민아이디어</a></li>
-           <li><a href="#">설문게시판</a></li>
-           <li><a href="#" sec:authorize="hasAnyAuthority('ROLE_VOLUNTEER')">자원봉사게시판</a></li>
+           <li><a href="/board/volunteer" sec:authorize="hasAnyAuthority('ROLE_VOLUNTEER')">자원봉사게시판</a></li>
        </ul>
    </div>
    <div class="freeboard">

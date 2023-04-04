@@ -281,64 +281,6 @@ public class BoardController {
   		
   	}
   	
-    //설문조사게시판
-  	@GetMapping(value="/survey")
-  	public String survey(Model model, @PageableDefault(page=0, size=10, sort="id", direction=Sort.Direction.DESC) Pageable pageable) {
-  		
-  		Page<Survey> list = boardService.surveyBoardList(pageable);
-
-        model.addAttribute("survey",boardService.surveyBoardList(pageable));
-
-        //페이징	        
-        int nowPage = list.getPageable().getPageNumber() + 1;	        
-        int startPage =  Math.max(nowPage - 4, 1);
-        int endPage = Math.min(nowPage+9, list.getTotalPages());
-
-        model.addAttribute("list", list);
-        model.addAttribute("nowPage",nowPage);
-        model.addAttribute("startPage", startPage);
-        model.addAttribute("endPage", endPage);
-
-  		return "board/survey";
-  	}
-  	
-  	//설문조사 게시판 작성 페이지 이동
-  	@GetMapping(value="/surveywrite")
-  	public String surveyWrite(Model model) {
-  		model.addAttribute("surveyboard", new FreeBoardDto());
-  		return "board/surveywrite";
-  	}
-  			
-  	//설문조사 작성 글 저장
-  	@PostMapping(value="/survey/new")
-  	public String surveyNew(@Valid FreeBoardDto freeBoardDto, BindingResult bindingResult, Model model) {
-  		if(bindingResult.hasErrors()) {
-			model.addAttribute("errorMessage", "제목과 내용을 입력해주세요.");
-			model.addAttribute("surveyboard", freeBoardDto);
-			return "board/surveywrite";
-		}
-  		Survey survey = Survey.createSurvey(freeBoardDto);
-  		boardService.surveyBoardSave(survey);
-  		return "redirect:/board/survey";
-  	}
-  	
-  	//설문조사 상세 페이지 이동
-  	@GetMapping(value="/survey/view/{id}")
-  	public String surveyView(@PathVariable("id") Long id, Model model) {
-  		Survey survey = boardService.findSurveyBoard(id);
-  		FreeBoardDto surveyFormDto = FreeBoardDto.of(survey);
-  		model.addAttribute("surveyboard", surveyFormDto);
-  		return "board/surveyview";
-  	}
-  	
-  	//설문조사 완료
-  	@PutMapping(value="/survey/complete")
-  	public String surveyComplete(@AuthenticationPrincipal User user) {
-  		Member member = memberService.findByMid(user.getUsername());
-  		member.setSurvey("Y");
-  		memberService.updateMember(member);
-  		return "redirect:/board/survey";
-  	}
   	
   	//자원봉사 게시판
     @GetMapping(value="/volunteer")

@@ -299,12 +299,12 @@ public class MemberController{
 	}
 	
 	//기업 예약 신청 취소
-	@PutMapping(value="/cancle/{id}")
-	public String cancle(@PathVariable Long id, Model model, Principal principal) {
+	@PutMapping(value="/cancel/{id}")
+	public String cancel(@PathVariable Long id, Model model, Principal principal) {
 		try {
 			Company company = companyService.findByCom(principal.getName());
 			company.setApproval("예약없음");
-			companyService.reservationCancle(id);
+			companyService.reservationCancel(id);
 		} catch(Exception e) {
 			model.addAttribute("errorMessage", "예약삭제중 에러가 발생했습니다");
 			return "redirect:/";

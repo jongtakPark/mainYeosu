@@ -37,7 +37,6 @@ import lombok.RequiredArgsConstructor;
 public class BoardService {
 
 	private final BoardRepository boardRepository;
-	private final SurveyRepository surveyRepository;
 	private final ReviewRepository reviewRepository;
 	private final FileService fileService;
 	private final FileRepository fileRepository;
@@ -234,19 +233,6 @@ public class BoardService {
 			}
 		}
 		ideaRepository.deleteById(id);
-	}
-	
-	//설문조사 게시판 리스트 출력
-	public Page<Survey> surveyBoardList(Pageable pageable){
-		return surveyRepository.findAll(pageable);
-	}
-	//설문조사 글 저장
-	public void surveyBoardSave(Survey survey) {
-		surveyRepository.save(survey);
-	}
-	//설문조사 글 찾기
-	public Survey findSurveyBoard(Long id) {
-		return surveyRepository.findById(id).get();
 	}
 	
 	//자원봉사 게시판 리스트 출력

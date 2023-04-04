@@ -2,7 +2,6 @@ package com.exposition.controller;
 
 import java.security.Principal;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 import java.util.Random;
 
@@ -27,6 +26,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.exposition.dto.BoardMainDto;
@@ -42,6 +42,7 @@ import com.exposition.service.EventBoardService;
 import com.exposition.service.FileService;
 import com.exposition.service.MailService;
 import com.exposition.service.MemberService;
+import com.exposition.service.SurveyService;
 import com.exposition.service.TourBoardService;
 
 import lombok.RequiredArgsConstructor;
@@ -57,6 +58,7 @@ public class NewsBoardController {
 	private final MemberService memberService;
 	private final MailService mailService;
 	private final AnnouncementService announcementService;
+	private final SurveyService surveyService;
 	
 	//주변관광지 페이지 이동
 	@RequestMapping(value="/tour", method= {RequestMethod.GET, RequestMethod.POST})
@@ -348,10 +350,19 @@ public class NewsBoardController {
 		return "redirect:/news/announcement";
 	}
 	
+	//설문조사 페이지로 이동
+	@GetMapping(value="/survey")
+	public String survey() {
+		return "news/survey";
+	}
+	
 	//설문조사 결과
 	@PostMapping(value="/surveyResult")
-	public void surveyResult(@RequestParam(value="result[]") List<Long> result) {
+	@ResponseBody
+	public String surveyResult(@RequestParam(value="result[]") List<Long> result, Principal principal) {
 		System.out.println(result);
+		surveyService.surveySave(result, principal.getName());
+		return "succcess";
 	}
 	
 }

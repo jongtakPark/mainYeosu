@@ -127,7 +127,7 @@ public class CompanyService implements UserDetailsService {
 	}
 	
 	//기업회원 예약신청 취소
-	public void reservationCancle(Long id) {
+	public void reservationCancel(Long id) {
 		List<Files> files =  fileRepository.findByReservationId(id);
 	      for(int i =0; i< files.size();i++) {
 	         fileService.deleteComFile("C:/images/"+files.get(i).getImg());
