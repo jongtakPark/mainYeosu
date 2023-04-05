@@ -32,6 +32,17 @@ $(document).ready(function(){
 		});
 	});
 	$("#succSubmit").on("click", function(){
+		var inputFile = $("input[name='files']");
+		var files = inputFile[0].files;
+	    if( files != "" ){
+	    	for(var i=0; i< files.length; i++){
+	    		var ext = files[i].name.split('.').pop().toLowerCase();
+		        if($.inArray(ext, ['jpg','png']) == -1) {
+		          alert("jpg, png 파일만 업로드 할수 있습니다.");
+		          return false;
+		        }
+	    	}
+	    }
 		if(confirm('글을 수정하시겠습니까?')){
 			alert("글을 수정하였습니다.");	
 		} else {

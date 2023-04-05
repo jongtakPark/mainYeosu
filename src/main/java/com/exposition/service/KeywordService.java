@@ -53,8 +53,8 @@ public class KeywordService {
 		}
 		for(int i =0; i<files.size(); i++) {
 			keywordRepository.deleteById(id.get(i));
-			fileService.deleteComFile("C:/images/"+files.get(i).getBackSavePath().substring(13));
-			fileService.deleteComFile("C:/images/"+files.get(i).getSavePath().substring(13));
+			fileService.deleteComFile("C:/images/"+files.get(i).getBackSavePath().substring(16));
+			fileService.deleteComFile("C:/images/"+files.get(i).getSavePath().substring(16));
 		}
 		
 	}
