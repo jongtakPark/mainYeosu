@@ -76,6 +76,19 @@ public class LeaseController {
 				return "lease/lease";
 			}
 		}
+		SimpleDateFormat dtFormat = new SimpleDateFormat("yyyy-MM-dd");
+		HttpSession session = request.getSession();
+		session.setAttribute("location", reservationDto);
+		List<ReservationDto> list = reservationService.getSameLocationReservation(reservationDto);
+		for(int i=0; i<list.size(); i++) {
+			Date dt = dtFormat.parse(list.get(i).getEndDay());
+			Calendar cal = Calendar.getInstance();
+			cal.setTime(dt);
+			cal.add(Calendar.DATE, +1);
+			String endDay = dtFormat.format(cal.getTime());
+			list.get(i).setEndDay(endDay);
+		}
+		model.addAttribute("list", list);
 		return "lease/calendar";
 	}
 	

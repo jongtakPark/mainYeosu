@@ -42,7 +42,7 @@ public class Reservation {
 	@ToString.Exclude
 	private Company company;
 	
-	@OneToMany(mappedBy ="reservation", cascade=CascadeType.ALL,orphanRemoval = true)
+	@OneToMany(mappedBy ="reservation", cascade=CascadeType.ALL)
 	@ToString.Exclude
 	private List<Files> files;
 	

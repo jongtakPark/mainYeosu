@@ -31,6 +31,8 @@ public class CompanyService implements UserDetailsService {
 	private final CompanyRepository companyRepository;
 	private final ReservationRepository reservationRepository;
 	private final FileRepository fileRepository;
+	private final FileService fileService;
+	
 	//회원가입
 	public Company saveCompany(Company company) {
 		validateDuplicateCompany(company);
@@ -127,13 +129,10 @@ public class CompanyService implements UserDetailsService {
 	
 	//기업회원 예약신청 취소
 	public void reservationCancle(Long id) {
-		System.out.println("~~");
-		List<Files> files = fileRepository.findByReservationId(id);
-		System.out.println(files);
-		for(int i=0; i<files.size(); i++) {
-			fileRepository.deleteById(files.get(i).getId());
+		List<Files> files =  fileRepository.findByReservationId(id);
+		for(int i =0; i< files.size();i++) {
+			fileService.deleteComFile("C:/images/"+files.get(i).getImg());
 		}
 		reservationRepository.deleteById(id);
-		System.out.println("~~");
 	}
 }

@@ -6,4 +6,5 @@ import com.exposition.entity.Survey;
 
 public interface SurveyRepository extends JpaRepository<Survey, Long> {
 
+
 }
