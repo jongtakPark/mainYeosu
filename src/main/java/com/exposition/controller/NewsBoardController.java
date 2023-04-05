@@ -2,7 +2,6 @@ package com.exposition.controller;
 
 import java.security.Principal;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 import java.util.Random;
 
@@ -24,7 +23,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -43,7 +41,6 @@ import com.exposition.service.EventBoardService;
 import com.exposition.service.FileService;
 import com.exposition.service.MailService;
 import com.exposition.service.MemberService;
-import com.exposition.service.SurveyService;
 import com.exposition.service.TourBoardService;
 
 import lombok.RequiredArgsConstructor;
@@ -59,7 +56,7 @@ public class NewsBoardController {
 	private final MemberService memberService;
 	private final MailService mailService;
 	private final AnnouncementService announcementService;
-	private final SurveyService surveyService;
+	
 	//주변관광지 페이지 이동
 	@RequestMapping(value="/tour", method= {RequestMethod.GET, RequestMethod.POST})
 	public String tourPage(Model model, TourBoardDto tourBoardDto, Optional<Integer> page) {
@@ -349,13 +346,5 @@ public class NewsBoardController {
 		}
 		return "redirect:/news/announcement";
 	}
-	
-	//설문조사 결과
-	   @PostMapping(value="/surveyResult")
-	   public void surveyResult(@RequestParam(value="result[]") List<Long> result,Principal principal){
-		   String name = principal.getName();
-	      surveyService.save(result, name);
-
-	   }
 	
 }
