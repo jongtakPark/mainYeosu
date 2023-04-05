@@ -1,5 +1,8 @@
 package com.exposition.entity;
 
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -7,6 +10,7 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
@@ -66,6 +70,18 @@ public class Member {
 	private String approval; //자원봉사 봉사 지원 신청 Y/W/N
 
 	private Long eventBoardId;
+	
+	@OneToMany(mappedBy="member", cascade=CascadeType.REMOVE)
+	@ToString.Exclude
+	private List<Idea> idea;
+	
+	@OneToMany(mappedBy="member", cascade=CascadeType.REMOVE)
+	@ToString.Exclude
+	private List<Review> review;
+	
+	@OneToMany(mappedBy="member", cascade=CascadeType.REMOVE)
+	@ToString.Exclude
+	private List<Volunteer> volunteer;
 	
 	//스프링시큐리티 설정 클래스에(SecurityConfig.java) 등록한 BCryptPasswordEncoder Bean으로 파라미터로 넘겨서 비밀번호를 암호화
 	public static Member createMember(MemberFormDto memberFormDto, PasswordEncoder passwordEncoder) {
