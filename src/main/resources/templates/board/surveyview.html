@@ -17,7 +17,6 @@ layout:decorate="~{layouts/layout}">
        <ul>
            <li><a href="/board/review">관람후기</a></li>
            <li><a href="/board/idea">국민아이디어</a></li>
-           <li><a href="/board/survey">설문게시판</a></li>
            <li><a href="/board/volunteer" sec:authorize="hasAnyAuthority('ROLE_VOLUNTEER','ROLE_ADMIN')">자원봉사게시판</a></li>
        </ul>
    </div>
@@ -53,7 +52,7 @@ layout:decorate="~{layouts/layout}">
                     			<input type="radio" name="ck1" /><span>매우불만족</span>
                				 </div>
                 			<div class="survey_ck">
-                    			<p>2.추후 수정</p>
+                    			<p>2.설문 조사</p>
                     			<input type="radio" name="ck2" /><span>매우만족</span>
                     			<input type="radio" name="ck2" /><span>만족</span>
                     			<input type="radio" name="ck2" checked /><span>보통</span>
@@ -61,7 +60,7 @@ layout:decorate="~{layouts/layout}">
                     			<input type="radio" name="ck2" /><span>매우불만족</span>
                 			</div>
                 			<div class="survey_ck">
-                    			<p>3.추후 수정</p>
+                    			<p>3.설문 조사</p>
                     			<input type="radio" name="ck3" /><span>매우만족</span>
                     			<input type="radio" name="ck3" /><span>만족</span>
                     			<input type="radio" name="ck3" checked/><span>보통</span>
@@ -69,7 +68,7 @@ layout:decorate="~{layouts/layout}">
                     			<input type="radio" name="ck3" /><span>매우불만족</span>
                 			</div>
                 			<div class="survey_ck">
-                    			<p>4.추후 수정</p>
+                    			<p>4.설문 조사</p>
                     			<input type="radio" name="ck4" /><span>매우만족</span>
                     			<input type="radio" name="ck4" /><span>만족</span>
                     			<input type="radio" name="ck4" checked  /><span>보통</span>
@@ -91,7 +90,7 @@ layout:decorate="~{layouts/layout}">
     </form>
     <form th:action="@{/board/survey/delete/{id}(id=${session.id})}" th:method="delete">
     	<div class="delete">
-			<button type="submit" class="submit">삭제하기</button>
+			<button type="submit" class="submit" sec:authorize="hasAnyAuthority('ROLE_ADMIN')">삭제하기</button>
          </div>
     </form>
    </div>

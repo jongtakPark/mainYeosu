@@ -36,13 +36,9 @@ public class AnnouncementService {
 	}
 	
 	//공지사항 글 수정 저장
-//	public void announcementUpdate(Announcement announcement) {
-//		announcementRepository.save(announcement);
-//	}
-	
-	public void announcementUpdate(FreeBoardDto freeBoardDto) {
-		Announcement announcementUpdate = Announcement.createAnnouncement(freeBoardDto);
-		announcementRepository.save(announcementUpdate);
+	public void announcementUpdate(Announcement announcement, Member member) {
+		announcement.setMember(member);
+		announcementRepository.save(announcement);
 	}
 	
 	

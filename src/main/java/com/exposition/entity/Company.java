@@ -57,8 +57,7 @@ public class Company {
 	@Enumerated(EnumType.STRING)
 	private Role role;
 	
-	@OneToOne(mappedBy="company", cascade=CascadeType.ALL)
-	@JoinColumn(name = "reservation_id")
+	@OneToOne(mappedBy="company", cascade=CascadeType.REMOVE)
 	@ToString.Exclude
 	private Reservation reservation;
 

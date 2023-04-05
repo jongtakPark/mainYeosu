@@ -117,7 +117,7 @@
 		<div class="sidebar">
 			<div class="container">
 		<div class="mypage" sec:authorize="hasAnyAuthority('ROLE_COMPANY')">
-            <span><a href="/signup/commypage">마이페이지</a></span>
+            <span><a href="/signup/comMypage">마이페이지</a></span>
         </div>
         <div class="mypage" sec:authorize="hasAnyAuthority('ROLE_USER','ROLE_VOLUNTEER')">
             <span><a href="/signup/mypage">마이페이지</a></span>
@@ -148,7 +148,6 @@
             <div><a class="memberSubMenu" href="#">자유게시판
                 <div><a href="/board/review">관람후기</a></div>
                 <div><a href="/board/idea">국민아이디어</a></div>
-                <div><a href="/board/survey">설문게시판</a></div>
                 <div sec:authorize="hasAnyAuthority('ROLE_VOLUNTEER')"><a href="/board/volunteer">자원봉사게시판</a></div>
                 </a></div>
         </div>
@@ -169,7 +168,6 @@
            <div><a class="adminSubMenu" href="#">자유게시판
                <div><a href="/board/review">관람후기</a></div>
                <div><a href="/board/idea">국민아이디어</a></div>
-               <div><a href="/board/survey">설문게시판</a></div>
                <div><a href="/board/volunteer">자원봉사게시판</a></div>
            </a></div>
            <div><a class="adminSubMenu2" href="/lease/">업체등록</a></div>
@@ -194,7 +192,6 @@
            <div><a class="companySubMenu" href="#">자유게시판
                <div><a href="/board/review">관람후기</a></div>
                <div><a href="/board/idea">국민아이디어</a></div>
-               <div><a href="/board/survey">설문게시판</a></div>
            </a></div>
            <div><a class="companySubMenu2" href="/lease/">업체등록</a></div>
         </div> 

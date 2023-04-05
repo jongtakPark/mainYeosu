@@ -56,7 +56,7 @@ public class Member {
 	@Enumerated(EnumType.STRING)
 	private Role role;
 	
-	@ColumnDefault("'Y'")
+	@ColumnDefault("'N'")
 	private String survey;  //설문조사 참여 Y/N
 	
 	@ColumnDefault("'N'")

@@ -41,7 +41,7 @@ public class Volunteer extends BaseEntity{
 	@Column(length = 2000)
 	private String content; 
 	
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne
 	@JoinColumn(name = "member_id")
 	private Member member;
 	

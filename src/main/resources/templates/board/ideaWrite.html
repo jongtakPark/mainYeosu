@@ -24,6 +24,13 @@ $(document).ready(function(){
 			$(".upload-name").val(newList.join(''));
 		});
 	});
+	$("#succSubmit").on("click", function(){
+		if(confirm('글을 작성하시겠습니까?')){
+			alert("글을 작성하였습니다.");	
+		} else {
+			return false;
+		}
+	});	
 });
 </script>
 </head>
@@ -34,7 +41,6 @@ $(document).ready(function(){
        <ul>
            <li><a href="/board/review">관람후기</a></li>
            <li><a href="/board/idea">국민아이디어</a></li>
-           <li><a href="/board/survey">설문게시판</a></li>
            <li><a href="/board/volunteer" sec:authorize="hasAnyAuthority('ROLE_VOLUNTEER','ROLE_ADMIN')">자원봉사게시판</a></li>
        </ul>
    </div>
@@ -68,7 +74,7 @@ $(document).ready(function(){
                 <input class="upload-name" value="" disabled="disabled">
             </div>
             <div class="infosubmit">
-               <button type="submit">작성 글 등록</button>
+               <button type="submit" id="succSubmit">작성 글 등록</button>
             </div>
        </div>
        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">

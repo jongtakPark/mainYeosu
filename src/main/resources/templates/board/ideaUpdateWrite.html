@@ -30,7 +30,14 @@ $(document).ready(function(){
 			newList.push(a.name +"        ");
 			$(".upload-name").val(newList.join(''));
 		});
-	});	
+	});
+	$("#succSubmit").on("click", function(){
+		if(confirm('글을 수정하시겠습니까?')){
+			alert("글을 수정하였습니다.");	
+		} else {
+			return false;
+		}
+	});
 });
 </script>
 </head>
@@ -41,7 +48,6 @@ $(document).ready(function(){
        <ul>
            <li><a href="/board/review">관람후기</a></li>
            <li><a href="/board/idea">국민아이디어</a></li>
-           <li><a href="/board/survey">설문게시판</a></li>
            <li><a href="/board/volunteer" sec:authorize="hasAnyAuthority('ROLE_VOLUNTEER','ROLE_ADMIN')">자원봉사게시판</a></li>
        </ul>
    </div>
@@ -52,7 +58,7 @@ $(document).ready(function(){
            </div>
        </div>
        <div class="info_content">
-       <form th:method="put" enctype="multipart/form-data" action="/board/ideaUpdateNew">
+       <form th:method="put" enctype="multipart/form-data" action="/board/ideaUpdateNew" >
        <input type="hidden" th:field="${freeBoardDto.id}">
             <div class="info_title">
                 <div class="info_title_inner">
@@ -94,7 +100,7 @@ $(document).ready(function(){
                 <input class="upload-name" value="" disabled="disabled">
             </div>
             <div class="infosubmit1">
-               <button type="submit">수정등록</button>
+               <button type="submit" id="succSubmit">수정 글 등록</button>
             </div>
              <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
             </form>

@@ -17,7 +17,7 @@ layout:decorate="~{layouts/layout}">
             <div class="title_ent">
                 <span>일반회원</span>
             </div>
-             <form action="/signup/new" method="post" th:object="${memberFormDto}" onsubmit="return submitCheck();">
+             <form action="/signup/new" method="post" th:object="${memberFormDto}">
              <div class="per_a">
                  <div class="per_id"><span>아이디</span></div>
                  <div><input  class="per_tex" name="mid" id="mid" th:field="*{mid}" type="text" placeholder="  아이디를 입력해주세요"></div>

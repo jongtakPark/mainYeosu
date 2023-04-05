@@ -27,7 +27,7 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler {
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
     		Authentication authentication) throws IOException, ServletException {
-		clearSession(request);
+    	clearSession(request);
 		
 		SavedRequest savedRequest = requestCache.getRequest(request, response);
 		
@@ -48,7 +48,13 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler {
 			}
 		}
 		redirectStrategy.sendRedirect(request, response, uri);
+		
+		//로그인 성공시 아이디 저장
+		HttpSession session = request.getSession();
+		session.setAttribute("userId", authentication.getName());
+		session.setAttribute("userAuth", String.valueOf(authentication.getAuthorities().iterator().next()));
     }
+    
 
     //로그인 성공시 에러 세션 제거
     protected void clearSession(HttpServletRequest request) {

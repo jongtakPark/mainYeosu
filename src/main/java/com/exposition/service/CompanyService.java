@@ -1,5 +1,7 @@
 package com.exposition.service;
 
+import java.util.List;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.userdetails.User;
@@ -10,8 +12,13 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.exposition.dto.CompanyFormDto;
+import com.exposition.dto.CompanyModifyFormDto;
 import com.exposition.entity.Company;
+import com.exposition.entity.Files;
+import com.exposition.entity.Reservation;
 import com.exposition.repository.CompanyRepository;
+import com.exposition.repository.FileRepository;
+import com.exposition.repository.ReservationRepository;
 
 import lombok.RequiredArgsConstructor;
 
@@ -22,6 +29,9 @@ import lombok.RequiredArgsConstructor;
 public class CompanyService implements UserDetailsService {
 	
 	private final CompanyRepository companyRepository;
+	private final ReservationRepository reservationRepository;
+	private final FileRepository fileRepository;
+	private final FileService fileService;
 	//회원가입
 	public Company saveCompany(Company company) {
 		validateDuplicateCompany(company);
@@ -100,4 +110,28 @@ public class CompanyService implements UserDetailsService {
 		companyRepository.delete(company);
 	}
 
+	//기업회원 마이페이지 조회
+	public CompanyModifyFormDto findReservationByCom(String com) {
+		Company company = findByCom(com);
+		CompanyModifyFormDto companyModifyFormDto = CompanyModifyFormDto.of(company);
+		try {
+			Reservation reservation = reservationRepository.findByCompany(company);
+			companyModifyFormDto.setReservationId(reservation.getId());
+			companyModifyFormDto.setLocation(reservation.getLocation());
+			companyModifyFormDto.setStartDay(reservation.getStartDay());
+			companyModifyFormDto.setEndDay(reservation.getEndDay());
+		} catch (Exception e) {
+			return companyModifyFormDto;
+		}
+		return companyModifyFormDto;
+	}
+	
+	//기업회원 예약신청 취소
+	public void reservationCancel(Long id) {
+		List<Files> files =  fileRepository.findByReservationId(id);
+	      for(int i =0; i< files.size();i++) {
+	         fileService.deleteComFile("C:/images/"+files.get(i).getImg());
+	      }
+		reservationRepository.deleteById(id);
+	}
 }

@@ -13,6 +13,8 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -24,6 +26,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.exposition.dto.BoardMainDto;
@@ -34,11 +37,13 @@ import com.exposition.dto.TourBoardDto;
 import com.exposition.entity.Announcement;
 import com.exposition.entity.EventBoard;
 import com.exposition.entity.Member;
+import com.exposition.entity.Survey;
 import com.exposition.service.AnnouncementService;
 import com.exposition.service.EventBoardService;
 import com.exposition.service.FileService;
 import com.exposition.service.MailService;
 import com.exposition.service.MemberService;
+import com.exposition.service.SurveyService;
 import com.exposition.service.TourBoardService;
 
 import lombok.RequiredArgsConstructor;
@@ -54,6 +59,7 @@ public class NewsBoardController {
 	private final MemberService memberService;
 	private final MailService mailService;
 	private final AnnouncementService announcementService;
+	private final SurveyService surveyService;
 	
 	//주변관광지 페이지 이동
 	@RequestMapping(value="/tour", method= {RequestMethod.GET, RequestMethod.POST})
@@ -232,29 +238,34 @@ public class NewsBoardController {
 	
 	//공지사항 글쓰기 페이지 이동
 	@GetMapping(value="/announcementWrite")
-	public String announcementWrite(Model model, Principal principal) {
-		if(principal.getName().equals("admin")) {
+	public String announcementWrite(@AuthenticationPrincipal User user, Model model) {
+		if(String.valueOf(user.getAuthorities().iterator().next()).equals("ROLE_ADMIN")) {
 			model.addAttribute("freeBoardDto", new FreeBoardDto());
-		}else {
-			model.addAttribute("errorMessage", "꺼지세요.");
-			return "redirect:/news/announcement";
+		} else {
+			model.addAttribute("errorMessage", "관리자만 글을 작성 할수 있습니다.");
+			return "news/announcement";	
 		}
-		
 		return "news/announcementWrite";
 	}
 	
 	//공지사항 글 저장
 	@PostMapping(value="/announcementNew")
-	public String announcementNew(@Valid FreeBoardDto freeBoardDto, BindingResult bindingResult, Principal principal, Model model) {
+	public String announcementNew(@AuthenticationPrincipal User user, @Valid FreeBoardDto freeBoardDto, BindingResult bindingResult, Principal principal, Model model) {
 		if(bindingResult.hasErrors()) {
 			model.addAttribute("errorMessage", "제목과 내용을 입력해주세요.");
 			model.addAttribute("freeBoardDto", freeBoardDto);
 			return "news/announcementWrite";
 		}
 		try {
-			Member member = memberService.findByMid(principal.getName());
-			Announcement announcement = Announcement.createAnnouncement(freeBoardDto);
-			announcementService.announcementSave(announcement, member);
+			if(String.valueOf(user.getAuthorities().iterator().next()).equals("ROLE_ADMIN")) {
+				Member member = memberService.findByMid(user.getUsername());
+				Announcement announcement = Announcement.createAnnouncement(freeBoardDto);
+				announcementService.announcementSave(announcement, member);
+			} else {
+				model.addAttribute("errorMessage", "관리자만 글을 작성할 수 있습니다.");
+				model.addAttribute("freeBoardDto", freeBoardDto);
+				return "news/announcementWrite";
+			}
 		} catch(Exception e) {
 			e.printStackTrace();
 			model.addAttribute("errorMessage", "글 작성중 에러가 발생했습니다.");
@@ -275,38 +286,42 @@ public class NewsBoardController {
 	
 	//공지사항 수정 페이지 이동
 	@GetMapping(value="/announcementModify/{id}")
-	public String announcementModify(@PathVariable("id") Long id, Model model, Principal principal) {
+	public String announcementModify(@AuthenticationPrincipal User user, @PathVariable("id") Long id, Model model) {
 		Announcement announcement = announcementService.findById(id);
-		if(!announcement.getMember().getMid().equals(principal.getName())) {
-			if(principal.getName().equals("admin")) {
+		if(String.valueOf(user.getAuthorities().iterator().next()).equals("ROLE_ADMIN")) {
 				FreeBoardDto freeBoardDto = FreeBoardDto.of(announcement);
-				System.out.println(freeBoardDto);
 				model.addAttribute("freeBoardDto", freeBoardDto);
 			} else {
-				model.addAttribute("errorMessage", "글 작성자가 아니면 수정 할 수 없습니다.");
+				model.addAttribute("errorMessage", "관리자가 아니면 수정할 수 없습니다.");
 				FreeBoardDto freeBoardDto = FreeBoardDto.of(announcement);
 				model.addAttribute("freeBoardDto", freeBoardDto);
 				return "news/announcementView";
 			}
-		}
-		FreeBoardDto freeBoardDto = FreeBoardDto.of(announcement);
-		model.addAttribute("freeBoardDto", freeBoardDto);
 		return "news/announcementUpdate";
 	}
 	
 	//공지사항 수정 등록
 	@PutMapping(value="/announcementUpdate")
-	public String announcementUpdate(Model model,@Valid FreeBoardDto freeBoardDto, BindingResult bindingResult) {
+	public String announcementUpdate(@AuthenticationPrincipal User user, Model model,@Valid FreeBoardDto freeBoardDto, BindingResult bindingResult) {
 		if(bindingResult.hasErrors()) {
 			model.addAttribute("errorMessage", "제목과 내용을 입력해주세요.");
 			model.addAttribute("freeBoardDto", freeBoardDto);
 			return "news/announcementUpdate";
 		}
 		try {
-			announcementService.announcementUpdate(freeBoardDto);
+			if(String.valueOf(user.getAuthorities().iterator().next()).equals("ROLE_ADMIN")) {
+				Member member = memberService.findByMid(user.getUsername());
+				Announcement announcementUpdate = Announcement.createAnnouncement(freeBoardDto);
+				announcementService.announcementUpdate(announcementUpdate, member);
+			} else {
+				model.addAttribute("errorMessage", "관리자만 글을 수정할 수 있습니다.");
+				model.addAttribute("freeBoardDto", freeBoardDto);
+				return "news/announcementUpdate";
+			}
 		} catch(Exception e) {
 			e.printStackTrace();
 			model.addAttribute("errorMessage", "글 수정 중 에러가 발생했습니다");
+			model.addAttribute("freeBoardDto", freeBoardDto);
 			return "news/announcementUpdate";
 		}
 		return "redirect:/news/announcement";
@@ -314,29 +329,18 @@ public class NewsBoardController {
 	
 	//공지사항 삭제하기
 	@DeleteMapping(value="/announcementDelete/{id}")
-	public String announcementDelete(@PathVariable("id") Long id, Model model, Principal principal) {
+	public String announcementDelete(@AuthenticationPrincipal User user, @PathVariable("id") Long id, Model model, Principal principal) {
 		Announcement announcement = announcementService.findById(id);
-		if(!announcement.getMember().getMid().equals(principal.getName())) {
-			if(principal.getName().equals("admin")) {
-				try{
-					announcementService.announcementDelete(id);
-					model.addAttribute("succMessage", "글이 삭제 되었습니다.");
-				} catch(Exception e) {
-					model.addAttribute("errorMessage", "글 삭제 중 에러가 발생했습니다.");
-					FreeBoardDto freeBoardDto = FreeBoardDto.of(announcement);
-					model.addAttribute("freeBoardDto", freeBoardDto);
-					return "news/announcementView";
-				}
+		try{
+			if(String.valueOf(user.getAuthorities().iterator().next()).equals("ROLE_ADMIN")) {
+				announcementService.announcementDelete(id);
+				model.addAttribute("succMessage", "글이 삭제 되었습니다.");
 			} else {
-				model.addAttribute("errorMessage", "글 작성자가 아니면 삭제 할 수 없습니다.");
+				model.addAttribute("errorMessage", "관리자만 글을 삭제 할 수 있습니다.");
 				FreeBoardDto freeBoardDto = FreeBoardDto.of(announcement);
 				model.addAttribute("freeBoardDto", freeBoardDto);
 				return "news/announcementView";
 			}
-		}
-		try{
-			announcementService.announcementDelete(id);
-			model.addAttribute("succMessage", "글이 삭제 되었습니다.");
 		} catch(Exception e) {
 			model.addAttribute("errorMessage", "글 삭제 중 에러가 발생했습니다.");
 			FreeBoardDto freeBoardDto = FreeBoardDto.of(announcement);
@@ -344,6 +348,28 @@ public class NewsBoardController {
 			return "news/announcementView";
 		}
 		return "redirect:/news/announcement";
+	}
+	
+	//설문조사 페이지로 이동
+	@GetMapping(value="/survey")
+	public String survey(Principal principal, Model model) {
+		try {
+			Survey survey = surveyService.checkSurvey(principal.getName());
+			if(survey!=null) {
+				model.addAttribute("errorMessage", "이미 설문조사를 완료하였습니다.");
+			}
+		} catch(Exception e){
+			model.addAttribute("errorMessage", "페이지 이동중 오류가 발생했습니다.");
+		}
+		return "news/survey";
+	}
+	
+	//설문조사 결과
+	@PostMapping(value="/surveyResult")
+	@ResponseBody
+	public String surveyResult(@RequestParam(value="result[]") List<Long> result, Principal principal) {
+		surveyService.surveySave(result, principal.getName());
+		return "succcess";
 	}
 	
 }

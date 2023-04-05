@@ -7,11 +7,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import javax.validation.constraints.NotEmpty;
-
-import com.exposition.dto.FreeBoardDto;
 
 import lombok.Data;
 
@@ -26,25 +23,16 @@ public class Survey extends BaseEntity{
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 		
-	// 제목
-	@NotEmpty(message = "제목을 적어주세요.")
-	private String title;
-
-	// 내용
-	@Column(length = 2000)
-	private String content; 
+	private Long first;
+	private Long second;
+	private Long third;
+	private Long fourth;
 		
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@OneToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "member_id")
 	private Member member;
 		
 
-	public static Survey createSurvey(FreeBoardDto freeBoardDto) {
-		Survey survey = new Survey();
-		survey.setTitle(freeBoardDto.getTitle());
-		survey.setContent(freeBoardDto.getContent());
-		survey.setId(freeBoardDto.getId());
-		return survey;
-	}
+	
 }

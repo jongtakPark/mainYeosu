@@ -2,6 +2,7 @@ package com.exposition;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.web.filter.HiddenHttpMethodFilter;
 
@@ -17,5 +18,11 @@ public class ExpositionApplication {
 	public HiddenHttpMethodFilter hiddenHttpMethodFilter(){
 		return new HiddenHttpMethodFilter();
 	}
-
+	
+	@SpringBootApplication public class App extends SpringBootServletInitializer {
+	    public App() {
+	        super();
+	        setRegisterErrorPageFilter(false); // <- this one
+	    }
+	}
 }

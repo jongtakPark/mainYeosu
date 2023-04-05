@@ -25,6 +25,12 @@ public class CompanyModifyFormDto {
     
 	private String confirmPassword;
 	
+	private String approval;
+	private Long reservationId;
+	private String location;
+	private String startDay;
+	private String endDay;
+	
 	private static ModelMapper modelMapper = new ModelMapper();
 	
 	public static CompanyModifyFormDto of(Company company) {

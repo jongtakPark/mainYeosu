@@ -25,6 +25,13 @@ $(document).ready(function(){
 			$(".upload-name").val(newList.join(''));
 		});
 	});
+	$("#succSubmit").on("click", function(){
+		if(confirm('글을 작성하시겠습니까?')){
+			alert("글을 작성하였습니다.");	
+		} else {
+			return false;
+		}
+	});
 });
 </script>
 </head>
@@ -69,7 +76,7 @@ $(document).ready(function(){
                 <input class="upload-name" value="" disabled="disabled">
             </div>
             <div class="info_submit">
-               <button type="submit" class="submit">작성 글 등록</button>
+               <button type="submit" class="submit" id="succSubmit">작성 글 등록</button>
             </div>
         
        </div>

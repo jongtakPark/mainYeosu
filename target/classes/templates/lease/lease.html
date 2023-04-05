@@ -22,13 +22,13 @@ $(document).ready(function(){
         <div class="attend">
             <h1>임대문의</h1>
             <div class="cont_image">
-                <form action="/lease/calendar" th:object="${reservationDto}">
+                <form action="/lease/calendar" th:object="${reservationDto}" onsubmit="return confirm('Aa101 선택 하시겠습니까?');">
                 <div class="a-1">
                     <input type="hidden" name="location" value="Aa101">
                     <input type="submit" value="Aa101">
                 </div>
                 </form>
-                <form action="/lease/calendar" th:object="${reservationDto}">
+                <form action="/lease/calendar" th:object="${reservationDto}" onsubmit="return confirm('Aa102 선택 하시겠습니까?');">
                 <div class="a-2">
                     <input type="hidden" name="location" value="Aa102">
                     <input type="submit" value="Aa102">
@@ -88,31 +88,31 @@ $(document).ready(function(){
                 <div class="a-20">
                     <p>Ac-102</p>
                 </div>
-                <form action="/lease/calendar" th:object="${reservationDto}">
+                <form action="/lease/calendar" th:object="${reservationDto}" onsubmit="return confirm('Ba101 선택 하시겠습니까?');">
                 <div class="b-1">
                     <input type="hidden" name="location" value="Ba101">
                     <input type="submit" value="Ba101">
                 </div>
                 </form>
-                <form action="/lease/calendar" th:object="${reservationDto}">
+                <form action="/lease/calendar" th:object="${reservationDto}" onsubmit="return confirm('Ba102 선택 하시겠습니까?');">
                 <div class="b-2">
                     <input type="hidden" name="location" value="Ba102">
                     <input type="submit" value="Ba102">
                 </div>
                 </form>
-                <form action="/lease/calendar" th:object="${reservationDto}">
+                <form action="/lease/calendar" th:object="${reservationDto}" onsubmit="return confirm('Ba103 선택 하시겠습니까?');">
                 <div class="b-3">
                     <input type="hidden" name="location" value="Ba103">
                     <input type="submit" value="Ba103">
                 </div>
                 </form>
-                <form action="/lease/calendar" th:object="${reservationDto}">
+                <form action="/lease/calendar" th:object="${reservationDto}" onsubmit="return confirm('Ba104 선택 하시겠습니까?');">
                 <div class="b-4">
                     <input type="hidden" name="location" value="Ba104">
                     <input type="submit" value="Ba104">
                 </div>
                 </form>
-                <form action="/lease/calendar" th:object="${reservationDto}">
+                <form action="/lease/calendar" th:object="${reservationDto}" onsubmit="return confirm('Ba105 선택 하시겠습니까?');">
                 <div class="b-5">
                     <input type="hidden" name="location" value="Ba105">
                     <input type="submit" value="Ba105">
