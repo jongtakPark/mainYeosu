@@ -16,6 +16,20 @@ $(document).ready(function(){
 	if(succMessage != null){
 		alert(succMessage);
 	}
+	$("#deleteSubmit").on("click", function(){
+		if(confirm('탈퇴하시겠습니까?')){
+			alert("탈퇴 되었습니다.");	
+		} else {
+			return false;
+		}
+	});
+	$("#cancelSubmit").on("click", function(){
+		if(confirm('예약을 취소하시겠습니까?')){
+			alert("예약이 취소되었습니다.");	
+		} else {
+			return false;
+		}
+	});
 });
 </script>
 </head> 
@@ -72,10 +86,10 @@ $(document).ready(function(){
              <script type="text/javascript" src="/javascript/companyModify.js"></script>  
              </form>
 			<form th:action="@{/signup/comDelete/{com}(com=${companyModifyFormDto.com})}" th:method="delete">
-				<input type="submit" class="withdrawal" value="탈퇴">
+				<input type="submit" class="withdrawal" value="탈퇴" id="deleteSubmit">
 			</form>
 			<form th:action="@{/signup/cancel/{id}(id=${companyModifyFormDto.reservationId})}" th:method="put">
-				<input type="submit" class="cancleSubmit" value="예약취소">
+				<input th:if="${companyModifyFormDto.reservationId != null}"type="submit" class="cancleSubmit" value="예약취소" id="cancelSubmit">
 			</form>
         </div>
         </div>

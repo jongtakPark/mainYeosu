@@ -16,6 +16,13 @@ $(document).ready(function(){
 	if(succMessage != null){
 		alert(succMessage);
 	}
+	$("#deleteSubmit").on("click", function(){
+		if(confirm('탈퇴하시겠습니까?')){
+			alert("탈퇴 되었습니다.");	
+		} else {
+			return false;
+		}
+	});
 });
 </script>
 </head> 
@@ -58,7 +65,7 @@ $(document).ready(function(){
              <script type="text/javascript" src="/javascript/memberModify.js"></script> 
              </form>
          <form th:action="@{/signup/memDelete/{mid}(mid=${memberModifyFormDto.mid})}" th:method="delete">
-            <input type="submit" class="withdrawal" value="탈퇴">
+            <input type="submit" class="withdrawal" value="탈퇴" id="deleteSubmit">
          </form>
         </div>
         </div>
