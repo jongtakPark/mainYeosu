@@ -8,6 +8,7 @@ import java.util.Random;
 import javax.persistence.EntityNotFoundException;
 import javax.validation.Valid;
 
+import org.apache.tomcat.util.codec.binary.Base64;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
