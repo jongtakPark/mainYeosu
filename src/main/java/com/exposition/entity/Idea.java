@@ -5,6 +5,7 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -15,7 +16,8 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
 
 import com.exposition.dto.FreeBoardDto;
-import com.exposition.dto.IdeaDto;
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility;
 
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
@@ -25,6 +27,7 @@ import lombok.ToString;
 @Data
 @Table(name="idea")
 @RequiredArgsConstructor
+@JsonAutoDetect(fieldVisibility = Visibility.ANY)
 public class Idea extends BaseEntity{
 
 	// 글번호
@@ -42,11 +45,11 @@ public class Idea extends BaseEntity{
 	private String content; 
 	
 
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "member_id")
 	private Member member;
 	
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "company_id")
 	private Company company;
 	

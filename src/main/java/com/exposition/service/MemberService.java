@@ -109,6 +109,13 @@ public class MemberService implements UserDetailsService {
 		}
 	}
 	
+	//일반회원이 자원봉사 신청
+	public void appVolunteer(String mid) {
+		Member member = memberRepository.findByMid(mid);
+		member.setApproval("W");
+		memberRepository.save(member);
+	}
+	
 	// 자원봉사 신청한 회원 조회
 	public Page<MemberFormDto> findByAppVolunteer(MemberFormDto memberFormDto, Pageable pageable){
 		return memberRepository.getAppVolunteer(memberFormDto, pageable);

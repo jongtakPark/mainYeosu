@@ -320,4 +320,11 @@ public class MemberController{
        session.invalidate();
        return "redirect:/";
     }
+    
+    //일반회원이 자원봉사 신청
+    @PutMapping(value="/appVolunteer")
+    public String appVolunteer(Principal principal) {
+    	memberService.appVolunteer(principal.getName());
+    	return "redirect:/news/announcement";
+    }
 }
