@@ -9,6 +9,7 @@
         font-size: 40px;
         margin: auto;
         width: 18%;
+        
     }
     
     .login_id{
@@ -36,7 +37,17 @@
         height: 40px;
         margin-left: 260px;
         margin-top: 30px;
+        color: #666;
+    border : 2px solid #666;
+    cursor:pointer;
+    font-weight: bold;
+    transition: 0.2s;
+    background: #99DDEE;
     }
+    .login  > button:hover{
+    background-color: #39A3C0;
+    color: #fff;
+}
     
     .findlogin{
         width: 45%;
