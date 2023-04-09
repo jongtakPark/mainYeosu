@@ -69,7 +69,6 @@ public class NewsBoardController {
 		Pageable pageable = PageRequest.of(page.isPresent()? page.get() : 0 , 6);
 		Page<BoardMainDto> tourBoardList = tourBoardService.getBoardMainPage(tourBoardDto, pageable);
 		model.addAttribute("tourboards", tourBoardList);
-		System.out.println(tourBoardList.getContent());
 		int nowPage = tourBoardList.getPageable().getPageNumber() + 1 ;
 	    int startPage =  Math.max(nowPage - 4, 1);
 	    int endPage = Math.min(nowPage+9, tourBoardList.getTotalPages());

@@ -26,15 +26,16 @@ public class ReservationService {
 	private final ReservationRepository reservationRepository;
 	private final FileService fileService;
 	private final FileRepository fileRepository;
+	private final BoardService boardService;
 	
 	//업체 등록
 	public Reservation saveReservation(List<MultipartFile> files, ReservationDto reservationDto) throws Exception {
 		Reservation reservation = reservationDto.createTourBoard();
 		reservationRepository.save(reservation);
 		for(int i=0; i<files.size(); i++) {
-			Files file = new Files();
+			Files file = boardService.saveCloud(files.get(i));
 			file.setReservation(reservation);
-			fileService.saveFile(file, files.get(i));
+			fileRepository.save(file);
 		}
 		return reservation;
 	}
@@ -57,8 +58,9 @@ public class ReservationService {
 			List<FileDto> fileDtoList = new ArrayList<>();
 			for(Files file : fileList) {
 				FileDto fileDto = FileDto.of(file);
+				fileDto.setSavePath("https://storage.googleapis.com/yeosu11/"+file.getSavePath());
 				fileDtoList.add(fileDto);
-			}
+			}	
 			reservationDto.get(i).setFileDtoList(fileDtoList);
 		}
 		return reservationDto;
