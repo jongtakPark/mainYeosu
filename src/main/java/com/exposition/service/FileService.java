@@ -51,7 +51,8 @@ public class FileService {
 		
 		if(!StringUtils.isEmpty(oriImg)) {
 			img = uploadFile(itemImgLocation, oriImg, files.getBytes());
-			savePath = "/img/images/" + img;
+//			savePath = "/img/images/" + img;
+			savePath = file.getSavePath();
 
 		}
 		
@@ -68,7 +69,8 @@ public class FileService {
 			
 		if(!StringUtils.isEmpty(oriImg)) {
 			img = uploadFile(itemImgLocation, oriImg, files.getBytes());
-			backSavePath = "/img/images/" + img;
+//			backSavePath = "/img/images/" + img;
+			backSavePath = file.getSavePath();
 		}
 			
 		file.updateBackFile(img, oriImg, backSavePath);
@@ -92,7 +94,7 @@ public class FileService {
 	
 	//주변관광지 게시글 id로 첨부파일 찾기
 	public List<Files> findByTourBoardId(Long tourBoardId) {
-		return fileRepository.findByTourboardId(tourBoardId);
+		return fileRepository.findByTourBoardId(tourBoardId);
 	}
 	
 	//관람후기 게시글 id로 첨부파일 찾기
@@ -127,5 +129,7 @@ public class FileService {
 			deleteFile.delete();
 		} 
 	}
+
+
 	
 }

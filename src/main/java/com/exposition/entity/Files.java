@@ -27,7 +27,7 @@ public class Files extends BaseEntity {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 	
-	//처음 파일 이름을 바꾼 이름
+	//파일 이름
 	private String img;
 
 	//처음 파일 이름
@@ -44,7 +44,7 @@ public class Files extends BaseEntity {
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name="tourboard_id")
-	private TourBoard tourboard;
+	private TourBoard tourBoard;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name="freeboard_id")

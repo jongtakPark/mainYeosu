@@ -95,7 +95,7 @@ public class IntroductionController {
 
 	//여수섬 키워드 글 삭제
 	   @PostMapping(value="/delete")
-	   public String Keyworddelete(@RequestParam(value="valueArr[]") List<Long> id) {
+	   public String Keyworddelete(@RequestParam(value="valueArr[]") List<Long> id) throws Exception{
 		   keywordService.delete(id);
 		   return "redirect:/introduction/keyword";
 	   }

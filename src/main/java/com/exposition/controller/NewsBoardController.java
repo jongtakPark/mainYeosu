@@ -69,6 +69,7 @@ public class NewsBoardController {
 		Pageable pageable = PageRequest.of(page.isPresent()? page.get() : 0 , 6);
 		Page<BoardMainDto> tourBoardList = tourBoardService.getBoardMainPage(tourBoardDto, pageable);
 		model.addAttribute("tourboards", tourBoardList);
+		System.out.println(tourBoardList.getContent());
 		int nowPage = tourBoardList.getPageable().getPageNumber() + 1 ;
 	    int startPage =  Math.max(nowPage - 4, 1);
 	    int endPage = Math.min(nowPage+9, tourBoardList.getTotalPages());
@@ -162,7 +163,7 @@ public class NewsBoardController {
 	
 	//주변 관광지 글 삭제하기(첨부파일이 있을 경우 첨부파일을 먼저 지우고 게시글을 지워야 한다)
 	@DeleteMapping(value="delete/{id}")
-	public String deleteBoard(@PathVariable("id") Long id) {
+	public String deleteBoard(@PathVariable("id") Long id) throws Exception{
 		tourBoardService.deleteBoard(id);
 		return "redirect:/news/tour";
 	}
