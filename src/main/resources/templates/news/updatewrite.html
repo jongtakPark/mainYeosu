@@ -6,9 +6,12 @@ layout:decorate="~{layouts/layout}">
     <meta charset="UTF-8">
     <title>주변관광지수정창</title>
 <link rel="stylesheet" th:href="@{/css/tourboardview.css}">
-<th:block layout:fragment="script">
 <script th:inline="javascript">
 $(document).ready(function(){
+	var errorMessage = [[${errorMessage}]];
+	if(errorMessage != null){
+		alert(errorMessage);
+	}
 	var fileList = [[${tourBoardDto}]];
 	var list = new Array();
 	$.each(fileList.fileDtoList, function(i,e){
@@ -44,7 +47,6 @@ $(document).ready(function(){
 	});
 });
 </script>
-</th:block>
 </head>
 
 <body>

@@ -139,21 +139,20 @@ public class NewsBoardController {
 	}
 	
 	//주변 관광지 글 수정 등록
-	@PutMapping(value="update/{id}")
+	@PutMapping(value="/update/{id}")
 	public String updatesucc(@Valid TourBoardDto tourBoardDto, BindingResult bindingResult, Model model, @RequestParam("files") List<MultipartFile> fileList) throws Exception {
 		if(bindingResult.hasErrors()) {
 			model.addAttribute("errorMessage", "제목을 입력해주세요.");
 			model.addAttribute("tourBoardDto", tourBoardDto);
 			return "news/updatewrite";
 		}
-
-		if(fileList.get(0).isEmpty()) {
-			model.addAttribute("errorMessage", "첫번째 이미지는 필수입니다.");
-			model.addAttribute("tourBoardDto", tourBoardDto);
-			return "news/updatewrite";
-		}
 		try {
-			tourBoardService.updateTourBoard(tourBoardDto, fileList);
+			if(fileList.get(0).isEmpty()) {
+				tourBoardService.updateOnlyTourBoard(tourBoardDto, fileList);
+				return "redirect:/news/tour";
+			} else {
+				tourBoardService.updateTourBoard(tourBoardDto, fileList);
+			}
 		} catch (Exception e) {
 			model.addAttribute("errorMessage", "글 수정 중 에러가 발생하였습니다.");
 			return "news/updatewrite";

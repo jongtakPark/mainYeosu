@@ -18,6 +18,7 @@ import javax.validation.constraints.NotEmpty;
 import com.exposition.dto.FreeBoardDto;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.Data;
 import lombok.RequiredArgsConstructor;

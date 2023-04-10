@@ -22,6 +22,7 @@ import com.exposition.constant.Role;
 import com.exposition.dto.EventMemberDto;
 import com.exposition.dto.MemberFormDto;
 import com.exposition.dto.MemberModifyFormDto;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import groovyjarjarantlr4.v4.runtime.misc.NotNull;
 import lombok.Data;
@@ -30,8 +31,8 @@ import lombok.ToString;
 @Entity
 @Table(name="member")
 @Data
-@ToString
 @DynamicInsert
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Member {
 	
 	@Id
