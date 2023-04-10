@@ -1,6 +1,5 @@
 package com.exposition.config;
 
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.Ordered;
@@ -10,6 +9,8 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
@@ -48,14 +49,18 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 		.mvcMatchers("/board/volunteer**","/board/volunteer**/**").hasAnyRole("VOLUNTEER","ADMIN")
 		.mvcMatchers("/introduction/keywordWrite","/introduction/keywordSave","/admin/**","/news/tourwrite","/news/modify/**","/news/delete/**","/news/eventboardwrite").hasRole("ADMIN")
 		.mvcMatchers("/board/reviewWrite","/board/ideaWrite").hasAnyRole("USER","VOLUNTEER","COMPANY","ADMIN")
-		.mvcMatchers("signup/mypage").hasAnyRole("USER","VOLUNTEER")
+		.mvcMatchers("signup/mypage","/news/surveyResult").hasAnyRole("USER","VOLUNTEER")
 		.mvcMatchers("signup/commypage").hasRole("COMPANY")
 		.mvcMatchers("/lease/**").hasAnyRole("ADMIN","COMPANY")
-		.mvcMatchers("/","/signup/**","/board/**","/introduction/**","/attend/**","/news/**","/board/review","/board/reviewView/**","/board/idea","/board/ideaView/**").permitAll() // 모든 사용자 인증없이 해당경로에 접근하도록 설정
+		.mvcMatchers("/","/signup/**","/board/**","/introduction/**","/attend/**","/news/**","/board/review","/board/reviewView/**","/board/idea","/board/ideaView/**","/news/**","/mail/**").permitAll() // 모든 사용자 인증없이 해당경로에 접근하도록 설정
 		.anyRequest().authenticated(); // 나머지 경로들은 모두 인증을 요구하도록 설정
 		
 		http.exceptionHandling() // 인증되지 않은 사용자가 리소스에 접근하였을 때 수행되는 핸들러 등록
-		.accessDeniedPage("/error_user");
+//		.authenticationEntryPoint(new CustomAuthenticationEntryPoint())
+//		.accessDeniedHandler(new CustomAccessDeniedHandler()); 
+		.accessDeniedPage("/");
+		
+		
 	}
 	
 	
@@ -77,7 +82,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 	
 	@Override
 	public void configure(WebSecurity web) throws Exception {
-		web.ignoring().antMatchers("/css/**", "/javascript/**", "/images/**","/video/**" , "/error", "/docs/**", "/image/**");
+		web.ignoring().antMatchers("/css/**", "/javascript/**", "/images/**","/img/**","/video/**" , "/error", "/docs/**");
 	}
 	
 }

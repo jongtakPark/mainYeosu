@@ -59,19 +59,30 @@
         }
 
         .com_find_body {
-            border: 1px solid gray;
             height: 475px;
         }
     
         .com_form_ {
             width: 100%;
         }
-    
+
         .com_ck {
             margin-top: 20px;
             margin-left: 45%;
         }
-    
+        .com_ck > button {
+        	width : 100px;
+        	height : 30px;
+        	background: #99DDEE;
+        	border-radius: 5px;
+        	color: #666;
+        }
+
+    .com_ck > button:hover{
+    	color: #fff;
+    	background-color: #39A3C0;
+    }
+
         .com_form_id {
             margin-top: 50px;
             width: 100%;
@@ -89,12 +100,10 @@
     
         
         .per_find_body_id {
-            border: 1px solid gray;
             height: 475px;
         }
     
         .per_find_body_pw {
-            border: 1px solid gray;
             height: 475px;
         }
 
@@ -110,6 +119,17 @@
             margin-top: 20px;
             margin-left: 45%;
         }
+        .per_ck > button {
+        	width : 100px;
+        	height : 30px;
+        	background: #99DDEE;
+        	border-radius: 5px;
+        	color: #666;
+        }
+        .per_ck > button:hover{
+    	color: #fff;
+    	background-color: #39A3C0;
+    }
     
         .per_form_id {
             margin-top: 50px;

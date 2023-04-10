@@ -63,7 +63,12 @@ $(document).ready(function(){
                     </tr>
                 </tbody>
             </table> 
-              
+              <div class="pagebtn">
+			<th:block th:each="page:${#numbers.sequence(startPage,endPage)}">
+            <a th:if="${page==0? page==1 : page != nowPage}" th:href="@{/news/announcement(page=${page-1})}" th:text ="${page}"></a>
+            <strong th:if="${page==nowPage}" th:text ="${page}" style="color:red"></strong>
+       		 </th:block>
+			</div>    
         </div>
    </div>   
    <a href="/news/announcementWrite" class="write" sec:authorize="hasAnyAuthority('ROLE_ADMIN')">글쓰기</a>

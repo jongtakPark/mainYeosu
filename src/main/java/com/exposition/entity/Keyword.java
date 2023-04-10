@@ -36,8 +36,8 @@ public class Keyword {
 	private String content;
 	
 	@OneToMany(mappedBy="keyword", cascade=CascadeType.ALL)
-	   @ToString.Exclude
-	   private List<Files> fileList;
+	@ToString.Exclude
+	private List<Files> fileList;
 	
 	public static Keyword createTourBoard(TourBoardDto tourBoardDto) {
 		Keyword keyword = new Keyword();

@@ -29,7 +29,7 @@ public class Volunteer extends BaseEntity{
 
 	// 글번호
 	@Id
-	@Column(name="review_id")
+	@Column(name="volunteer_id")
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 			

@@ -273,7 +273,6 @@ public class MemberController{
 	@GetMapping(value="/comMypage")
 	public String commypage(Model model, Principal principal) {
 		CompanyModifyFormDto companyModifyFormDto = companyService.findReservationByCom(principal.getName());
-		System.out.println(companyModifyFormDto);
 	    model.addAttribute("companyModifyFormDto", companyModifyFormDto);
 	   return "member/companyModify";
 	}
@@ -300,12 +299,12 @@ public class MemberController{
 	}
 	
 	//기업 예약 신청 취소
-	@PutMapping(value="/cancle/{id}")
-	public String cancle(@PathVariable Long id, Model model, Principal principal) {
+	@PutMapping(value="/cancel/{id}")
+	public String cancel(@PathVariable Long id, Model model, Principal principal) {
 		try {
 			Company company = companyService.findByCom(principal.getName());
 			company.setApproval("예약없음");
-			companyService.reservationCancle(id);
+			companyService.reservationCancel(id);
 		} catch(Exception e) {
 			model.addAttribute("errorMessage", "예약삭제중 에러가 발생했습니다");
 			return "redirect:/";
@@ -320,5 +319,12 @@ public class MemberController{
        companyService.deleteCom(company);
        session.invalidate();
        return "redirect:/";
+    }
+    
+    //일반회원이 자원봉사 신청
+    @PutMapping(value="/appVolunteer")
+    public String appVolunteer(Principal principal) {
+    	memberService.appVolunteer(principal.getName());
+    	return "redirect:/news/announcement";
     }
 }

@@ -15,13 +15,13 @@ import com.exposition.entity.Files;
 import com.exposition.entity.Keyword;
 import com.exposition.repository.KeywordRepository;
 
+
 import lombok.RequiredArgsConstructor;
 
 @Service
 @Transactional
 @RequiredArgsConstructor
 public class KeywordService {
-
 	private final KeywordRepository keywordRepository;
 	private final FileService fileService;
 	
@@ -34,28 +34,18 @@ public class KeywordService {
 	public Keyword saveTour(List<MultipartFile> files, TourBoardDto tourBoardDto) throws Exception {
 		Keyword keyword = tourBoardDto.createKeyword();
 		keywordRepository.save(keyword);
-		Files file = new Files();
-		for(int i=0; i<files.size(); i++) {
-			file.setKeyword(keyword);
-			if(i==0) 
-				fileService.saveFile(file, files.get(i));
-			else
-				fileService.saveKeyword(file, files.get(i));
-			
-		}
+		fileService.saveFile(files, keyword);
+
 		return keyword;
 	}
 	
-	public void delete(List<Long> id) {
+	// 여수섬 키워드 삭제
+	public void delete(List<Long> id) throws Exception{
 		List<Files> files = new ArrayList<>();
 		for(int i =0; i<id.size();i++) {
 			files.addAll(fileService.findByKeyworBoardId(id.get(i)));
 		}
-		for(int i =0; i<files.size(); i++) {
-			keywordRepository.deleteById(id.get(i));
-			fileService.deleteComFile("C:/images/"+files.get(i).getBackSavePath().substring(13));
-			fileService.deleteComFile("C:/images/"+files.get(i).getSavePath().substring(13));
-		}
-		
+		fileService.deleteKeyword(files, id);
+
 	}
 }

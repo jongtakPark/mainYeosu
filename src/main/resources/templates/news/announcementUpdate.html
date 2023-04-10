@@ -4,7 +4,7 @@ xmlns:layout=http://www.ultraq.net.nz/thymeleaf/layout
 layout:decorate="~{layouts/layout}">
 <head>
     <meta charset="UTF-8">
-    <title>주변관광지 상세보기</title>
+    <title>공지사항 수정창</title>
 <link rel="stylesheet" th:href="@{/css/tourboardview.css}">
 <script th:inline="javascript">
 $(document).ready(function(){
@@ -41,7 +41,7 @@ $(document).ready(function(){
                <span>공지사항 수정</span>
            </div>
        </div>
-	<form th:method="put" th:object="${freeBoardDto}" onsubmit="return confirm('글 수정을 하시겠습니까?');">
+	<form th:method="put" th:object="${freeBoardDto}">
        <div class="info_content">
             <div class="info_title">
                 <div class="info_title_inner">

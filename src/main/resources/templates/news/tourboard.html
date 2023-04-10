@@ -24,7 +24,7 @@ layout:decorate="~{layouts/layout}">
 					<th:block th:each="tourboard, status:${tourboards.getContent()}">
                         <div class="photo">
                             <div class="photo_pic">
-								<img th:src="${tourboard.savePath}">
+								<img th:src="@{https://storage.googleapis.com/yeosu11/} + ${tourboard.savePath}">
                             </div>
                             <div class="photo_tit">
                                <a th:href="@{/news/view/{tourBoardId}(tourBoardId=${tourboard.id})}"><span th:text="${tourboard.title}"></span></a> 

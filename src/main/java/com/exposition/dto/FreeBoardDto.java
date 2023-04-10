@@ -13,6 +13,7 @@ import com.exposition.entity.Member;
 import com.exposition.entity.Review;
 import com.exposition.entity.Survey;
 import com.exposition.entity.Volunteer;
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
 
 import lombok.Data;
 
@@ -29,7 +30,7 @@ public class FreeBoardDto {
 	
 	private String modifiedBy;
 	
-	private Member member;
+//	private Member member;
 	
 	private List<FileDto> fileDtoList = new ArrayList<>();
 

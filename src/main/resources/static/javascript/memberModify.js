@@ -72,7 +72,10 @@ $("#password").focus(function(){
 $("#modify").click(function submitCheck(){
    var eMsg = $("#passwordMsg");
    if(submitPw == false){
+   showErrorMsg(eMsg,"필수 정보입니다.");
+   alert("비밀번호를 확인해주세요");
    return false;
    }
+   alert("정보가 수정되었습니다");
    return true;
    });   

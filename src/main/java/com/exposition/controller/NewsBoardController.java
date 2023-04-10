@@ -8,6 +8,7 @@ import java.util.Random;
 import javax.persistence.EntityNotFoundException;
 import javax.validation.Valid;
 
+import org.apache.tomcat.util.codec.binary.Base64;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -26,6 +27,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.exposition.dto.BoardMainDto;
@@ -35,12 +37,15 @@ import com.exposition.dto.FreeBoardDto;
 import com.exposition.dto.TourBoardDto;
 import com.exposition.entity.Announcement;
 import com.exposition.entity.EventBoard;
+import com.exposition.entity.Files;
 import com.exposition.entity.Member;
+import com.exposition.entity.Survey;
 import com.exposition.service.AnnouncementService;
 import com.exposition.service.EventBoardService;
 import com.exposition.service.FileService;
 import com.exposition.service.MailService;
 import com.exposition.service.MemberService;
+import com.exposition.service.SurveyService;
 import com.exposition.service.TourBoardService;
 
 import lombok.RequiredArgsConstructor;
@@ -56,11 +61,12 @@ public class NewsBoardController {
 	private final MemberService memberService;
 	private final MailService mailService;
 	private final AnnouncementService announcementService;
+	private final SurveyService surveyService;
 	
 	//주변관광지 페이지 이동
 	@RequestMapping(value="/tour", method= {RequestMethod.GET, RequestMethod.POST})
 	public String tourPage(Model model, TourBoardDto tourBoardDto, Optional<Integer> page) {
-		
+	
 		Pageable pageable = PageRequest.of(page.isPresent()? page.get() : 0 , 6);
 		Page<BoardMainDto> tourBoardList = tourBoardService.getBoardMainPage(tourBoardDto, pageable);
 		model.addAttribute("tourboards", tourBoardList);
@@ -133,20 +139,20 @@ public class NewsBoardController {
 	}
 	
 	//주변 관광지 글 수정 등록
-	@PutMapping(value="update/{id}")
-	public String updatesucc(@Valid TourBoardDto tourBoardDto, BindingResult bindingResult, Model model, @RequestParam("files") List<MultipartFile> fileList) {
+	@PutMapping(value="/update/{id}")
+	public String updatesucc(@Valid TourBoardDto tourBoardDto, BindingResult bindingResult, Model model, @RequestParam("files") List<MultipartFile> fileList) throws Exception {
 		if(bindingResult.hasErrors()) {
 			model.addAttribute("errorMessage", "제목을 입력해주세요.");
 			model.addAttribute("tourBoardDto", tourBoardDto);
 			return "news/updatewrite";
 		}
-		if(fileList.get(0).isEmpty()) {
-			model.addAttribute("errorMessage", "첫번째 이미지는 필수입니다.");
-			model.addAttribute("tourBoardDto", tourBoardDto);
-			return "news/updatewrite";
-		}
 		try {
-			tourBoardService.updateTourBoard(tourBoardDto, fileList);
+			if(fileList.get(0).isEmpty()) {
+				tourBoardService.updateOnlyTourBoard(tourBoardDto, fileList);
+				return "redirect:/news/tour";
+			} else {
+				tourBoardService.updateTourBoard(tourBoardDto, fileList);
+			}
 		} catch (Exception e) {
 			model.addAttribute("errorMessage", "글 수정 중 에러가 발생하였습니다.");
 			return "news/updatewrite";
@@ -157,7 +163,7 @@ public class NewsBoardController {
 	
 	//주변 관광지 글 삭제하기(첨부파일이 있을 경우 첨부파일을 먼저 지우고 게시글을 지워야 한다)
 	@DeleteMapping(value="delete/{id}")
-	public String deleteBoard(@PathVariable("id") Long id) {
+	public String deleteBoard(@PathVariable("id") Long id) throws Exception{
 		tourBoardService.deleteBoard(id);
 		return "redirect:/news/tour";
 	}
@@ -286,7 +292,6 @@ public class NewsBoardController {
 		Announcement announcement = announcementService.findById(id);
 		if(String.valueOf(user.getAuthorities().iterator().next()).equals("ROLE_ADMIN")) {
 				FreeBoardDto freeBoardDto = FreeBoardDto.of(announcement);
-				System.out.println(freeBoardDto);
 				model.addAttribute("freeBoardDto", freeBoardDto);
 			} else {
 				model.addAttribute("errorMessage", "관리자가 아니면 수정할 수 없습니다.");
@@ -345,6 +350,28 @@ public class NewsBoardController {
 			return "news/announcementView";
 		}
 		return "redirect:/news/announcement";
+	}
+	
+	//설문조사 페이지로 이동
+	@GetMapping(value="/survey")
+	public String survey(Principal principal, Model model) {
+		try {
+			Survey survey = surveyService.checkSurvey(principal.getName());
+			if(survey!=null) {
+				model.addAttribute("errorMessage", "이미 설문조사를 완료하였습니다.");
+			}
+		} catch(Exception e){
+			model.addAttribute("errorMessage", "페이지 이동중 오류가 발생했습니다.");
+		}
+		return "news/survey";
+	}
+	
+	//설문조사 결과
+	@PostMapping(value="/surveyResult")
+	@ResponseBody
+	public String surveyResult(@RequestParam(value="result[]") List<Long> result, Principal principal) {
+		surveyService.surveySave(result, principal.getName());
+		return "succcess";
 	}
 	
 }

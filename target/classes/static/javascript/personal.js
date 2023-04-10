@@ -286,5 +286,6 @@ $("#regist").click(function submitCheck(){
 		showErrorMsg(eMsg,"이메일 인증이 되어야 합니다.");
 		return false;
 	}
+	alert("회원가입이 완료되었습니다");
 	return true;
 });

@@ -54,7 +54,6 @@ $(function(){
                   valueArr.push(list[i].value);
               }
           }
-          console.log(valueArr)
           if (valueArr.length == 0){
              alert("선택된 글이 없습니다.");
           }
@@ -108,10 +107,10 @@ $(function(){
                         <div class="flip">
                         <div class="keyword">                        
                             <div class="keyword_pic">                            
-                        <img class="keywordImg" th:src="${keyword.savePath}">                        
+                        <img class="keywordImg" th:src="@{https://storage.googleapis.com/yeosu11/} + ${keyword.savePath}">                        
                             </div>
                             <div class="keyword_back_pic">
-                        <img th:src="${keyword.backSavePath}">                       
+                        <img th:src="@{https://storage.googleapis.com/yeosu11/} + ${keyword.backSavePath}">                       
                             </div>
                         </div>
                         <div class="keyword_tit">

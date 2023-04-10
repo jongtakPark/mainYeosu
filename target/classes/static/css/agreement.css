@@ -22,7 +22,7 @@
         height: 130px;
         margin : auto;
         margin-top: 10px;
-        background-color: #A4A4A4;
+        background-color: #98D1CF;
         overFlow : auto;
     }
     
@@ -50,9 +50,23 @@
         text-align: center;
         margin-left: 30%;
         line-height: 30px;
-        border-radius: 5px;
-        background-color: #A4A4A4;
-        
+       color: #666;
+    border : 2px solid #666;
+    cursor:pointer;
+    font-weight: bold;
+    transition: 0.2s;
+    background: #99DDEE;
+     border-radius: 5px;    
+
+    }
+    .com > a{
+    color: #666;
+    }
+    .com > a:hover{
+        color: #fff;
+    }
+    .com:hover{
+    background-color: #39A3C0;
 
     }
     
@@ -63,7 +77,22 @@
         margin-left: 5%;
         text-align: center;
         line-height: 30px;
-        border-radius: 5px;
-        background-color: #A4A4A4;
+          color: #666;
+    border : 2px solid #666;
+    cursor:pointer;
+    font-weight: bold;
+    transition: 0.2s;
+    background: #99DDEE;
+     border-radius: 5px;  
+
+    }
+    .per > a{
+    color: #666;
+    }
+    .per > a:hover{
+        color: #fff;
+    }
+    .per:hover{
+    background-color: #39A3C0;
 
     }

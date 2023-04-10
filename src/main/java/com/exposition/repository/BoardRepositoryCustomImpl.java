@@ -37,7 +37,7 @@ public class BoardRepositoryCustomImpl implements BoardRepositoryCustom{
 		QueryResults<BoardMainDto> result = queryFactory
 				.select(new QBoardMainDto(tourBoard.id, tourBoard.title, tourBoard.content, file.savePath))
 				.from(file)
-				.join(file.tourboard, tourBoard)
+				.join(file.tourBoard, tourBoard)
 				.where(file.thumbnail.eq("Y"))
 				.orderBy(tourBoard.id.desc())
 				.offset(pageable.getOffset())

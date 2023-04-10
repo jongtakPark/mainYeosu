@@ -1,5 +1,7 @@
 package com.exposition.entity;
 
+import java.util.List;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -8,7 +10,7 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
@@ -20,9 +22,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import com.exposition.constant.Role;
 import com.exposition.dto.CompanyFormDto;
 
-import lombok.ToString;
 import groovyjarjarantlr4.v4.runtime.misc.NotNull;
 import lombok.Data;
+import lombok.ToString;
 
 @Entity
 @Table(name="company")
@@ -57,14 +59,17 @@ public class Company {
 	@Enumerated(EnumType.STRING)
 	private Role role;
 	
-	@OneToOne(mappedBy="company", cascade=CascadeType.ALL)
-	@JoinColumn(name = "reservation_id")
+	@OneToOne(mappedBy="company", cascade=CascadeType.REMOVE)
 	@ToString.Exclude
 	private Reservation reservation;
 
-//	@OneToMany(mappedBy = "company", fetch = FetchType.LAZY)
-//	@ToString.Exclude
-//	private List<FreeBoard> freeBoardList = new ArrayList<>();
+	@OneToMany(mappedBy="company", cascade=CascadeType.REMOVE)
+	@ToString.Exclude
+	private List<Idea> idea;
+	
+	@OneToMany(mappedBy="company", cascade=CascadeType.REMOVE)
+	@ToString.Exclude
+	private List<Review> review;
 	
 	//스프링시큐리티 설정 클래스에(SecurityConfig.java) 등록한 BCryptPasswordEncoder Bean으로 파라미터로 넘겨서 비밀번호를 암호화
 	public static Company createCompany(CompanyFormDto companyFormDto, PasswordEncoder passwordEncoder) {

@@ -42,7 +42,7 @@ $(document).ready(function(){
                <span>이벤트게시판 글쓰기</span>
            </div>
        </div>
-       <form action="/news/new" method="post"  th:object="${eventBoardDto}" onsubmit="return confirm('글 작성을 하시겠습니까?');">
+       <form action="/news/new" method="post"  th:object="${eventBoardDto}">
        <div class="info_content">
             <div class="info_title">
                 <div class="info_title_inner">

@@ -92,7 +92,7 @@
     
     .per_id{
         position: relative;
-        background-color: #E6E6E6;
+        background: #99DDEE;
         float: left;
         text-align: center;
         line-height: 30px;
@@ -117,14 +117,23 @@
         height: 30px;
         margin-top: 10px;
         border-radius: 5px;
-        background-color: #E6E6E6;
+        background: #99DDEE;
         margin-left: 38%;
         text-align: center;
         line-height: 30px;
     }
+    .per_id_ck > span > a{
+    	color: #666;
+    }
+    .per_id_ck > span > a:hover{
+    	color: #fff;
+    }
+    .per_id_ck:hover{
+    	background-color: #39A3C0;
+    }
     .per_name{
         position: relative;
-        background-color: #E6E6E6;
+        background: #99DDEE;
         float: left;
         text-align: center;
         line-height: 30px;
@@ -135,7 +144,7 @@
     }
     .per_pw{
         position: relative;
-        background-color: #E6E6E6;
+        background: #99DDEE;
         float: left;
         text-align: center;
         line-height: 30px;
@@ -147,7 +156,7 @@
     
     .per_pw_ck{
         position: relative;
-        background-color: #E6E6E6;
+        background: #99DDEE;
         float: left;
         text-align: center;
         line-height: 30px;
@@ -159,7 +168,7 @@
     
     .per_mail{
         position: relative;
-        background-color: #E6E6E6;
+        background: #99DDEE;
         float: left;
         text-align: center;
         line-height: 30px;
@@ -170,7 +179,7 @@
     }
     .per_reservation{
         position: relative;
-        background-color: #E6E6E6;
+        background: #99DDEE;
         float: left;
         text-align: center;
         line-height: 30px;
@@ -187,10 +196,20 @@
         margin-top: 10px;
         font-size: 15px;
         border-radius: 5px;
-        background-color: #E6E6E6;
+        background: #99DDEE;
         margin-left: 38%;
         text-align: center;
         line-height: 30px;
+        color: #666;
+    }
+    .per_mail_send > span > a{
+    	color: #666;
+    }
+    .per_mail_send > span > a:hover{
+    	color: #fff;
+    }
+    .per_mail_send:hover{
+    	background-color: #39A3C0;
     }
     
     .per_mail_a{
@@ -206,7 +225,7 @@
     }
     .per_location{
         position: relative;
-        background-color: #E6E6E6;
+        background: #99DDEE;
         float: left;
         text-align: center;
         line-height: 30px;
@@ -223,15 +242,24 @@
         margin-top: 10px;
         font-size: 15px;
         border-radius: 5px;
-        background-color: #E6E6E6;
+        background: #99DDEE;
         margin-left: 38%;
         text-align: center;
         line-height: 30px;
     }
+    .per_mail_ck > span > a{
+    	color: #666;
+    }
+    .per_mail_ck > span > a:hover{
+    	color: #fff;
+    }
+    .per_mail_ck:hover{
+    	background-color: #39A3C0;
+    }
     
     .per_tel{
         position: relative;
-        background-color: #E6E6E6;
+        background: #99DDEE;
         float: left;
         text-align: center;
         line-height: 30px;
@@ -242,7 +270,7 @@
     }
     .per_day{
         position: relative;
-        background-color: #E6E6E6;
+        background: #99DDEE;
         float: left;
         text-align: center;
         line-height: 30px;
@@ -269,10 +297,15 @@
         float: left;
         border : 2px solid grey;
         position : absolute;
+        background: #99DDEE;
+        color: #666;
+    }
+    .cancleSubmit:hover{
+        color: #fff;
+    	background-color: #39A3C0;
     }
     
     .regist{
-        background-color: #E6E6E6;
         width: 8%;
         font-size: 20px;
         height: 50px;
@@ -280,15 +313,23 @@
         line-height: 50px;
         margin: auto;
         margin-top: 50px;
-        border-radius: 5px;
+        border-radius: 10px;
         font-weight: bold;
         position: absolute;
         left: 50%;
         transform: translateX(-50%);
         cursor: pointer;
+        border : 2px solid #666;
+        transition: 0.2s;
+        background: #99DDEE;
+        color: #666;
+    }
+    .regist:hover{
+    	color: #fff;
+    	background-color: #39A3C0;
     }
     .modify{
-        background-color: #E6E6E6;
+        background: #99DDEE;
         width: 8%;
         font-size: 20px;
         height: 50px;
@@ -296,15 +337,20 @@
         line-height: 50px;
         margin: auto;
         margin-top: 50px;
-        border-radius: 5px;
+        border-radius: 10px;
         font-weight: bold;
         position: absolute;
         left: 30%;
         transform: translateX(-50%);
         cursor: pointer;
+        	color: #666;
+    }
+     .modify:hover{
+    	color: #fff;
+    	background-color: #39A3C0;
     }
     .modify{
-        background-color: #E6E6E6;
+        background: #99DDEE;
         width: 8%;
         font-size: 20px;
         height: 50px;
@@ -312,15 +358,16 @@
         line-height: 50px;
         margin: auto;
         margin-top: 50px;
-        border-radius: 5px;
+        border-radius: 10px;
         font-weight: bold;
         position: absolute;
         left: 40%;
         transform: translateX(-50%);
         cursor: pointer;
+        	color: #666;
     }
     .withdrawal{
-        background-color: #E6E6E6;
+        background: #99DDEE;
         width: 8%;
         font-size: 20px;
         height: 50px;
@@ -328,15 +375,20 @@
         line-height: 50px;
         margin: auto;
         margin-top: 50px;
-        border-radius: 5px;
+        border-radius: 10px;
         font-weight: bold;
         position: absolute;
         left: 50%;
         transform: translateX(-50%);
         cursor: pointer;
+        	color: #666;
+    }
+    .withdrawal:hover{
+    	color: #fff;
+    	background-color: #39A3C0;
     }
     .cancel-modify{
-     background-color: #E6E6E6;
+     background: #99DDEE;
         width: 8%;
         font-size: 20px;
         height: 50px;
@@ -344,10 +396,16 @@
         line-height: 50px;
         margin: auto;
         margin-top: 50px;
-        border-radius: 5px;
+        border-radius: 10px;
         font-weight: bold;
         position: absolute;
         left: 60%;
         transform: translateX(-50%);
         cursor: pointer;
+
+        	color: #666;
         }
+       .cancel-modify:hover{
+    	color: #fff;
+    	background-color: #39A3C0;
+    }
