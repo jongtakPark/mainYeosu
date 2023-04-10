@@ -79,7 +79,7 @@ public class TourBoardService {
 		return tourBoardDto.getId();
 	}
 	
-	
+
 	//주변 관광지 글 삭제(나중에 첨부파일이 있는 게시판은 이걸 이용해서 삭제하면 됨)
 	public void deleteBoard(Long id) throws Exception{
 		Long tourBoardId = findById(id).getId();

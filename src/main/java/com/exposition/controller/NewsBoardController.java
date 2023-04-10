@@ -37,6 +37,7 @@ import com.exposition.dto.FreeBoardDto;
 import com.exposition.dto.TourBoardDto;
 import com.exposition.entity.Announcement;
 import com.exposition.entity.EventBoard;
+import com.exposition.entity.Files;
 import com.exposition.entity.Member;
 import com.exposition.entity.Survey;
 import com.exposition.service.AnnouncementService;
@@ -139,12 +140,13 @@ public class NewsBoardController {
 	
 	//주변 관광지 글 수정 등록
 	@PutMapping(value="update/{id}")
-	public String updatesucc(@Valid TourBoardDto tourBoardDto, BindingResult bindingResult, Model model, @RequestParam("files") List<MultipartFile> fileList) {
+	public String updatesucc(@Valid TourBoardDto tourBoardDto, BindingResult bindingResult, Model model, @RequestParam("files") List<MultipartFile> fileList) throws Exception {
 		if(bindingResult.hasErrors()) {
 			model.addAttribute("errorMessage", "제목을 입력해주세요.");
 			model.addAttribute("tourBoardDto", tourBoardDto);
 			return "news/updatewrite";
 		}
+
 		if(fileList.get(0).isEmpty()) {
 			model.addAttribute("errorMessage", "첫번째 이미지는 필수입니다.");
 			model.addAttribute("tourBoardDto", tourBoardDto);

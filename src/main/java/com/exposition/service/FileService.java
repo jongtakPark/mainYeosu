@@ -152,7 +152,7 @@ public class FileService {
 		
 	}
 	
-//	// 여우섬 키워드 삭제
+	// 여우섬 키워드 삭제
 	public void deleteKeyword(List<Files> files,List<Long> id) throws Exception {
 		for(int i =0; i<files.size(); i++) {
 			deleteAllCloud(files.get(i));

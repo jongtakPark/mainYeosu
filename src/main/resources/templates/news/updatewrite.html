@@ -9,15 +9,10 @@ layout:decorate="~{layouts/layout}">
 <th:block layout:fragment="script">
 <script th:inline="javascript">
 $(document).ready(function(){
-	var errorMessage = [[${errorMessage}]]; 
-	if(errorMessage != null){
-		alert(errorMessage);
-	}
 	var fileList = [[${tourBoardDto}]];
 	var list = new Array();
 	$.each(fileList.fileDtoList, function(i,e){
 		list.push(e.oriImg+"          ");
-		console.log(fileList);
 	});
 	$(".upload-name").val(list.join(''));
 	var newList = new Array();
@@ -40,11 +35,7 @@ $(document).ready(function(){
 		        }
 	    	}
 	    }
-		if(confirm('글을 수정하시겠습니까?')){
-			alert("글을 수정하였습니다.");	
-		} else {
-			return false;
-		}
+	
 	});
 });
 </script>
@@ -105,6 +96,7 @@ $(document).ready(function(){
             </div>
            
        </div>
+       <input type="hidden"  th:value="${tourBoardDto.fileDtoList}">
        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
 	</form>
 </div>

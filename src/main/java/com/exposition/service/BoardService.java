@@ -57,7 +57,6 @@ public class BoardService {
 			review.setCompany(company);
 			reviewRepository.save(review);
 			fileService.saveFile(files,review);
-
 		} catch(Exception e) {
 			e.printStackTrace();
 			
@@ -110,8 +109,6 @@ public class BoardService {
 			e.printStackTrace();
 		}
 	}
-	
-
 	
 	//관람후기 글 삭제
 	public void deleteReview(Long id) throws Exception{
