@@ -64,8 +64,8 @@ $("#find-id-btn").click(function(){
 $("#find-pw-btn").click(function(){
 	var mid = $("#mid").val();
 	var email = $("#email2").val();
-	var sMsg = $("#sMsg2")
-	var eMsg = $("#eMsg2")
+	var sMsg = $("#sMsg2");
+	var eMsg = $("#eMsg2");
 	var sendData = "mid="+mid+"&email="+email;
 	$.ajax({
             type: "post",

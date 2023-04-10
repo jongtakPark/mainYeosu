@@ -19,7 +19,7 @@ public class Survey extends BaseEntity{
 
 	// 글번호
 	@Id
-	@Column(name="freeBoard_id")
+	@Column(name="survey_id")
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 		

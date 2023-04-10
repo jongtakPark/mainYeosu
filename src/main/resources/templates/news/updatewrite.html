@@ -35,7 +35,12 @@ $(document).ready(function(){
 		        }
 	    	}
 	    }
-	
+		if(confirm('글을 수정하시겠습니까?')){
+			console.log("확인");
+			alert("글을 수정하였습니다.");	
+		} else {
+			return false;
+		}
 	});
 });
 </script>
@@ -57,7 +62,7 @@ $(document).ready(function(){
                <span>주변관광지 수정</span>
            </div>
        </div>
-	<form th:method="put" enctype="multipart/form-data" onsubmit="return confirm('글 수정을 하시겠습니까?');">
+	<form th:method="put" enctype="multipart/form-data" th:action="@{/news/update/{id}(id=${tourBoardDto.id})}">
        <div class="info_content">
             <div class="info_title">
                 <div class="info_title_inner">
@@ -92,7 +97,7 @@ $(document).ready(function(){
                 <input class="upload-name" value="" disabled="disabled">
             </div>
             <div class="info_submit">
-               <button th:formaction="@{/news/update/{id}(id=${tourBoardDto.id})}" class="submit" id="succSubmit">수정 글 등록</button>
+               <button class="submit" id="succSubmit">수정 글 등록</button>
             </div>
            
        </div>

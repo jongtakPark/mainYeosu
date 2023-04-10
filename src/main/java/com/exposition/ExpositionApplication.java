@@ -7,10 +7,11 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.web.filter.HiddenHttpMethodFilter;
 
 @SpringBootApplication
-public class ExpositionApplication {
+public class ExpositionApplication extends SpringBootServletInitializer{
 
 	public static void main(String[] args) {
 		SpringApplication.run(ExpositionApplication.class, args);
+
 	}
 	
 	// PutMapping, DeleteMapping 하기 위해서 추가
@@ -19,10 +20,5 @@ public class ExpositionApplication {
 		return new HiddenHttpMethodFilter();
 	}
 	
-	@SpringBootApplication public class App extends SpringBootServletInitializer {
-	    public App() {
-	        super();
-	        setRegisterErrorPageFilter(false); // <- this one
-	    }
-	}
+
 }
