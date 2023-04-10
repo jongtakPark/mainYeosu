@@ -65,7 +65,7 @@ public class NewsBoardController {
 	//주변관광지 페이지 이동
 	@RequestMapping(value="/tour", method= {RequestMethod.GET, RequestMethod.POST})
 	public String tourPage(Model model, TourBoardDto tourBoardDto, Optional<Integer> page) {
-		
+	
 		Pageable pageable = PageRequest.of(page.isPresent()? page.get() : 0 , 6);
 		Page<BoardMainDto> tourBoardList = tourBoardService.getBoardMainPage(tourBoardDto, pageable);
 		model.addAttribute("tourboards", tourBoardList);

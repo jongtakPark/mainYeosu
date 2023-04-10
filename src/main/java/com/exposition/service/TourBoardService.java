@@ -24,25 +24,14 @@ import com.exposition.repository.BoardRepository;
 import com.exposition.repository.EventBoardRepository;
 import com.exposition.repository.FileRepository;
 import com.exposition.repository.TourBoardRepository;
-import com.google.cloud.storage.Blob;
-import com.google.cloud.storage.BlobInfo;
-import com.google.cloud.storage.Storage;
+
 
 import lombok.RequiredArgsConstructor;
-import com.google.cloud.storage.Blob;
-import com.google.cloud.storage.BlobInfo;
-import com.google.cloud.storage.Storage;
+
 @Service
 @Transactional
 @RequiredArgsConstructor
 public class TourBoardService {
-	@Value("${spring.cloud.gcp.storage.credentials.bucket}")
-	private String bucketName;
-	
-	@Value("${spring.cloud.gcp.storage.credentials.project.id}")
-	private String projectid;
-	
-	private final Storage storage;
 	private final TourBoardRepository tourBoardRepository;
 	private final FileService fileService;
 	private final FileRepository fileRepository;
@@ -57,17 +46,8 @@ public class TourBoardService {
 	public TourBoard saveTour(List<MultipartFile> files, TourBoardDto tourBoardDto) throws Exception {
 		TourBoard tourBoard = tourBoardDto.createTourBoard();
 		tourBoardRepository.save(tourBoard);
+		fileService.saveFile(files,tourBoard);
 		
-		for(int i = 0; i < files.size(); i++) {
-			Files file = saveCloud(files.get(i));
-			file.setTourBoard(tourBoard);
-			if(i==0) {
-				file.setThumbnail("Y");
-			}else {
-				file.setThumbnail("N");
-			}
-			fileRepository.save(file);
-		}
 		return tourBoard;
 	}
 	
@@ -91,18 +71,11 @@ public class TourBoardService {
 	//주변관광지 수정 글 등록
 	public Long updateTourBoard(TourBoardDto tourBoardDto, List<MultipartFile> files) throws Exception {
 		TourBoard tourBoard = tourBoardDto.createTourBoard();
+		tourBoardRepository.save(tourBoard);
 		Long tourId = findById(tourBoard.getId()).getId();
 		List<Files> list = fileService.findByTourBoardId(tourId);
-		for(int i = 0 ; i < list.size(); i++) {
-			deleteCloud(list.get(i));
-			fileRepository.deleteByTourBoard(tourBoard);
-		}
-		for(int i = 0; i < files.size(); i++) {
-			Files file = saveCloud(files.get(i));
-			file.setTourBoard(tourBoard);
-			fileRepository.save(file);
-		}
-		tourBoardRepository.save(tourBoard);
+		fileService.deleteTourBoard(list,tourBoard);
+		fileService.saveFile(files, tourBoard);
 		return tourBoardDto.getId();
 	}
 	
@@ -111,25 +84,8 @@ public class TourBoardService {
 	public void deleteBoard(Long id) throws Exception{
 		Long tourBoardId = findById(id).getId();
 		List<Files> list = fileService.findByTourBoardId(tourBoardId);
-		if(list!=null) {
-			for(int i = 0; i < list.size(); i++) {
-				fileRepository.delete(list.get(i));
-				deleteCloud(list.get(i));
-			}
-		}
+		fileService.deleteFile(list);
 		tourBoardRepository.deleteById(id);
-	}
-	
-	//첨부파일만 삭제하기(게시글 수정시에 사용될것)
-	public void deleteFile(Long id) {
-		Long tourBoardId = findById(id).getId();
-		List<Files> list = fileService.findByTourBoardId(tourBoardId);
-		if(list!=null) {
-			for(int i=0; i<list.size(); i++) {
-				fileService.deleteFile(list.get(i).getId());
-				fileService.deleteComFile("C:/images/" + list.get(i).getImg());
-			}
-		}
 	}
 	
 	//주변 관광지 글 찾아오기(첨부파일을 먼저 삭제 후 게시글을 지우기 위해)
@@ -137,24 +93,4 @@ public class TourBoardService {
 		return tourBoardRepository.findById(id).get();
 	}
 	
-	
-	// 구글클라우드 저장
-	public Files saveCloud(MultipartFile multipartFile) throws Exception{
-		Files file = new Files();
-		String ext = multipartFile.getContentType();
-		String uuid = UUID.randomUUID().toString();
-		file.setSavePath(uuid);
-		BlobInfo blobInfo = storage.create(BlobInfo.newBuilder(bucketName,uuid)
-													.setContentType(ext)
-													.build(),
-													multipartFile.getInputStream());
-		return file;
-	}
-	
-	// 구글 클라우드 삭제
-	public void deleteCloud(Files files) throws Exception{
-//		Blob blob = storage.get(bucketName, files.getSavePath());
-//		Storage.BlobSourceOption precondition = Storage.BlobSourceOption.generationMatch(blob.getGeneration());
-		storage.delete(bucketName, files.getSavePath());
-	}
 }

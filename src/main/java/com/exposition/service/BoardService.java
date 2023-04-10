@@ -3,12 +3,9 @@ package com.exposition.service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 import javax.persistence.EntityNotFoundException;
 
-
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -23,16 +20,13 @@ import com.exposition.entity.Idea;
 import com.exposition.entity.Member;
 import com.exposition.entity.Review;
 import com.exposition.entity.Volunteer;
-import com.exposition.repository.BoardRepository;
 import com.exposition.repository.CompanyRepository;
 import com.exposition.repository.FileRepository;
 import com.exposition.repository.IdeaRepository;
 import com.exposition.repository.MemberRepository;
 import com.exposition.repository.ReviewRepository;
 import com.exposition.repository.VolunteerRepository;
-import com.google.cloud.storage.Blob;
-import com.google.cloud.storage.BlobInfo;
-import com.google.cloud.storage.Storage;
+
 
 
 import lombok.RequiredArgsConstructor;
@@ -41,15 +35,6 @@ import lombok.RequiredArgsConstructor;
 @Transactional
 @RequiredArgsConstructor
 public class BoardService {
-	@Value("${spring.cloud.gcp.storage.credentials.bucket}")
-	private String bucketName;
-	
-	@Value("${spring.cloud.gcp.storage.credentials.project.id}")
-	private String projectid;
-	
-	private final Storage storage;
-	
-	private final BoardRepository boardRepository;
 	private final ReviewRepository reviewRepository;
 	private final FileService fileService;
 	private final FileRepository fileRepository;
@@ -71,14 +56,8 @@ public class BoardService {
 			review.setMember(member);
 			review.setCompany(company);
 			reviewRepository.save(review);
-			
-			for(int i = 0; i < files.size(); i++) {
-				Files file = saveCloud(files.get(i));
-				file.setReview(review);
-				fileRepository.save(file);
-			}
-			
-			
+			fileService.saveFile(files,review);
+
 		} catch(Exception e) {
 			e.printStackTrace();
 			
@@ -118,50 +97,27 @@ public class BoardService {
 		try {
 			Long reviewId = reviewFindById(review.getId()).getId();
 			List<Files> list = fileService.findByReviewId(reviewId);
-			for(int i = 0 ; i < list.size(); i++) {
-				deleteCloud(list.get(i));
-				fileRepository.deleteByReview(review);
-			}
+			fileService.deleteReview(list,review);
 			Member member = memberRepository.findByMid(id);
 			review.setMember(member);
 			
 			Company company = companyRepository.findByCom(id);
 			review.setCompany(company);	
 			reviewRepository.save(review);
-			
-			for(int i = 0; i < files.size(); i++) {
-				Files file = saveCloud(files.get(i));
-				file.setReview(review);
-				fileRepository.save(file);
-			}
+			fileService.saveFile(files,review);
 			
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
 	}
 	
-	//첨부파일만 삭제하기(게시글 수정시에 사용될것)
-	public void deleteFile(Long id) {
-		Long reviewId = reviewFindById(id).getId();
-		List<Files> list = fileService.findByReviewId(reviewId);
-		if(list!=null) {
-			for(int i=0; i<list.size(); i++) {
-				fileService.deleteFile(list.get(i).getId());
-				fileService.deleteComFile("C:/images/" + list.get(i).getSavePath());
-			}
-		}
-	}
+
 	
 	//관람후기 글 삭제
 	public void deleteReview(Long id) throws Exception{
 		Long reviewId = reviewFindById(id).getId();
 		List<Files> list = fileService.findByReviewId(reviewId);
-		
-		if(list!=null) {
-			for(int i = 0; i < list.size(); i++) {
-				deleteCloud(list.get(i));
-			}
-		}
+		fileService.deleteFile(list);
 		reviewRepository.deleteById(id);
 	}
 	
@@ -178,14 +134,7 @@ public class BoardService {
 			idea.setMember(member);
 			idea.setCompany(company);
 			ideaRepository.save(idea);
-			if(!files.get(0).isEmpty()) {
-				for(int i = 0; i < files.size(); i++) {
-					Files file = saveCloud(files.get(i));
-					file.setIdea(idea);
-					fileRepository.save(file);
-				}
-				
-			}
+			fileService.saveFile(files,idea);
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
@@ -222,50 +171,26 @@ public class BoardService {
 		try {
 			Long ideaId = ideaFindById(idea.getId()).getId();
 			List<Files> list = fileService.findByIdeaId(ideaId);
-			for(int i = 0 ; i < list.size(); i++) {
-				deleteCloud(list.get(i));
-				fileRepository.deleteByIdea(idea);
-			}
-			
+			fileService.deleteIdea(list, idea);
 			Member member = memberRepository.findByMid(id);
 			idea.setMember(member);
 			
 			Company company = companyRepository.findByCom(id);
 			idea.setCompany(company);
 			ideaRepository.save(idea);
-			
-			for(int i = 0; i < files.size(); i++) {
-				Files file = saveCloud(files.get(i));
-				file.setIdea(idea);
-				fileRepository.save(file);
-			}
+			fileService.saveFile(files, idea);
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
 	}
 	
-	//첨부파일만 삭제하기(게시글 수정시에 사용될것)
-	public void ideaDeleteFile(Long id) {
-		Long ideaId = ideaFindById(id).getId();
-		List<Files> list = fileService.findByIdeaId(ideaId);
-		if(list!=null) {
-			for(int i=0; i<list.size(); i++) {
-				fileService.deleteFile(list.get(i).getId());
-				fileService.deleteComFile("C:/images/" + list.get(i).getSavePath());
-			}
-		}
-	}
+
 	
 	//국민아이디어 글 삭제
 	public void deleteIdea(Long id) throws Exception {
 		Long ideaId = ideaFindById(id).getId();
 		List<Files> list = fileService.findByIdeaId(ideaId);
-
-		if(list!=null) {
-			for(int i = 0; i < list.size(); i++) {
-				deleteCloud(list.get(i));
-			}
-		}
+		fileService.deleteFile(list);
 		ideaRepository.deleteById(id);
 	}
 	
@@ -280,13 +205,7 @@ public class BoardService {
 			Member member = memberRepository.findByMid(id);
 			volunteer.setMember(member);
 			volunteerRepository.save(volunteer);
-			if(!files.get(0).isEmpty()) {
-				for(int i = 0; i < files.size(); i++) {
-					Files file = saveCloud(files.get(i));
-					file.setVolunteer(volunteer);
-					fileRepository.save(file);
-				}
-			}
+			fileService.saveFile(files, volunteer);
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
@@ -324,70 +243,22 @@ public class BoardService {
 		try {
 			Long volunteerId = volunteerAndFileFindById(volunteer.getId()).getId();
 			List<Files> list = fileService.findByVolunteerId(volunteerId);
-			for(int i = 0 ; i < list.size(); i++) {
-				deleteCloud(list.get(i));
-				fileRepository.deleteByVolunteer(volunteer);
-			}
-			
+			fileService.deleteVolunteer(list,volunteer);
 			Member member = memberRepository.findByMid(id);
 			volunteer.setMember(member);
 			volunteerRepository.save(volunteer);
-			
-			
-				for(int i = 0; i < files.size(); i++) {
-					Files file = saveCloud(files.get(i));
-					file.setVolunteer(volunteer);
-					fileRepository.save(file);
-				}
-			
+			fileService.saveFile(files, volunteer);
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
 	}
 		
-	//첨부파일만 삭제하기(게시글 수정시에 사용될것)
-	public void volunteerDeleteFile(Long id) throws Exception{
-		Long volunteerId = volunteerFindById(id).getId();
-		List<Files> list = fileService.findByVolunteerId(volunteerId);
-		if(list!=null) {
-			for(int i = 0; i < list.size(); i++) {
-				deleteCloud(list.get(i));
-			}
-		}
-	}
-	
 	//자원봉사자 글 삭제
 	public void deleteVolunteer(Long id) throws Exception {
 		Long volunteerId = volunteerFindById(id).getId();
 		List<Files> list = fileService.findByVolunteerId(volunteerId);
-		if(list!=null) {
-			for(int i = 0; i < list.size(); i++) {
-				deleteCloud(list.get(i));
-			}
-		}
+		fileService.deleteFile(list);
 		volunteerRepository.deleteById(id);
 	}
-	
-	
-	// 구글클라우드 저장
-	public Files saveCloud(MultipartFile multipartFile) throws Exception{
-		Files file = new Files();
-		String ext = multipartFile.getContentType();
-		String uuid = UUID.randomUUID().toString();
-		file.setSavePath(uuid);
-		BlobInfo blobInfo = storage.create(BlobInfo.newBuilder(bucketName,uuid)
-													.setContentType(ext)
-													.build(),
-													multipartFile.getInputStream());
-		return file;
-	}
-	
-	// 구글 클라우드 삭제
-	public void deleteCloud(Files files) throws Exception{
-//		Blob blob = storage.get(bucketName, files.getSavePath());
-//		Storage.BlobSourceOption precondition = Storage.BlobSourceOption.generationMatch(blob.getGeneration());
-		storage.delete(bucketName, files.getSavePath());
-	}
-	
 }
    

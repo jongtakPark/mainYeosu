@@ -32,7 +32,7 @@ public class CompanyService implements UserDetailsService {
 	private final ReservationRepository reservationRepository;
 	private final FileRepository fileRepository;
 	private final FileService fileService;
-	private final BoardService boardService;
+	
 	//회원가입
 	public Company saveCompany(Company company) {
 		validateDuplicateCompany(company);
@@ -131,7 +131,7 @@ public class CompanyService implements UserDetailsService {
 	public void reservationCancel(Long id) throws Exception{
 		List<Files> files =  fileRepository.findByReservationId(id);
 	      for(int i =0; i< files.size();i++) {
-	    	  boardService.deleteCloud(files.get(i));
+	    	  fileService.deleteCloud(files.get(i));
 	      }
 		reservationRepository.deleteById(id);
 	}
