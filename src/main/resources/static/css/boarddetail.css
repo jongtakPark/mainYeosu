@@ -22,7 +22,7 @@
 }
 
 
-/*    �옄�쑀寃뚯떆�뙋*/
+/*    占쎌쁽占쎌�野껊슣�뻻占쎈솇*/
 .freeboard{
     width: 70%;
     height: 960px; 
@@ -58,12 +58,12 @@
     width: 100%;
     height: 700px;      
     margin: 0 auto;
-    margin-top: 10px;
+  
 }
 .info_title{
     width: 100%;
     height: 50px;
-    padding-top: 20px;
+    
 }
 .info_title_inner{
     width: 100%;
@@ -91,7 +91,7 @@
 .info_cont{
     width: 100%;
     height: 300px;
-    margin-top: 20px;
+   
     border-bottom: 2px solid black;
 }
 
@@ -470,7 +470,6 @@
 .delete  > button:hover{
     background: aqua;
 }
-<<<<<<< HEAD
 
 .a_hide{
 	display : display;
@@ -482,11 +481,11 @@
     font-size: 18px;
     margin-left: 70%;
     float : left;
-=======
+
 textarea{
     resize: none;
     outline: none;
->>>>>>> main
+
 }
 .ck1{
     margin-top: 50px;

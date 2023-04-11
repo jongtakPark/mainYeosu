@@ -68,25 +68,16 @@ public class TourBoardService {
 		return tourBoardDto;
 	}
 	
-	//주변관광지 수정 글 등록(사진수정을 한 경우)
+	//주변관광지 수정 글 등록
 	public Long updateTourBoard(TourBoardDto tourBoardDto, List<MultipartFile> files) throws Exception {
 		TourBoard tourBoard = tourBoardDto.createTourBoard();
 		tourBoardRepository.save(tourBoard);
-		Long tourId = findById(tourBoard.getId()).getId();
-		List<Files> list = fileService.findByTourBoardId(tourId);
-		fileService.deleteTourBoard(list,tourBoard);
-		fileService.saveFile(files, tourBoard);
-		return tourBoardDto.getId();
-	}
-	
-	//주변관광지 수정 글 등록(사진수정을 하지 않은 경우)
-	public Long updateOnlyTourBoard(TourBoardDto tourBoardDto, List<MultipartFile> files) throws Exception {
-		TourBoard tourBoard = tourBoardDto.createTourBoard();
-		tourBoardRepository.save(tourBoard);
-		Long tourId = findById(tourBoard.getId()).getId();
-		List<Files> list = fileService.findByTourBoardId(tourId);
-//		fileService.deleteTourBoard(list,tourBoard);
-//		fileService.saveFile(files, tourBoard);
+		if(!files.get(0).isEmpty()) {
+			Long tourId = findById(tourBoard.getId()).getId();
+			List<Files> list = fileService.findByTourBoardId(tourId);
+			fileService.deleteTourBoard(list,tourBoard);
+			fileService.saveFile(files, tourBoard);
+		}
 		return tourBoardDto.getId();
 	}
 	

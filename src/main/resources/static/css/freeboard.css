@@ -120,6 +120,13 @@ tbody > tr {
     justify-content: center;
 }
 
+.pagebtn > a{
+	width: 30px;
+	height: 30px;
+	line-height: 30px;
+	background-image: url(/images/ship.jpg);
+}
+
 textarea{
     resize: none;
     outline: none;
@@ -134,7 +141,7 @@ strong{
     height: 30px;
     line-height: 30px;
     display: block;
-    background-color: #333;
+    background-image: url(/images/ship.jpg);
     margin-left: 5px;
     margin-right: 5px;
 }

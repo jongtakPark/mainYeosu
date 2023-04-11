@@ -1,26 +1,51 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
-	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <head>
     <meta charset="UTF-8">
     <title>header</title>
+
 </head>
+
 <body>
     <div th:fragment="header">
-    <link rel="stylesheet" th:href="@{/css/header.css}">
+        <link rel="stylesheet" th:href="@{/css/header.css}">
         <div class="header">
             <div class="logo">
-                <a href="/"><img class="yeosu_logo" th:src="@{/images/logo.png}"></a>
+                <a href="/"><img class="yeosu_logo" th:src="@{/images/footer.png}"></a>
             </div>
-            
+
             <div class="menu_form1" sec:authorize="isAnonymous() || hasAnyAuthority('ROLE_USER','ROLE_VOLUNTEER')">
                 <ul class="menu_list1">
-                    <li><a href="/introduction/exhibition">박람회 소개</a></li>
-                    <li><a href="/news/tour">알림마당</a></li>
-                    <li><a href="/attend/view">참가업체목록</a></li>
-                    <li><a href="/board/review">자유게시판</a></li>
+                    <li>
+                        <a href="/introduction/exhibition">박람회 소개</a>
+                        <div class="sub_menu">
+                            <a href="">전시장 안내</a>
+                            <a href="">행사장 오시는길</a>
+                            <a href="">여수섬키워드</a>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="/news/tour">알림마당</a>
+                        <div class="sub_menu">
+                            <a href="">주변관광지</a>
+                            <a href="">공지사항</a>
+                            <a href="">이벤트게시판</a>
+                            <a href="">설문게시판</a>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="/attend/view">참가업체목록</a>
+                    </li>
+                    <li>
+                        <a href="/board/review">자유게시판</a>
+                        <div class="sub_menu">
+                            <a href="">관람후기</a>
+                            <a href="">국민아이디어</a>
+                            <a href="">자원봉사게시판</a>
+                        </div>
+                    </li>
                     <li sec:authorize="isAnonymous()"><a href="/signup/login">로그인</a></li>
                     <li sec:authorize="isAuthenticated()"><a href="/signup/logout">로그아웃</a></li>
                 </ul>
@@ -29,33 +54,87 @@
             <div class="menu_form2" sec:authorize="hasAnyAuthority('ROLE_ADMIN')">
 
                 <ul class="menu_list2">
-                    <li><a href="/introduction/exhibition">박람회 소개</a></li>
-                    <li><a href="/news/tour">알림마당</a></li>
+                    <li>
+                        <a href="/introduction/exhibition">박람회 소개</a>
+                        <div class="sub_menu2">
+                            <a href="">전시장 안내</a>
+                            <a href="">행사장 오시는길</a>
+                            <a href="">여수섬키워드</a>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="/news/tour">알림마당</a>
+                        <div class="sub_menu2">
+                            <a href="">주변관광지</a>
+                            <a href="">공지사항</a>
+                            <a href="">이벤트게시판</a>
+                            <a href="">설문게시판</a>
+                        </div>
+                    </li>
                     <li><a href="/attend/view">참가업체목록</a></li>
-                    <li><a href="/board/review">자유게시판</a></li>
+                    <li>
+                        <a href="/board/review">자유게시판</a>
+                        <div class="sub_menu2">
+                            <a href="">관람후기</a>
+                            <a href="">국민아이디어</a>
+                            <a href="">자원봉사게시판</a>
+                        </div>
+                    </li>
                     <li><a href="/lease/">업체등록</a></li>
-                    <li><a href="/admin/comConsent">관리자게시판</a></li>
+                    <li>
+                        <a href="/admin/comConsent">관리자게시판</a>
+                        <div class="sub_menu2">
+                            <a href="">기업 승인관리</a>
+                            <a href="">자원봉사자 승인관리</a>
+                            <a href="">회원관리</a>
+                            <a href="">기업관리</a>
+                        </div>
+                    </li>
                     <li sec:authorize="isAnonymous()"><a href="/signup/login">로그인</a></li>
                     <li sec:authorize="isAuthenticated()"><a href="/signup/logout">로그아웃</a></li>
                 </ul>
 
             </div>
 
-             <div class="menu_form3" sec:authorize="hasAnyAuthority('ROLE_COMPANY')">
+            <div class="menu_form3" sec:authorize="hasAnyAuthority('ROLE_COMPANY')">
 
                 <ul class="menu_list3">
-                    <li><a href="/introduction/exhibition">박람회 소개</a></li>
-                    <li><a href="/news/tour">알림마당</a></li>
+                    <li>
+                        <a href="/introduction/exhibition">박람회 소개</a>
+                        <div class="sub_menu3">
+                            <a href="">전시장 안내</a>
+                            <a href="">행사장 오시는길</a>
+                            <a href="">여수섬키워드</a>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="/news/tour">알림마당</a>
+                        <div class="sub_menu3">
+                            <a href="">주변관광지</a>
+                            <a href="">공지사항</a>
+                            <a href="">이벤트게시판</a>
+                            <a href="">설문게시판</a>
+                        </div>
+                    </li>
                     <li><a href="/attend/view">참가업체목록</a></li>
-                    <li><a href="/board/review">자유게시판</a></li>
+                    <li>
+                        <a href="/board/review">자유게시판</a>
+                        <div class="sub_menu3">
+                            <a href="">관람후기</a>
+                            <a href="">국민아이디어</a>
+                            <a href="">자원봉사게시판</a>
+                        </div>
+                    </li>
                     <li><a href="/lease/">업체등록</a></li>
                     <li sec:authorize="isAnonymous()"><a href="/signup/login">로그인</a></li>
                     <li sec:authorize="isAuthenticated()"><a href="/signup/logout">로그아웃</a></li>
 
                 </ul>
             </div>
-    </div>
-
+        </div>
+        <script src="https://code.jquery.com/jquery-3.6.0.js"
+            integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+        <script type="text/javascript" src="/javascript/header.js"></script>
 </body>
 
 </html>

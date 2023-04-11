@@ -34,12 +34,13 @@
         position: absolute;
     }
     .menu_list1 {
-        width: 100%;
+        width: 1500px;
         height: 100%;
         list-style-type: none;
         text-align: center;
     }
     .menu_list1 > li {
+        width: 140px;
         margin-left: 150px;
         font-size: 22px;
         float: left;
@@ -48,11 +49,11 @@
     }
     .menu_list1 > li > a{
         text-decoration: none;
-        color: black;
+        color: #000;
         transition: 0.3s;
     }
     .menu_list1 > li > a:hover{
-        color: white;
+        color: mediumpurple
     }
      .menu_form2 {
         width: 75%;
@@ -62,13 +63,14 @@
         position: absolute;
     }
     .menu_list2 {
-        width: 100%;
+        width: 1500px;
         height: 100%;
         list-style-type: none;
         text-align: center;
     }
     .menu_list2 > li {
-        margin-left: 90px;
+        width: 180px;
+        margin-left: 20px;
         font-size: 22px;
         float: left;
         margin-top: 13px;
@@ -76,11 +78,11 @@
     }
     .menu_list2 > li > a{
         text-decoration: none;
-        color: black;
+        color: #000;
         transition: 0.3s;
     }
     .menu_list2 > li > a:hover{
-        color: white;
+        color: lightpink
     }
     .menu_form3 {
         width: 75%;
@@ -90,13 +92,14 @@
         position: absolute;
     }
     .menu_list3 {
-        width: 100%;
+        width: 1500px;
         height: 100%;
         list-style-type: none;
         text-align: center;
     }
     .menu_list3 > li {
-        margin-left: 110px;
+        width: 140px;
+        margin-left: 90px;
         font-size: 22px;
         float: left;
         margin-top: 13px;
@@ -105,9 +108,10 @@
     .menu_list3 > li > a{
         text-decoration: none;
         color: black;
+        transition: 0.3s;
     }
     .menu_list3 > li > a:hover{
-        color: white;
+        color: lightpink
     }
     .menu_on {
         position: absolute;
@@ -125,4 +129,52 @@
     .menu_img{
         width: 50px;
         height: 50px;
+    }
+    .sub_menu{
+        display: none;
+        box-sizing: border-box;
+    }
+    .sub_menu>a{
+        display: inline-block;
+        padding: 10px 0;
+        width: 100%;
+        transition: all 0.3s;
+    }
+    .sub_menu>a:first-child{
+        margin-top: 5px;
+    }
+    .sub_menu>a:hover{
+        color: lightsalmon;
+    }
+    .sub_menu2{
+        display: none;
+        box-sizing: border-box;
+    }
+    .sub_menu2>a{
+        display: inline-block;
+        padding: 10px 0;
+        width: 100%;
+        transition: all 0.3s;
+    }
+    .sub_menu2>a:first-child{
+        margin-top: 5px;
+    }
+    .sub_menu2>a:hover{
+        color: lightsalmon;
+    }
+    .sub_menu3{
+        display: none;
+        box-sizing: border-box;
+    }
+    .sub_menu3>a{
+        display: inline-block;
+        padding: 10px 0;
+        width: 100%;
+        transition: all 0.3s;
+    }
+    .sub_menu3>a:first-child{
+        margin-top: 5px;
+    }
+    .sub_menu3>a:hover{
+        color: lightsalmon;
     }
