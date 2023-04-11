@@ -72,24 +72,14 @@ public class TourBoardService {
 	public Long updateTourBoard(TourBoardDto tourBoardDto, List<MultipartFile> files) throws Exception {
 		TourBoard tourBoard = tourBoardDto.createTourBoard();
 		tourBoardRepository.save(tourBoard);
-		Long tourId = findById(tourBoard.getId()).getId();
-		List<Files> list = fileService.findByTourBoardId(tourId);
-		fileService.deleteTourBoard(list,tourBoard);
-		fileService.saveFile(files, tourBoard);
+		if(!files.get(0).isEmpty()) {
+			Long tourId = findById(tourBoard.getId()).getId();
+			List<Files> list = fileService.findByTourBoardId(tourId);
+			fileService.deleteTourBoard(list,tourBoard);
+			fileService.saveFile(files, tourBoard);
+		}
 		return tourBoardDto.getId();
 	}
-	
-	//주변관광지 수정 글 등록(사진수정을 하지 않은 경우)
-	public Long updateOnlyTourBoard(TourBoardDto tourBoardDto, List<MultipartFile> files) throws Exception {
-		TourBoard tourBoard = tourBoardDto.createTourBoard();
-		tourBoardRepository.save(tourBoard);
-		Long tourId = findById(tourBoard.getId()).getId();
-		List<Files> list = fileService.findByTourBoardId(tourId);
-//		fileService.deleteTourBoard(list,tourBoard);
-//		fileService.saveFile(files, tourBoard);
-		return tourBoardDto.getId();
-	}
-	
 
 	//주변 관광지 글 삭제(나중에 첨부파일이 있는 게시판은 이걸 이용해서 삭제하면 됨)
 	public void deleteBoard(Long id) throws Exception{

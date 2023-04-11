@@ -22,7 +22,7 @@
 }
 
 
-/*    �옄�쑀寃뚯떆�뙋*/
+/*    占쎌쁽占쎌 野껊슣 뻻占쎈솇*/
 .freeboard{
     width: 70%;
     height: 960px; 
@@ -58,12 +58,12 @@
     width: 100%;
     height: 700px;      
     margin: 0 auto;
-    margin-top: 10px;
+  
 }
 .info_title{
     width: 100%;
     height: 50px;
-    padding-top: 20px;
+    
 }
 .info_title_inner{
     width: 100%;
@@ -91,7 +91,7 @@
 .info_cont{
     width: 100%;
     height: 300px;
-    margin-top: 20px;
+   
     border-bottom: 2px solid black;
 }
 
@@ -160,7 +160,7 @@
 }
 
 .survey .survey_box{
-	height : 100%;
+   height : 100%;
 }
 .survey_ck p {
    font-weight : bold;
@@ -170,7 +170,7 @@
 }
 
 .survey_ck span {
-	margin : 0 40px 0 10px;
+   margin : 0 40px 0 10px;
 }
 .info_create{
     width: 100%;
@@ -200,26 +200,26 @@
     background: #98D1CF;
 }
 .info_imgs {
-	width: 100%;
-	height: 300px;
+   width: 100%;
+   height: 300px;
     text-align: center;
     display: flex;
     justify-content: center;
 }
 .info_imgs label{
-	width: 150px;
-	line-height : 300px;
-	font-size : 18px;
+   width: 150px;
+   line-height : 300px;
+   font-size : 18px;
 }
 .imgs {
-	width : 91%;
-	height : 300px;
-	overflow : auto;
+   width : 91%;
+   height : 300px;
+   overflow : auto;
 }
 .imgs img{
-	width : 295px;
-	height : 300px;
-	float : left;
+   width : 295px;
+   height : 300px;
+   float : left;
 }
 .info_file {
   margin-top: 20px;
@@ -260,7 +260,7 @@
   float: left;
 }
 .info_submit > a{
-	display : display;
+   display : display;
     border : 2px solid #666;
     width: 130px;
     text-align : center;
@@ -304,7 +304,7 @@
     color: #fff;
 }
 .info_submit > .submit2{
-	margin-left : 85%;
+   margin-left : 85%;
 }
 
 .infosubmit{
@@ -355,7 +355,7 @@
     width: 100%;
     height: 50px;
     margin-top : -350px;
-   	display : none;
+      display : none;
 }
 .role_submit > button{
     width: 130px;
@@ -378,7 +378,7 @@
     width: 100%;
     height: 50px;
     margin-top : -350px;
-   	display : none;
+      display : none;
 }
 .survey_submit > button{
     width: 130px;
@@ -470,10 +470,9 @@
 .delete  > button:hover{
     background: aqua;
 }
-<<<<<<< HEAD
 
 .a_hide{
-	display : display;
+   display : display;
     width: 130px;
     text-align : center;
     height: 50px;
@@ -482,15 +481,15 @@
     font-size: 18px;
     margin-left: 70%;
     float : left;
-=======
+
 textarea{
     resize: none;
     outline: none;
->>>>>>> main
+
 }
 .ck1{
     margin-top: 50px;
 }
 .ck2{
-	height : 600px;
+   height : 600px;
 }

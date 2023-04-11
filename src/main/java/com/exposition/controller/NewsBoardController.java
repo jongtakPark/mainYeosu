@@ -147,12 +147,7 @@ public class NewsBoardController {
 			return "news/updatewrite";
 		}
 		try {
-			if(fileList.get(0).isEmpty()) {
-				tourBoardService.updateOnlyTourBoard(tourBoardDto, fileList);
-				return "redirect:/news/tour";
-			} else {
-				tourBoardService.updateTourBoard(tourBoardDto, fileList);
-			}
+			tourBoardService.updateTourBoard(tourBoardDto, fileList);
 		} catch (Exception e) {
 			model.addAttribute("errorMessage", "글 수정 중 에러가 발생하였습니다.");
 			return "news/updatewrite";

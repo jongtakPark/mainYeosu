@@ -1,5 +1,6 @@
 package com.exposition.service;
 
+import java.io.InputStream;
 import java.util.List;
 import java.util.UUID;
 
