@@ -32,7 +32,6 @@ import lombok.ToString;
 @Table(name="member")
 @Data
 @DynamicInsert
-@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Member {
 	
 	@Id

@@ -34,7 +34,7 @@ public class SurveyService {
 		memberRepository.save(member);
 	}
 	
-	//설문조사 했는지 확인
+	//설문조사 완료여부 조사
 	public Survey checkSurvey(String mid) {
 		Member member = memberRepository.findByMid(mid);
 		Survey survey = surveyRepository.findByMember(member);

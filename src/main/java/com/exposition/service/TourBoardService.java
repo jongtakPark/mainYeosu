@@ -68,7 +68,7 @@ public class TourBoardService {
 		return tourBoardDto;
 	}
 	
-	//주변관광지 수정 글 등록(사진수정을 한 경우)
+	//주변관광지 수정 글 등록
 	public Long updateTourBoard(TourBoardDto tourBoardDto, List<MultipartFile> files) throws Exception {
 		TourBoard tourBoard = tourBoardDto.createTourBoard();
 		tourBoardRepository.save(tourBoard);
@@ -80,6 +80,7 @@ public class TourBoardService {
 		}
 		return tourBoardDto.getId();
 	}
+	
 
 	//주변 관광지 글 삭제(나중에 첨부파일이 있는 게시판은 이걸 이용해서 삭제하면 됨)
 	public void deleteBoard(Long id) throws Exception{

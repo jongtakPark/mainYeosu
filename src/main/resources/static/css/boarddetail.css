@@ -22,7 +22,14 @@
 }
 
 
-/*    占쎌쁽占쎌 野껊슣 뻻占쎈솇*/
+/*    占쎌쁽占쎌�野껊슣�뻻占쎈솇*/
+.ck2{
+   height : 600px !important;
+   
+}
+.ck3{
+	height : 600px !important;
+}
 .freeboard{
     width: 70%;
     height: 960px; 
@@ -160,7 +167,7 @@
 }
 
 .survey .survey_box{
-   height : 100%;
+   height : 400px;
 }
 .survey_ck p {
    font-weight : bold;
@@ -489,7 +496,4 @@ textarea{
 }
 .ck1{
     margin-top: 50px;
-}
-.ck2{
-   height : 600px;
 }

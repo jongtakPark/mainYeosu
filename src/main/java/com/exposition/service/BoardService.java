@@ -94,16 +94,19 @@ public class BoardService {
 	//관람후기 수정 글 저장
 	public void reviewUpdate(Review review, List<MultipartFile> files, String id) throws Exception{
 		try {
-			Long reviewId = reviewFindById(review.getId()).getId();
-			List<Files> list = fileService.findByReviewId(reviewId);
-			fileService.deleteReview(list,review);
+			reviewRepository.save(review);
 			Member member = memberRepository.findByMid(id);
 			review.setMember(member);
 			
 			Company company = companyRepository.findByCom(id);
 			review.setCompany(company);	
-			reviewRepository.save(review);
+			if(!files.get(0).isEmpty()) {
+				Long reviewId = reviewFindById(review.getId()).getId();
+			List<Files> list = fileService.findByReviewId(reviewId);
+			fileService.deleteReview(list,review);
 			fileService.saveFile(files,review);
+			}
+			
 			
 		} catch(Exception e) {
 			e.printStackTrace();
@@ -166,16 +169,20 @@ public class BoardService {
 	//국민아이디어 수정 글 저장
 	public void ideaUpdate(Idea idea, List<MultipartFile> files, String id) throws Exception{
 		try {
-			Long ideaId = ideaFindById(idea.getId()).getId();
-			List<Files> list = fileService.findByIdeaId(ideaId);
-			fileService.deleteIdea(list, idea);
+			ideaRepository.save(idea);
+			
 			Member member = memberRepository.findByMid(id);
 			idea.setMember(member);
 			
 			Company company = companyRepository.findByCom(id);
 			idea.setCompany(company);
-			ideaRepository.save(idea);
-			fileService.saveFile(files, idea);
+			if(!files.get(0).isEmpty()) {
+				Long ideaId = ideaFindById(idea.getId()).getId();
+				List<Files> list = fileService.findByIdeaId(ideaId);
+				fileService.deleteIdea(list, idea);
+				fileService.saveFile(files, idea);
+			}
+			
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
@@ -238,13 +245,15 @@ public class BoardService {
 	//자원봉사게시판 수정 글 저장
 	public void volunteerUpdate(Volunteer volunteer, List<MultipartFile> files, String id) throws Exception{
 		try {
-			Long volunteerId = volunteerAndFileFindById(volunteer.getId()).getId();
-			List<Files> list = fileService.findByVolunteerId(volunteerId);
-			fileService.deleteVolunteer(list,volunteer);
+			volunteerRepository.save(volunteer);
 			Member member = memberRepository.findByMid(id);
 			volunteer.setMember(member);
-			volunteerRepository.save(volunteer);
-			fileService.saveFile(files, volunteer);
+			if(!files.get(0).isEmpty()) {
+				Long volunteerId = volunteerAndFileFindById(volunteer.getId()).getId();
+				List<Files> list = fileService.findByVolunteerId(volunteerId);
+				fileService.deleteVolunteer(list,volunteer);
+				fileService.saveFile(files, volunteer);
+			}
 		} catch(Exception e) {
 			e.printStackTrace();
 		}

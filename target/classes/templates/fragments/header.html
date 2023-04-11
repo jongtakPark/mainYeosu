@@ -47,10 +47,9 @@
                     </li>
                     <li sec:authorize="isAnonymous()"><a href="/signup/login">로그인</a></li>
                     <li sec:authorize="isAuthenticated()"><a href="/signup/logout">로그아웃</a></li>
-                </ul>
             </div>
 
-            <div class="menu_form2" sec:authorize="hasAnyAuthority('ROLE_ADMIN')">
+                       <div class="menu_form2" sec:authorize="hasAnyAuthority('ROLE_ADMIN')">
 
                 <ul class="menu_list2">
                     <li>
