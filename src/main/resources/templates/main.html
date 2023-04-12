@@ -87,20 +87,20 @@
         	 <span sec:authentication="name" class="welcome2"></span>&nbsp;님 환영합니다
      	 </div>
 		<div class="main_lang">
-			<select name="lang" id="lang">
-				<option value="">
-					KOR
-				</option>
-				<option value="">
-					ENG
-				</option>
-				<option value="">
-					CHI
-				</option>
-				<option value="">
-					JAP
-				</option>
-			</select>
+			<select name="lang" id="lang" onchange="if(this.value) location.href=(this.value);">
+            <option value="">
+               KOR
+            </option>
+            <option value="/engMain">
+               ENG
+            </option>
+            <option value="/chiMain">
+               CHI
+            </option>
+            <option value="/japMain">
+               JAP
+            </option>
+         </select>
 		</div>
 		<div class="main_menu">
 			<!-- <div class="main_menu_inner">
