@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style type="text/css">
+        @charset "UTF-8";
+        @font-face {
+        font-family: 'Pretendard-Regular';
+        src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
+        font-weight: 400;
+        font-style: normal;
+    }
+    
+        * {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+            text-decoration: none;
+            font-family: 'Pretendard-Regular';
+        }
+    
+    
+        .subMenu {
+            width: 100%;
+            height: 150px;
+            border-bottom: 1px solid grey;
+            position: relative;
+        }
+    
+        .subMenu>ul {
+            width: 100%;
+            height: 100%;
+            line-height: 35px;
+            text-align: center;
+            position: relative;
+        }
+    
+        .subMenu>ul>li {
+            list-style: none;
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+    
+        }
+    
+        .subMenu>ul>li>a {
+            text-decoration: none;
+            color: black;
+            transition: 0.3s;
+        }
+    
+        .subMenu>ul>li>a:hover {
+            color: red;
+        }
+    
+    
+        /*    자유게시판*/
+        .freeboard {
+            width: 70%;
+    
+            /*        border: 1px solid red;*/
+            margin: auto;
+        }
+    
+        .free_title {
+            position: relative;
+    
+            height: 100px;
+        }
+    
+        .free_title>.title {
+            position: absolute;
+            margin-top: 30px;
+        }
+    
+        .free_title>.title>span {
+            font-size: 25px;
+            font-weight: bold;
+        }
+    
+        .subMenu>ul>li>img {
+            width: 170px;
+            height: 100px;
+    
+        }
+    
+        .main_lang {
+            /* line-height: 150px; */
+            position: absolute;
+            top: 70px;
+            right: 200px;
+            /* transform: translateY(-50%); */
+            /* height: 150px; */
+            z-index: 1;
+            color: #000;
+            font-weight: bold;
+        }
+
+        #lang {
+            font-weight: bold;
+            border: transparent;
+            background-color: transparent;
+        }
+    
+        .main_lang_list {
+            display: none;
+        }
+        .main_lang_list>li>a{
+            color: #000;
+        }
+        .title_img{
+            position: absolute;
+            top: 150px;
+            left: 0;
+        }
+    </style>
+</head>
+
+
+
+<body>
+
+
+
+    <div layout:fragment="content" class="v">
+        <div class="subMenu">
+            <ul>
+                <li><a href=""></a>
+                    <img src="/images/logo.png">
+                </li>
+
+            </ul>
+            <div class="main_lang">
+                <select name="lang" id="lang" onchange="if(this.value) location.href=(this.value);">
+                    <option value="">
+                        CHI
+                    </option>
+                    <option value="/">
+                        KOR
+                    </option>
+                    <option value="/board/engboard">
+                        ENG
+                    </option>
+                    <option value="/board/japboard">
+                        JAP
+                    </option>
+                </select>
+            </div>
+        </div>
+        <div class="freeboard">
+            <div class="free_title">
+                <div class="title">
+                    <span>博览会将于2026年7月17日至8月16日在全罗南道丽水市举行，为期1个月，为期31天。 主题是"连接岛屿、大海和未来"。 预计全世界将有30个国家参加。
+虽然这是仅在丽水举行的第二次博览会,但与2012丽水世博会作为BIE公认博览会(认证博览会)不同,此次博览会不是以EXPO而是以Exhibition的形式举行。</span>
+                </div>
+                <div class="title_img">
+                    <img src="/images/chi.png" alt="">
+                </div>
+            </div>
+            
+
+
+
+
+
+            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+            <script type="text/javascript" src="/javascript/tourboardwrite.js"></script>
+
+        </div>
+    </div>
+
+
+</body>
+
+</html>
