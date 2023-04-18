@@ -99,7 +99,7 @@ $(document).ready(function(){
             	<label for="">
             		사진
             	</label>
-            	<div class="imgs">
+            	<div th:if="${not #lists.isEmpty(freeBoardDto.fileDtoList)}" class="imgs">
             		<span th:each="list : ${freeBoardDto.fileDtoList}">
             			<img th:src="${list.savePath}">
             		</span>

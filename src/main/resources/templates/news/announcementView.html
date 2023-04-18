@@ -31,6 +31,13 @@ $(document).ready(function(){
 	if(title.includes('모집')){
 		$(".role_submit").show();
 	}
+	$("#volsub").on("click", function(){
+		if(confirm("신청하시겠습니까?")){
+			alert("신청되었습니다");
+		} else {
+			return false;
+		}
+	})
 });
 </script>
 </head>
@@ -80,7 +87,7 @@ $(document).ready(function(){
     </form>
     <form th:action="@{/signup/appVolunteer}" th:method="put">
     	<div class="role_submit">
-    		<button type="submit" class="submit">자원봉사신청</button>
+    		<button type="submit" class="submit" id="volsub">자원봉사신청</button>
     	</div>
     </form>
     <form th:action="@{/news/survey}" th:method="get">
