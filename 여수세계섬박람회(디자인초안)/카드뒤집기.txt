@@ -1,0 +1,15 @@
+카드 뒤집기
+https://blog.naver.com/ckadltmf423/222954907627
+
+https://blog.naver.com/lunch_bag/222967963274
+
+위 두개는 css로 호버 시 뒤집게 하기
+
+https://codepen.io/gahyun/pen/oOpmGY
+
+위는 스크립트로 클릭 시 뒤집게 하기
+
+섬 빅데이터 4x2
+
+설문조사 // css 라디오 참조 // 버튼형 설문조사 간단하게
+만족도 -> 원하는 정보에 관한 만족도 /  
