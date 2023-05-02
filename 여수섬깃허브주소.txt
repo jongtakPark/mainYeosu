@@ -1,0 +1,4 @@
+여수섬프로젝트 전부다 : https://github.com/jongtakPark/mainYeosu.git
+
+여수섬프로젝트 코드만 : https://github.com/jongtakPark/yeosuSource.git
+    
