@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <title>header</title>
+</head>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+
+<style>
+ 
+
+    .sub {
+        margin-top: 10px;
+        height: 50px;
+        border-bottom: 1px solid black;
+
+    }
+
+    .sub>p {
+        margin-left: 10%;
+    }
+
+    .attend {
+        width: 100%;
+        height: 100%;
+    }
+
+    .title_attend {
+        height: 100px;
+        width: 90%;
+        margin: auto;
+        border-bottom: 1px solid black;
+    }
+
+    .title_attend>span {
+        margin-left: 5%;
+        font-size: 30px;
+        line-height: 150px;
+    }
+
+    .con_attend {
+        border: 1px solid black;
+        width: 80%;
+        height: 700px;
+        margin: auto;
+        margin-top: 20px;
+        border-radius: 150px;
+    }
+
+    /* 예약하기메뉴  */
+    .reservation {
+        height: 100px;
+        width: 90%;
+        margin: auto;
+        border-bottom: 1px solid black;
+    }
+
+    .title_reservation>span {
+        margin-left: 5%;
+        font-size: 30px;
+        line-height: 150px;
+
+    }
+
+    .main_reservation {
+        height: 350px;
+        width: 60%;
+        margin: auto;
+        margin-top: 100px;
+    }
+
+    .com_a {
+        width: 110%;
+        height: 40px;
+        margin: auto;
+        margin-top: 40px;
+      
+    }
+
+    .com_b {
+        width: 110%;
+        height: 40px;
+        margin: auto;
+        margin-top: 5px;
+       
+    }
+
+    .com_c {
+        width: 110%;
+        height: 213px;
+        margin: auto;
+        margin-top: 5px;
+   
+    }
+
+    .com_id {
+        position: relative;
+        background-color: #E6E6E6;
+        float: left;
+        text-align: center;
+        line-height: 30px;
+        width: 15%;
+        height: 30px;
+        margin-left: 20%;
+        margin-top: 10px;
+    }
+
+    .com_tex {        
+        width: 30%;
+        height: 30px;
+        margin-top: 10px;
+        margin-left: 2%;
+        border-radius: 5px;
+        float: left;
+    }
+
+    .com_file {
+        position: relative;
+        background-color: #E6E6E6;
+        float: left;
+        text-align: center;
+        line-height: 30px;
+        width: 15%;
+        height: 30px;
+        margin-left: 20%;
+        margin-top: 10px;
+    }    
+    
+    .com_file_ck {     
+        height: 30px;
+    }
+
+    .com_file_ck > input{
+        margin-top: 10px;
+        margin-left: 20px;
+        width: 100px;
+        height: 35px;
+    }
+    .com_con {
+        position: relative;
+        background-color: #E6E6E6;
+        float: left;
+        text-align: center;
+        line-height: 30px;
+        width: 15%;
+        height: 30px;
+        margin-left: 20%;
+        margin-top: 10px;
+    }
+
+    .com_tex2 {
+        width: 30%;
+        height: 200px;
+        margin-top: 10px;
+        margin-left: 2%;
+        border-radius: 5px;
+        float: left;
+    
+    }
+
+    .regist {  
+/*        border: 1px solid black;*/
+        width: 130px;
+        height: 30px;
+        margin-top: 200px;
+        margin-left: 950px;
+       
+    }
+
+
+</style>
+
+<body>
+    <div class="all">       
+        <div class="sub">
+            <p>서브메뉴</p>
+        </div>
+        <div class="attend">
+            <div class="title_attend">
+                <span>임대문의</span>
+            </div>
+            <div class="con_attend">
+
+            </div>
+
+        </div>
+        <div class="reservation">
+            <div class="title_reservation">
+                <span>예약하기</span>
+            </div>
+
+        </div>
+        <div class="main_reservation">
+            <div class="com_a">
+                <div class="com_id"><span>기업명</span></div>
+                <div><input class="com_tex" type="text" placeholder=" 기업명"></div>
+            </div>
+            <div class="com_b">
+                <div class="com_file">
+                    <span>첨부파일</span>
+                </div>
+                <div>
+                    <input class="com_tex" type="text" placeholder=" 파일첨부">
+                </div>
+                <div class="com_file_ck">
+                    <input  value="첨부" type="button">
+                </div>
+            </div>
+            <div class="com_c">
+                <div class="com_con"><span>상세내용</span></div>
+                <div><input class="com_tex2" type="text" placeholder=" 상세설명"></div>
+            </div>                      
+        </div>
+         <input class="regist" type="button" value="예약">
+    </div>
+
+
+</body></html>

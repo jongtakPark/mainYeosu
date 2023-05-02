@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+</head>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+ 
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        color: black;
+        text-decoration: none;
+    }
+    
+     .all {
+        height: 100vh;
+        width: 100vw;
+    }
+
+    .header {
+        height: 100px;
+        width: 100%;
+        background-color: gray;
+        position: relative;
+    }
+
+    .logo {
+        width: 134px;
+        height: 57px;
+        left: 50px;
+        top: 20px;
+        position: absolute;
+    }
+
+    .menu_form {
+        width: 75;
+        height: 57px;
+        left: 15%;
+        top: 20px;
+        position: absolute;
+    }
+
+    .menu_list {
+        width: 100%;
+        height: 100%;
+        list-style-type: none;
+        text-align: center;
+    }
+
+    .menu_list > li {
+        margin-left: 70px;
+        font-size: 22px;
+        float: left;
+        margin-top: 13px;
+        cursor: pointer;
+    }
+
+    .menu_list > li > a{
+        color: black;
+    }
+    
+    .menu_list > li > a:hover{
+        color: white;
+    }
+    
+    .menu_on {
+        position: absolute;
+        left: 92%;
+        top: 20px;
+        width: 50px;
+        height: 50px;
+        cursor: pointer;
+    }
+
+    .yeosu_logo {
+        width: 100%;
+        height: 100%;
+        cursor: pointer;
+    }
+    
+    .menu_img{
+        width: 50px;
+        height: 50px;
+    }
+    
+    
+/*    로그인 CSS*/
+    .main_login{
+/*        border: 1px solid red;*/
+        width: 50%;
+        margin: auto;
+        margin-top: 100px;
+    }
+    
+    .login_{
+        font-size: 40px;
+        margin: auto;
+        width: 17%;
+    }
+    
+    .login_id{
+        width: 40%;
+        height: 40px;
+        margin-left: 260px;
+        margin-top: 100px;
+    }
+    
+    .login_pw{
+        width: 40%;
+        height: 40px;
+        margin-left: 260px;
+        margin-top: 30px;
+    }
+    
+    .login{
+        background-color: #E6E6E6;
+        width: 40%;
+        height: 40px;
+        margin-left: 260px;
+        margin-top: 30px;
+        text-align: center;
+        line-height: 40px;
+        border-radius: 5px;
+    }
+    
+    .login > a > span{
+        font-size: 20px;
+    }
+    
+    .find_idpw{
+        width: 23%;
+        margin-left: 260px;
+    }
+    
+    .membership{
+        margin-left: 160px;
+    }
+</style>
+
+<body>
+    <div class="all">
+        <div class="header">
+            <div class="logo">
+                <img class="yeosu_logo" src="images/logo.png">
+            </div>
+            <div class="menu_form">
+                <ul class="menu_list">
+                    <li><a href="#">박람회 소개</a></li>
+                    <li><a href="#">알림마당</a></li>
+                    <li><a href="#">자유게시판</a></li>
+                    <li><a href="#">참가 업체 목록</a></li>
+                    <li><a href="#">임대문의</a></li>
+                    <li><a href="#">관리자게시판</a></li>
+                    <li><a href="#">언어</a></li>
+                    <li><a href="#">로그인</a></li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="main_login">
+          <div class="login_">
+               <span>로그인</span>
+           </div><br>
+            <input type="text" placeholder="아이디" class="login_id"><br>
+            <input type="password" placeholder="비밀번호" class="login_pw"><br>
+            <div class="login"><a href="#">로그인</a></div><br>
+            <span class="find_idpw"><a href="#">아이디/비밀번호 찾기</a></span>
+            <span class="membership"><a href="#">회원가입</a></span>
+        </div>
+        
+        <div class="footer">
+        </div>
+        
+    </div>
+
+    
+</body>
+</html>

@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <title>survey</title>
+</head>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js">
+
+</script>
+<script>
+
+</script>
+
+
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        text-decoration: none;
+        list-style: none;
+        color: black;
+    }
+
+    .all {
+        height: 100vh;
+        width: 100%;
+    }
+
+    .header {
+        height: 100px;
+        width: 100%;
+        background-color: gray;
+        position: relative;
+    }
+
+    .logo {
+        width: 134px;
+        height: 57px;
+        left: 50px;
+        top: 20px;
+        position: absolute;
+    }
+
+    .menu_form {
+        width: 75;
+        height: 57px;
+        left: 15%;
+        top: 20px;
+        position: absolute;
+    }
+
+    .menu_list {
+        width: 100%;
+        height: 100%;
+        list-style-type: none;
+        text-align: center;
+    }
+
+    .menu_list > li {
+        margin-left: 70px;
+        font-size: 22px;
+        float: left;
+        margin-top: 13px;
+        cursor: pointer;
+    }
+
+    .menu_list > li > a{
+        text-decoration: none;
+        color: black;
+    }
+    
+    .menu_list > li > a:hover{
+        color: white;
+    }
+    
+    .menu_on {
+        position: absolute;
+        left: 92%;
+        top: 20px;
+        width: 50px;
+        height: 50px;
+        cursor: pointer;
+    }
+
+    .yeosu_logo {
+        width: 100%;
+        height: 100%;
+        cursor: pointer;
+    }
+    
+    .menu_img{
+        width: 50px;
+        height: 50px;
+    }
+/*    서브메뉴*/
+    
+    .sub{
+        margin-top: 10px;
+        height: 50px;
+        border-bottom: 1px solid black;
+        
+    }
+
+    .sub > p{
+        margin-left: 10%;
+    }
+
+/*    설문조사*/
+    
+    .survey{
+        width: 100%;
+        height: 100%;
+    }
+    
+    .title_survey{
+        height: 100px;
+        width: 90%;
+        margin: auto;
+        border-bottom: 1px solid black;
+    }
+    
+    .title_survey > span{
+        margin-left: 5%;
+        font-size: 30px;
+        line-height: 150px;
+    }
+    
+    .submit{
+        background-color: #A4A4A4;
+        width: 10%;
+        height: 30px;
+        line-height: 30px;
+        border-radius: 5px;
+        margin: auto;
+        margin-top: 3%;
+        text-align: center;
+    }
+    
+     .survey_box{
+        background-color: #D8D8D8;
+        margin: auto;
+        width: 50%;
+        height: 700px;
+    }
+    
+    .survey_ck{
+        margin: auto;
+        margin-top: 10px;
+        padding-top: 20px;
+        width: 30%;
+    }
+    
+    .survey_ck > input{
+        margin-left: 9%;
+    }
+    
+    .survey_ck > p{
+        margin-bottom: 5px;
+    }
+    
+
+</style>
+
+<body>
+    <div class="all">
+        <div class="header">
+            <div class="logo">
+                <img class="yeosu_logo" src="images/logo.png">
+            </div>
+            <div class="menu_form">
+                <ul class="menu_list">
+                    <li><a href="#">박람회 소개</a></li>
+                    <li><a href="#">알림마당</a></li>
+                    <li><a href="#">자유게시판</a></li>
+                    <li><a href="#">참가 업체 목록</a></li>
+                    <li><a href="#">임대문의</a></li>
+                    <li><a href="#">관리자게시판</a></li>
+                    <li><a href="#">언어</a></li>
+                    <li><a href="#">로그인</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="sub">
+           <p>서브메뉴</p>
+        </div>
+        
+        <div class="survey">
+            <div class="title_survey">
+                <span>설문조사</span>
+            </div>
+            
+            <div class="survey_box">
+                <div class="survey_ck">
+                    <p>1.원하는 정보에 관한 만족도 조사</p>
+                    <input type="radio" name="ck1"   />매우만족<br>
+                    <input type="radio" name="ck1"   />만족<br>
+                    <input type="radio" name="ck1"   />보통<br>
+                    <input type="radio" name="ck1"   />불만족<br>
+                    <input type="radio" name="ck1"   />매우불만족<br>
+                </div>
+                <div class="survey_ck">
+                    <p>2.추후 수정</p>
+                    <input type="radio" name="ck2"   />매우만족<br>
+                    <input type="radio" name="ck2"   />만족<br>
+                    <input type="radio" name="ck2"   />보통<br>
+                    <input type="radio" name="ck2"   />불만족<br>
+                    <input type="radio" name="ck2"   />매우불만족<br>
+                </div>
+                <div class="survey_ck">
+                    <p>3.추후 수정</p>
+                    <input type="radio" name="ck2"   />매우만족<br>
+                    <input type="radio" name="ck2"   />만족<br>
+                    <input type="radio" name="ck2"   />보통<br>
+                    <input type="radio" name="ck2"   />불만족<br>
+                    <input type="radio" name="ck2"   />매우불만족<br>
+                </div>
+                <div class="survey_ck">
+                    <p>4.추후 수정</p>
+                    <input type="radio" name="ck2"   />매우만족<br>
+                    <input type="radio" name="ck2"   />만족<br>
+                    <input type="radio" name="ck2"   />보통<br>
+                    <input type="radio" name="ck2"   />불만족<br>
+                    <input type="radio" name="ck2"   />매우불만족<br>
+                </div>
+                <div class="submit">
+                    <a href="#">제출하기</a>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+    
+
+</body>
+
+</html>
